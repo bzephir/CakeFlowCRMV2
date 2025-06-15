@@ -135,7 +135,7 @@ const CustomerDetail: React.FC = () => {
     }
   ];
 
-  const quotes = [
+  const quotes: Quote[] = [
     {
       id: '2024-001',
       eventType: 'Wedding',
@@ -156,7 +156,7 @@ const CustomerDetail: React.FC = () => {
     }
   ];
 
-  const invoices = [
+  const invoices: Invoice[] = [
     {
       id: '1396',
       eventDate: '2024-06-15',
@@ -177,7 +177,7 @@ const CustomerDetail: React.FC = () => {
     }
   ];
 
-  const communications = [
+  const communications: Communication[] = [
     {
       id: '1',
       type: 'email',
@@ -204,7 +204,7 @@ const CustomerDetail: React.FC = () => {
     }
   ];
 
-  const files = [
+  const files: File[] = [
     {
       id: '1',
       name: 'Wedding Inspiration Photos.zip',
@@ -231,7 +231,7 @@ const CustomerDetail: React.FC = () => {
     }
   ];
 
-  const upcomingEvents = [
+  const upcomingEvents: Event[] = [
     {
       id: '1',
       title: 'Wedding Cake Delivery',
@@ -382,15 +382,13 @@ const handleCancelEditAnniversary = () => {
   }
 };
 
-// Add the following check above it:
-  if (!currentCustomer) {
-    return (
-      <div className="flex-1 flex items-center justify-center text-gray-500">
-        Loading customer details...
-      </div>
-    );
-  }
-  return (
+// Add the following check at the top of the return statement:
+return (
+  !currentCustomer ? (
+    <div className="flex-1 flex items-center justify-center text-gray-500">
+      Loading customer details...
+    </div>
+  ) : (
     <div className="flex-1 overflow-hidden">
       <Header 
         title={`${currentCustomer.firstName} ${currentCustomer.lastName}`} 
@@ -606,6 +604,110 @@ const handleCancelEditAnniversary = () => {
                     <div>
                       <div className="text-sm font-medium text-gray-900">New order #1001 created</div>
                       <div className="text-sm text-gray-500">1 week ago</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* New Special Dates Section */}
+            <div className="bg-white shadow-sm rounded-lg border border-gray-200">
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Special Dates</h3>
+                <div className="space-y-4">
+                  {/* Birthday */}
+                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div className="flex items-center space-x-3">
+                      <Calendar className="h-5 w-5 text-aqua-500" />
+                      <div>
+                        <div className="text-sm font-medium text-gray-900">Birthday</div>
+                        {isEditingBirthday ? (
+                          <input
+                            type="date"
+                            value={editedBirthday}
+                            onChange={(e) => setEditedBirthday(e.target.value)}
+                            className="mt-1 block w-full px-2 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-aqua-500 focus:border-aqua-500 text-sm"
+                          />
+                        ) : (
+                          <div className="text-sm text-gray-500">
+                            {currentCustomer.birthday ? formatDate(currentCustomer.birthday) : 'Not set'}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div>
+                      {isEditingBirthday ? (
+                        <div className="flex space-x-2">
+                          <button
+                            onClick={handleSaveBirthday}
+                            className="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-aqua-500 hover:bg-aqua-600 transition-colors"
+                          >
+                            Save
+                          </button>
+                          <button
+                            onClick={handleCancelEditBirthday}
+                            className="inline-flex items-center px-3 py-1 border border-gray-300 text-xs font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      ) : (
+                        <button
+                          onClick={handleEditBirthday}
+                          className="p-2 text-gray-400 hover:text-gray-600 transition-colors"
+                          title="Edit Birthday"
+                        >
+                          <Edit className="h-4 w-4" />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Anniversary */}
+                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div className="flex items-center space-x-3">
+                      <Calendar className="h-5 w-5 text-mint-500" />
+                      <div>
+                        <div className="text-sm font-medium text-gray-900">Anniversary</div>
+                        {isEditingAnniversary ? (
+                          <input
+                            type="date"
+                            value={editedAnniversary}
+                            onChange={(e) => setEditedAnniversary(e.target.value)}
+                            className="mt-1 block w-full px-2 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-mint-500 focus:border-mint-500 text-sm"
+                          />
+                        ) : (
+                          <div className="text-sm text-gray-500">
+                            {currentCustomer.anniversary ? formatDate(currentCustomer.anniversary) : 'Not set'}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div>
+                      {isEditingAnniversary ? (
+                        <div className="flex space-x-2">
+                          <button
+                            onClick={handleSaveAnniversary}
+                            className="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-mint-500 hover:bg-mint-600 transition-colors"
+                          >
+                            Save
+                          </button>
+                          <button
+                            onClick={handleCancelEditAnniversary}
+                            className="inline-flex items-center px-3 py-1 border border-gray-300 text-xs font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      ) : (
+                        <button
+                          onClick={handleEditAnniversary}
+                          className="p-2 text-gray-400 hover:text-gray-600 transition-colors"
+                          title="Edit Anniversary"
+                        >
+                          <Edit className="h-4 w-4" />
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
