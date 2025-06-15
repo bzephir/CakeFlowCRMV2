@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Dashboard from './pages/Dashboard';
 import Orders from './pages/Orders';
+import CreateOrder from './pages/CreateOrder';
 import CustomerDetail from './pages/CustomerDetail';
 import Customers from './pages/Customers';
 import Recipes from './pages/Recipes';
@@ -42,6 +43,7 @@ function App() {
             <Route path="/quotes" element={<Quotes />} />
             <Route path="/quotes/new" element={<CreateQuote />} />
             <Route path="/orders" element={<Orders />} />
+            <Route path="/orders/new" element={<CreateOrder />} />
             <Route path="/invoices" element={<Invoices />} />
             <Route path="/invoice/:id" element={<Invoice />} />
             <Route path="/invoice/new" element={<Invoice />} />

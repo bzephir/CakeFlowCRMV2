@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { 
@@ -15,6 +16,7 @@ import {
 } from 'lucide-react';
 
 const Orders: React.FC = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
 
@@ -110,10 +112,10 @@ const Orders: React.FC = () => {
   };
 
   const handleCreateOrder = () => {
-    // Generate new order number
+    // Generate new order number and navigate to create order page
     const newOrderNumber = generateDocumentNumber('order');
     console.log('Creating new order with number:', newOrderNumber);
-    alert(`Creating new order: ${newOrderNumber}`);
+    navigate('/orders/new', { state: { orderNumber: newOrderNumber } });
   };
 
   const filteredOrders = orders.filter(order => {
