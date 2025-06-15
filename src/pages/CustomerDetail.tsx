@@ -29,6 +29,8 @@ import {
   Filter,
   Search
 } from 'lucide-react';
+import { Customer, Order, Quote, Invoice, Communication, File, Event } from '../types';
+
 
 const CustomerDetail: React.FC = () => {
   const { id } = useParams();
