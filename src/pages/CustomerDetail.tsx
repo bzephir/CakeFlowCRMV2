@@ -37,7 +37,7 @@ const CustomerDetail: React.FC = () => {
   const [statusFilter, setStatusFilter] = useState('all');
 
   // Mock customer data - in real app, fetch based on ID
-  const customer = {
+  const mockCustomer: Customer = {
     id: '1',
     firstName: 'Sarah',
     lastName: 'Johnson',
@@ -55,9 +55,31 @@ const CustomerDetail: React.FC = () => {
     status: 'active',
     avatar: null,
     notes: 'Prefers chocolate cakes. Always orders 2 weeks in advance. Very detail-oriented about decorations.',
-    tags: ['VIP', 'Repeat Customer', 'Referral Source']
+    tags: ['VIP', 'Repeat Customer', 'Referral Source'],
+    birthday: '1990-05-20', // Example birthday
+    anniversary: '2015-08-10' // Example anniversary
   };
-
+  {
+    id: '2',
+    firstName: 'Mike',
+    lastName: 'Chen',
+    email: 'mike@email.com',
+    phone: '(555) 234-5678',
+    address1: '456 Oak Ave',
+    city: 'Springfield',
+    state: 'IL',
+    zip: '62702',
+    totalOrders: 1,
+    totalSpent: 120.00,
+    lastOrderDate: '2024-01-16',
+    firstOrderDate: '2024-01-16',
+    status: 'active',
+    avatar: null,
+    notes: 'New customer, interested in custom designs.',
+    tags: ['New Customer'],
+    birthday: '1985-11-12',
+    anniversary: '2020-03-01'
+  }
   const orders = [
     {
       id: '1001',
