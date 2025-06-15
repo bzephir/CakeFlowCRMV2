@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Customer } from '../types';
+import { Customer,Order, Quote, Invoice, Communication, File, Event } from '../types';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import { 
@@ -29,8 +29,6 @@ import {
   Filter,
   Search
 } from 'lucide-react';
-import { Customer, Order, Quote, Invoice, Communication, File, Event } from '../types';
-
 
 const CustomerDetail: React.FC = () => {
   const { id } = useParams();
