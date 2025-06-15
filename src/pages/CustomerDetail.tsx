@@ -30,7 +30,7 @@ import {
   Search
 } from 'lucide-react';
 
-const CustomerDetail: React.FC = () => {
+const CustomerDetail: React.FC = () => }
   const { id } = useParams();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'overview' | 'orders' | 'quotes' | 'invoices' | 'communications' | 'files'>('overview');
@@ -49,7 +49,8 @@ const CustomerDetail: React.FC = () => {
 }, [id, navigate]); // Depend on id and navigate to re-run if they change
 
   // Mock customer data - in real app, fetch based on ID
-  const mockCustomer: Customer = {
+  const mockCustomer: Customer [] = 
+  {
     id: '1',
     firstName: 'Sarah',
     lastName: 'Johnson',
@@ -91,7 +92,8 @@ const CustomerDetail: React.FC = () => {
     tags: ['New Customer'],
     birthday: '1985-11-12',
     anniversary: '2020-03-01'
-  };
+  }
+];
   const orders = [
     {
       id: '1001',
