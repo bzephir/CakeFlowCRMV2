@@ -48,8 +48,8 @@ const CustomerDetail: React.FC = () => }
   }
 }, [id, navigate]); // Depend on id and navigate to re-run if they change
 
-  // Mock customer data - in real app, fetch based on ID
-  const mockCustomer: Customer [] = 
+// Mock customer data - in real app, fetch based on ID
+const mockCustomers: Customer[] = [
   {
     id: '1',
     firstName: 'Sarah',
@@ -71,7 +71,7 @@ const CustomerDetail: React.FC = () => }
     tags: ['VIP', 'Repeat Customer', 'Referral Source'],
     birthday: '1990-05-20', // Example birthday
     anniversary: '2015-08-10' // Example anniversary
-  };
+  },
   {
     id: '2',
     firstName: 'Mike',
