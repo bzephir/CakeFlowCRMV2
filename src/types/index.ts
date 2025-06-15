@@ -12,6 +12,8 @@ export interface Customer {
   lastName: string;
   email: string;
   phone: string;
+  birthday: string;
+  anniversary: string;
   totalOrders: number;
   totalSpent: number;
   lastOrderDate?: string;
