@@ -30,24 +30,6 @@ import {
   Search
 } from 'lucide-react';
 
-const CustomerDetail: React.FC = () => }
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<'overview' | 'orders' | 'quotes' | 'invoices' | 'communications' | 'files'>('overview');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState('all');
-  const [currentCustomer, setCurrentCustomer] = useState<Customer | null>(null);
-  useEffect(() => {
-  // Simulate fetching data
-  const foundCustomer = mockCustomers.find(cust => cust.id === id);
-  if (foundCustomer) {
-    setCurrentCustomer(foundCustomer);
-  } else {
-    // If customer not found, navigate back to customers list
-    navigate('/customers');
-  }
-}, [id, navigate]); // Depend on id and navigate to re-run if they change
-
 // Mock customer data - in real app, fetch based on ID
 const mockCustomers: Customer[] = [
   {
@@ -69,8 +51,8 @@ const mockCustomers: Customer[] = [
     avatar: null,
     notes: 'Prefers chocolate cakes. Always orders 2 weeks in advance. Very detail-oriented about decorations.',
     tags: ['VIP', 'Repeat Customer', 'Referral Source'],
-    birthday: '1990-05-20', // Example birthday
-    anniversary: '2015-08-10' // Example anniversary
+    birthday: '1990-05-20',
+    anniversary: '2015-08-10'
   },
   {
     id: '2',
@@ -79,6 +61,7 @@ const mockCustomers: Customer[] = [
     email: 'mike@email.com',
     phone: '(555) 234-5678',
     address1: '456 Oak Ave',
+    address2: '',
     city: 'Springfield',
     state: 'IL',
     zip: '62702',
@@ -94,6 +77,26 @@ const mockCustomers: Customer[] = [
     anniversary: '2020-03-01'
   }
 ];
+
+const CustomerDetail: React.FC = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState<'overview' | 'orders' | 'quotes' | 'invoices' | 'communications' | 'files'>('overview');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [currentCustomer, setCurrentCustomer] = useState<Customer | null>(null);
+
+  useEffect(() => {
+    // Simulate fetching data
+    const foundCustomer = mockCustomers.find(cust => cust.id === id);
+    if (foundCustomer) {
+      setCurrentCustomer(foundCustomer);
+    } else {
+      // If customer not found, navigate back to customers list
+      navigate('/customers');
+    }
+  }, [id, navigate]); // Depend on id and navigate to re-run if they change
+
   const orders = [
     {
       id: '1001',
@@ -292,15 +295,18 @@ const mockCustomers: Customer[] = [
   };
 
   const handleNewOrder = () => {
-    navigate('/orders/new', { state: { customerId: customer.id, customerName: `${customer.firstName} ${customer.lastName}` } });
+    if (!currentCustomer) return;
+    navigate('/orders/new', { state: { customerId: currentCustomer.id, customerName: `${currentCustomer.firstName} ${currentCustomer.lastName}` } });
   };
 
   const handleNewQuote = () => {
-    navigate('/quotes/new', { state: { customerId: customer.id, customerName: `${customer.firstName} ${customer.lastName}` } });
+    if (!currentCustomer) return;
+    navigate('/quotes/new', { state: { customerId: currentCustomer.id, customerName: `${currentCustomer.firstName} ${currentCustomer.lastName}` } });
   };
 
   const handleNewInvoice = () => {
-    navigate('/invoice/new', { state: { customerId: customer.id, customerName: `${customer.firstName} ${customer.lastName}` } });
+    if (!currentCustomer) return;
+    navigate('/invoice/new', { state: { customerId: currentCustomer.id, customerName: `${currentCustomer.firstName} ${currentCustomer.lastName}` } });
   };
 
   const formatDate = (dateString: string) => {
@@ -329,7 +335,7 @@ const mockCustomers: Customer[] = [
   return (
     <div className="flex-1 overflow-hidden">
       <Header 
-        title={`${customer.firstName} ${customer.lastName}`} 
+        title={`${currentCustomer.firstName} ${currentCustomer.lastName}`} 
         subtitle="Customer project overview and management" 
       />
       
@@ -353,7 +359,7 @@ const mockCustomers: Customer[] = [
                 </div>
                 <div className="flex-1">
                   <h2 className="text-2xl font-semibold text-gray-900 mb-2">
-                    {customer.firstName} {customer.lastName}
+                    {currentCustomer.firstName} {currentCustomer.lastName}
                   </h2>
                   
                   {/* Contact Info */}
@@ -361,34 +367,34 @@ const mockCustomers: Customer[] = [
                     <div className="space-y-2">
                       <div className="flex items-center text-sm text-gray-600">
                         <Mail className="h-4 w-4 mr-2 text-gray-400" />
-                        {customer.email}
+                        {currentCustomer.email}
                       </div>
                       <div className="flex items-center text-sm text-gray-600">
                         <Phone className="h-4 w-4 mr-2 text-gray-400" />
-                        {customer.phone}
+                        {currentCustomer.phone}
                       </div>
                     </div>
                     <div className="space-y-2">
                       <div className="flex items-center text-sm text-gray-600">
                         <MapPin className="h-4 w-4 mr-2 text-gray-400" />
-                        {customer.address1}
+                        {currentCustomer.address1}
                       </div>
                       <div className="text-sm text-gray-600 ml-6">
-                        {customer.city}, {customer.state} {customer.zip}
+                        {currentCustomer.city}, {currentCustomer.state} {currentCustomer.zip}
                       </div>
                     </div>
                   </div>
 
                   {/* Status and Tags */}
                   <div className="flex items-center space-x-3 mb-4">
-                    <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getCustomerStatusColor(customer.status)}`}>
-                      {customer.status}
+                    <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getCustomerStatusColor(currentCustomer.status)}`}>
+                      {currentCustomer.status}
                     </span>
                     <span className="text-sm text-gray-500 flex items-center">
                       <Clock className="h-4 w-4 mr-1" />
-                      {calculateYearsAsCustomer(customer.firstOrderDate)}
+                      {calculateYearsAsCustomer(currentCustomer.firstOrderDate)}
                     </span>
-                    {customer.tags.map((tag) => (
+                    {currentCustomer.tags.map((tag) => (
                       <span key={tag} className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getTagColor(tag)}`}>
                         {tag}
                       </span>
@@ -397,7 +403,7 @@ const mockCustomers: Customer[] = [
 
                   {/* Customer Notes */}
                   <div className="bg-gray-50 rounded-lg p-3">
-                    <p className="text-sm text-gray-700">{customer.notes}</p>
+                    <p className="text-sm text-gray-700">{currentCustomer.notes}</p>
                   </div>
                 </div>
               </div>
@@ -435,16 +441,16 @@ const mockCustomers: Customer[] = [
             {/* Quick Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6 pt-6 border-t border-gray-200">
               <div className="text-center">
-                <div className="text-2xl font-semibold text-gray-900">{customer.totalOrders}</div>
+                <div className="text-2xl font-semibold text-gray-900">{currentCustomer.totalOrders}</div>
                 <div className="text-sm text-gray-500 uppercase tracking-wider">Total Orders</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-semibold text-gray-900">${customer.totalSpent.toFixed(0)}</div>
+                <div className="text-2xl font-semibold text-gray-900">${currentCustomer.totalSpent.toFixed(0)}</div>
                 <div className="text-sm text-gray-500 uppercase tracking-wider">Total Spent</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-semibold text-gray-900">
-                  ${(customer.totalSpent / customer.totalOrders).toFixed(0)}
+                  ${(currentCustomer.totalSpent / currentCustomer.totalOrders).toFixed(0)}
                 </div>
                 <div className="text-sm text-gray-500 uppercase tracking-wider">Avg Order Value</div>
               </div>
