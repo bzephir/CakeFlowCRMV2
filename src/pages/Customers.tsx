@@ -104,7 +104,9 @@ const Customers: React.FC = () => {
       ],
       recentQuotes: [
         { id: 'Q-202501-0001', eventType: 'Birthday', eventDate: '2025-03-20', status: 'sent', total: 180.00 }
-      ]
+      ],
+      birthdate: '1988-07-25',
+      anniversary: '2010-10-15'
     },
     {
       id: '2',
@@ -126,7 +128,9 @@ const Customers: React.FC = () => {
       recentOrders: [
         { id: 'O-202501-0002', eventType: 'Birthday', eventDate: '2024-01-16', status: 'completed', total: 120.00 }
       ],
-      recentQuotes: []
+      recentQuotes: [],
+      birthday: '1992-03-10',
+      anniversary: '2020-06-01'
     },
     {
       id: '3',
@@ -151,7 +155,9 @@ const Customers: React.FC = () => {
       ],
       recentQuotes: [
         { id: 'Q-202501-0003', eventType: 'Corporate Event', eventDate: '2025-02-14', status: 'draft', total: 320.00 }
-      ]
+      ],
+      birthday: '1972-03-10',
+      anniversary: '2010-04-21'
     },
     {
       id: '4',
@@ -174,7 +180,9 @@ const Customers: React.FC = () => {
         { id: 'O-202501-0003', eventType: 'Anniversary', eventDate: '2024-01-10', status: 'completed', total: 200.00 },
         { id: 'O-202312-0020', eventType: 'Birthday', eventDate: '2023-12-05', status: 'completed', total: 150.00 }
       ],
-      recentQuotes: []
+      recentQuotes: [],
+      birthday: '1980-03-10',
+      anniversary: '2020-11-01'
     },
     {
       id: '5',
@@ -197,7 +205,9 @@ const Customers: React.FC = () => {
         { id: 'O-202311-0012', eventType: 'Holiday Party', eventDate: '2023-11-15', status: 'completed', total: 200.00 },
         { id: 'O-202211-0008', eventType: 'Holiday Party', eventDate: '2022-11-15', status: 'completed', total: 180.00 }
       ],
-      recentQuotes: []
+      recentQuotes: [],
+      birthday: '1999-02-14',
+      anniversary: '2022-05-06'
     },
   ];
 
