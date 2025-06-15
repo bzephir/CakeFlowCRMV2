@@ -30,8 +30,7 @@ import {
   Search
 } from 'lucide-react';
 
-const CustomerDetail: React.FC = () => 
-  }
+const CustomerDetail: React.FC = () => }
   const { id } = useParams();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'overview' | 'orders' | 'quotes' | 'invoices' | 'communications' | 'files'>('overview');
