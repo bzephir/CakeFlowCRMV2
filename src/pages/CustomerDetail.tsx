@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Customer } from '../types';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import { 
@@ -35,6 +36,7 @@ const CustomerDetail: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'overview' | 'orders' | 'quotes' | 'invoices' | 'communications' | 'files'>('overview');
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [currentCustomer, setCurrentCustomer] = useState<Customer | null>(null);
 
   // Mock customer data - in real app, fetch based on ID
   const mockCustomer: Customer = {
