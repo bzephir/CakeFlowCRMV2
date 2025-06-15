@@ -37,6 +37,16 @@ const CustomerDetail: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [currentCustomer, setCurrentCustomer] = useState<Customer | null>(null);
+  useEffect(() => {
+  // Simulate fetching data
+  const foundCustomer = mockCustomers.find(cust => cust.id === id);
+  if (foundCustomer) {
+    setCurrentCustomer(foundCustomer);
+  } else {
+    // If customer not found, navigate back to customers list
+    navigate('/customers');
+  }
+}, [id, navigate]); // Depend on id and navigate to re-run if they change
 
   // Mock customer data - in real app, fetch based on ID
   const mockCustomer: Customer = {
@@ -306,7 +316,14 @@ const CustomerDetail: React.FC = () => {
       currency: 'USD'
     }).format(amount);
   };
-
+// Add the following check above it:
+  if (!currentCustomer) {
+    return (
+      <div className="flex-1 flex items-center justify-center text-gray-500">
+        Loading customer details...
+      </div>
+    );
+  }
   return (
     <div className="flex-1 overflow-hidden">
       <Header 
