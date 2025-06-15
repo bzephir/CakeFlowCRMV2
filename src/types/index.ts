@@ -18,6 +18,14 @@ export interface Customer {
   totalSpent: number;
   lastOrderDate?: string;
   status: 'active' | 'inactive';
+  address1?: string;
+  address2?: string;
+  city?: string;
+  state?: string;
+  zip?: string;
+  avatar?: null;
+  notes?: string;
+  tags?: string[];
 }
 
 export interface Order {
