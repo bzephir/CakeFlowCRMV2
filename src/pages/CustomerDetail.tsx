@@ -383,12 +383,15 @@ const handleCancelEditAnniversary = () => {
 };
 
 // Add the following check at the top of the return statement:
-return (
-  !currentCustomer ? (
+if (!currentCustomer) {
+  return (
     <div className="flex-1 flex items-center justify-center text-gray-500">
       Loading customer details...
     </div>
-  ) : (
+  );
+}
+
+return (
     <div className="flex-1 overflow-hidden">
       <Header 
         title={`${currentCustomer.firstName} ${currentCustomer.lastName}`} 
