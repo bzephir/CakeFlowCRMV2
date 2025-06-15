@@ -30,6 +30,8 @@ export interface Customer {
 
 export interface Order {
   id: string;
+  customer?: string; // Added for consistency with mock data
+  email?: string; // Added for consistency with mock data
   customerId: string;
   customerName: string;
   eventDate: string;
@@ -39,11 +41,59 @@ export interface Order {
   subtotal: number;
   tax: number;
   total: number;
+  deposited?: number; // Added for consistency with mock data
+  balance?: number; // Added for consistency with mock data
+  items: string[]; // Changed to string[] to match mock data usage
   depositPaid: number;
   balance: number;
   createdAt: string;
 }
+export interface Quote {
+  id: string;
+  eventType: string;
+  eventDate: string;
+  status: 'accepted' | 'sent' | 'draft' | 'rejected' | 'expired';
+  total: number;
+  createdAt: string;
+  expiryDate: string;
+}
 
+export interface Invoice {
+  id: string;
+  eventDate: string;
+  status: 'paid' | 'deposit-paid' | 'pending' | 'overdue' | 'draft';
+  total: number;
+  balance: number;
+  issueDate: string;
+  dueDate: string;
+}
+
+export interface Communication {
+  id: string;
+  type: 'email' | 'phone';
+  subject: string;
+  date: string;
+  status: 'sent' | 'completed';
+  preview: string;
+}
+
+export interface File {
+  id: string;
+  name: string;
+  type: string; // e.g., 'images', 'document'
+  size: string;
+  uploadDate: string;
+  uploadedBy: string;
+}
+
+export interface Event {
+  id: string;
+  title: string;
+  date: string;
+  time: string;
+  type: string; // e.g., 'delivery', 'appointment'
+  status: string; // e.g., 'confirmed', 'scheduled'
+}
 export interface OrderItem {
   id: string;
   name: string;
