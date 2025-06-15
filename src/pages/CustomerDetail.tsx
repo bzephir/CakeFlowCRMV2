@@ -105,7 +105,7 @@ const CustomerDetail: React.FC = () => {
     }
   }, [id, navigate]); // Depend on id and navigate to re-run if they change
 
-  const orders = [
+  const orders: Order[] = [
     {
       id: '1001',
       eventType: 'Wedding',
@@ -332,6 +332,56 @@ const CustomerDetail: React.FC = () => {
       currency: 'USD'
     }).format(amount);
   };
+  const handleEditBirthday = () => {
+  if (currentCustomer) {
+    setEditedBirthday(currentCustomer.birthday || '');
+    setIsEditingBirthday(true);
+  }
+};
+
+const handleSaveBirthday = () => {
+  if (currentCustomer) {
+    // In a real app, you would send editedBirthday to your backend
+    // For now, we'll update the local state
+    setCurrentCustomer({ ...currentCustomer, birthday: editedBirthday });
+    setIsEditingBirthday(false);
+    // Placeholder for permission check:
+    // if (userHasPermissionToEdit) { callApiToUpdateCustomerBirthday(currentCustomer.id, editedBirthday); }
+  }
+};
+
+const handleCancelEditBirthday = () => {
+  setIsEditingBirthday(false);
+  if (currentCustomer) {
+    setEditedBirthday(currentCustomer.birthday || ''); // Reset to original value
+  }
+};
+
+const handleEditAnniversary = () => {
+  if (currentCustomer) {
+    setEditedAnniversary(currentCustomer.anniversary || '');
+    setIsEditingAnniversary(true);
+  }
+};
+
+const handleSaveAnniversary = () => {
+  if (currentCustomer) {
+    // In a real app, you would send editedAnniversary to your backend
+    // For now, we'll update the local state
+    setCurrentCustomer({ ...currentCustomer, anniversary: editedAnniversary });
+    setIsEditingAnniversary(false);
+    // Placeholder for permission check:
+    // if (userHasPermissionToEdit) { callApiToUpdateCustomerAnniversary(currentCustomer.id, editedAnniversary); }
+  }
+};
+
+const handleCancelEditAnniversary = () => {
+  setIsEditingAnniversary(false);
+  if (currentCustomer) {
+    setEditedAnniversary(currentCustomer.anniversary || ''); // Reset to original value
+  }
+};
+
 // Add the following check above it:
   if (!currentCustomer) {
     return (
