@@ -30,6 +30,11 @@ import {
   Search
 } from 'lucide-react';
 
+const [isEditingBirthday, setIsEditingBirthday] = useState(false);
+const [editedBirthday, setEditedBirthday] = useState('');
+const [isEditingAnniversary, setIsEditingAnniversary] = useState(false);
+const [editedAnniversary, setEditedAnniversary] = useState('');
+
 // Mock customer data - in real app, fetch based on ID
 const mockCustomers: Customer[] = [
   {
