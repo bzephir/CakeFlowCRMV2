@@ -36,37 +36,39 @@ function App() {
     <Router>
       <div className="flex h-screen bg-gray-50">
         <Sidebar />
-        <div className="flex-1 flex flex-col min-h-0">
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/schedule" element={<CalendarPage />} />
-            <Route path="/quotes" element={<Quotes />} />
-            <Route path="/quotes/new" element={<CreateQuote />} />
-            <Route path="/orders" element={<Orders />} />
-            <Route path="/orders/new" element={<CreateOrder />} />
-            <Route path="/invoices" element={<Invoices />} />
-            <Route path="/invoice/:id" element={<Invoice />} />
-            <Route path="/invoice/new" element={<Invoice />} />
-            <Route path="/reports" element={<Reports />} />
-            <Route path="/production" element={<Production />} />
-            <Route path="/recipes" element={<Recipes />} />
-            <Route path="/recipes/:id" element={<RecipeDetail />} />
-            <Route path="/recipes/margin-report" element={<RecipeMarginReport />} />
-            <Route path="/packages" element={<Packages />} />
-            <Route path="/inventory" element={<Inventory />} />
-            <Route path="/inventory-tracking" element={<InventoryTracking />} />
-            <Route path="/customers" element={<Customers />} />
-            <Route path="/customers/:id" element={<CustomerDetail />} />
-            <Route path="/contracts" element={<Contracts />} />
-            <Route path="/venues" element={<Venues />} />
-            <Route path="/communication" element={<Communication />} />
-            <Route path="/workflows" element={<Workflows />} />
-            <Route path="/import" element={<Import />} />
-            <Route path="/vendors" element={<Vendors />} />
-            <Route path="/users" element={<Users />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/inquiry-form" element={<InquiryForm />} />
-          </Routes>
+        <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
+          <div className="flex-1 overflow-y-auto">
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/schedule" element={<CalendarPage />} />
+              <Route path="/quotes" element={<Quotes />} />
+              <Route path="/quotes/new" element={<CreateQuote />} />
+              <Route path="/orders" element={<Orders />} />
+              <Route path="/orders/new" element={<CreateOrder />} />
+              <Route path="/invoices" element={<Invoices />} />
+              <Route path="/invoice/:id" element={<Invoice />} />
+              <Route path="/invoice/new" element={<Invoice />} />
+              <Route path="/reports" element={<Reports />} />
+              <Route path="/production" element={<Production />} />
+              <Route path="/recipes" element={<Recipes />} />
+              <Route path="/recipes/:id" element={<RecipeDetail />} />
+              <Route path="/recipes/margin-report" element={<RecipeMarginReport />} />
+              <Route path="/packages" element={<Packages />} />
+              <Route path="/inventory" element={<Inventory />} />
+              <Route path="/inventory-tracking" element={<InventoryTracking />} />
+              <Route path="/customers" element={<Customers />} />
+              <Route path="/customers/:id" element={<CustomerDetail />} />
+              <Route path="/contracts" element={<Contracts />} />
+              <Route path="/venues" element={<Venues />} />
+              <Route path="/communication" element={<Communication />} />
+              <Route path="/workflows" element={<Workflows />} />
+              <Route path="/import" element={<Import />} />
+              <Route path="/vendors" element={<Vendors />} />
+              <Route path="/users" element={<Users />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/inquiry-form" element={<InquiryForm />} />
+            </Routes>
+          </div>
         </div>
       </div>
     </Router>
