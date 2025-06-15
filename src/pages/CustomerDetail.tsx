@@ -91,7 +91,7 @@ const CustomerDetail: React.FC = () => {
     tags: ['New Customer'],
     birthday: '1985-11-12',
     anniversary: '2020-03-01'
-  }
+  };
   const orders = [
     {
       id: '1001',
