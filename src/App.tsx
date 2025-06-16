@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { InquiryProvider } from './context/InquiryContext';
 import Sidebar from './components/Sidebar';
 import Dashboard from './pages/Dashboard';
 import Orders from './pages/Orders';
@@ -10,6 +11,8 @@ import Recipes from './pages/Recipes';
 import RecipeDetail from './pages/RecipeDetail';
 import RecipeMarginReport from './pages/RecipeMarginReport';
 import InquiryForm from './pages/InquiryForm';
+import Inquiries from './pages/Inquiries';
+import InquiryDetail from './pages/InquiryDetail';
 import Invoice from './pages/Invoice';
 import Invoices from './pages/Invoices';
 import Quotes from './pages/Quotes';
@@ -33,45 +36,49 @@ const Users = () => <div className="p-6"><h1 className="text-2xl font-bold">User
 
 function App() {
   return (
-    <Router>
-      <div className="flex h-screen bg-gray-50">
-        <Sidebar />
-        <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
-          <div className="flex-1 overflow-y-auto">
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/schedule" element={<CalendarPage />} />
-              <Route path="/quotes" element={<Quotes />} />
-              <Route path="/quotes/new" element={<CreateQuote />} />
-              <Route path="/orders" element={<Orders />} />
-              <Route path="/orders/new" element={<CreateOrder />} />
-              <Route path="/invoices" element={<Invoices />} />
-              <Route path="/invoice/:id" element={<Invoice />} />
-              <Route path="/invoice/new" element={<Invoice />} />
-              <Route path="/reports" element={<Reports />} />
-              <Route path="/production" element={<Production />} />
-              <Route path="/recipes" element={<Recipes />} />
-              <Route path="/recipes/:id" element={<RecipeDetail />} />
-              <Route path="/recipes/margin-report" element={<RecipeMarginReport />} />
-              <Route path="/packages" element={<Packages />} />
-              <Route path="/inventory" element={<Inventory />} />
-              <Route path="/inventory-tracking" element={<InventoryTracking />} />
-              <Route path="/customers" element={<Customers />} />
-              <Route path="/customers/:id" element={<CustomerDetail />} />
-              <Route path="/contracts" element={<Contracts />} />
-              <Route path="/venues" element={<Venues />} />
-              <Route path="/communication" element={<Communication />} />
-              <Route path="/workflows" element={<Workflows />} />
-              <Route path="/import" element={<Import />} />
-              <Route path="/vendors" element={<Vendors />} />
-              <Route path="/users" element={<Users />} />
-              <Route path="/settings" element={<Settings />} />
-              <Route path="/inquiry-form" element={<InquiryForm />} />
-            </Routes>
+    <InquiryProvider>
+      <Router>
+        <div className="flex h-screen bg-gray-50">
+          <Sidebar />
+          <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
+            <div className="flex-1 overflow-y-auto">
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/schedule" element={<CalendarPage />} />
+                <Route path="/inquiries" element={<Inquiries />} />
+                <Route path="/inquiries/:id" element={<InquiryDetail />} />
+                <Route path="/inquiry-form" element={<InquiryForm />} />
+                <Route path="/quotes" element={<Quotes />} />
+                <Route path="/quotes/new" element={<CreateQuote />} />
+                <Route path="/orders" element={<Orders />} />
+                <Route path="/orders/new" element={<CreateOrder />} />
+                <Route path="/invoices" element={<Invoices />} />
+                <Route path="/invoice/:id" element={<Invoice />} />
+                <Route path="/invoice/new" element={<Invoice />} />
+                <Route path="/reports" element={<Reports />} />
+                <Route path="/production" element={<Production />} />
+                <Route path="/recipes" element={<Recipes />} />
+                <Route path="/recipes/:id" element={<RecipeDetail />} />
+                <Route path="/recipes/margin-report" element={<RecipeMarginReport />} />
+                <Route path="/packages" element={<Packages />} />
+                <Route path="/inventory" element={<Inventory />} />
+                <Route path="/inventory-tracking" element={<InventoryTracking />} />
+                <Route path="/customers" element={<Customers />} />
+                <Route path="/customers/:id" element={<CustomerDetail />} />
+                <Route path="/contracts" element={<Contracts />} />
+                <Route path="/venues" element={<Venues />} />
+                <Route path="/communication" element={<Communication />} />
+                <Route path="/workflows" element={<Workflows />} />
+                <Route path="/import" element={<Import />} />
+                <Route path="/vendors" element={<Vendors />} />
+                <Route path="/users" element={<Users />} />
+                <Route path="/settings" element={<Settings />} />
+              </Routes>
+            </div>
           </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </InquiryProvider>
   );
 }
 

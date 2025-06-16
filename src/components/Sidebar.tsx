@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useInquiryContext } from '../context/InquiryContext';
 import Logo from './Logo';
 import {
   Home,
@@ -21,11 +22,13 @@ import {
   Calendar,
   Upload,
   Truck,
-  Cog
+  Cog,
+  Mail
 } from 'lucide-react';
 
 const Sidebar: React.FC = () => {
   const location = useLocation();
+  const { newInquiriesCount } = useInquiryContext();
 
   const navigation = [
     {
@@ -39,6 +42,13 @@ const Sidebar: React.FC = () => {
       href: '/schedule',
       icon: Calendar,
       current: location.pathname === '/schedule'
+    },
+    {
+      name: 'Inquiries',
+      href: '/inquiries',
+      icon: Mail,
+      current: location.pathname.startsWith('/inquiries'),
+      badge: newInquiriesCount > 0 ? newInquiriesCount : undefined
     },
     {
       name: 'Finance',
@@ -111,7 +121,12 @@ const Sidebar: React.FC = () => {
                     item.current ? 'text-coral-500' : 'text-gray-400 group-hover:text-gray-500'
                   }`}
                 />
-                {item.name}
+                <span className="flex-1">{item.name}</span>
+                {item.badge && (
+                  <span className="ml-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-coral-500 rounded-full">
+                    {item.badge}
+                  </span>
+                )}
               </Link>
             ) : (
               <div>
