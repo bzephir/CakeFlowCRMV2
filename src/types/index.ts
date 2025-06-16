@@ -30,24 +30,31 @@ export interface Customer {
 
 export interface Order {
   id: string;
-  customer?: string; // Added for consistency with mock data
-  email?: string; // Added for consistency with mock data
+  customer?: string;
+  email?: string;
   customerId: string;
   customerName: string;
   eventDate: string;
   eventType: string;
   status: 'inquiry' | 'quoted' | 'confirmed' | 'in-production' | 'completed' | 'cancelled';
-  items: OrderItem[];
+  items: string[];
   subtotal: number;
   tax: number;
   total: number;
-  deposited?: number; // Added for consistency with mock data
-  balance?: number; // Added for consistency with mock data
-  items: string[]; // Changed to string[] to match mock data usage
+  deposited?: number;
+  balance?: number;
   depositPaid: number;
-  balance: number;
   createdAt: string;
 }
+
+export interface OrderItem {
+  id: string;
+  name: string;
+  quantity: number;
+  price: number;
+  total: number;
+}
+
 export interface Quote {
   id: string;
   eventType: string;
@@ -80,7 +87,7 @@ export interface Communication {
 export interface File {
   id: string;
   name: string;
-  type: string; // e.g., 'images', 'document'
+  type: string;
   size: string;
   uploadDate: string;
   uploadedBy: string;
@@ -91,15 +98,8 @@ export interface Event {
   title: string;
   date: string;
   time: string;
-  type: string; // e.g., 'delivery', 'appointment'
-  status: string; // e.g., 'confirmed', 'scheduled'
-}
-export interface OrderItem {
-  id: string;
-  name: string;
-  quantity: number;
-  price: number;
-  total: number;
+  type: string;
+  status: string;
 }
 
 export interface Recipe {
@@ -128,6 +128,100 @@ export interface Ingredient {
   reorderLevel: number;
 }
 
+// Comprehensive Inquiry Interface
+export interface Inquiry {
+  id: string;
+  type: 'celebration' | 'wedding' | 'corporate';
+  status: 'new' | 'opened' | 'contacted' | 'quoted' | 'converted' | 'declined';
+  
+  // Common fields across all inquiry types
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  eventDate: string;
+  eventTime?: string;
+  guestCount?: number;
+  budget?: string;
+  hearAboutUs?: string;
+  additionalNotes?: string;
+  
+  // Type-specific details
+  details: CelebrationInquiryDetails | WeddingInquiryDetails | CorporateInquiryDetails;
+  
+  // Metadata
+  submittedAt: string;
+  lastUpdated: string;
+  assignedTo?: string;
+  
+  // Action history
+  actions: InquiryAction[];
+}
+
+// Type-specific inquiry details
+export interface CelebrationInquiryDetails {
+  occasion: string;
+  services: string[];
+  theme?: string;
+  colors?: string;
+  cakeTasting: boolean;
+  inspirationPhotos?: string[];
+}
+
+export interface WeddingInquiryDetails {
+  weddingDate: string;
+  venue?: string;
+  weddingSize: 'intimate' | 'medium' | 'large';
+  services: string[];
+  cakeStyle?: string;
+  flavors?: string[];
+  dietaryRestrictions?: string[];
+  deliverySetup: boolean;
+  tastingRequested: boolean;
+  budgetRange?: string;
+  weddingPlanner?: {
+    name: string;
+    company: string;
+    contact: string;
+  };
+}
+
+export interface CorporateInquiryDetails {
+  companyName: string;
+  eventType: string;
+  services: string[];
+  recurring: boolean;
+  frequency?: string;
+  brandingRequired: boolean;
+  deliveryAddress?: string;
+  contactPerson: {
+    name: string;
+    title: string;
+    department: string;
+  };
+  approvalProcess?: string;
+  invoicingRequirements?: string;
+}
+
+// Inquiry action/timeline interface
+export interface InquiryAction {
+  id: string;
+  type: 'status_change' | 'note_added' | 'email_sent' | 'call_made' | 'quote_sent' | 'meeting_scheduled';
+  description: string;
+  performedBy: string;
+  performedAt: string;
+  details?: {
+    previousStatus?: string;
+    newStatus?: string;
+    emailSubject?: string;
+    callDuration?: number;
+    quoteId?: string;
+    meetingDate?: string;
+    notes?: string;
+  };
+}
+
+// Updated InquiryForm interface to align with new Inquiry type
 export interface InquiryForm {
   id: string;
   type: 'celebration' | 'wedding' | 'corporate';
