@@ -378,10 +378,10 @@ const Orders: React.FC = () => {
                     Customer
                   </th>
                   <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Event
+                    Event Type
                   </th>
                   <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Date
+                    Event Date
                   </th>
                   <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Amount
@@ -414,32 +414,15 @@ const Orders: React.FC = () => {
                     </td>
                     <td className="px-3 py-4 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900">{order.customer}</div>
-                      <div className="text-sm text-gray-500">{order.email}</div>
                     </td>
                     <td className="px-3 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{order.eventType}</div>
-                      <div className="text-xs text-gray-500 truncate max-w-[150px]">
-                        {order.items.join(', ')}
-                      </div>
                     </td>
                     <td className="px-3 py-4 whitespace-nowrap">
-                      <div className="flex items-center text-sm text-gray-900">
-                        <Calendar className="h-4 w-4 mr-2 text-gray-400" />
-                        {formatDate(order.eventDate)}
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        Created: {formatDate(order.createdAt)}
-                      </div>
+                      <div className="text-sm text-gray-900">{formatDate(order.eventDate)}</div>
                     </td>
                     <td className="px-3 py-4 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900">{formatCurrency(order.total)}</div>
-                      {order.balance > 0 ? (
-                        <div className="text-xs text-coral-600">
-                          Balance: {formatCurrency(order.balance)}
-                        </div>
-                      ) : (
-                        <div className="text-xs text-mint-600">Paid in full</div>
-                      )}
                     </td>
                     <td className="px-3 py-4 whitespace-nowrap">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(order.status)}`}>
