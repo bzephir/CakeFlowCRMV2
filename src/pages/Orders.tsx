@@ -12,13 +12,20 @@ import {
   Clock, 
   AlertCircle,
   Calendar,
-  DollarSign
+  DollarSign,
+  Trash2,
+  Mail,
+  Copy,
+  ArrowRightCircle
 } from 'lucide-react';
 
 const Orders: React.FC = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   // Mock orders with new numbering format
   const orders = [
@@ -87,6 +94,71 @@ const Orders: React.FC = () => {
       items: ['Baby Shower Cake', 'Mini Cupcakes (24)'],
       createdAt: '2024-11-28'
     },
+    {
+      id: 'O-202412-0027',
+      customer: 'Robert Smith',
+      email: 'robert@email.com',
+      eventType: 'Graduation',
+      eventDate: '2025-02-05',
+      status: 'confirmed',
+      total: 150.00,
+      deposited: 75.00,
+      balance: 75.00,
+      items: ['Graduation Cake', 'Cookies (12)'],
+      createdAt: '2024-12-10'
+    },
+    {
+      id: 'O-202412-0028',
+      customer: 'Jennifer Brown',
+      email: 'jennifer@email.com',
+      eventType: 'Birthday',
+      eventDate: '2025-01-30',
+      status: 'in-production',
+      total: 95.00,
+      deposited: 95.00,
+      balance: 0.00,
+      items: ['Custom Birthday Cake'],
+      createdAt: '2024-12-05'
+    },
+    {
+      id: 'O-202411-0015',
+      customer: 'Michael Taylor',
+      email: 'michael@email.com',
+      eventType: 'Corporate Event',
+      eventDate: '2024-12-15',
+      status: 'completed',
+      total: 350.00,
+      deposited: 350.00,
+      balance: 0.00,
+      items: ['Corporate Cupcakes (72)', 'Logo Cookies (24)'],
+      createdAt: '2024-11-20'
+    },
+    {
+      id: 'O-202411-0016',
+      customer: 'Jessica Lee',
+      email: 'jessica@email.com',
+      eventType: 'Wedding',
+      eventDate: '2025-03-10',
+      status: 'confirmed',
+      total: 550.00,
+      deposited: 275.00,
+      balance: 275.00,
+      items: ['3-Tier Wedding Cake', 'Dessert Table'],
+      createdAt: '2024-11-15'
+    },
+    {
+      id: 'O-202411-0017',
+      customer: 'Daniel Garcia',
+      email: 'daniel@email.com',
+      eventType: 'Anniversary',
+      eventDate: '2025-02-20',
+      status: 'quoted',
+      total: 175.00,
+      deposited: 0.00,
+      balance: 175.00,
+      items: ['Anniversary Cake'],
+      createdAt: '2024-11-10'
+    }
   ];
 
   const getStatusColor = (status: string) => {
@@ -102,13 +174,35 @@ const Orders: React.FC = () => {
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'completed': return <CheckCircle2 className="h-4 w-4" />;
-      case 'in-production': return <Clock className="h-4 w-4" />;
-      case 'confirmed': return <CheckCircle2 className="h-4 w-4" />;
-      case 'quoted': return <AlertCircle className="h-4 w-4" />;
-      case 'inquiry': return <AlertCircle className="h-4 w-4" />;
-      default: return <AlertCircle className="h-4 w-4" />;
+      case 'completed': return <CheckCircle2 className="h-4 w-4 mr-1" />;
+      case 'in-production': return <Clock className="h-4 w-4 mr-1" />;
+      case 'confirmed': return <CheckCircle2 className="h-4 w-4 mr-1" />;
+      case 'quoted': return <AlertCircle className="h-4 w-4 mr-1" />;
+      case 'inquiry': return <AlertCircle className="h-4 w-4 mr-1" />;
+      default: return <AlertCircle className="h-4 w-4 mr-1" />;
     }
+  };
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'short', 
+      day: 'numeric' 
+    });
+  };
+
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD'
+    }).format(amount);
+  };
+
+  const handleViewOrder = (orderId: string) => {
+    // Navigate to order details page
+    console.log('View order:', orderId);
+    // navigate(`/orders/${orderId}`);
   };
 
   const handleCreateOrder = () => {
@@ -118,6 +212,61 @@ const Orders: React.FC = () => {
     navigate('/orders/new', { state: { orderNumber: newOrderNumber } });
   };
 
+  const handleEditOrder = (orderId: string) => {
+    // Navigate to order edit page
+    console.log('Edit order:', orderId);
+    // navigate(`/orders/${orderId}/edit`);
+  };
+
+  const handleSendInvoice = (orderId: string) => {
+    // Send invoice email
+    console.log('Send invoice for order:', orderId);
+    alert(`Create and send invoice for order ${orderId}`);
+  };
+
+  const handleDuplicateOrder = (orderId: string) => {
+    // Duplicate order with new order number
+    const newOrderNumber = generateDocumentNumber('order');
+    console.log('Duplicating order with new number:', newOrderNumber);
+    alert(`Duplicate order ${orderId} as ${newOrderNumber}`);
+  };
+
+  const handleDeleteOrder = (orderId: string) => {
+    // Delete order
+    console.log('Delete order:', orderId);
+    alert(`Delete order ${orderId}`);
+  };
+
+  const handleBulkAction = (action: 'send' | 'delete') => {
+    if (selectedOrders.length === 0) {
+      alert('Please select at least one order');
+      return;
+    }
+
+    if (action === 'send') {
+      alert(`Send invoices for ${selectedOrders.length} orders`);
+    } else if (action === 'delete') {
+      alert(`Delete ${selectedOrders.length} orders`);
+    }
+  };
+
+  const toggleSelectOrder = (orderId: string) => {
+    if (selectedOrders.includes(orderId)) {
+      setSelectedOrders(selectedOrders.filter(id => id !== orderId));
+    } else {
+      setSelectedOrders([...selectedOrders, orderId]);
+    }
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedOrders.length === filteredOrders.length) {
+      setSelectedOrders([]);
+    } else {
+      setSelectedOrders(filteredOrders.map(order => order.id));
+    }
+  };
+
+  // Filter orders based on search term and status filter
   const filteredOrders = orders.filter(order => {
     const matchesSearch = order.customer.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          order.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -125,6 +274,14 @@ const Orders: React.FC = () => {
     const matchesStatus = statusFilter === 'all' || order.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
+
+  // Pagination
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentOrders = filteredOrders.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
     <div className="flex-1 overflow-hidden">
@@ -175,83 +332,157 @@ const Orders: React.FC = () => {
           </button>
         </div>
 
+        {/* Bulk Actions */}
+        {selectedOrders.length > 0 && (
+          <div className="mb-4 flex items-center gap-2">
+            <span className="text-sm text-gray-500">
+              {selectedOrders.length} selected
+            </span>
+            <button 
+              onClick={() => handleBulkAction('send')}
+              className="inline-flex items-center px-3 py-1 border border-gray-300 text-xs font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-colors"
+            >
+              <Mail className="h-3 w-3 mr-1" />
+              Send Invoice
+            </button>
+            <button 
+              onClick={() => handleBulkAction('delete')}
+              className="inline-flex items-center px-3 py-1 border border-gray-300 text-xs font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-colors"
+            >
+              <Trash2 className="h-3 w-3 mr-1" />
+              Delete
+            </button>
+          </div>
+        )}
+
         {/* Orders Table */}
         <div className="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Order Details
+                  <th className="px-3 py-3 text-left">
+                    <div className="flex items-center">
+                      <input
+                        type="checkbox"
+                        checked={selectedOrders.length === filteredOrders.length && filteredOrders.length > 0}
+                        onChange={toggleSelectAll}
+                        className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
+                      />
+                    </div>
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Order #
+                  </th>
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Customer
+                  </th>
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Event
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Date
+                  </th>
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Amount
+                  </th>
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Financial
-                  </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-3 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {filteredOrders.map((order) => (
+                {currentOrders.map((order) => (
                   <tr key={order.id} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div>
-                        <div className="text-sm font-medium text-gray-900">{order.id}</div>
-                        <div className="text-sm text-gray-900 font-medium">{order.customer}</div>
-                        <div className="text-sm text-gray-500">{order.email}</div>
-                        <div className="text-xs text-gray-400 mt-1">
-                          Created: {new Date(order.createdAt).toLocaleDateString()}
-                        </div>
+                    <td className="px-3 py-4 whitespace-nowrap">
+                      <div className="flex items-center">
+                        <input
+                          type="checkbox"
+                          checked={selectedOrders.includes(order.id)}
+                          onChange={() => toggleSelectOrder(order.id)}
+                          className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
+                        />
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div>
-                        <div className="flex items-center text-sm text-gray-900">
-                          <Calendar className="h-4 w-4 mr-2 text-gray-400" />
-                          {new Date(order.eventDate).toLocaleDateString()}
-                        </div>
-                        <div className="text-sm text-gray-500">{order.eventType}</div>
-                        <div className="text-xs text-gray-400 mt-1">
-                          {order.items.join(', ')}
-                        </div>
+                    <td className="px-3 py-4 whitespace-nowrap">
+                      <div className="text-sm font-medium text-gray-900 cursor-pointer hover:text-coral-600" onClick={() => handleViewOrder(order.id)}>
+                        {order.id}
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-3 py-4 whitespace-nowrap">
+                      <div className="text-sm font-medium text-gray-900">{order.customer}</div>
+                      <div className="text-sm text-gray-500">{order.email}</div>
+                    </td>
+                    <td className="px-3 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">{order.eventType}</div>
+                      <div className="text-xs text-gray-500 truncate max-w-[150px]">
+                        {order.items.join(', ')}
+                      </div>
+                    </td>
+                    <td className="px-3 py-4 whitespace-nowrap">
+                      <div className="flex items-center text-sm text-gray-900">
+                        <Calendar className="h-4 w-4 mr-2 text-gray-400" />
+                        {formatDate(order.eventDate)}
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        Created: {formatDate(order.createdAt)}
+                      </div>
+                    </td>
+                    <td className="px-3 py-4 whitespace-nowrap">
+                      <div className="text-sm font-medium text-gray-900">{formatCurrency(order.total)}</div>
+                      {order.balance > 0 ? (
+                        <div className="text-xs text-coral-600">
+                          Balance: {formatCurrency(order.balance)}
+                        </div>
+                      ) : (
+                        <div className="text-xs text-mint-600">Paid in full</div>
+                      )}
+                    </td>
+                    <td className="px-3 py-4 whitespace-nowrap">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(order.status)}`}>
                         {getStatusIcon(order.status)}
-                        <span className="ml-1 capitalize">{order.status.replace('-', ' ')}</span>
+                        <span className="capitalize">{order.status.replace('-', ' ')}</span>
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div>
-                        <div className="flex items-center text-sm text-gray-900">
-                          <DollarSign className="h-4 w-4 mr-1 text-gray-400" />
-                          ${order.total.toFixed(2)}
-                        </div>
-                        <div className="text-xs text-gray-500">
-                          Paid: ${order.deposited.toFixed(2)}
-                        </div>
-                        {order.balance > 0 && (
-                          <div className="text-xs text-coral-600">
-                            Balance: ${order.balance.toFixed(2)}
-                          </div>
-                        )}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <td className="px-3 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <div className="flex justify-end space-x-2">
-                        <button className="text-aqua-600 hover:text-aqua-900 transition-colors">
+                        <button 
+                          onClick={() => handleViewOrder(order.id)}
+                          className="text-aqua-600 hover:text-aqua-900 transition-colors"
+                          title="View"
+                        >
                           <Eye className="h-4 w-4" />
                         </button>
-                        <button className="text-coral-600 hover:text-coral-900 transition-colors">
+                        <button 
+                          onClick={() => handleEditOrder(order.id)}
+                          className="text-coral-600 hover:text-coral-900 transition-colors"
+                          title="Edit"
+                        >
                           <Edit className="h-4 w-4" />
+                        </button>
+                        <button 
+                          onClick={() => handleSendInvoice(order.id)}
+                          className="text-mint-600 hover:text-mint-900 transition-colors"
+                          title="Create Invoice"
+                        >
+                          <ArrowRightCircle className="h-4 w-4" />
+                        </button>
+                        <button 
+                          onClick={() => handleDuplicateOrder(order.id)}
+                          className="text-gray-600 hover:text-gray-900 transition-colors"
+                          title="Duplicate"
+                        >
+                          <Copy className="h-4 w-4" />
+                        </button>
+                        <button 
+                          onClick={() => handleDeleteOrder(order.id)}
+                          className="text-pink-600 hover:text-pink-900 transition-colors"
+                          title="Delete"
+                        >
+                          <Trash2 className="h-4 w-4" />
                         </button>
                       </div>
                     </td>
@@ -262,6 +493,7 @@ const Orders: React.FC = () => {
           </div>
         </div>
 
+        {/* No Results */}
         {filteredOrders.length === 0 && (
           <div className="text-center py-12">
             <div className="text-gray-500 text-lg">No orders found</div>
@@ -270,6 +502,52 @@ const Orders: React.FC = () => {
                 ? 'Try adjusting your search or filter criteria'
                 : 'Get started by creating your first order'
               }
+            </div>
+          </div>
+        )}
+
+        {/* Pagination */}
+        {filteredOrders.length > 0 && (
+          <div className="flex items-center justify-between mt-6">
+            <div className="text-sm text-gray-500">
+              Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, filteredOrders.length)} of {filteredOrders.length} orders
+            </div>
+            <div className="flex space-x-2">
+              <button
+                onClick={() => paginate(currentPage - 1)}
+                disabled={currentPage === 1}
+                className={`px-3 py-1 border rounded-md text-sm ${
+                  currentPage === 1
+                    ? 'border-gray-200 text-gray-400 cursor-not-allowed'
+                    : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+                }`}
+              >
+                Previous
+              </button>
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((number) => (
+                <button
+                  key={number}
+                  onClick={() => paginate(number)}
+                  className={`px-3 py-1 border rounded-md text-sm ${
+                    currentPage === number
+                      ? 'bg-coral-100 border-coral-500 text-coral-600'
+                      : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+                  }`}
+                >
+                  {number}
+                </button>
+              ))}
+              <button
+                onClick={() => paginate(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className={`px-3 py-1 border rounded-md text-sm ${
+                  currentPage === totalPages
+                    ? 'border-gray-200 text-gray-400 cursor-not-allowed'
+                    : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+                }`}
+              >
+                Next
+              </button>
             </div>
           </div>
         )}
