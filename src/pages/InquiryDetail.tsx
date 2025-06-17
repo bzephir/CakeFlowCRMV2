@@ -4,6 +4,7 @@ import { useInquiryContext } from '../context/InquiryContext';
 import Header from '../components/Header';
 import { 
   ArrowLeft,
+  ArrowRight,
   Mail,
   Phone,
   Calendar,
@@ -28,7 +29,8 @@ import {
   FileCheck,
   Utensils,
   Truck,
-  Briefcase
+  Briefcase,
+  Eye
 } from 'lucide-react';
 import { Inquiry, InquiryAction } from '../types';
 import { generateDocumentNumber } from '../utils/documentNumbering';
