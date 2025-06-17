@@ -11,7 +11,6 @@ import {
   Mail,
   Download,
   Trash2,
-  Calendar,
   CheckCircle2, 
   Clock, 
   CreditCard,
@@ -36,7 +35,9 @@ const Invoices: React.FC = () => {
       dueDate: '2025-06-01',
       amount: 642.00,
       status: 'deposit-paid',
-      eventDate: '2025-06-15'
+      eventType: 'Wedding',
+      eventDate: '2025-06-15',
+      eventTime: '16:00'
     },
     {
       id: 'I-202501-0002',
@@ -45,7 +46,9 @@ const Invoices: React.FC = () => {
       dueDate: '2025-01-25',
       amount: 450.00,
       status: 'paid',
-      eventDate: '2025-01-15'
+      eventType: 'Birthday',
+      eventDate: '2025-01-15',
+      eventTime: '14:00'
     },
     {
       id: 'I-202501-0003',
@@ -54,7 +57,9 @@ const Invoices: React.FC = () => {
       dueDate: '2025-01-20',
       amount: 120.00,
       status: 'overdue',
-      eventDate: '2025-01-16'
+      eventType: 'Corporate',
+      eventDate: '2025-01-16',
+      eventTime: '12:00'
     },
     {
       id: 'I-202412-0045',
@@ -63,7 +68,9 @@ const Invoices: React.FC = () => {
       dueDate: '2025-01-10',
       amount: 280.00,
       status: 'pending',
-      eventDate: '2025-01-18'
+      eventType: 'Anniversary',
+      eventDate: '2025-01-18',
+      eventTime: '18:30'
     },
     {
       id: 'I-202412-0046',
@@ -72,7 +79,9 @@ const Invoices: React.FC = () => {
       dueDate: '2025-01-05',
       amount: 180.00,
       status: 'draft',
-      eventDate: '2025-01-20'
+      eventType: 'Graduation',
+      eventDate: '2025-01-20',
+      eventTime: '11:00'
     },
     {
       id: 'I-202412-0047',
@@ -81,7 +90,9 @@ const Invoices: React.FC = () => {
       dueDate: '2024-12-25',
       amount: 200.00,
       status: 'paid',
-      eventDate: '2024-12-28'
+      eventType: 'Baby Shower',
+      eventDate: '2024-12-28',
+      eventTime: '13:00'
     },
     {
       id: 'I-202412-0048',
@@ -90,7 +101,9 @@ const Invoices: React.FC = () => {
       dueDate: '2024-12-20',
       amount: 350.00,
       status: 'deposit-paid',
-      eventDate: '2024-12-22'
+      eventType: 'Wedding',
+      eventDate: '2024-12-22',
+      eventTime: '17:00'
     },
     {
       id: 'I-202411-0032',
@@ -99,7 +112,9 @@ const Invoices: React.FC = () => {
       dueDate: '2024-12-15',
       amount: 175.00,
       status: 'overdue',
-      eventDate: '2024-12-18'
+      eventType: 'Birthday',
+      eventDate: '2024-12-18',
+      eventTime: '15:00'
     },
     {
       id: 'I-202411-0033',
@@ -108,7 +123,9 @@ const Invoices: React.FC = () => {
       dueDate: '2024-12-10',
       amount: 420.00,
       status: 'paid',
-      eventDate: '2024-12-12'
+      eventType: 'Corporate',
+      eventDate: '2024-12-12',
+      eventTime: '09:00'
     },
     {
       id: 'I-202411-0034',
@@ -117,7 +134,9 @@ const Invoices: React.FC = () => {
       dueDate: '2024-12-05',
       amount: 300.00,
       status: 'pending',
-      eventDate: '2024-12-08'
+      eventType: 'Anniversary',
+      eventDate: '2024-12-08',
+      eventTime: '19:00'
     },
     {
       id: 'I-202411-0035',
@@ -126,7 +145,9 @@ const Invoices: React.FC = () => {
       dueDate: '2024-11-30',
       amount: 225.00,
       status: 'draft',
-      eventDate: '2024-12-02'
+      eventType: 'Graduation',
+      eventDate: '2024-12-02',
+      eventTime: '10:30'
     }
   ];
 
@@ -170,6 +191,15 @@ const Invoices: React.FC = () => {
       month: 'short', 
       day: 'numeric' 
     });
+  };
+
+  const formatTime = (timeString: string) => {
+    // Convert 24-hour format to 12-hour format
+    const [hours, minutes] = timeString.split(':');
+    const hour = parseInt(hours);
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+    const hour12 = hour % 12 || 12;
+    return `${hour12}:${minutes} ${ampm}`;
   };
 
   const formatCurrency = (amount: number) => {
@@ -350,6 +380,12 @@ const Invoices: React.FC = () => {
                     Customer
                   </th>
                   <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Event Type
+                  </th>
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Event Date
+                  </th>
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Issue Date
                   </th>
                   <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -388,17 +424,17 @@ const Invoices: React.FC = () => {
                       <div className="text-sm font-medium text-gray-900">{invoice.customer}</div>
                     </td>
                     <td className="px-3 py-4 whitespace-nowrap">
-                      <div className="flex items-center text-sm text-gray-900">
-                        <Calendar className="h-4 w-4 mr-2 text-gray-400" />
-                        {formatDate(invoice.issueDate)}
-                      </div>
+                      <div className="text-sm text-gray-900">{invoice.eventType}</div>
                     </td>
                     <td className="px-3 py-4 whitespace-nowrap">
-                      <div className="flex items-center text-sm text-gray-900">
-                        <Calendar className="h-4 w-4 mr-2 text-gray-400" />
-                        {formatDate(invoice.dueDate)}
-                      </div>
-                      <div className="text-xs text-gray-500">{formatDate(invoice.eventDate)}</div>
+                      <div className="text-sm text-gray-900">{formatDate(invoice.eventDate)}</div>
+                      <div className="text-xs text-gray-500">{invoice.eventTime && formatTime(invoice.eventTime)}</div>
+                    </td>
+                    <td className="px-3 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">{formatDate(invoice.issueDate)}</div>
+                    </td>
+                    <td className="px-3 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">{formatDate(invoice.dueDate)}</div>
                     </td>
                     <td className="px-3 py-4 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900">{formatCurrency(invoice.amount)}</div>
