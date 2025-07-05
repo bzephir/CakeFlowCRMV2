@@ -229,10 +229,7 @@ const RecipeMarginReportPage: React.FC = () => {
 
   return (
     <div className="flex-1 overflow-hidden">
-      <Header 
-        title="Recipe Margin Report" 
-        subtitle="Analyze profitability and performance across all recipes" 
-      />
+      <Header title="Recipe Margin Report" />
       
       <div className="p-6">
         {/* Back Button */}

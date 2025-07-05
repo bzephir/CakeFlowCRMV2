@@ -287,7 +287,7 @@ const Invoices: React.FC = () => {
 
   return (
     <div className="flex-1 overflow-hidden">
-      <Header title="Invoices" subtitle="Manage your invoices and track payments" />
+      <Header title="Invoices" />
       
       <div className="p-6">
         {/* Actions Bar */}

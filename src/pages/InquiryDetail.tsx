@@ -489,10 +489,7 @@ const InquiryDetail: React.FC = () => {
 
   return (
     <div className="flex-1 overflow-hidden">
-      <Header 
-        title={`Inquiry ${inquiry.id}`} 
-        subtitle={`${inquiry.type.charAt(0).toUpperCase() + inquiry.type.slice(1)} inquiry from ${inquiry.firstName} ${inquiry.lastName}`} 
-      />
+      <Header title={`Inquiry ${inquiry.id}`} />
       
       <div className="p-6">
         {/* Back Button */}

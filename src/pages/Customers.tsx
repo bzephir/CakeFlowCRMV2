@@ -302,7 +302,7 @@ const Customers: React.FC = () => {
 
   return (
     <div className="flex-1 overflow-hidden">
-      <Header title="Customers" subtitle="Manage your customer relationships and track their order history" />
+      <Header title="Customers" />
       
       <div className="p-6">
         {/* Actions Bar */}

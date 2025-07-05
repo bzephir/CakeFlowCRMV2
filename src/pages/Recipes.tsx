@@ -610,7 +610,7 @@ const Recipes: React.FC = () => {
 
   return (
     <div className="flex-1 overflow-hidden">
-      <Header title="Recipes" subtitle="Manage your cake recipes, costs, and pricing strategies" />
+      <Header title="Recipes" />
       
       <div className="p-6">
         {/* Actions Bar */}

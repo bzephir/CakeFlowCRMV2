@@ -113,7 +113,7 @@ const InquiryForm: React.FC = () => {
 
   return (
     <div className="flex-1 overflow-hidden">
-      <Header title="Customer Inquiry Form" subtitle="Create beautiful inquiry forms for your potential customers" />
+      <Header title="Customer Inquiry Form" />
       
       <div className="p-6">
         {/* Form Type Selector */}

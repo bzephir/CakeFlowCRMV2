@@ -285,7 +285,7 @@ const Orders: React.FC = () => {
 
   return (
     <div className="flex-1 overflow-hidden">
-      <Header title="Orders" subtitle="Manage all your cake orders and track their progress" />
+      <Header title="Orders" />
       
       <div className="p-6">
         {/* Actions Bar */}

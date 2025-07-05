@@ -251,7 +251,7 @@ const Invoice: React.FC = () => {
         </div>
       </div>
       
-      <Header title={isNewInvoice ? "Create Invoice" : "Invoice"} subtitle={isNewInvoice ? "Create a new invoice for your customer" : `Invoice ${invoice.id} for ${invoice.customer.name}`} />
+      <Header title={isNewInvoice ? "Create Invoice" : "Invoice"} />
       
       <div className="p-6 print:p-0">
         {/* Back Button - hide when printing */}

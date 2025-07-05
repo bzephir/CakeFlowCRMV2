@@ -277,7 +277,7 @@ const CreateOrder: React.FC = () => {
 
   return (
     <div className="flex-1 overflow-hidden">
-      <Header title="Create Order" subtitle={`Order ${orderNumber}`} />
+      <Header title="Create Order" />
       
       <div className="p-6">
         {/* Back Button */}

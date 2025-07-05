@@ -269,7 +269,7 @@ const Quotes: React.FC = () => {
 
   return (
     <div className="flex-1 overflow-hidden">
-      <Header title="Quotes" subtitle="Manage your quotes and convert them to orders" />
+      <Header title="Quotes" />
       
       <div className="p-6">
         {/* Actions Bar */}

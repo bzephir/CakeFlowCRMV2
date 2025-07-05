@@ -302,7 +302,7 @@ const CreateQuote: React.FC = () => {
 
   return (
     <div className="flex-1 overflow-hidden">
-      <Header title="Create Quote" subtitle={`Quote ${quoteNumber}`} />
+      <Header title="Create Quote" />
       
       <div className="p-6">
         {/* Back Button */}

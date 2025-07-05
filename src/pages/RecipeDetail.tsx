@@ -280,10 +280,7 @@ const RecipeDetail: React.FC = () => {
 
   return (
     <div className="flex-1 overflow-hidden">
-      <Header 
-        title={recipe.name} 
-        subtitle={`${recipe.category} • ${recipe.yield.quantity} ${recipe.yield.unit}`} 
-      />
+      <Header title={recipe.name} />
       
       <div className="p-6">
         {/* Back Button */}

@@ -393,10 +393,7 @@ if (!currentCustomer) {
 
 return (
     <div className="flex-1 overflow-hidden">
-      <Header 
-        title={`${currentCustomer.firstName} ${currentCustomer.lastName}`} 
-        subtitle="Customer project overview and management" 
-      />
+      <Header title={`${currentCustomer.firstName} ${currentCustomer.lastName}`} />
       
       <div className="p-6">
         {/* Back Button */}

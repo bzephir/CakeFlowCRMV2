@@ -61,10 +61,7 @@ const CalendarPage: React.FC = () => {
 
   return (
     <div className="flex-1 overflow-hidden">
-      <Header 
-        title="Calendar" 
-        subtitle="Manage your appointments, tasks, and schedule" 
-      />
+      <Header title="Calendar" />
       
       <div className="p-6">
         {/* Calendar Controls */}
