@@ -288,8 +288,8 @@ const Inquiries: React.FC = () => {
                       <div className="text-sm text-gray-900 capitalize">{inquiry.type}</div>
                       <div className="text-sm text-gray-500">
                         {inquiry.eventDate && (
-                          <div className="flex items-center">
-                            <Calendar className=/*"h-3 w-3 mr-1"*/ "text-sm text-gray-900 capitalize" />
+                          <div className=/*"flex items-center"*/  "text-sm text-gray-900 capitalize" >
+                            <Calendar className="h-3 w-3 mr-1"/>
                             {formatDate(inquiry.eventDate)}
                             {inquiry.eventTime && ` at ${inquiry.eventTime}`}
                           </div>
