@@ -294,7 +294,11 @@ const Inquiries: React.FC = () => {
                        
                       </div>
                     </td>
-                     {formatDate(inquiry.eventDate)}
+                      {inquiry.eventDate && (
+                      <div className=/*"flex items-center"*/  "text-sm text-gray-900 capitalize" >
+                          
+                          </div>
+                        )} {formatDate(inquiry.eventDate)}
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(inquiry.status)}`}>
                         {inquiry.status}
