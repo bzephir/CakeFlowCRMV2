@@ -290,7 +290,9 @@ const Inquiries: React.FC = () => {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-900 capitalize"> {inquiry.type} </div>
                       <div className="text-sm text-gray-500">
-                       
+                        {inquiry.eventDate && (
+                      <div className=/*"flex items-center"*/  "text-sm text-gray-900 capitalize" >
+                          
                           </div>
                         )}
                        
