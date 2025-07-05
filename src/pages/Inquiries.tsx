@@ -279,7 +279,6 @@ const Inquiries: React.FC = () => {
                           </div>
                           <div className="flex flex-col text-xs text-gray-500">
                             <span className="flex items-center">
-                             
                             </span>
                           </div>
                         </div>
@@ -290,7 +289,7 @@ const Inquiries: React.FC = () => {
                       <div className="text-sm text-gray-500">
                         {inquiry.eventDate && (
                           <div className="flex items-center">
-                            <Calendar className="h-3 w-3 mr-1" />
+                            <Calendar className=/*"h-3 w-3 mr-1"*/ "text-sm text-gray-900 capitalize" />
                             {formatDate(inquiry.eventDate)}
                             {inquiry.eventTime && ` at ${inquiry.eventTime}`}
                           </div>
