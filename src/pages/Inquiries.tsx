@@ -295,11 +295,9 @@ const Inquiries: React.FC = () => {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      {inquiry.eventDate && (
-                      <div className=/*"flex items-center"*/  "text-sm text-gray-900 capitalize" >
+                      <div className="text-sm text-gray-900 capitalize" >
                           
-                       
-                        )} {formatDate(inquiry.eventDate)}
+                        {formatDate(inquiry.eventDate)}
                       </div>
                       <div className="text-sm text-gray-500">
                       
