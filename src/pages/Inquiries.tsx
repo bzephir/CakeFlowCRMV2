@@ -294,11 +294,7 @@ const Inquiries: React.FC = () => {
                             {inquiry.eventTime && ` at ${inquiry.eventTime}`}
                           </div>
                         )}
-                        {inquiry.guestCount && (
-                          <div className="text-xs text-gray-500">
-                            {inquiry.guestCount} guests
-                          </div>
-                        )}
+                       
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
