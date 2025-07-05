@@ -241,7 +241,10 @@ const Inquiries: React.FC = () => {
                     Customer
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Event Details
+                    Event Type
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                     Event Date
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
@@ -289,9 +292,7 @@ const Inquiries: React.FC = () => {
                       <div className="text-sm text-gray-500">
                         {inquiry.eventDate && (
                           <div className=/*"flex items-center"*/  "text-sm text-gray-900 capitalize" >
-                           
                            {formatDate(inquiry.eventDate)}
-                           
                           </div>
                         )}
                        
