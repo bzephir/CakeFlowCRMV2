@@ -262,8 +262,7 @@ const Inquiries: React.FC = () => {
                         <div className="ml-4">
                           <div className="text-sm font-medium text-gray-900">{inquiry.id}</div>
                           <div className="text-xs text-gray-500 flex items-center">
-                          /* <Clock className="h-3 w-3 mr-1" />
-                            {formatDate(inquiry.submittedAt)} at {formatTime(inquiry.submittedAt)}
+                          
                           </div>
                         </div>
                       </div>
@@ -271,7 +270,7 @@ const Inquiries: React.FC = () => {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="flex-shrink-0">
-                          <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center"> */
+                          <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center">
                             <User className="h-4 w-4 text-white" />
                           </div>
                         </div>
