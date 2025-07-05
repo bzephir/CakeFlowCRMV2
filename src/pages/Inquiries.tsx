@@ -298,7 +298,7 @@ const Inquiries: React.FC = () => {
                       {inquiry.eventDate && (
                       <div className=/*"flex items-center"*/  "text-sm text-gray-900 capitalize" >
                           
-                          </div>
+                       
                         )} {formatDate(inquiry.eventDate)}
                       </div>
                       <div className="text-sm text-gray-500">
