@@ -279,12 +279,7 @@ const Inquiries: React.FC = () => {
                           </div>
                           <div className="flex flex-col text-xs text-gray-500">
                             <span className="flex items-center">
-                              <Mail className="h-3 w-3 mr-1" />
-                              {inquiry.email}
-                            </span>
-                            <span className="flex items-center">
-                              <Phone className="h-3 w-3 mr-1" />
-                              {inquiry.phone}
+                             
                             </span>
                           </div>
                         </div>
