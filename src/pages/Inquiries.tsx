@@ -93,7 +93,7 @@ const Inquiries: React.FC = () => {
 
   return (
     <div className="flex-1 overflow-hidden">
-      <Header title="Inquiries" subtitle="Manage customer inquiries and convert them to orders" />
+      <Header title="Inquiries" />
       
       <div className="p-6">
         {/* Actions Bar */}
