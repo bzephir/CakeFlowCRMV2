@@ -74,7 +74,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="flex-1 overflow-hidden">
-      <Header title="Dashboard" subtitle="Welcome back! Here's what's happening with your cake business." />
+      <Header title="Dashboard" />
       
       <div className="p-6">
         {/* Stats Grid */}
