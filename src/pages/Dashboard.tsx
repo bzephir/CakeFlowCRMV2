@@ -123,10 +123,10 @@ const Dashboard: React.FC = () => {
 
         {/* Recent Orders and Today's Deliveries */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Recent Orders */}
+          {/* Recent Activity */}
           <div className="bg-white shadow-sm rounded-lg border border-gray-200">
             <div className="px-6 py-4 border-b border-gray-200">
-              <h3 className="text-lg font-semibold text-gray-900">Recent Orders</h3>
+              <h3 className="text-lg font-semibold text-gray-900">Recent Activity</h3>
             </div>
             <div className="overflow-hidden">
               <ul className="divide-y divide-gray-200">
@@ -160,11 +160,11 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
 
-          {/* Today's Deliveries */}
+          {/* Today's Orders */}
           <div className="bg-white shadow-sm rounded-lg border border-gray-200">
             <div className="px-6 py-4 border-b border-gray-200">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-gray-900">Today's Deliveries</h3>
+                <h3 className="text-lg font-semibold text-gray-900">Today's Orders</h3>
                 <Calendar className="h-5 w-5 text-gray-400" />
               </div>
             </div>
