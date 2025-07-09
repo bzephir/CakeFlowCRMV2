@@ -177,7 +177,28 @@ const Dashboard: React.FC = () => {
         </div>
 
         {/* Recent Metrics and Today's Orders */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Recent Metrics - Full Width */}
+        <div className="bg-white shadow-sm rounded-lg border border-gray-200 mb-6">
+          <div className="px-6 py-4 border-b border-gray-200">
+            <h3 className="text-lg font-semibold text-gray-900">Recent</h3>
+          </div>
+          <div className="p-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              {recentMetrics.map((metric, index) => (
+                <div key={index} className="flex items-center">
+                  <div className="flex-shrink-0 mr-3">
+                    <metric.icon className={`h-5 w-5 ${metric.color}`} />
+                  </div>
+                  <span className="text-sm text-gray-900">
+                    <span className="font-semibold">{metric.count}</span> {metric.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        
+        {/* Today's Orders - Full Width */}
           {/* Today's Orders */}
           <div className="bg-white shadow-sm rounded-lg border border-gray-200">
             <div className="px-6 py-4 border-b border-gray-200">
@@ -235,28 +256,6 @@ const Dashboard: React.FC = () => {
               </button>
             </div>
           </div>
-          
-          {/* Recent Metrics */}
-          <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-            <div className="px-6 py-4 border-b border-gray-200">
-              <h3 className="text-lg font-semibold text-gray-900">Recent</h3>
-            </div>
-            <div className="p-6">
-              <ul className="space-y-4">
-                {recentMetrics.map((metric, index) => (
-                  <li key={index} className="flex items-center">
-                    <div className="flex-shrink-0 mr-3">
-                      <metric.icon className={`h-5 w-5 ${metric.color}`} />
-                    </div>
-                    <span className="text-sm text-gray-900">
-                      <span className="font-semibold">{metric.count}</span> {metric.label}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Event Modal */}
