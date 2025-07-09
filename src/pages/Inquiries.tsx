@@ -257,7 +257,7 @@ const Inquiries: React.FC = () => {
               <tbody className="bg-white divide-y divide-gray-200">
                 {sortedInquiries.map((inquiry) => (
                   <tr key={inquiry.id} className={`hover:bg-gray-50 transition-colors ${inquiry.status === 'new' ? 'bg-coral-50' : ''}`}>
-                    <td className="px-3 py-4 whitespace-nowrap">
+                    <td className="px-2 py-1 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="flex-shrink-0">
                           {getTypeIcon(inquiry.type)}
