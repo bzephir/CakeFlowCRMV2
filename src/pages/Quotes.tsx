@@ -416,7 +416,7 @@ const Quotes: React.FC = () => {
                         {quote.status.charAt(0).toUpperCase() + quote.status.slice(1)}
                       </span>
                     </td>
-                    <td className="px-3 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <td className="px-2 py-1 whitespace-nowrap text-right text-sm font-medium">
                       <div className="flex justify-end space-x-2">
                         <button 
                           onClick={() => handleViewQuote(quote.id)}
