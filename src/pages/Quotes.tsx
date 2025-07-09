@@ -399,12 +399,7 @@ const Quotes: React.FC = () => {
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900">{quote.customer}</div>
                     </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="flex items-center text-sm text-gray-900">
-                        <Calendar className="h-4 w-4 mr-2 text-gray-400" />
-                        {formatDate(quote.issueDate)}
-                      </div>
-                    </td>
+                   
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="flex items-center text-sm text-gray-900">
                         <Calendar className="h-4 w-4 mr-2 text-gray-400" />
