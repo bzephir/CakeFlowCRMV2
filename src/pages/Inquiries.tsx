@@ -270,7 +270,7 @@ const Inquiries: React.FC = () => {
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-2 py-1 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="flex-shrink-0">
                           <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center">
@@ -287,7 +287,7 @@ const Inquiries: React.FC = () => {
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900 capitalize"> {inquiry.type} </div>
                       <div className="text-sm text-gray-500">
                       </div>
@@ -299,7 +299,7 @@ const Inquiries: React.FC = () => {
                        
                     </td>
                      
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-2 py-1 whitespace-nowrap">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(inquiry.status)}`}>
                         {inquiry.status}
                       </span>
@@ -307,7 +307,7 @@ const Inquiries: React.FC = () => {
                         {inquiry.assignedTo ? `Assigned to ${inquiry.assignedTo}` : 'Unassigned'}
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <td className="px-2 py-1 whitespace-nowrap text-right text-sm font-medium">
                       <button 
                         onClick={() => handleViewInquiry(inquiry.id)}
                         className="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded-md text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 transition-all"
