@@ -177,29 +177,34 @@ const Dashboard: React.FC = () => {
         </div>
 
         {/* Recent Metrics and Today's Orders */}
-        {/* Recent Metrics - Full Width */}
-        <div className="bg-white shadow-sm rounded-lg border border-gray-200 mb-6">
-          <div className="px-6 py-4 border-b border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-900">Recent Activity</h3>
-          </div>
-          <div className="px-6 py-4">
-            <div className="flex flex-wrap gap-6">
-              {recentMetrics.map((metric, index) => (
-                <div key={index} className="flex items-center space-x-2">
-                  <div className="flex-shrink-0">
-                    <metric.icon className={`h-5 w-5 ${metric.color}`} />
-                  </div>
-                  <span className="text-sm text-gray-900">
-                    <span className="font-semibold">{metric.count}</span> {metric.label}
-                  </span>
-                </div>
-              ))}
+        <div className="space-y-6">
+          {/* Recent - Vertical List */}
+          <div className="bg-white shadow-sm rounded-lg border border-gray-200">
+            <div className="px-6 py-4 border-b border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-900">Recent</h3>
+            </div>
+            <div className="overflow-hidden">
+              <ul className="divide-y divide-gray-200">
+                {recentMetrics.map((metric, index) => (
+                  <li key={index} className="px-6 py-3 hover:bg-gray-50 transition-colors">
+                    <div className="flex items-center space-x-3">
+                      <metric.icon className={`h-5 w-5 ${metric.color}`} />
+                      <span className="text-sm text-gray-900">
+                        <span className="font-semibold">{metric.count}</span> {metric.label}
+                      </span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
+              <button className="text-sm text-coral-600 hover:text-coral-500 font-medium">
+                View all items →
+              </button>
             </div>
           </div>
-        </div>
-        
-        {/* Today's Orders - Full Width */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          
+          {/* Today's Orders - Table Format */}
           <div className="bg-white shadow-sm rounded-lg border border-gray-200">
             <div className="px-6 py-4 border-b border-gray-200">
               <div className="flex items-center justify-between">
@@ -207,26 +212,35 @@ const Dashboard: React.FC = () => {
                 <Calendar className="h-5 w-5 text-gray-400" />
               </div>
             </div>
-            <div className="px-6 py-4">
-              <table className="min-w-full">
-                <thead>
-                  <tr className="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <th className="pb-2">Customer</th>
-                    <th className="pb-2">Time</th>
-                    <th className="pb-2">Type</th>
-                    <th className="pb-2">Address</th>
+            <div className="overflow-x-auto">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Customer
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Time
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Type
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Address
+                    </th>
+                  </div>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200">
+                <tbody className="bg-white divide-y divide-gray-200">
                   {sortedTodaysOrders.map((order) => (
-                    <tr key={order.id} className="hover:bg-gray-50">
-                      <td className="py-2 pr-2">
-                        <p className="text-sm font-medium text-gray-900">{order.customerName}</p>
+                    <tr key={order.id} className="hover:bg-gray-50 transition-colors">
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm font-medium text-gray-900">{order.customerName}</div>
                       </td>
-                      <td className="py-2 pr-2">
-                        <p className="text-sm text-gray-600">{formatTime(order.eventTime)}</p>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-600">{formatTime(order.eventTime)}</div>
                       </td>
-                      <td className="py-2 pr-2">
+                      <td className="px-6 py-4 whitespace-nowrap">
                         <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
                           order.orderType === 'pickup' 
                             ? 'bg-mint-100 text-mint-800' 
@@ -245,11 +259,11 @@ const Dashboard: React.FC = () => {
                           )}
                         </span>
                       </td>
-                      <td className="py-2">
+                      <td className="px-6 py-4 whitespace-nowrap">
                         {order.orderType === 'delivery' && order.address ? (
-                          <p className="text-sm text-gray-500 truncate max-w-xs">{order.address}</p>
+                          <div className="text-sm text-gray-500">{order.address}</div>
                         ) : (
-                          <p className="text-sm text-gray-400">-</p>
+                          <div className="text-sm text-gray-400">-</div>
                         )}
                       </td>
                     </tr>
@@ -260,57 +274,6 @@ const Dashboard: React.FC = () => {
             <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
               <button className="text-sm text-coral-600 hover:text-coral-500 font-medium">
                 View all orders →
-              </button>
-            </div>
-          </div>
-          
-          {/* Empty column for layout balance */}
-          <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-            <div className="px-6 py-4 border-b border-gray-200">
-              <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-gray-900">Upcoming Events</h3>
-                <Calendar className="h-5 w-5 text-gray-400" />
-              </div>
-            </div>
-            <div className="px-6 py-4">
-              <div className="space-y-4">
-                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                  <Calendar className="h-5 w-5 text-coral-500" />
-                  <div>
-                    <div className="text-sm font-medium text-gray-900">Wedding Cake Delivery</div>
-                    <div className="text-sm text-gray-500">Jan 20 at 10:00 AM</div>
-                  </div>
-                  <span className="ml-auto inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-mint-100 text-mint-800">
-                    Confirmed
-                  </span>
-                </div>
-                
-                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                  <Calendar className="h-5 w-5 text-coral-500" />
-                  <div>
-                    <div className="text-sm font-medium text-gray-900">Cake Tasting Appointment</div>
-                    <div className="text-sm text-gray-500">Jan 21 at 2:00 PM</div>
-                  </div>
-                  <span className="ml-auto inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-aqua-100 text-aqua-800">
-                    Scheduled
-                  </span>
-                </div>
-                
-                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                  <Calendar className="h-5 w-5 text-coral-500" />
-                  <div>
-                    <div className="text-sm font-medium text-gray-900">Corporate Event Setup</div>
-                    <div className="text-sm text-gray-500">Jan 22 at 9:00 AM</div>
-                  </div>
-                  <span className="ml-auto inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-coral-100 text-coral-800">
-                    Confirmed
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
-              <button className="text-sm text-coral-600 hover:text-coral-500 font-medium">
-                View calendar →
               </button>
             </div>
           </div>
