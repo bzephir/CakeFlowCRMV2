@@ -179,7 +179,7 @@ const Dashboard: React.FC = () => {
         {/* Recent Metrics and Today's Orders */}
         <div className="space-y-6">
           {/* Recent - Vertical List */}
-          <div className="bg-white shadow-sm rounded-lg border border-gray-200 bg-color-50">
+          <div className="bg-white shadow-sm rounded-lg border border-gray-200 bg-coral-50">
             <div className="px-6 py-4 border-b border-gray-200">
               <h3 className="text-lg font-semibold text-gray-900">Recent</h3>
             </div>
@@ -205,7 +205,7 @@ const Dashboard: React.FC = () => {
           </div>
           
           {/* Today's Orders - Table Format */}
-          <div className="bg-white shadow-sm rounded-lg border border-gray-200 bg-color-50">
+          <div className="bg-white shadow-sm rounded-lg border border-gray-200 bg-coral-50">
             <div className="px-6 py-4 border-b border-gray-200">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold text-gray-900">Today's Orders</h3>
