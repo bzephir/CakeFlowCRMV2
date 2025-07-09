@@ -180,8 +180,8 @@ const Dashboard: React.FC = () => {
         <div className="space-y-6">
           {/* Recent - Vertical List */}
           <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-            <div className="px-6 py-4 border-b border-gray-200">
-              <h3 className="text-lg font-semibold text-gray-900 bg-coral-900">Recent</h3>
+            <div className="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-coral-400 to-pink-400 rounded-t-lg">
+              <h3 className="text-lg font-semibold text-gray-900 bg-coral-400">Recent</h3>
             </div>
             <div className="overflow-hidden">
               <ul className="divide-y divide-gray-200">
