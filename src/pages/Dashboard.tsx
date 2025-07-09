@@ -180,13 +180,13 @@ const Dashboard: React.FC = () => {
         {/* Recent Metrics - Full Width */}
         <div className="bg-white shadow-sm rounded-lg border border-gray-200 mb-6">
           <div className="px-6 py-4 border-b border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-900">Recent</h3>
+            <h3 className="text-lg font-semibold text-gray-900">Recent Activity</h3>
           </div>
-          <div className="p-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="px-6 py-4">
+            <div className="flex flex-wrap gap-6">
               {recentMetrics.map((metric, index) => (
-                <div key={index} className="flex items-center">
-                  <div className="flex-shrink-0 mr-3">
+                <div key={index} className="flex items-center space-x-2">
+                  <div className="flex-shrink-0">
                     <metric.icon className={`h-5 w-5 ${metric.color}`} />
                   </div>
                   <span className="text-sm text-gray-900">
@@ -199,7 +199,7 @@ const Dashboard: React.FC = () => {
         </div>
         
         {/* Today's Orders - Full Width */}
-          {/* Today's Orders */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="bg-white shadow-sm rounded-lg border border-gray-200">
             <div className="px-6 py-4 border-b border-gray-200">
               <div className="flex items-center justify-between">
@@ -207,48 +207,55 @@ const Dashboard: React.FC = () => {
                 <Calendar className="h-5 w-5 text-gray-400" />
               </div>
             </div>
-            <div className="p-4">
-              <ul className="space-y-2">
-                {sortedTodaysOrders.map((order) => (
-                  <li key={order.id} className="border-l-2 border-coral-400 pl-3 py-2">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center space-x-2">
-                          <p className="text-xs font-medium text-gray-900">
-                            {order.customerName}
-                          </p>
-                          <span className={`inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ${
-                            order.orderType === 'pickup' 
-                              ? 'bg-mint-100 text-mint-800' 
-                              : 'bg-aqua-100 text-aqua-800'
-                          }`}>
-                            {order.orderType === 'pickup' ? (
-                              <>
-                                <Package className="h-2.5 w-2.5 mr-0.5" />
-                                Pickup
-                              </>
-                            ) : (
-                              <>
-                                <MapPin className="h-2.5 w-2.5 mr-0.5" />
-                                Delivery
-                              </>
-                            )}
-                          </span>
-                        </div>
-                        <div className="text-xs text-gray-600">
-                          {formatDate(order.eventDate)} at {formatTime(order.eventTime)}
-                        </div>
-                        {order.orderType === 'delivery' && order.address && (
-                          <div className="flex items-start text-xs text-gray-500 mt-0.5">
-                            <MapPin className="h-2.5 w-2.5 mr-0.5 mt-0.5 flex-shrink-0" />
-                            <span>{order.address}</span>
-                          </div>
+            <div className="px-6 py-4">
+              <table className="min-w-full">
+                <thead>
+                  <tr className="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="pb-2">Customer</th>
+                    <th className="pb-2">Time</th>
+                    <th className="pb-2">Type</th>
+                    <th className="pb-2">Address</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {sortedTodaysOrders.map((order) => (
+                    <tr key={order.id} className="hover:bg-gray-50">
+                      <td className="py-2 pr-2">
+                        <p className="text-sm font-medium text-gray-900">{order.customerName}</p>
+                      </td>
+                      <td className="py-2 pr-2">
+                        <p className="text-sm text-gray-600">{formatTime(order.eventTime)}</p>
+                      </td>
+                      <td className="py-2 pr-2">
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
+                          order.orderType === 'pickup' 
+                            ? 'bg-mint-100 text-mint-800' 
+                            : 'bg-aqua-100 text-aqua-800'
+                        }`}>
+                          {order.orderType === 'pickup' ? (
+                            <>
+                              <Package className="h-3 w-3 mr-1" />
+                              Pickup
+                            </>
+                          ) : (
+                            <>
+                              <MapPin className="h-3 w-3 mr-1" />
+                              Delivery
+                            </>
+                          )}
+                        </span>
+                      </td>
+                      <td className="py-2">
+                        {order.orderType === 'delivery' && order.address ? (
+                          <p className="text-sm text-gray-500 truncate max-w-xs">{order.address}</p>
+                        ) : (
+                          <p className="text-sm text-gray-400">-</p>
                         )}
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
             <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
               <button className="text-sm text-coral-600 hover:text-coral-500 font-medium">
@@ -256,6 +263,58 @@ const Dashboard: React.FC = () => {
               </button>
             </div>
           </div>
+          
+          {/* Empty column for layout balance */}
+          <div className="bg-white shadow-sm rounded-lg border border-gray-200">
+            <div className="px-6 py-4 border-b border-gray-200">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-gray-900">Upcoming Events</h3>
+                <Calendar className="h-5 w-5 text-gray-400" />
+              </div>
+            </div>
+            <div className="px-6 py-4">
+              <div className="space-y-4">
+                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                  <Calendar className="h-5 w-5 text-coral-500" />
+                  <div>
+                    <div className="text-sm font-medium text-gray-900">Wedding Cake Delivery</div>
+                    <div className="text-sm text-gray-500">Jan 20 at 10:00 AM</div>
+                  </div>
+                  <span className="ml-auto inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-mint-100 text-mint-800">
+                    Confirmed
+                  </span>
+                </div>
+                
+                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                  <Calendar className="h-5 w-5 text-coral-500" />
+                  <div>
+                    <div className="text-sm font-medium text-gray-900">Cake Tasting Appointment</div>
+                    <div className="text-sm text-gray-500">Jan 21 at 2:00 PM</div>
+                  </div>
+                  <span className="ml-auto inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-aqua-100 text-aqua-800">
+                    Scheduled
+                  </span>
+                </div>
+                
+                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                  <Calendar className="h-5 w-5 text-coral-500" />
+                  <div>
+                    <div className="text-sm font-medium text-gray-900">Corporate Event Setup</div>
+                    <div className="text-sm text-gray-500">Jan 22 at 9:00 AM</div>
+                  </div>
+                  <span className="ml-auto inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-coral-100 text-coral-800">
+                    Confirmed
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
+              <button className="text-sm text-coral-600 hover:text-coral-500 font-medium">
+                View calendar →
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Event Modal */}
