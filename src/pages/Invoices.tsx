@@ -363,7 +363,7 @@ const Invoices: React.FC = () => {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-3 py-3 text-left">
+                  <th className="px-2 py-1 text-left">
                     <div className="flex items-center">
                       <input
                         type="checkbox"
@@ -373,31 +373,31 @@ const Invoices: React.FC = () => {
                       />
                     </div>
                   </th>
-                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Invoice #
                   </th>
-                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Customer
                   </th>
-                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Event Type
                   </th>
-                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Event Date
                   </th>
-                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Issue Date
                   </th>
-                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Due Date
                   </th>
-                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Amount
                   </th>
-                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-3 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -405,7 +405,7 @@ const Invoices: React.FC = () => {
               <tbody className="bg-white divide-y divide-gray-200">
                 {currentInvoices.map((invoice) => (
                   <tr key={invoice.id} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-3 py-4 whitespace-nowrap">
+                    <td className="px-2 py-1 whitespace-nowrap">
                       <div className="flex items-center">
                         <input
                           type="checkbox"
@@ -415,37 +415,37 @@ const Invoices: React.FC = () => {
                         />
                       </div>
                     </td>
-                    <td className="px-3 py-4 whitespace-nowrap">
+                    <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900 cursor-pointer hover:text-coral-600" onClick={() => handleViewInvoice(invoice.id)}>
                         {invoice.id}
                       </div>
                     </td>
-                    <td className="px-3 py-4 whitespace-nowrap">
+                    <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900">{invoice.customer}</div>
                     </td>
-                    <td className="px-3 py-4 whitespace-nowrap">
+                    <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{invoice.eventType}</div>
                     </td>
-                    <td className="px-3 py-4 whitespace-nowrap">
+                    <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{formatDate(invoice.eventDate)}</div>
                       <div className="text-xs text-gray-500">{invoice.eventTime && formatTime(invoice.eventTime)}</div>
                     </td>
-                    <td className="px-3 py-4 whitespace-nowrap">
+                    <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{formatDate(invoice.issueDate)}</div>
                     </td>
-                    <td className="px-3 py-4 whitespace-nowrap">
+                    <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{formatDate(invoice.dueDate)}</div>
                     </td>
-                    <td className="px-3 py-4 whitespace-nowrap">
+                    <td className="px-2 py-1 whitespace-nowrap text-right">
                       <div className="text-sm font-medium text-gray-900">{formatCurrency(invoice.amount)}</div>
                     </td>
-                    <td className="px-3 py-4 whitespace-nowrap">
+                    <td className="px-2 py-1 whitespace-nowrap">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(invoice.status)}`}>
                         {getStatusIcon(invoice.status)}
                         {getStatusText(invoice.status)}
                       </span>
                     </td>
-                    <td className="px-3 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <td className="px-2 py-1 whitespace-nowrap text-right text-sm font-medium">
                       <div className="flex justify-end space-x-2">
                         <button 
                           onClick={() => handleViewInvoice(invoice.id)}

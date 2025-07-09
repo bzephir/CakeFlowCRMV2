@@ -345,7 +345,7 @@ const Quotes: React.FC = () => {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-3 py-3 text-left">
+                  <th className="px-2 py-1 text-left">
                     <div className="flex items-center">
                       <input
                         type="checkbox"
@@ -355,23 +355,23 @@ const Quotes: React.FC = () => {
                       />
                     </div>
                   </th>
-                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Quote #
                   </th>
-                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Customer
                   </th>
-                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Date Issued
                   </th>
-                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                    
                     Amount
                   </th>
-                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-3 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -397,14 +397,17 @@ const Quotes: React.FC = () => {
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900">{quote.customer}</div>
                     </td>
-                   
+                    <td className="px-2 py-1 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">{formatDate(quote.issueDate)}</div>
+                    </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="flex items-center text-sm text-gray-900">
                         <Calendar className="h-4 w-4 mr-2 text-gray-400" />
                         {formatDate(quote.expiryDate)}
-                      </div>                      <div className="text-xs text-gray-500">{formatDate(quote.eventDate)}</div>
+                      </div>
+                      <div className="text-xs text-gray-500">{formatDate(quote.eventDate)}</div>
                     </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
+                    <td className="px-2 py-1 whitespace-nowrap text-right">
                       <div className="text-sm font-medium text-gray-900">{formatCurrency(quote.amount)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
@@ -413,7 +416,7 @@ const Quotes: React.FC = () => {
                         {quote.status.charAt(0).toUpperCase() + quote.status.slice(1)}
                       </span>
                     </td>
-                    <td className="px-3 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <td className="px-2 py-1 whitespace-nowrap text-right text-sm font-medium">
                       <div className="flex justify-end space-x-2">
                         <button 
                           onClick={() => handleViewQuote(quote.id)}

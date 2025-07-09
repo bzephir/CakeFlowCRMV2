@@ -234,22 +234,22 @@ const Inquiries: React.FC = () => {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Inquiry
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Customer
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Event Type
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                      Event Date
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -295,17 +295,15 @@ const Inquiries: React.FC = () => {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-900 capitalize" > {formatDate(inquiry.eventDate)}</div>
                       <div className="text-sm text-gray-500"> </div>
-                      
-                       
                     </td>
-                     
                     <td className="px-2 py-1 whitespace-nowrap">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(inquiry.status)}`}>
                         {inquiry.status}
                       </span>
-                     <div className="text-xs text-gray-500 mt-1">
-                       {inquiry.assignedTo ? `Assigned to ${inquiry.assignedTo}` : 'Unassigned'}
-                      </div>                    </td>
+                      <div className="text-xs text-gray-500 mt-1">
+                        {inquiry.assignedTo ? `Assigned to ${inquiry.assignedTo}` : 'Unassigned'}
+                      </div>
+                    </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right text-sm font-medium">
                       <button 
                         onClick={() => handleViewInquiry(inquiry.id)}

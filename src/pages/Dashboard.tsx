@@ -215,16 +215,16 @@ const Dashboard: React.FC = () => {
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th scope="col" className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Customer
                     </th>
-                    <th scope="col" className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Time
                     </th>
-                    <th scope="col" className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Type
                     </th>
-                    <th scope="col" className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Address
                     </th>
                   </tr>
@@ -232,13 +232,13 @@ const Dashboard: React.FC = () => {
                 <tbody className="bg-white divide-y divide-gray-200">
                   {sortedTodaysOrders.map((order) => (
                     <tr key={order.id} className="hover:bg-gray-50 transition-colors">
-                      <td className="px-4 py-2 whitespace-nowrap">
+                      <td className="px-2 py-1 whitespace-nowrap">
                         <div className="text-sm font-medium text-gray-900">{order.customerName}</div>
                       </td>
-                      <td className="px-4 py-2 whitespace-nowrap">
+                      <td className="px-2 py-1 whitespace-nowrap">
                         <div className="text-sm text-gray-600">{formatTime(order.eventTime)}</div>
                       </td>
-                      <td className="px-4 py-2 whitespace-nowrap">
+                      <td className="px-2 py-1 whitespace-nowrap">
                         <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
                           order.orderType === 'pickup' 
                             ? 'bg-mint-100 text-mint-800' 
@@ -257,7 +257,7 @@ const Dashboard: React.FC = () => {
                           )}
                         </span>
                       </td>
-                      <td className="px-4 py-2 whitespace-nowrap">
+                      <td className="px-2 py-1 whitespace-nowrap">
                         {order.orderType === 'delivery' && order.address ? (
                           <div className="text-sm text-gray-500">{order.address}</div>
                         ) : (
