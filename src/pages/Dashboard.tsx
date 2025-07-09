@@ -206,7 +206,7 @@ const Dashboard: React.FC = () => {
           
           {/* Today's Orders - Table Format */}
           <div className="bg-white shadow-sm rounded-lg border border-gray-200 bg-coral-50">
-            <div className="px-6 py-4 border-b border-gray-200">
+            <div className="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-coral-400 to-pink-400 rounded-t-lg">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold text-gray-900">Today's Orders</h3>
                 <Calendar className="h-5 w-5 text-gray-400" />
