@@ -303,8 +303,9 @@ const Inquiries: React.FC = () => {
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(inquiry.status)}`}>
                         {inquiry.status}
                       </span>
-                    
-                    </td>
+                     <div className="text-xs text-gray-500 mt-1">
+                       {inquiry.assignedTo ? `Assigned to ${inquiry.assignedTo}` : 'Unassigned'}
+                      </div>                    </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right text-sm font-medium">
                       <button 
                         onClick={() => handleViewInquiry(inquiry.id)}
