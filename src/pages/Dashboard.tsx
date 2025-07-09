@@ -11,7 +11,13 @@ import {
   Calendar,
   AlertCircle,
   CheckCircle2,
-  Clock
+  Clock,
+  FileText,
+  UserCheck,
+  ClipboardList,
+  Mail,
+  MapPin,
+  Package
 } from 'lucide-react';
 
 const Dashboard: React.FC = () => {
@@ -19,39 +25,88 @@ const Dashboard: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
 
-  const recentOrders = [
-    { id: 'O-202501-0001', customer: 'Sarah Johnson', event: 'Wedding Cake', date: '2025-01-15', status: 'in-production', amount: '$450' },
-    { id: 'O-202501-0002', customer: 'Mike Chen', event: 'Birthday Cake', date: '2025-01-16', status: 'confirmed', amount: '$120' },
-    { id: 'O-202501-0003', customer: 'Emma Davis', event: 'Corporate Event', date: '2025-01-18', status: 'quoted', amount: '$280' },
-    { id: 'O-202412-0025', customer: 'James Wilson', event: 'Anniversary Cake', date: '2025-01-20', status: 'inquiry', amount: '$180' },
+  // Recent metrics data
+  const recentMetrics = [
+    { count: 7, label: 'invoices are overdue', icon: AlertCircle, color: 'text-red-600' },
+    { count: 5, label: 'contracts need counter signatures', icon: FileText, color: 'text-orange-600' },
+    { count: 3, label: 'workflow actions need approval', icon: UserCheck, color: 'text-yellow-600' },
+    { count: 2, label: 'incomplete tasks', icon: ClipboardList, color: 'text-blue-600' },
+    { count: 1, label: 'inquiry not responded to', icon: Mail, color: 'text-purple-600' }
   ];
 
-  const upcomingDeliveries = [
-    { customer: 'Sarah Johnson', time: '10:00 AM', venue: 'Grand Hotel Ballroom', type: 'Wedding Cake' },
-    { customer: 'Lisa Park', time: '2:30 PM', venue: 'Community Center', type: 'Birthday Cake' },
-    { customer: 'Tech Corp', time: '4:00 PM', venue: 'Downtown Office', type: 'Corporate Cupcakes' },
-  ];
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'completed': return 'bg-mint-100 text-mint-800';
-      case 'in-production': return 'bg-aqua-100 text-aqua-800';
-      case 'confirmed': return 'bg-coral-100 text-coral-800';
-      case 'quoted': return 'bg-pink-100 text-pink-800';
-      case 'inquiry': return 'bg-gray-100 text-gray-800';
-      default: return 'bg-gray-100 text-gray-800';
+  // Today's orders data with pickup and delivery details
+  const todaysOrders = [
+    {
+      id: 'O-202501-0001',
+      customerName: 'Sarah Johnson',
+      eventDate: '2025-01-17',
+      eventTime: '09:00',
+      orderType: 'pickup',
+      address: null
+    },
+    {
+      id: 'O-202501-0002',
+      customerName: 'Mike Chen',
+      eventDate: '2025-01-17',
+      eventTime: '10:30',
+      orderType: 'delivery',
+      address: '456 Oak Avenue, Springfield, IL 62702'
+    },
+    {
+      id: 'O-202501-0003',
+      customerName: 'Emma Davis',
+      eventDate: '2025-01-17',
+      eventTime: '14:00',
+      orderType: 'pickup',
+      address: null
+    },
+    {
+      id: 'O-202501-0004',
+      customerName: 'James Wilson',
+      eventDate: '2025-01-17',
+      eventTime: '15:30',
+      orderType: 'delivery',
+      address: '321 Elm Street, Springfield, IL 62704'
+    },
+    {
+      id: 'O-202501-0005',
+      customerName: 'Lisa Park',
+      eventDate: '2025-01-17',
+      eventTime: '16:00',
+      orderType: 'pickup',
+      address: null
+    },
+    {
+      id: 'O-202501-0006',
+      customerName: 'Robert Smith',
+      eventDate: '2025-01-17',
+      eventTime: '17:45',
+      orderType: 'delivery',
+      address: '654 Maple Drive, Springfield, IL 62705'
     }
+  ];
+
+  // Sort today's orders chronologically by event time
+  const sortedTodaysOrders = [...todaysOrders].sort((a, b) => {
+    const timeA = new Date(`${a.eventDate} ${a.eventTime}`);
+    const timeB = new Date(`${b.eventDate} ${b.eventTime}`);
+    return timeA.getTime() - timeB.getTime();
+  });
+
+  const formatTime = (timeString: string) => {
+    const [hours, minutes] = timeString.split(':');
+    const hour = parseInt(hours);
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+    const displayHour = hour % 12 || 12;
+    return `${displayHour}:${minutes} ${ampm}`;
   };
 
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'completed': return <CheckCircle2 className="h-4 w-4" />;
-      case 'in-production': return <Clock className="h-4 w-4" />;
-      case 'confirmed': return <CheckCircle2 className="h-4 w-4" />;
-      case 'quoted': return <AlertCircle className="h-4 w-4" />;
-      case 'inquiry': return <AlertCircle className="h-4 w-4" />;
-      default: return <AlertCircle className="h-4 w-4" />;
-    }
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { 
+      month: 'short', 
+      day: 'numeric' 
+    });
   };
 
   const handleCreateEvent = (date: string, time?: string) => {
@@ -121,42 +176,26 @@ const Dashboard: React.FC = () => {
           />
         </div>
 
-        {/* Recent Orders and Today's Deliveries */}
+        {/* Recent Metrics and Today's Orders */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Recent Activity */}
+          {/* Recent Metrics */}
           <div className="bg-white shadow-sm rounded-lg border border-gray-200">
             <div className="px-6 py-4 border-b border-gray-200">
-              <h3 className="text-lg font-semibold text-gray-900">Recent Activity</h3>
+              <h3 className="text-lg font-semibold text-gray-900">Recent</h3>
             </div>
-            <div className="overflow-hidden">
-              <ul className="divide-y divide-gray-200">
-                {recentOrders.map((order) => (
-                  <li key={order.id} className="px-6 py-4 hover:bg-gray-50 transition-colors">
-                    <div className="flex items-center justify-between">
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-900 truncate">
-                          {order.customer}
-                        </p>
-                        <p className="text-sm text-gray-500 truncate">
-                          {order.event} • {order.date}
-                        </p>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(order.status)}`}>
-                          {getStatusIcon(order.status)}
-                          <span className="ml-1 capitalize">{order.status.replace('-', ' ')}</span>
-                        </span>
-                        <span className="text-sm font-semibold text-gray-900">{order.amount}</span>
-                      </div>
+            <div className="p-6">
+              <ul className="space-y-4">
+                {recentMetrics.map((metric, index) => (
+                  <li key={index} className="flex items-center">
+                    <div className="flex-shrink-0 mr-3">
+                      <metric.icon className={`h-5 w-5 ${metric.color}`} />
                     </div>
+                    <span className="text-sm text-gray-900">
+                      <span className="font-semibold">{metric.count}</span> {metric.label}
+                    </span>
                   </li>
                 ))}
               </ul>
-            </div>
-            <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
-              <button className="text-sm text-coral-600 hover:text-coral-500 font-medium">
-                View all orders →
-              </button>
             </div>
           </div>
 
@@ -168,21 +207,43 @@ const Dashboard: React.FC = () => {
                 <Calendar className="h-5 w-5 text-gray-400" />
               </div>
             </div>
-            <div className="overflow-hidden">
-              <ul className="divide-y divide-gray-200">
-                {upcomingDeliveries.map((delivery, index) => (
-                  <li key={index} className="px-6 py-4 hover:bg-gray-50 transition-colors">
-                    <div className="flex items-center justify-between">
+            <div className="p-6">
+              <ul className="space-y-4">
+                {sortedTodaysOrders.map((order) => (
+                  <li key={order.id} className="border-l-4 border-coral-400 pl-4">
+                    <div className="flex items-start justify-between">
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-900">
-                          {delivery.customer}
-                        </p>
-                        <p className="text-sm text-gray-500">
-                          {delivery.type} • {delivery.venue}
-                        </p>
-                      </div>
-                      <div className="text-sm font-semibold text-coral-600">
-                        {delivery.time}
+                        <div className="flex items-center space-x-2 mb-1">
+                          <p className="text-sm font-medium text-gray-900">
+                            {order.customerName}
+                          </p>
+                          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
+                            order.orderType === 'pickup' 
+                              ? 'bg-mint-100 text-mint-800' 
+                              : 'bg-aqua-100 text-aqua-800'
+                          }`}>
+                            {order.orderType === 'pickup' ? (
+                              <>
+                                <Package className="h-3 w-3 mr-1" />
+                                Pickup
+                              </>
+                            ) : (
+                              <>
+                                <MapPin className="h-3 w-3 mr-1" />
+                                Delivery
+                              </>
+                            )}
+                          </span>
+                        </div>
+                        <div className="text-sm text-gray-600 mb-1">
+                          {formatDate(order.eventDate)} at {formatTime(order.eventTime)}
+                        </div>
+                        {order.orderType === 'delivery' && order.address && (
+                          <div className="flex items-start text-xs text-gray-500">
+                            <MapPin className="h-3 w-3 mr-1 mt-0.5 flex-shrink-0" />
+                            <span>{order.address}</span>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </li>
@@ -191,7 +252,7 @@ const Dashboard: React.FC = () => {
             </div>
             <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
               <button className="text-sm text-coral-600 hover:text-coral-500 font-medium">
-                View delivery schedule →
+                View all orders →
               </button>
             </div>
           </div>
