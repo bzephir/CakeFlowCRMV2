@@ -178,6 +178,64 @@ const Dashboard: React.FC = () => {
 
         {/* Recent Metrics and Today's Orders */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Today's Orders */}
+          <div className="bg-white shadow-sm rounded-lg border border-gray-200">
+            <div className="px-6 py-4 border-b border-gray-200">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-gray-900">Today's Orders</h3>
+                <Calendar className="h-5 w-5 text-gray-400" />
+              </div>
+            </div>
+            <div className="p-4">
+              <ul className="space-y-2">
+                {sortedTodaysOrders.map((order) => (
+                  <li key={order.id} className="border-l-2 border-coral-400 pl-3 py-2">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center space-x-2">
+                          <p className="text-xs font-medium text-gray-900">
+                            {order.customerName}
+                          </p>
+                          <span className={`inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ${
+                            order.orderType === 'pickup' 
+                              ? 'bg-mint-100 text-mint-800' 
+                              : 'bg-aqua-100 text-aqua-800'
+                          }`}>
+                            {order.orderType === 'pickup' ? (
+                              <>
+                                <Package className="h-2.5 w-2.5 mr-0.5" />
+                                Pickup
+                              </>
+                            ) : (
+                              <>
+                                <MapPin className="h-2.5 w-2.5 mr-0.5" />
+                                Delivery
+                              </>
+                            )}
+                          </span>
+                        </div>
+                        <div className="text-xs text-gray-600">
+                          {formatDate(order.eventDate)} at {formatTime(order.eventTime)}
+                        </div>
+                        {order.orderType === 'delivery' && order.address && (
+                          <div className="flex items-start text-xs text-gray-500 mt-0.5">
+                            <MapPin className="h-2.5 w-2.5 mr-0.5 mt-0.5 flex-shrink-0" />
+                            <span>{order.address}</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
+              <button className="text-sm text-coral-600 hover:text-coral-500 font-medium">
+                View all orders →
+              </button>
+            </div>
+          </div>
+          
           {/* Recent Metrics */}
           <div className="bg-white shadow-sm rounded-lg border border-gray-200">
             <div className="px-6 py-4 border-b border-gray-200">
@@ -196,64 +254,6 @@ const Dashboard: React.FC = () => {
                   </li>
                 ))}
               </ul>
-            </div>
-          </div>
-
-          {/* Today's Orders */}
-          <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-            <div className="px-6 py-4 border-b border-gray-200">
-              <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-gray-900">Today's Orders</h3>
-                <Calendar className="h-5 w-5 text-gray-400" />
-              </div>
-            </div>
-            <div className="p-6">
-              <ul className="space-y-4">
-                {sortedTodaysOrders.map((order) => (
-                  <li key={order.id} className="border-l-4 border-coral-400 pl-4">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center space-x-2 mb-1">
-                          <p className="text-sm font-medium text-gray-900">
-                            {order.customerName}
-                          </p>
-                          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
-                            order.orderType === 'pickup' 
-                              ? 'bg-mint-100 text-mint-800' 
-                              : 'bg-aqua-100 text-aqua-800'
-                          }`}>
-                            {order.orderType === 'pickup' ? (
-                              <>
-                                <Package className="h-3 w-3 mr-1" />
-                                Pickup
-                              </>
-                            ) : (
-                              <>
-                                <MapPin className="h-3 w-3 mr-1" />
-                                Delivery
-                              </>
-                            )}
-                          </span>
-                        </div>
-                        <div className="text-sm text-gray-600 mb-1">
-                          {formatDate(order.eventDate)} at {formatTime(order.eventTime)}
-                        </div>
-                        {order.orderType === 'delivery' && order.address && (
-                          <div className="flex items-start text-xs text-gray-500">
-                            <MapPin className="h-3 w-3 mr-1 mt-0.5 flex-shrink-0" />
-                            <span>{order.address}</span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
-              <button className="text-sm text-coral-600 hover:text-coral-500 font-medium">
-                View all orders →
-              </button>
             </div>
           </div>
         </div>
