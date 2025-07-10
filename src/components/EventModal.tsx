@@ -214,7 +214,7 @@ const EventModal: React.FC<EventModalProps> = ({
           {/* Title */}
           <div>
             <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
-              Title *
+              {formData.type === 'task' ? 'Task Title *' : 'Title *'}
             </label>
             <input
               type="text"
@@ -227,7 +227,7 @@ const EventModal: React.FC<EventModalProps> = ({
                   ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
                   : 'border-gray-300 focus:ring-aqua-500 focus:border-aqua-500'
               }`}
-              placeholder="Enter event title"
+              placeholder={formData.type === 'task' ? "Enter task title" : "Enter event title"}
             />
             {errors.title && (
               <p className="mt-1 text-sm text-red-600">{errors.title}</p>
@@ -324,7 +324,7 @@ const EventModal: React.FC<EventModalProps> = ({
           </div>
 
           {/* Customer and Location */}
-          {formData.type !== 'blocked' && (
+          {formData.type === 'appointment' && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="customer" className="block text-sm font-medium text-gray-700 mb-1">
@@ -360,8 +360,8 @@ const EventModal: React.FC<EventModalProps> = ({
           {/* Description */}
           <div>
             <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
-              <FileText className="h-4 w-4 mr-1 text-gray-400" />
-              Description
+              <FileText className="h-4 w-4 mr-1 text-gray-400" /> 
+              {formData.type === 'task' ? 'Task' : 'Description'}
             </label>
             <textarea
               id="description"
@@ -370,7 +370,7 @@ const EventModal: React.FC<EventModalProps> = ({
               value={formData.description}
               onChange={handleInputChange}
               className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-aqua-500 focus:border-aqua-500 transition-colors"
-              placeholder="Add notes or details about this event..."
+              placeholder={formData.type === 'task' ? "Add task details..." : "Add notes or details about this event..."}
             />
           </div>
 
