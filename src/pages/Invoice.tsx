@@ -486,14 +486,14 @@ const Invoice: React.FC = () => {
                       <div>
                         <p className="font-medium">
                           {formatDate(invoice.event.date)}
-                          {invoice.event.time && <span className="text-gray-600 ml-2">at {formatTime(invoice.event.time)}</span>}
+                          {invoice.event.time && <span className="text-gray-900 ml-2">at {formatTime(invoice.event.time)}</span>}
                         </p>
                       </div>
                     </div>
                     <div className="flex items-start mb-1">
                       <Users className="h-4 w-4 mr-2 mt-0.5 text-gray-400" />
                       <div>
-                        <p className="text-gray-600">{invoice.event.guestCount} guests</p>
+                        <p className="text-gray-900">{invoice.event.guestCount} guests</p>
                       </div>
                     </div>
                     <div className="flex items-start">
