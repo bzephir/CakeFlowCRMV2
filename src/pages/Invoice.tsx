@@ -486,7 +486,7 @@ const Invoice: React.FC = () => {
                       <div>
                         <p className="font-medium">
                           {formatDate(invoice.event.date)}
-                          {invoice.event.time && <span className="text-gray-900 ml-2">at {formatTime(invoice.event.time)}</span>}
+                          {invoice.event.time && <span className="text-gray-600 ml-2">at {formatTime(invoice.event.time)}</span>}
                         </p>
                       </div>
                     </div>
