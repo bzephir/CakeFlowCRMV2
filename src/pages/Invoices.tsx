@@ -400,8 +400,7 @@ const Invoices: React.FC = () => {
                       <div className="text-sm text-gray-900">{invoice.eventType}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{formatDate(invoice.eventDate)}</div>
-                      <div className="text-xs text-gray-900">{formatTime(invoice.eventTime)}</div>
+                      <span className="text-sm text-gray-900">{formatDate(invoice.eventDate)}|{formatTime(invoice.eventTime)}</span>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{formatDate(invoice.dueDate)}</div>
