@@ -134,28 +134,22 @@ const Calendar: React.FC<CalendarProps> = ({
       return 'bg-coral-100 text-coral-800 border-coral-200';
     } 
     if (event.type === 'task') {
-      return 'bg-aqua-100 text-aqua-800 border-aqua-200'
+      return 'bg-aqua-100 text-aqua-800 border-aqua-200';
     }
     if (event.type === 'blocked') {
-      return "bg-gray-100 text-gray-800 border-gray-200"
-    }/*else {
-      return 'bg-aqua-100 text-aqua-800 border-aqua-200';
-    }*/
+      return "bg-gray-100 text-gray-800 border-gray-200";
+    }
   };
 
   const getEventIcon = (event: CalendarEvent) => {
     if (event.type === 'appointment') {
       return <User className="h-3 w-3" />;
     } else if (event.type === 'task') {
-   if (event.type === 'task') {
       return <CheckSquare className="h-3 w-3" />;
     }    
     if (event.type === 'blocked') {
       return <Ban className="h-3 w-3" />;
     } 
-     /*else {
-      return <CheckSquare className="h-3 w-3" />;
-    }*/
   };
 
   const formatDate = (date: Date) => {
