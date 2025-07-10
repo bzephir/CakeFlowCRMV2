@@ -213,7 +213,7 @@ const EventModal: React.FC<EventModalProps> = ({
 
           {/* Title */}
           <div>
-            <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">'Title'</label>
+            <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">'Title'
               
             </label>
             <input
