@@ -419,7 +419,7 @@ const Orders: React.FC = () => {
                       <div className="text-sm text-gray-900">{formatDate(order.eventDate)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-xs text-gray-900">{order.eventTime ? formatTime(order.eventTime) : ''}</div>
+                      <div className="text-sm text-gray-900">{order.eventTime ? formatTime(order.eventTime) : ''}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right">
                       <div className="text-sm font-medium text-gray-900">{formatCurrency(order.total)}</div>
