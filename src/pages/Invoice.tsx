@@ -32,7 +32,7 @@ const sampleInvoice = {
   },
   event: {
     date: '2025-06-15',
-    time: '4:00 PM',
+    time: '16:00',
     venue: 'Grand Hotel Ballroom',
     guestCount: 150
   },
