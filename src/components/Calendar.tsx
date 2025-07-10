@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import { 
   ChevronLeft, 
   ChevronRight, 
-  Calendar as CalendarIcon,
+  Calendar as CalendarIcon, 
   Clock,
   User,
   CheckSquare,
   Plus,
   Eye,
   ChevronsLeft,
-  ChevronsRight
+  ChevronsRight,
+  Ban
 } from 'lucide-react';
 
 interface CalendarEvent {
@@ -129,7 +130,7 @@ const Calendar: React.FC<CalendarProps> = ({
     if (event.status === 'completed') return 'bg-mint-100 text-mint-800 border-mint-200';
     if (event.status === 'cancelled') return 'bg-gray-100 text-gray-600 border-gray-200';
     
-    if (event.type === 'appointment') {
+    if (event.type === 'appointment') { 
       return 'bg-coral-100 text-coral-800 border-coral-200';
     } 
     if (event.type === 'task') {
@@ -145,7 +146,7 @@ const Calendar: React.FC<CalendarProps> = ({
   const getEventIcon = (event: CalendarEvent) => {
     if (event.type === 'appointment') {
       return <User className="h-3 w-3" />;
-    }
+    } else if (event.type === 'task') {
    if (event.type === 'task') {
       return <CheckSquare className="h-3 w-3" />;
     }    
