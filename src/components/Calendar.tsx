@@ -148,7 +148,11 @@ const Calendar: React.FC<CalendarProps> = ({
     }
    if (event.type === 'task') {
       return <CheckSquare className="h-3 w-3" />;
-    }    /*else {
+    }    
+    if (event.type === 'blocked') {
+      return <Ban className="h-3 w-3" />;
+    } 
+     /*else {
       return <CheckSquare className="h-3 w-3" />;
     }*/
   };
