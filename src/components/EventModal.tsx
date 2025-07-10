@@ -170,7 +170,6 @@ const EventModal: React.FC<EventModalProps> = ({
                 <User className="h-5 w-5 mr-3 text-coral-500" />
                 <div>
                   <div className="font-medium text-gray-900">Appointment</div>
-                  <div className="text-sm text-gray-500">Meeting with customer</div>
                 </div>
               </label>
               
@@ -190,7 +189,6 @@ const EventModal: React.FC<EventModalProps> = ({
                 <CheckSquare className="h-5 w-5 mr-3 text-aqua-500" />
                 <div>
                   <div className="font-medium text-gray-900">Task</div>
-                  <div className="text-sm text-gray-500">Work to be completed</div>
                 </div>
               </label>
               <label className={`flex items-center p-3 border rounded-lg cursor-pointer transition-colors ${
@@ -209,7 +207,6 @@ const EventModal: React.FC<EventModalProps> = ({
                 <Ban className="h-5 w-5 mr-3 text-gray-500" />
                 <div>
                   <div className="font-medium text-gray-900">Blocked</div>
-                  <div className="text-sm text-gray-500">Not Available</div>
                 </div>
               </label>
             </div>
