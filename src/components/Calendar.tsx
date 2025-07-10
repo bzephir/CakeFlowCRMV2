@@ -145,9 +145,12 @@ const Calendar: React.FC<CalendarProps> = ({
   const getEventIcon = (event: CalendarEvent) => {
     if (event.type === 'appointment') {
       return <User className="h-3 w-3" />;
-    } else {
-      return <CheckSquare className="h-3 w-3" />;
     }
+   if (event.type === 'task') {
+      return <CheckSquare className="h-3 w-3" />;
+    }    /*else {
+      return <CheckSquare className="h-3 w-3" />;
+    }*/
   };
 
   const formatDate = (date: Date) => {
