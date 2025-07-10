@@ -362,12 +362,6 @@ const Invoices: React.FC = () => {
                     Event Date
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Event Time
-                  </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Issue Date
-                  </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Due Date
                   </th>
                   <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -410,11 +404,6 @@ const Invoices: React.FC = () => {
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-xs text-gray-900">{formatTime(invoice.eventTime)}</div>
-                    </td>
-                    <td className="px-0 py-0 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{formatDate(invoice.issueDate)}</div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{formatDate(invoice.dueDate)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right">
