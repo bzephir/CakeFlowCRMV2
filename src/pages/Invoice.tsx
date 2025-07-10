@@ -505,7 +505,7 @@ const Invoice: React.FC = () => {
   </div>
 </div>
 <div className="flex items-start mb-1">
-  <Clock className="h-4 w-4 mr-2 mt-0.5 text-gray-400" />
+  <Users className="h-4 w-4 mr-2 mt-0.5 text-gray-400" />
   <div>
     <p className="text-gray-600">{invoice.event.guestCount} guests</p>
   </div>
