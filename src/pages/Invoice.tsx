@@ -12,7 +12,8 @@ import {
   CreditCard, 
   CheckCircle2, 
   AlertCircle,
-  ArrowLeft
+  ArrowLeft,
+  Users
 } from 'lucide-react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
