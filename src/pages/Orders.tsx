@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import { generateDocumentNumber } from '../utils/documentNumbering';
+import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
 import { 
   Plus, 
   Search, 
@@ -182,30 +183,6 @@ const Orders: React.FC = () => {
       default: return <AlertCircle className="h-4 w-4 mr-1" />;
     }
   };
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-      year: 'numeric', 
-      month: 'short', 
-      day: 'numeric' 
-    });
-  };
-  const formatTime = (timeString: string) => {
-    // Convert 24-hour format to 12-hour format
-    const [hours, minutes] = timeString.split(':');
-    const hour = parseInt(hours);
-    const ampm = hour >= 12 ? 'PM' : 'AM';
-    const hour12 = hour % 12 || 12;
-    return `${hour12}:${minutes} ${ampm}`;
-  };
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(amount);
-  };
-
   const handleViewOrder = (orderId: string) => {
     // Navigate to order details page
     console.log('View order:', orderId);
@@ -431,8 +408,8 @@ const Orders: React.FC = () => {
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{formatDate(order.eventDate)}</div>
                     </td>
-                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-xs text-gray-900">{formatTime(invoice.eventTime)}</div>
+                    <td className="px-2 py-1 whitespace-nowrap">
+                      <div className="text-xs text-gray-900">{order.eventTime ? formatTime(order.eventTime) : ''}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right">
                       <div className="text-sm font-medium text-gray-900">{formatCurrency(order.total)}</div>

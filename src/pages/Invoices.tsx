@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
+import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { 
   Plus, 
@@ -182,31 +183,6 @@ const Invoices: React.FC = () => {
       case 'draft': return 'Draft';
       default: return status;
     }
-  };
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-      year: 'numeric', 
-      month: 'short', 
-      day: 'numeric' 
-    });
-  };
-
-  const formatTime = (timeString: string) => {
-    // Convert 24-hour format to 12-hour format
-    const [hours, minutes] = timeString.split(':');
-    const hour = parseInt(hours);
-    const ampm = hour >= 12 ? 'PM' : 'AM';
-    const hour12 = hour % 12 || 12;
-    return `${hour12}:${minutes} ${ampm}`;
-  };
-
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(amount);
   };
 
   const handleViewInvoice = (invoiceId: string) => {
@@ -431,6 +407,9 @@ const Invoices: React.FC = () => {
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{formatDate(invoice.eventDate)}</div>
+                    </td>
+                    <td className="px-2 py-1 whitespace-nowrap">
+                      <div className="text-xs text-gray-900">{invoice.eventTime ? formatTime(invoice.eventTime) : ''}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-xs text-gray-900">{formatTime(invoice.eventTime)}</div>

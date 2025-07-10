@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import Logo from '../components/Logo';
+import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { 
   Printer, 
@@ -13,6 +14,8 @@ import {
   CheckCircle2, 
   AlertCircle,
   ArrowLeft,
+  MapPin,
+  Users
   Users
 } from 'lucide-react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
@@ -114,23 +117,6 @@ const Invoice: React.FC = () => {
       case 'draft': return <Clock className="h-4 w-4 mr-1" />;
       default: return <AlertCircle className="h-4 w-4 mr-1" />;
     }
-  };
-
-  const formatDate = (dateString: string) => {
-    if (!dateString) return '';
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
-    });
-  };
-
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(amount);
   };
 
   const handlePrint = () => {
@@ -497,21 +483,24 @@ const Invoice: React.FC = () => {
                 ) : (
                   <>
                    <div className="flex items-start mb-1">
-  <Calendar className="h-4 w-4 mr-2 mt-0.5 text-gray-400" />
-  <div>
-    <p className="font-medium">
-      {formatDate(invoice.event.date)}
-      {invoice.event.time && <span className="text-gray-600 ml-2">at {invoice.event.time}</span>}
-    </p>
-  </div>
-</div>
-<div className="flex items-start mb-1">
-  <Users className="h-4 w-4 mr-2 mt-0.5 text-gray-400" />
-  <div>
-    <p className="text-gray-600">{invoice.event.guestCount} guests</p>
-  </div>
-</div>
-
+                      <Calendar className="h-4 w-4 mr-2 mt-0.5 text-gray-400" />
+                      <div>
+                        <p className="font-medium">
+                          {formatDate(invoice.event.date)}
+                          {invoice.event.time && <span className="text-gray-600 ml-2">at {formatTime(invoice.event.time)}</span>}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-start mb-1">
+                      <Users className="h-4 w-4 mr-2 mt-0.5 text-gray-400" />
+                      <div>
+                        <p className="text-gray-600">{invoice.event.guestCount} guests</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start">
+                      <MapPin className="h-4 w-4 mr-2 mt-0.5 text-gray-400" />
+                      <p>{invoice.event.venue}</p>
+                    </div>
                   </>
                 )}
               </div>

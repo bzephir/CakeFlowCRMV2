@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useInquiryContext } from '../context/InquiryContext';
 import Header from '../components/Header';
+import { formatDate, formatTime } from '../utils/formatters';
 import { 
   Plus, 
   Search, 
@@ -46,23 +47,6 @@ const Inquiries: React.FC = () => {
       case 'corporate': return <Building2 className="h-4 w-4 text-aqua-500" />;
       default: return <Cake className="h-4 w-4 text-gray-500" />;
     }
-  };
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-      year: 'numeric', 
-      month: 'short', 
-      day: 'numeric' 
-    });
-  };
-
-  const formatTime = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleTimeString('en-US', { 
-      hour: '2-digit', 
-      minute: '2-digit'
-    });
   };
 
   const handleViewInquiry = (inquiryId: string) => {
@@ -247,6 +231,9 @@ const Inquiries: React.FC = () => {
                      Event Date
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                     Event Time
+                  </th>
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
                   </th>
                   <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -294,7 +281,9 @@ const Inquiries: React.FC = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-900 capitalize" > {formatDate(inquiry.eventDate)}</div>
-                      <div className="text-sm text-gray-500"> </div>
+                    </td>
+                    <td className="px-2 py-1 whitespace-nowrap">
+                      <div className="text-sm text-gray-500">{inquiry.eventTime ? formatTime(inquiry.eventTime) : ''}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(inquiry.status)}`}>
