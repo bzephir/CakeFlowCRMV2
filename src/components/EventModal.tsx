@@ -137,7 +137,6 @@ const EventModal: React.FC<EventModalProps> = ({
             </div>
             <div>
               <h2 className="text-xl font-semibold text-gray-900">Create New Event</h2>
-              <p className="text-sm text-gray-500">Add an appointment or task to your calendar</p>
             </div>
           </div>
           <button
