@@ -495,23 +495,22 @@ const Invoice: React.FC = () => {
                   </div>
                 ) : (
                   <>
-                    <div className="flex items-start mb-1">
-                      <Calendar className="h-4 w-4 mr-2 mt-0.5 text-gray-400" />
-                      <div>
-                        <p className="font-medium">{formatDate(invoice.event.date)}</p>
-                        <p className="text-gray-600">{invoice.event.time}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start mb-1">
-                      <Clock className="h-4 w-4 mr-2 mt-0.5 text-gray-400" />
-                      <div>
-                        <p className="text-gray-600">{invoice.event.guestCount} guests</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start">
-                      <Clock className="h-4 w-4 mr-2 mt-0.5 text-gray-400" />
-                      <p>{invoice.event.venue}</p>
-                    </div>
+                   <div className="flex items-start mb-1">
+  <Calendar className="h-4 w-4 mr-2 mt-0.5 text-gray-400" />
+  <div>
+    <p className="font-medium">
+      {formatDate(invoice.event.date)}
+      {invoice.event.time && <span className="text-gray-600 ml-2">at {invoice.event.time}</span>}
+    </p>
+  </div>
+</div>
+<div className="flex items-start mb-1">
+  <Clock className="h-4 w-4 mr-2 mt-0.5 text-gray-400" />
+  <div>
+    <p className="text-gray-600">{invoice.event.guestCount} guests</p>
+  </div>
+</div>
+
                   </>
                 )}
               </div>
