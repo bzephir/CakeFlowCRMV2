@@ -227,7 +227,7 @@ const EventModal: React.FC<EventModalProps> = ({
                   ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
                   : 'border-gray-300 focus:ring-aqua-500 focus:border-aqua-500'
               }`}
-              placeholder={formData.type === 'task' ? "Enter task title" : "Enter event title"}
+             /* placeholder={formData.type === 'task' ? "Enter task title" : "Enter event title"}*/
             />
             {errors.title && (
               <p className="mt-1 text-sm text-red-600">{errors.title}</p>
