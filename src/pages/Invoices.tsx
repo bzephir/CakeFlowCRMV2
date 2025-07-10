@@ -428,7 +428,9 @@ const Invoices: React.FC = () => {
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{formatDate(invoice.eventDate)}</div>
-                      <div className="text-xs text-gray-500">{invoice.eventTime && formatTime(invoice.eventTime)}</div>
+                    </td>
+                    <td className="px-2 py-1 whitespace-nowrap">
+                      <div className="text-xs text-gray-900">{formatTime(invoice.eventTime)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{formatDate(invoice.issueDate)}</div>
