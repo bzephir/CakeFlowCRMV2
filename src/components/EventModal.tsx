@@ -11,7 +11,7 @@ interface EventModalProps {
 
 interface EventFormData {
   title: string;
-  type: 'appointment' | 'task';
+  type: 'appointment' | 'task' |'blocked';
   date: string;
   time: string;
   endTime: string;
@@ -191,6 +191,25 @@ const EventModal: React.FC<EventModalProps> = ({
                 <div>
                   <div className="font-medium text-gray-900">Task</div>
                   <div className="text-sm text-gray-500">Work to be completed</div>
+                </div>
+              </label>
+              <label className={`flex items-center p-3 border rounded-lg cursor-pointer transition-colors ${
+                formData.type === 'blocked' 
+                  ? 'border-gray-500 bg-gray-50' 
+                  : 'border-gray-300 hover:border-gray-400'
+              }`}>
+                <input
+                  type="radio"
+                  name="type"
+                  value="blocked"
+                  checked={formData.type === 'blocked'}
+                  onChange={handleInputChange}
+                  className="sr-only"
+                />
+                <Ban className="h-5 w-5 mr-3 text-gray-500" />
+                <div>
+                  <div className="font-medium text-gray-900">Blocked</div>
+                  <div className="text-sm text-gray-500">Not Available</div>
                 </div>
               </label>
             </div>
