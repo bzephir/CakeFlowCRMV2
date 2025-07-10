@@ -16,7 +16,6 @@ import {
   ArrowLeft,
   MapPin,
   Users
-  Users
 } from 'lucide-react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
