@@ -19,6 +19,7 @@ interface EventFormData {
   location: string;
   description: string;
   allDay: boolean;
+  isPrivate:boolean;
 }
 
 const EventModal: React.FC<EventModalProps> = ({ 
@@ -38,6 +39,7 @@ const EventModal: React.FC<EventModalProps> = ({
     location: '',
     description: '',
     allDay: false
+    isPrivate: false
   });
 
   const [errors, setErrors] = useState<Partial<EventFormData>>({});
