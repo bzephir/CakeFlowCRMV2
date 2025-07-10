@@ -153,7 +153,7 @@ const EventModal: React.FC<EventModalProps> = ({
           {/* Event Type */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Event Type</label>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-3 gap-3">
               <label className={`flex items-center p-3 border rounded-lg cursor-pointer transition-colors ${
                 formData.type === 'appointment' 
                   ? 'border-coral-500 bg-coral-50' 
