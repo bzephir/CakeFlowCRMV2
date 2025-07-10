@@ -103,7 +103,8 @@ const EventModal: React.FC<EventModalProps> = ({
         customer: '',
         location: '',
         description: '',
-        allDay: false
+        allDay: false,
+        isPrivate: false
       });
       setErrors({});
       onClose();
@@ -120,7 +121,8 @@ const EventModal: React.FC<EventModalProps> = ({
       customer: '',
       location: '',
       description: '',
-      allDay: false
+      allDay: false,
+      isPrivate: false
     });
     setErrors({});
     onClose();
@@ -356,6 +358,21 @@ const EventModal: React.FC<EventModalProps> = ({
                   placeholder="Event location"
                 />
               </div>
+            </div>
+          )}
+{/* Added: Make Private checkbox for 'task' type */}
+          {formData.type === 'task' && (
+            <div>
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  name="isPrivate"
+                  checked={formData.isPrivate}
+                  onChange={handleInputChange}
+                  className="h-4 w-4 text-aqua-600 focus:ring-aqua-500 border-gray-300 rounded"
+                />
+                <span className="ml-2 text-sm text-gray-700">Make Private</span>
+              </label>
             </div>
           )}
 
