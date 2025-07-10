@@ -15,7 +15,7 @@ import {
 interface CalendarEvent {
   id: string;
   title: string;
-  type: 'appointment' | 'task';
+  type: 'appointment' | 'task' | 'blocked';
   date: string;
   time?: string;
   endTime?: string;
@@ -131,9 +131,15 @@ const Calendar: React.FC<CalendarProps> = ({
     
     if (event.type === 'appointment') {
       return 'bg-coral-100 text-coral-800 border-coral-200';
-    } else {
-      return 'bg-aqua-100 text-aqua-800 border-aqua-200';
+    } 
+    if (event.type === 'task') {
+      return 'bg-aqua-100 text-aqua-800 border-aqua-200'
     }
+    if (event.type === 'blocked') {
+      return "bg-gray-100 text-gray-800 border-gray-200"
+    }/*else {
+      return 'bg-aqua-100 text-aqua-800 border-aqua-200';
+    }*/
   };
 
   const getEventIcon = (event: CalendarEvent) => {
