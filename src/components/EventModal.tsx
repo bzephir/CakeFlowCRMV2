@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, User, CheckSquare, Calendar, Clock, MapPin, FileText } from 'lucide-react';
+import { X, User, CheckSquare, Calendar, Clock, MapPin, FileText, Ban } from 'lucide-react';
 
 interface EventModalProps {
   isOpen: boolean;
@@ -328,36 +328,38 @@ const EventModal: React.FC<EventModalProps> = ({
           </div>
 
           {/* Customer and Location */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="customer" className="block text-sm font-medium text-gray-700 mb-1">
-                Customer
-              </label>
-              <input
-                type="text"
-                id="customer"
-                name="customer"
-                value={formData.customer}
-                onChange={handleInputChange}
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-aqua-500 focus:border-aqua-500 transition-colors"
-                placeholder="Customer name"
-              />
+          {formData.type !== 'blocked' && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="customer" className="block text-sm font-medium text-gray-700 mb-1">
+                  Customer
+                </label>
+                <input
+                  type="text"
+                  id="customer"
+                  name="customer"
+                  value={formData.customer}
+                  onChange={handleInputChange}
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-aqua-500 focus:border-aqua-500 transition-colors"
+                  placeholder="Customer name"
+                />
+              </div>
+              <div>
+                <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-1">
+                  Location
+                </label>
+                <input
+                  type="text"
+                  id="location"
+                  name="location"
+                  value={formData.location}
+                  onChange={handleInputChange}
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-aqua-500 focus:border-aqua-500 transition-colors"
+                  placeholder="Event location"
+                />
+              </div>
             </div>
-            <div>
-              <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-1">
-                Location
-              </label>
-              <input
-                type="text"
-                id="location"
-                name="location"
-                value={formData.location}
-                onChange={handleInputChange}
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-aqua-500 focus:border-aqua-500 transition-colors"
-                placeholder="Event location"
-              />
-            </div>
-          </div>
+          )}
 
           {/* Description */}
           <div>
