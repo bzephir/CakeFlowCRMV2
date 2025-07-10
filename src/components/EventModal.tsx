@@ -53,7 +53,6 @@ interface EventFormData {
   description: string;
   allDay: boolean;
   isPrivate: boolean;
-  isPrivate:boolean;
 }
 
 const EventModal: React.FC<EventModalProps> = ({ 
@@ -77,7 +76,6 @@ const EventModal: React.FC<EventModalProps> = ({
     location: '',
     description: '',
     allDay: false,
-    isPrivate: false
     isPrivate: false
   });
 
@@ -184,6 +182,10 @@ const EventModal: React.FC<EventModalProps> = ({
         time: '',
         endTime: '',
         customer: '',
+        selectedCustomer: null,
+        appointmentType: 'in-person',
+        selectedLocation: null,
+        virtualMeetingLink: '',
         location: '',
         description: '',
         allDay: false,
@@ -209,7 +211,6 @@ const EventModal: React.FC<EventModalProps> = ({
       location: '',
       description: '',
       allDay: false,
-      isPrivate: false
       isPrivate: false
     });
     setErrors({});
@@ -267,6 +268,7 @@ const EventModal: React.FC<EventModalProps> = ({
                 />
                 <User className="h-5 w-5 mr-3 text-coral-500" />
                 <div>
+                  <div className="font-medium text-gray-900">Appointment</div>
                 </div>
               </label>
               
@@ -305,23 +307,6 @@ const EventModal: React.FC<EventModalProps> = ({
                 <Ban className="h-5 w-5 mr-3 text-gray-500" />
                 <div>
                   <div className="font-medium text-gray-900">Blocked</div>
-              </label>
-              <label className={`flex items-center p-3 border rounded-lg cursor-pointer transition-colors ${
-                formData.type === 'blocked' 
-                  ? 'border-gray-500 bg-gray-50' 
-                  : 'border-gray-300 hover:border-gray-400'
-              }`}>
-                <input
-                  type="radio"
-                  name="type"
-                  value="blocked"
-                  checked={formData.type === 'blocked'}
-                  onChange={handleInputChange}
-                  className="sr-only"
-                />
-                <Ban className="h-5 w-5 mr-3 text-gray-500" />
-                <div>
-                  <div className="font-medium text-gray-900">Blocked</div>
                 </div>
               </label>
             </div>
@@ -329,7 +314,7 @@ const EventModal: React.FC<EventModalProps> = ({
 
           {/* Title */}
           <div>
-            <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">Title*
+            <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
               Title*
             </label>
             <input
@@ -594,39 +579,6 @@ const EventModal: React.FC<EventModalProps> = ({
                   )}
                 </div>
               )}
-                />
-              </div>
-            </div>
-          )}
-{/* Added: Make Private checkbox for 'task' type */}
-          {formData.type === 'task' && (
-            <div>
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  name="isPrivate"
-                  checked={formData.isPrivate}
-                  onChange={handleInputChange}
-                  className="h-4 w-4 text-aqua-600 focus:ring-aqua-500 border-gray-300 rounded"
-                />
-                <span className="ml-2 text-sm text-gray-700">Make Private</span>
-              </label>
-            </div>
-          )}
-          
-          {/* Added: Make Private checkbox for 'task' type */}
-          {formData.type === 'task' && (
-            <div>
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  name="isPrivate"
-                  checked={formData.isPrivate}
-                  onChange={handleInputChange}
-                  className="h-4 w-4 text-aqua-600 focus:ring-aqua-500 border-gray-300 rounded"
-                />
-                <span className="ml-2 text-sm text-gray-700">Make Private</span>
-              </label>
             </div>
           )}
 
@@ -634,7 +586,7 @@ const EventModal: React.FC<EventModalProps> = ({
           <div>
             <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
               <FileText className="h-4 w-4 mr-1 text-gray-400" /> 
-              {formData.type === 'task' ? 'Task' : 'Description'}
+              {formData.type === 'task' ? 'Task Details' : 'Description'}
             </label>
             <textarea
               id="description"
@@ -642,7 +594,7 @@ const EventModal: React.FC<EventModalProps> = ({
               rows={3}
               value={formData.description}
               onChange={handleInputChange}
-              placeholder={formData.type === 'task' ? "Add task details..." : "Add notes or details about this event..."}
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-aqua-500 focus:border-aqua-500"
               placeholder={formData.type === 'task' ? "Add task details..." : "Add notes or details about this event..."}
             />
           </div>
