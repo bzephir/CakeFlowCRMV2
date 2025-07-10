@@ -38,7 +38,7 @@ const EventModal: React.FC<EventModalProps> = ({
     customer: '',
     location: '',
     description: '',
-    allDay: false
+    allDay: false,
     isPrivate: false
   });
 
