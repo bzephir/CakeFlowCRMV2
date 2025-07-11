@@ -17,7 +17,9 @@ import {
   Trash2,
   Mail,
   Copy,
-  ArrowRightCircle
+  ArrowRightCircle,
+  Package,
+  Truck
 } from 'lucide-react';
 
 const Orders: React.FC = () => {
