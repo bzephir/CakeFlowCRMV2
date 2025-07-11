@@ -358,22 +358,28 @@ const Invoices: React.FC = () => {
                     Invoice #
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Date
+                  </th>
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Customer
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Event Type
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Due Date
+                    Total
                   </th>
-                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Amount
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Paid
+                  </th>
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Balance Due
+                  </th>
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Next Payment
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
-                  </th>
-                 <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    New Column 
                   </th>
                   <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
@@ -389,7 +395,7 @@ const Invoices: React.FC = () => {
                           type="checkbox"
                           checked={selectedInvoices.includes(invoice.id)}
                           onChange={() => toggleSelectInvoice(invoice.id)}
-                          className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
+                          className="h-4 w-4 text-aqua-600 focus:ring-aqua-500 border-gray-300 rounded"
                         />
                       </div>
                     </td>
