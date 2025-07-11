@@ -155,6 +155,7 @@ const Invoices: React.FC = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
+      case 'pending': return 'bg-aqua-100 text-aqua-800';
       case 'deposit-paid': return 'bg-coral-100 text-coral-800';
       case 'partial': return 'bg-yellow-100 text-yellow-800';
       case 'paid': return 'bg-mint-100 text-mint-800';
@@ -166,20 +167,24 @@ const Invoices: React.FC = () => {
 
   const getStatusIcon = (status: string) => {
     switch (status) {
+      case 'pending': return <Hourglass className="h-4 w-4 mr-1" />;
       case 'deposit-paid': return <CreditCard className="h-4 w-4 mr-1" />;
-      case 'partial': return <Clock className="h-4 w-4 mr-1" />;
+      case 'partial': return <HalfCircle className="h-4 w-4 mr-1" />;
       case 'paid': return <CheckCircle2 className="h-4 w-4 mr-1" />;
       case 'overdue': return <AlertCircle className="h-4 w-4 mr-1" />;
+      case 'cancelled': return <Ban className="h-4 w-4 mr-1" />;
       default: return <Clock className="h-4 w-4 mr-1" />;
     }
   };
 
   const getStatusText = (status: string) => {
     switch (status) {
+      case 'pending;': return 'Pending';
       case 'deposit-paid': return 'Deposit Paid';
       case 'partial;': return 'Partial';
       case 'paid': return 'Paid';
       case 'overdue': return 'Overdue';
+      case 'cancelled;': return 'Cancelled';
       default: return status;
     }
   };
@@ -356,7 +361,6 @@ const Invoices: React.FC = () => {
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Event Type
-                  </th>
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Due Date
