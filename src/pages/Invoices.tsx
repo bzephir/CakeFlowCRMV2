@@ -146,7 +146,7 @@ const Invoices: React.FC = () => {
       issueDate: '2024-11-15',
       dueDate: '2024-11-30',
       amount: 225.00,
-      status: 'draft',
+      status: 'cancelled',
       eventType: 'Graduation',
       eventDate: '2024-12-02',
       eventTime: '10:30'
