@@ -296,11 +296,12 @@ const Invoices: React.FC = () => {
                 className="block w-full sm:w-48 pl-10 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
               >
                 <option value="all">All Statuses</option>
-                <option value="draft">Draft</option>
                 <option value="pending">Pending</option>
                 <option value="deposit-paid">Deposit Paid</option>
+                <option value="draft">Partial</option>
                 <option value="paid">Paid</option>
                 <option value="overdue">Overdue</option>
+                <option value="draft">Cancelled</option>
               </select>
             </div>
           </div>
