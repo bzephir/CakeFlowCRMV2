@@ -38,7 +38,7 @@ const Invoices: React.FC = () => {
       dueDate: '2025-06-01',
       amount: 642.00,
       paid: 400.00,
-      balance: amount - paid,
+      balance: 242.00,
       status: 'partial',
       eventType: 'Wedding',
       eventDate: '2025-06-15',
