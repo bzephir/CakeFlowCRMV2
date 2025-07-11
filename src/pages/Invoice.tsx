@@ -54,7 +54,7 @@ const sampleInvoice = {
   balance: 342.00,
   issueDate: '2025-01-15',
   dueDate: '2025-06-01',
-  status: 'deposit-paid' // 'paid', 'deposit-paid', 'pending', 'overdue'
+  status: 'deposit-paid' // 'paid', 'partial', 'pending', 'overdue'
 };
 
 const Invoice: React.FC = () => {
