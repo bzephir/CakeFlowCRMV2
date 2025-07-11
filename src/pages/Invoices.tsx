@@ -156,16 +156,15 @@ const Invoices: React.FC = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'pending': return 'bg-pink-100 text-pink-800';
+      case 'pending': return 'bg-deeppink-100 text-deeppink-800';
       case 'deposit-paid': return 'bg-aqua-100 text-aqua-800';
-      case 'partial': return 'bg-gold-100 text-gold-800';
+      case 'partial': return 'bg-yellow-100 text-yellow-800';
       case 'paid': return 'bg-mint-100 text-mint-800';
       case 'overdue': return 'bg-red-100 text-red-800';
       case 'cancelled': return 'bg-gray-100 text-gray-800';
       default: return 'bg-gray-100 text-gray-800';
     }
   };
-
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'pending': return <Hourglass className="h-4 w-4 mr-1" />;
