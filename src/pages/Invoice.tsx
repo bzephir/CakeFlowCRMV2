@@ -15,7 +15,9 @@ import {
   AlertCircle,
   ArrowLeft,
   MapPin,
-  Users
+  Users,
+  Truck,
+  Package
 } from 'lucide-react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
