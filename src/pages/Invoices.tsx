@@ -19,7 +19,6 @@ import {
   FileText,
   Hourglass,
   Ban, 
-  HalfCircle
 } from 'lucide-react';
 
 const Invoices: React.FC = () => {
@@ -171,7 +170,7 @@ const Invoices: React.FC = () => {
     switch (status) {
       case 'pending': return <Hourglass className="h-4 w-4 mr-1" />;
       case 'deposit-paid': return <CreditCard className="h-4 w-4 mr-1" />;
-      case 'partial': return <HalfCircle className="h-4 w-4 mr-1" />;
+      case 'partial': return <Clock className="h-4 w-4 mr-1" />;
       case 'paid': return <CheckCircle2 className="h-4 w-4 mr-1" />;
       case 'overdue': return <AlertCircle className="h-4 w-4 mr-1" />;
       case 'cancelled': return <Ban className="h-4 w-4 mr-1" />;
