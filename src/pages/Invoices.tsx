@@ -18,7 +18,8 @@ import {
   AlertCircle,
   FileText,
   Hourglass,
-  Ban
+  Ban, 
+  HalfCircle
 } from 'lucide-react';
 
 const Invoices: React.FC = () => {
