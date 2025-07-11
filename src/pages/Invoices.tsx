@@ -16,7 +16,8 @@ import {
   Clock, 
   CreditCard,
   AlertCircle,
-  FileText
+  FileText,
+  Hourglass
 } from 'lucide-react';
 
 const Invoices: React.FC = () => {
@@ -154,33 +155,31 @@ const Invoices: React.FC = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'paid': return 'bg-mint-100 text-mint-800';
       case 'deposit-paid': return 'bg-coral-100 text-coral-800';
-      case 'pending': return 'bg-aqua-100 text-aqua-800';
-      case 'overdue': return 'bg-pink-100 text-pink-800';
-      case 'draft': return 'bg-gray-100 text-gray-800';
+      case 'partial': return 'bg-yellow-100 text-yellow-800';
+      case 'paid': return 'bg-mint-100 text-mint-800';
+      case 'overdue': return 'bg-red-100 text-red-800';
+      case 'cancelled': return 'bg-black-100 text-black-800';
       default: return 'bg-gray-100 text-gray-800';
     }
   };
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'paid': return <CheckCircle2 className="h-4 w-4 mr-1" />;
       case 'deposit-paid': return <CreditCard className="h-4 w-4 mr-1" />;
-      case 'pending': return <Clock className="h-4 w-4 mr-1" />;
+      case 'partial': return <Clock className="h-4 w-4 mr-1" />;
+      case 'paid': return <CheckCircle2 className="h-4 w-4 mr-1" />;
       case 'overdue': return <AlertCircle className="h-4 w-4 mr-1" />;
-      case 'draft': return <FileText className="h-4 w-4 mr-1" />;
       default: return <Clock className="h-4 w-4 mr-1" />;
     }
   };
 
   const getStatusText = (status: string) => {
     switch (status) {
-      case 'paid': return 'Paid';
       case 'deposit-paid': return 'Deposit Paid';
-      case 'pending': return 'Pending';
+      case 'partial;': return 'Partial';
+      case 'paid': return 'Paid';
       case 'overdue': return 'Overdue';
-      case 'draft': return 'Draft';
       default: return status;
     }
   };
@@ -358,8 +357,6 @@ const Invoices: React.FC = () => {
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Event Type
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Event Date & Time
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Due Date
@@ -369,6 +366,9 @@ const Invoices: React.FC = () => {
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
+                  </th>
+                 <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    New Column 
                   </th>
                   <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
