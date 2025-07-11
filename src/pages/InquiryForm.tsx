@@ -18,6 +18,9 @@ const InquiryForm: React.FC = () => {
     email: '',
     phone: '',
     eventDate: '',
+    fulfillmentType: 'pickup',
+    pickupTime: '',
+    deliveryTime: '',
     eventTime: '',
     occasion: '',
     services: [] as string[],
@@ -92,6 +95,12 @@ const InquiryForm: React.FC = () => {
         ...prev,
         [name]: value
       }));
+    }
+    if (formData.fulfillmentType === 'pickup' && !formData.pickupTime) {
+      newErrors.pickupTime = 'Pickup time is required';
+    }
+    if (formData.fulfillmentType === 'delivery' && !formData.deliveryTime) {
+      newErrors.deliveryTime = 'Delivery time is required';
     }
   };
 
@@ -222,7 +231,7 @@ const InquiryForm: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="eventDate" className="block text-sm font-medium text-gray-700 mb-1">
-                    Event Date *
+                    Order Date *
                   </label>
                   <input
                     type="date"
@@ -235,6 +244,85 @@ const InquiryForm: React.FC = () => {
                   />
                 </div>
                 <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Fulfillment Type *
+                  </label>
+                  <div className="grid grid-cols-2 gap-3">
+                    <label className={`flex items-center p-3 border rounded-lg cursor-pointer transition-colors ${
+                      formData.fulfillmentType === 'pickup' 
+                        ? 'border-mint-500 bg-mint-50' 
+                        : 'border-gray-300 hover:border-gray-400'
+                    }`}>
+                      <input
+                        type="radio"
+                        name="fulfillmentType"
+                        value="pickup"
+                        checked={formData.fulfillmentType === 'pickup'}
+                        onChange={handleInputChange}
+                        className="sr-only"
+                      />
+                      <Package className="h-5 w-5 mr-3 text-mint-500" />
+                      <div>
+                        <div className="font-medium text-gray-900">Pickup</div>
+                      </div>
+                    </label>
+                    
+                    <label className={`flex items-center p-3 border rounded-lg cursor-pointer transition-colors ${
+                      formData.fulfillmentType === 'delivery' 
+                        ? 'border-coral-500 bg-coral-50' 
+                        : 'border-gray-300 hover:border-gray-400'
+                    }`}>
+                      <input
+                        type="radio"
+                        name="fulfillmentType"
+                        value="delivery"
+                        checked={formData.fulfillmentType === 'delivery'}
+                        onChange={handleInputChange}
+                        className="sr-only"
+                      />
+                      <Truck className="h-5 w-5 mr-3 text-coral-500" />
+                      <div>
+                        <div className="font-medium text-gray-900">Delivery</div>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+                
+                {formData.fulfillmentType === 'pickup' && (
+                  <div>
+                    <label htmlFor="pickupTime" className="block text-sm font-medium text-gray-700 mb-1">
+                      Pickup Time *
+                    </label>
+                    <input
+                      type="time"
+                      id="pickupTime"
+                      name="pickupTime"
+                      value={formData.pickupTime}
+                      onChange={handleInputChange}
+                      required
+                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                    />
+                  </div>
+                )}
+                
+                {formData.fulfillmentType === 'delivery' && (
+                  <div>
+                    <label htmlFor="deliveryTime" className="block text-sm font-medium text-gray-700 mb-1">
+                      Delivery Time *
+                    </label>
+                    <input
+                      type="time"
+                      id="deliveryTime"
+                      name="deliveryTime"
+                      value={formData.deliveryTime}
+                      onChange={handleInputChange}
+                      required
+                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                    />
+                  </div>
+                )}
+                
+                <div>
                   <label htmlFor="eventTime" className="block text-sm font-medium text-gray-700 mb-1">
                     Event Time
                   </label>
@@ -246,6 +334,7 @@ const InquiryForm: React.FC = () => {
                     onChange={handleInputChange}
                     className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
                   />
+                  <p className="mt-1 text-xs text-gray-500">Only required if this order is for an event</p>
                 </div>
                 <div>
                   <label htmlFor="occasion" className="block text-sm font-medium text-gray-700 mb-1">

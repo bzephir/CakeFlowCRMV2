@@ -32,6 +32,9 @@ export interface Order {
   id: string;
   customer?: string;
   email?: string;
+  fulfillmentType: 'pickup' | 'delivery';
+  pickupTime?: string;
+  deliveryTime?: string;
   customerId: string;
   customerName: string;
   eventDate: string;
@@ -59,6 +62,9 @@ export interface Quote {
   id: string;
   eventType: string;
   eventTime?: string;
+  fulfillmentType: 'pickup' | 'delivery';
+  pickupTime?: string;
+  deliveryTime?: string;
   pickupTime: string;
   deliveryTime: string;
   eventDate: string;
@@ -71,6 +77,10 @@ export interface Quote {
 export interface Invoice {
   id: string;
   eventDate: string;
+  fulfillmentType: 'pickup' | 'delivery';
+  pickupTime?: string;
+  deliveryTime?: string;
+  eventTime?: string;
   status: 'paid' | 'deposit-paid' | 'pending' | 'overdue' | 'draft';
   total: number;
   balance: number;
@@ -143,6 +153,9 @@ export interface Inquiry {
   email: string;
   phone: string;
   eventDate: string;
+  fulfillmentType: 'pickup' | 'delivery';
+  pickupTime?: string;
+  deliveryTime?: string;
   eventTime?: string;
   guestCount?: number;
   budget?: string;
