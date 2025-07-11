@@ -298,10 +298,10 @@ const Invoices: React.FC = () => {
                 <option value="all">All Statuses</option>
                 <option value="pending">Pending</option>
                 <option value="deposit-paid">Deposit Paid</option>
-                <option value="draft">Partial</option>
+                <option value="partial">Partial</option>
                 <option value="paid">Paid</option>
                 <option value="overdue">Overdue</option>
-                <option value="draft">Cancelled</option>
+                <option value="cancelled">Cancelled</option>
               </select>
             </div>
           </div>
