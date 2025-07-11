@@ -371,7 +371,7 @@ const Invoices: React.FC = () => {
                   <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Total
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Paid
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -419,10 +419,10 @@ const Invoices: React.FC = () => {
                       <div className="text-sm font-medium text-gray-900">{formatCurrency(invoice.amount)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right">
-                    <td className="px-2 py-1 whitespace-nowrap text-right">
                       <div className="text-sm font-medium text-gray-900">{formatCurrency(invoice.paid)}</div>
                     </td>
-                      <div className="text-sm font-medium text-gray-900">{formatCurrency(invoice.balance)}</div>
+                      <td className="px-2 py-1 whitespace-nowrap text-right">
+                        <div className="text-sm font-medium text-gray-900">{formatCurrency(invoice.balance)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{formatDate(invoice.dueDate)}</div>
