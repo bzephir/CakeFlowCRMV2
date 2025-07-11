@@ -49,7 +49,7 @@ const Invoices: React.FC = () => {
       dueDate: '2025-01-25',
       amount: 450.00,
       status: 'paid',
-      eventType: 'Birthday',
+      eventType: 'Celebration',
       eventDate: '2025-01-15',
       eventTime: '14:00'
     },
@@ -71,7 +71,7 @@ const Invoices: React.FC = () => {
       dueDate: '2025-01-10',
       amount: 280.00,
       status: 'pending',
-      eventType: 'Anniversary',
+      eventType: 'Celebration',
       eventDate: '2025-01-18',
       eventTime: '18:30'
     },
@@ -82,7 +82,7 @@ const Invoices: React.FC = () => {
       dueDate: '2025-01-05',
       amount: 180.00,
       status: 'cancelled',
-      eventType: 'Graduation',
+      eventType: 'Celebration',
       eventDate: '2025-01-20',
       eventTime: '11:00'
     },
@@ -93,7 +93,7 @@ const Invoices: React.FC = () => {
       dueDate: '2024-12-25',
       amount: 200.00,
       status: 'paid',
-      eventType: 'Baby Shower',
+      eventType: 'Celebration',
       eventDate: '2024-12-28',
       eventTime: '13:00'
     },
@@ -115,7 +115,7 @@ const Invoices: React.FC = () => {
       dueDate: '2024-12-15',
       amount: 175.00,
       status: 'overdue',
-      eventType: 'Birthday',
+      eventType: 'Celebration',
       eventDate: '2024-12-18',
       eventTime: '15:00'
     },
@@ -137,7 +137,7 @@ const Invoices: React.FC = () => {
       dueDate: '2024-12-05',
       amount: 300.00,
       status: 'pending',
-      eventType: 'Anniversary',
+      eventType: 'Celebration',
       eventDate: '2024-12-08',
       eventTime: '19:00'
     },
@@ -148,7 +148,7 @@ const Invoices: React.FC = () => {
       dueDate: '2024-11-30',
       amount: 225.00,
       status: 'cancelled',
-      eventType: 'Graduation',
+      eventType: 'Celebration',
       eventDate: '2024-12-02',
       eventTime: '10:30'
     }
