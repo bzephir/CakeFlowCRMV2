@@ -17,7 +17,8 @@ import {
   CreditCard,
   AlertCircle,
   FileText,
-  Hourglass
+  Hourglass,
+  Ban
 } from 'lucide-react';
 
 const Invoices: React.FC = () => {
