@@ -18,7 +18,9 @@ import {
   CheckCircle2, 
   XCircle,
   AlertCircle,
-  ArrowRightCircle
+  ArrowRightCircle,
+  Package,
+  Truck
 } from 'lucide-react';
 
 const Quotes: React.FC = () => {
