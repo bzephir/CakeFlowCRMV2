@@ -58,6 +58,7 @@ export interface OrderItem {
 export interface Quote {
   id: string;
   eventType: string;
+  eventTime?: string
   eventDate: string;
   status: 'accepted' | 'sent' | 'draft' | 'rejected' | 'expired';
   total: number;
