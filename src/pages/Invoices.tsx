@@ -395,20 +395,20 @@ const Invoices: React.FC = () => {
                           type="checkbox"
                           checked={selectedInvoices.includes(invoice.id)}
                           onChange={() => toggleSelectInvoice(invoice.id)}
-                          className="h-4 w-4 text-aqua-600 focus:ring-aqua-500 border-gray-300 rounded"
+                          className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
                         />
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900 cursor-pointer hover:text-coral-600" onClick={() => handleViewInvoice(invoice.id)}>
+                      <div className="text-sm font-medium text-gray-900 cursor-pointer hover:text-pink-600" onClick={() => handleViewInvoice(invoice.id)}>
                         {invoice.id}
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">{invoice.customer}</div>
+                      <div className="text-sm text-gray-900">{formatDate(invoice.issueDate)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{formatDate(invoice.issueDate)}</div>
+                      <div className="text-sm font-medium text-gray-900">{invoice.customer}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{invoice.eventType}</div>
