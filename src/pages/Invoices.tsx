@@ -400,7 +400,7 @@ const Invoices: React.FC = () => {
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900 cursor-pointer hover:text-pink-600" onClick={() => handleViewInvoice(invoice.id)}>
+                      <div className="text-sm font-medium text-gray-900 cursor-pointer hover:text-aqua-600" onClick={() => handleViewInvoice(invoice.id)}>
                         {invoice.id}
                       </div>
                     </td>
@@ -413,12 +413,17 @@ const Invoices: React.FC = () => {
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{invoice.eventType}</div>
                     </td>
-                    
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{formatDate(invoice.dueDate)}</div>
-                    </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right">
                       <div className="text-sm font-medium text-gray-900">{formatCurrency(invoice.amount)}</div>
+                    </td>
+                    <td className="px-2 py-1 whitespace-nowrap text-right">
+                    <td className="px-2 py-1 whitespace-nowrap text-right">
+                      <div className="text-sm font-medium text-gray-900">{formatCurrency(invoice.paid)}</div>
+                    </td>
+                      <div className="text-sm font-medium text-gray-900">{formatCurrency(invoice.balance)}</div>
+                    </td>
+                    <td className="px-2 py-1 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">{formatDate(invoice.dueDate)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(invoice.status)}`}>
