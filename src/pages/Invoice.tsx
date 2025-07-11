@@ -77,7 +77,10 @@ const Invoice: React.FC = () => {
     },
     event: {
       date: '',
-      time: '',
+      fulfillmentType: 'pickup',
+      pickupTime: '',
+      deliveryTime: '',
+      eventTime: '',
       venue: '',
       guestCount: 0
     },
@@ -451,12 +454,49 @@ const Invoice: React.FC = () => {
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
                       />
                     </div>
+                    
                     <div>
-                      <label className="block text-sm font-medium text-gray-700">Event Time</label>
+                      <label className="block text-sm font-medium text-gray-700">Fulfillment Type</label>
+                      <select
+                        value={invoice.event.fulfillmentType}
+                        onChange={(e) => handleInputChange(e, 'event', 'fulfillmentType')}
+                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
+                      >
+                        <option value="pickup">Pickup</option>
+                        <option value="delivery">Delivery</option>
+                      </select>
+                    </div>
+                    
+                    <div>
+                      {invoice.event.fulfillmentType === 'pickup' ? (
+                        <>
+                          <label className="block text-sm font-medium text-gray-700">Pickup Time</label>
+                          <input 
+                            type="time" 
+                            value={invoice.event.pickupTime} 
+                            onChange={(e) => handleInputChange(e, 'event', 'pickupTime')}
+                            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
+                          />
+                        </>
+                      ) : (
+                        <>
+                          <label className="block text-sm font-medium text-gray-700">Delivery Time</label>
+                          <input 
+                            type="time" 
+                            value={invoice.event.deliveryTime} 
+                            onChange={(e) => handleInputChange(e, 'event', 'deliveryTime')}
+                            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
+                          />
+                        </>
+                      )}
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">Event Time (if applicable)</label>
                       <input 
                         type="time" 
-                        value={invoice.event.time} 
-                        onChange={(e) => handleInputChange(e, 'event', 'time')}
+                        value={invoice.event.eventTime} 
+                        onChange={(e) => handleInputChange(e, 'event', 'eventTime')}
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
                       />
                     </div>
@@ -486,10 +526,37 @@ const Invoice: React.FC = () => {
                       <div>
                         <p className="font-medium">
                           {formatDate(invoice.event.date)}
-                          {invoice.event.time && <span className="text-gray-900 ml-2">at {formatTime(invoice.event.time)}</span>}
                         </p>
                       </div>
                     </div>
+                    
+                    <div className="flex items-start mb-1">
+                      {invoice.event.fulfillmentType === 'pickup' ? (
+                        <>
+                          <Package className="h-4 w-4 mr-2 mt-0.5 text-gray-400" />
+                          <div>
+                            <p className="text-gray-900">Pickup at {formatTime(invoice.event.pickupTime)}</p>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <Truck className="h-4 w-4 mr-2 mt-0.5 text-gray-400" />
+                          <div>
+                            <p className="text-gray-900">Delivery at {formatTime(invoice.event.deliveryTime)}</p>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                    
+                    {invoice.event.eventTime && (
+                      <div className="flex items-start mb-1">
+                        <Clock className="h-4 w-4 mr-2 mt-0.5 text-gray-400" />
+                        <div>
+                          <p className="text-gray-900">Event at {formatTime(invoice.event.eventTime)}</p>
+                        </div>
+                      </div>
+                    )}
+                    
                     <div className="flex items-start mb-1">
                       <Users className="h-4 w-4 mr-2 mt-0.5 text-gray-400" />
                       <div>

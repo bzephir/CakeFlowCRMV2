@@ -353,6 +353,9 @@ const Quotes: React.FC = () => {
                     Event Date
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Fulfillment
+                  </th>
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Expiry Date
                   </th>
                   <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -392,6 +395,19 @@ const Quotes: React.FC = () => {
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{formatDate(quote.issueDate)}</div>
+                    </td>
+                    <td className="px-2 py-1 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">
+                        {quote.fulfillmentType === 'pickup' 
+                          ? <span className="flex items-center"><Package className="h-3 w-3 mr-1" /> {quote.pickupTime ? formatTime(quote.pickupTime) : 'TBD'}</span>
+                          : <span className="flex items-center"><Truck className="h-3 w-3 mr-1" /> {quote.deliveryTime ? formatTime(quote.deliveryTime) : 'TBD'}</span>
+                        }
+                        {quote.eventTime && (
+                          <div className="text-xs text-gray-500 mt-1">
+                            <span className="flex items-center"><Calendar className="h-3 w-3 mr-1" /> Event: {formatTime(quote.eventTime)}</span>
+                          </div>
+                        )}
+                      </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{formatDate(quote.expiryDate)}</div>

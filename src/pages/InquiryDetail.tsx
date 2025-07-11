@@ -584,15 +584,32 @@ const InquiryDetail: React.FC = () => {
                       </div>
                     </div>
                     
-                    {inquiry.eventTime && (
-                      <div className="flex items-start">
-                        <Clock className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
-                        <div>
-                          <p className="text-sm font-medium text-gray-900">Event Time</p>
-                          <p className="text-sm text-gray-600">{inquiry.eventTime}</p>
-                        </div>
+                    <div className="flex items-start">
+                      {inquiry.fulfillmentType === 'pickup' ? (
+                        <Package className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+                      ) : (
+                        <Truck className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+                      )}
+                      <div>
+                        <p className="text-sm font-medium text-gray-900">
+                          {inquiry.fulfillmentType === 'pickup' ? 'Pickup Time' : 'Delivery Time'}
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          {inquiry.fulfillmentType === 'pickup' 
+                            ? (inquiry.pickupTime ? formatTime(inquiry.pickupTime) : 'Not specified')
+                            : (inquiry.deliveryTime ? formatTime(inquiry.deliveryTime) : 'Not specified')
+                          }
+                        </p>
                       </div>
-                    )}
+                    </div>
+                    
+                    <div className="flex items-start">
+                      <Clock className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+                      <div>
+                        <p className="text-sm font-medium text-gray-900">Event Time</p>
+                        <p className="text-sm text-gray-600">{inquiry.eventTime ? formatTime(inquiry.eventTime) : 'Not applicable'}</p>
+                      </div>
+                    </div>
                     
                     {inquiry.guestCount && (
                       <div className="flex items-start">

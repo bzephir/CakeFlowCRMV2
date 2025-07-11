@@ -231,7 +231,7 @@ const Inquiries: React.FC = () => {
                      Event Date
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                     Event Time
+                     Fulfillment
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
@@ -283,7 +283,13 @@ const Inquiries: React.FC = () => {
                       <div className="text-sm text-gray-900 capitalize" > {formatDate(inquiry.eventDate)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">{inquiry.eventTime ? formatTime(inquiry.eventTime) : ''}</div>
+                      <div className="text-sm text-gray-500">
+                        {inquiry.fulfillmentType === 'pickup' 
+                          ? `Pickup: ${inquiry.pickupTime ? formatTime(inquiry.pickupTime) : 'TBD'}`
+                          : `Delivery: ${inquiry.deliveryTime ? formatTime(inquiry.deliveryTime) : 'TBD'}`
+                        }
+                        {inquiry.eventTime && <div className="text-xs text-gray-400">Event: {formatTime(inquiry.eventTime)}</div>}
+                      </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(inquiry.status)}`}>

@@ -55,6 +55,10 @@ interface QuoteFormData {
   customerInfo: Customer | null;
   quoteDate: string;
   expirationDate: string;
+  fulfillmentType: 'pickup' | 'delivery';
+  pickupTime: string;
+  deliveryTime: string;
+  eventTime: string;
   poNumber: string;
   lineItems: LineItem[];
   subtotal: number;
@@ -124,6 +128,10 @@ const CreateQuote: React.FC = () => {
     customerInfo: null,
     quoteDate: new Date().toISOString().split('T')[0],
     expirationDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 30 days from now
+    fulfillmentType: 'pickup',
+    pickupTime: '',
+    deliveryTime: '',
+    eventTime: '',
     poNumber: '',
     lineItems: [
       {
@@ -257,6 +265,14 @@ const CreateQuote: React.FC = () => {
     
     if (!formData.expirationDate) {
       newErrors.expirationDate = 'Expiration date is required';
+    }
+    
+    if (formData.fulfillmentType === 'pickup' && !formData.pickupTime) {
+      newErrors.pickupTime = 'Pickup time is required';
+    }
+    
+    if (formData.fulfillmentType === 'delivery' && !formData.deliveryTime) {
+      newErrors.deliveryTime = 'Delivery time is required';
     }
     
     if (formData.lineItems.some(item => !item.name.trim())) {
@@ -459,6 +475,97 @@ const CreateQuote: React.FC = () => {
                   
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Fulfillment Type *
+                    </label>
+                    <div className="grid grid-cols-2 gap-3">
+                      <label className={`flex items-center p-3 border rounded-lg cursor-pointer transition-colors ${
+                        formData.fulfillmentType === 'pickup' 
+                          ? 'border-mint-500 bg-mint-50' 
+                          : 'border-gray-300 hover:border-gray-400'
+                      }`}>
+                        <input
+                          type="radio"
+                          name="fulfillmentType"
+                          value="pickup"
+                          checked={formData.fulfillmentType === 'pickup'}
+                          onChange={(e) => setFormData(prev => ({ ...prev, fulfillmentType: e.target.value as 'pickup' | 'delivery' }))}
+                          className="sr-only"
+                        />
+                        <Package className="h-5 w-5 mr-3 text-mint-500" />
+                        <div>
+                          <div className="font-medium text-gray-900">Pickup</div>
+                        </div>
+                      </label>
+                      
+                      <label className={`flex items-center p-3 border rounded-lg cursor-pointer transition-colors ${
+                        formData.fulfillmentType === 'delivery' 
+                          ? 'border-coral-500 bg-coral-50' 
+                          : 'border-gray-300 hover:border-gray-400'
+                      }`}>
+                        <input
+                          type="radio"
+                          name="fulfillmentType"
+                          value="delivery"
+                          checked={formData.fulfillmentType === 'delivery'}
+                          onChange={(e) => setFormData(prev => ({ ...prev, fulfillmentType: e.target.value as 'pickup' | 'delivery' }))}
+                          className="sr-only"
+                        />
+                        <Truck className="h-5 w-5 mr-3 text-coral-500" />
+                        <div>
+                          <div className="font-medium text-gray-900">Delivery</div>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    {formData.fulfillmentType === 'pickup' ? (
+                      <>
+                        <label htmlFor="pickupTime" className="block text-sm font-medium text-gray-700 mb-1">
+                          Pickup Time *
+                        </label>
+                        <input
+                          type="time"
+                          id="pickupTime"
+                          name="pickupTime"
+                          value={formData.pickupTime}
+                          onChange={(e) => setFormData(prev => ({ ...prev, pickupTime: e.target.value }))}
+                          className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                            errors.pickupTime
+                              ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
+                              : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                          }`}
+                        />
+                        {errors.pickupTime && (
+                          <p className="mt-1 text-sm text-red-600">{errors.pickupTime}</p>
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        <label htmlFor="deliveryTime" className="block text-sm font-medium text-gray-700 mb-1">
+                          Delivery Time *
+                        </label>
+                        <input
+                          type="time"
+                          id="deliveryTime"
+                          name="deliveryTime"
+                          value={formData.deliveryTime}
+                          onChange={(e) => setFormData(prev => ({ ...prev, deliveryTime: e.target.value }))}
+                          className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                            errors.deliveryTime
+                              ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
+                              : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                          }`}
+                        />
+                        {errors.deliveryTime && (
+                          <p className="mt-1 text-sm text-red-600">{errors.deliveryTime}</p>
+                        )}
+                      </>
+                    )}
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="expirationDate" className="block text-sm font-medium text-gray-700 mb-1">
                       Expiration Date *
                     </label>
                     <input
@@ -474,6 +581,23 @@ const CreateQuote: React.FC = () => {
                     {errors.expirationDate && (
                       <p className="mt-1 text-sm text-red-600">{errors.expirationDate}</p>
                     )}
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                  <div>
+                    <label htmlFor="eventTime" className="block text-sm font-medium text-gray-700 mb-1">
+                      Event Time
+                    </label>
+                    <input
+                      type="time"
+                      id="eventTime"
+                      name="eventTime"
+                      value={formData.eventTime}
+                      onChange={(e) => setFormData(prev => ({ ...prev, eventTime: e.target.value }))}
+                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                    />
+                    <p className="mt-1 text-xs text-gray-500">Only required if this order is for an event</p>
                   </div>
                 </div>
               </div>
