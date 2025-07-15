@@ -20,7 +20,7 @@ import {
   Edit,
   Cake,
   Building2,
-  Users,Invalid Date
+  Users,
   MapPin,
   Tag,
   AlertCircle,
