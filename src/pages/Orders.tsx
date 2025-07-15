@@ -422,23 +422,13 @@ const Orders: React.FC = () => {
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">
                         {order.fulfillmentType === 'pickup' ? (
-                          <span className="flex items-center">
-                            <Package className="h-3 w-3 mr-1" /> 
-                           {order.pickupTime ? formatTime(order.pickupTime) : 'Pickup'}
-                          </span>
-                        ) : (
-                          <span className="flex items-center">
-                            <Truck className="h-3 w-3 mr-1" /> 
-                           {order.deliveryTime ? formatTime(order.deliveryTime) : 'Delivery'}
-                          </span>
-                        )}
-                        {order.eventTime && (
-                          <div className="text-xs text-gray-500 mt-1">
-                            <span className="flex items-center"><Calendar className="h-3 w-3 mr-1" /> Event: {formatTime(order.eventTime)}</span>
-                          </div>
-                        )}
+                         <div className="text-sm text-gray-500">
+                        {inquiry.fulfillmentType === 'pickup' 
+                          ? `Pickup: ${inquiry.pickupTime ? formatTime(inquiry.pickupTime) : 'TBD'}`
+                          : `Delivery: ${inquiry.deliveryTime ? formatTime(inquiry.deliveryTime) : 'TBD'}`
+                        }
+                       
                       </div>
-                    </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right">
                       <div className="text-sm font-medium text-gray-900">{formatCurrency(order.total)}</div>
                     </td>
