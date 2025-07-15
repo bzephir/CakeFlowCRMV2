@@ -429,6 +429,7 @@ const Orders: React.FC = () => {
                         }
                        
                       </div>
+                    </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right">
                       <div className="text-sm font-medium text-gray-900">{formatCurrency(order.total)}</div>
                     </td>
