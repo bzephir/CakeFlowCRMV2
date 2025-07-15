@@ -39,6 +39,7 @@ const Orders: React.FC = () => {
       eventType: 'Wedding',
       eventDate: '2025-01-15',
       eventTime: '13:00',
+      deliveryTime: '12:00',
       status: 'in-production',
       total: 450.00,
       deposited: 225.00,
