@@ -42,7 +42,8 @@ const Invoices: React.FC = () => {
       status: 'partial',
       eventType: 'Wedding',
       eventDate: '2025-06-15',
-      eventTime: '16:00'
+      eventTime: '16:00',
+      deliveryTime:'12:00'
     },
     {
       id: 'I-202501-0002',
