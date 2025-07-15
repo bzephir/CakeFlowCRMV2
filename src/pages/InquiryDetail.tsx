@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useInquiryContext } from '../context/InquiryContext';
 import Header from '../components/Header';
-// Add console log import for better debugging
-import { useEffect as useEffectOriginal } from 'react';
 import { 
   ArrowLeft,
   ArrowRight,
@@ -37,22 +35,10 @@ import {
 import { Inquiry, InquiryAction } from '../types';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 
-// Create a wrapped useEffect for logging
-const useEffect = (effect: React.EffectCallback, deps?: React.DependencyList) => {
-  console.log('Setting up effect with dependencies:', deps);
-  return useEffectOriginal(effect, deps);
-};
-
 const InquiryDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  console.log('InquiryDetail component rendering with id:', id);
   const navigate = useNavigate();
   const { getInquiryById, updateInquiry, addAction } = useInquiryContext();
-  console.log('Context functions loaded:', { 
-    hasGetInquiryById: !!getInquiryById, 
-    hasUpdateInquiry: !!updateInquiry, 
-    hasAddAction: !!addAction 
-  });
   
   const [inquiry, setInquiry] = useState<Inquiry | undefined>(undefined);
   const [loading, setLoading] = useState(true);
@@ -62,16 +48,10 @@ const InquiryDetail: React.FC = () => {
   useEffect(() => {
     if (id) {
       const inquiryData = getInquiryById(id);
-      console.log('Fetched inquiry data:', inquiryData);
       setInquiry(inquiryData);
       setLoading(false);
     }
   }, [id, getInquiryById]);
-
-  // Log when inquiry state changes
-  useEffect(() => {
-    console.log('Inquiry state updated:', inquiry);
-  }, [inquiry]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -140,20 +120,17 @@ const InquiryDetail: React.FC = () => {
   const handleStatusChange = (newStatus: string) => {
     if (!inquiry) return;
     
-    console.log('Changing status from', inquiry.status, 'to', newStatus);
     updateInquiry(inquiry.id, { status: newStatus as any });
     setInquiry({
       ...inquiry,
       status: newStatus as any,
       lastUpdated: new Date().toISOString()
     });
-    console.log('Status updated successfully');
   };
 
   const handleAddNote = () => {
     if (!inquiry || !newNote.trim()) return;
     
-    console.log('Adding new note:', newNote);
     addAction(inquiry.id, {
       type: 'note_added',
       description: 'Added note',
@@ -165,7 +142,6 @@ const InquiryDetail: React.FC = () => {
     
     // Refresh inquiry data
     const updatedInquiry = getInquiryById(inquiry.id);
-    console.log('Inquiry after adding note:', updatedInquiry);
     setInquiry(updatedInquiry);
     
     // Reset form
@@ -178,7 +154,6 @@ const InquiryDetail: React.FC = () => {
     
     // Generate new quote number
     const quoteNumber = generateDocumentNumber('quote');
-    console.log('Generated new quote number:', quoteNumber);
     
     // Add action for quote creation
     addAction(inquiry.id, {
@@ -192,16 +167,10 @@ const InquiryDetail: React.FC = () => {
     
     // Update status if not already quoted or converted
     if (inquiry.status !== 'quoted' && inquiry.status !== 'converted') {
-      console.log('Updating inquiry status to quoted');
       updateInquiry(inquiry.id, { status: 'quoted' });
     }
     
     // Navigate to create quote page with customer info
-    console.log('Navigating to create quote page with data:', { 
-      quoteNumber,
-      customerId: inquiry.id,
-      customerName: `${inquiry.firstName} ${inquiry.lastName}`
-    });
     navigate('/quotes/new', { 
       state: { 
         quoteNumber,
@@ -220,7 +189,6 @@ const InquiryDetail: React.FC = () => {
     
     // Generate new order number
     const orderNumber = generateDocumentNumber('order');
-    console.log('Generated new order number:', orderNumber);
     
     // Add action for order creation
     addAction(inquiry.id, {
@@ -234,15 +202,9 @@ const InquiryDetail: React.FC = () => {
     });
     
     // Update status to converted
-    console.log('Updating inquiry status to converted');
     updateInquiry(inquiry.id, { status: 'converted' });
     
     // Navigate to create order page with customer info
-    console.log('Navigating to create order page with data:', { 
-      orderNumber,
-      customerId: inquiry.id,
-      customerName: `${inquiry.firstName} ${inquiry.lastName}`
-    });
     navigate('/orders/new', { 
       state: { 
         orderNumber,
@@ -259,7 +221,6 @@ const InquiryDetail: React.FC = () => {
   const handleSendEmail = () => {
     if (!inquiry) return;
     
-    console.log('Sending email to customer:', inquiry.email);
     addAction(inquiry.id, {
       type: 'email_sent',
       description: 'Sent follow-up email',
@@ -271,13 +232,11 @@ const InquiryDetail: React.FC = () => {
     
     // Update status if still new
     if (inquiry.status === 'new') {
-      console.log('Updating inquiry status to contacted');
       updateInquiry(inquiry.id, { status: 'contacted' });
     }
     
     // Refresh inquiry data
     const updatedInquiry = getInquiryById(inquiry.id);
-    console.log('Inquiry after sending email:', updatedInquiry);
     setInquiry(updatedInquiry);
     
     alert('Email functionality would be implemented here');
@@ -502,7 +461,6 @@ const InquiryDetail: React.FC = () => {
   };
 
   if (loading) {
-    console.log('Rendering loading state');
     return (
       <div className="flex-1 flex items-center justify-center">
         <p className="text-gray-500">Loading inquiry details...</p>
@@ -511,7 +469,6 @@ const InquiryDetail: React.FC = () => {
   }
 
   if (!inquiry) {
-    console.log('Inquiry not found, rendering error state');
     return (
       <div className="flex-1 flex items-center justify-center">
         <div className="text-center">
@@ -531,13 +488,6 @@ const InquiryDetail: React.FC = () => {
   }
 
   return (
-    // Log right before rendering the main component
-    console.log('Rendering InquiryDetail component with data:', { 
-      id: inquiry.id, 
-      status: inquiry.status, 
-      type: inquiry.type,
-      actionsCount: inquiry.actions.length
-    }) || 
     <div className="flex-1 overflow-hidden">
       <Header title={`Inquiry ${inquiry.id}`} />
       
@@ -781,7 +731,6 @@ const InquiryDetail: React.FC = () => {
                 <div className="flow-root">
                   <ul className="-mb-8">
                     {inquiry.actions.slice().reverse().map((action, actionIdx) => (
-                      console.log('Rendering action:', action.id, action.type) ||
                       <li key={action.id}>
                         <div className="relative pb-8">
                           {actionIdx !== inquiry.actions.length - 1 ? (
