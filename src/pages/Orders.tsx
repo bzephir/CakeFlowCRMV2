@@ -424,12 +424,12 @@ const Orders: React.FC = () => {
                         {order.fulfillmentType === 'pickup' ? (
                           <span className="flex items-center">
                             <Package className="h-3 w-3 mr-1" /> 
-                            Pickup: {order.pickupTime ? formatTime(order.pickupTime) : 'Pickup'}
+                           {order.pickupTime ? formatTime(order.pickupTime) : 'Pickup'}
                           </span>
                         ) : (
                           <span className="flex items-center">
                             <Truck className="h-3 w-3 mr-1" /> 
-                            Delivery: {order.deliveryTime ? formatTime(order.deliveryTime) : 'Delivery'}
+                           {order.deliveryTime ? formatTime(order.deliveryTime) : 'Delivery'}
                           </span>
                         )}
                         {order.eventTime && (
