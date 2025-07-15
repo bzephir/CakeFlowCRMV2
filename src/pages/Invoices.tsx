@@ -146,7 +146,9 @@ const Invoices: React.FC = () => {
       status: 'paid',
       eventType: 'Corporate',
       eventDate: '2024-12-12',
-      eventTime: '09:00'
+      eventTime: '09:00',
+      deliveryTiem: '08:30'
+  
     },
     {
       id: 'I-202411-0034',
@@ -159,7 +161,8 @@ const Invoices: React.FC = () => {
       status: 'pending',
       eventType: 'Celebration',
       eventDate: '2024-12-08',
-      eventTime: '19:00'
+      eventTime: '19:00',
+      pickupTime: '14:00'
     },
     {
       id: 'I-202411-0035',
