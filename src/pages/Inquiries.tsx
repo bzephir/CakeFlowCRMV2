@@ -305,7 +305,8 @@ const Inquiries: React.FC = () => {
                         className="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded-md text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 transition-all"
                       >
                         <Eye className="h-3 w-3 mr-1" />
-                        View
+                   
+                      View
                       </button>
                     </td>
                   </tr>
