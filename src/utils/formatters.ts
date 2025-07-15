@@ -22,17 +22,12 @@ export const formatDate = (dateString: string) => {
  */
 export const formatTime = (timeString: string) => {
   if (!timeString) return '';
-  console.log(`formatTime received: "${timeString}" (type: ${typeof timeString})`);
-  
   // Convert 24-hour format to 12-hour format
   const [hours, minutes] = timeString.split(':');
   const hour = parseInt(hours);
   const ampm = hour >= 12 ? 'PM' : 'AM';
   const hour12 = hour % 12 || 12;
-  
-  const result = `${hour12}:${minutes} ${ampm}`;
-  console.log(`formatTime returning: "${result}"`);
-  return result;
+  return `${hour12}:${minutes} ${ampm}`;
 };
 
 /**

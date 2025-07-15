@@ -44,13 +44,6 @@ const InquiryDetail: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [newNote, setNewNote] = useState('');
   const [showAddNote, setShowAddNote] = useState(false);
-// Inside the InquiryDetail component, after inquiry is loaded
-if (inquiry) {
-  console.log(`Inquiry ID: ${inquiry.id}`);
-  console.log(`  Raw pickupTime: ${inquiry.pickupTime}`);
-  console.log(`  Raw deliveryTime: ${inquiry.deliveryTime}`);
-  console.log(`  Raw eventTime: ${inquiry.eventTime}`);
-}
 
   useEffect(() => {
     if (id) {

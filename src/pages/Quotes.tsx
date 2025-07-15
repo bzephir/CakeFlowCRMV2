@@ -400,10 +400,17 @@ const Quotes: React.FC = () => {
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">
-                        {quote.fulfillmentType === 'pickup' 
-                          ? <span className="flex items-center"><Package className="h-3 w-3 mr-1" /> {quote.pickupTime ? formatTime(quote.pickupTime) : 'TBD'}</span>
-                          : <span className="flex items-center"><Truck className="h-3 w-3 mr-1" /> {quote.deliveryTime ? formatTime(quote.deliveryTime) : 'TBD'}</span>
-                        }
+                        {quote.fulfillmentType === 'pickup' ? (
+                          <span className="flex items-center">
+                            <Package className="h-3 w-3 mr-1" /> 
+                            Pickup: {quote.pickupTime ? formatTime(quote.pickupTime) : 'TBD'}
+                          </span>
+                        ) : (
+                          <span className="flex items-center">
+                            <Truck className="h-3 w-3 mr-1" /> 
+                            Delivery: {quote.deliveryTime ? formatTime(quote.deliveryTime) : 'TBD'}
+                          </span>
+                        )}
                         {quote.eventTime && (
                           <div className="text-xs text-gray-500 mt-1">
                             <span className="flex items-center"><Calendar className="h-3 w-3 mr-1" /> Event: {formatTime(quote.eventTime)}</span>
