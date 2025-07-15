@@ -421,11 +421,10 @@ const Orders: React.FC = () => {
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-500">
-                        {inquiry.fulfillmentType === 'pickup' 
-                          ? `Pickup: ${inquiry.pickupTime ? formatTime(inquiry.pickupTime) : 'TBD'}`
-                          : `Delivery: ${inquiry.deliveryTime ? formatTime(inquiry.deliveryTime) : 'TBD'}`
+                        {order.fulfillmentType === 'pickup' 
+                          ? `Pickup: ${order.pickupTime ? formatTime(order.pickupTime) : 'TBD'}`
+                          : `Delivery: ${order.deliveryTime ? formatTime(order.deliveryTime) : 'TBD'}`
                         }
-                       
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right">
