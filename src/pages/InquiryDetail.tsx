@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useInquiryContext } from '../context/InquiryContext';
+import { useQuoteContext } from '../context/QuoteContext';
 import Header from '../components/Header';
 import { 
   ArrowLeft,
@@ -39,6 +40,7 @@ const InquiryDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { getInquiryById, updateInquiry, addAction } = useInquiryContext();
+  const { addQuote } = useQuoteContext();
   
   const [inquiry, setInquiry] = useState<Inquiry | undefined>(undefined);
   const [loading, setLoading] = useState(true);
@@ -152,16 +154,13 @@ const InquiryDetail: React.FC = () => {
   const handleCreateQuote = () => {
     if (!inquiry) return;
     
-    // Generate new quote number
-    const quoteNumber = generateDocumentNumber('quote');
-    
     // Add action for quote creation
     addAction(inquiry.id, {
       type: 'quote_sent',
       description: 'Created quote',
       performedBy: 'admin',
       details: {
-        quoteId: quoteNumber
+        quoteId: ''  // Will be filled in by the quote context
       }
     });
     
@@ -171,16 +170,8 @@ const InquiryDetail: React.FC = () => {
     }
     
     // Navigate to create quote page with customer info
-    navigate('/quotes/new', { 
-      state: { 
-        quoteNumber,
-        customerId: inquiry.id,
-        customerName: `${inquiry.firstName} ${inquiry.lastName}`,
-        customerEmail: inquiry.email,
-        customerPhone: inquiry.phone,
-        eventDate: inquiry.eventDate,
-        eventType: inquiry.type
-      } 
+    navigate('/quotes/new', {
+      state: { inquiryId: inquiry.id }
     });
   };
 

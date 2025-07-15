@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useOrderContext } from '../context/OrderContext';
 import Header from '../components/Header';
 import Logo from '../components/Logo';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
@@ -88,146 +89,23 @@ interface OrderData {
 const OrderDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [order, setOrder] = useState<OrderData | null>(null);
+  const { getOrderById, updateOrder, addAction } = useOrderContext();
+  const [order, setOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(true);
-
-  // Mock orders data
-  const mockOrders: OrderData[] = [
-    {
-      id: 'O-202501-0001',
-      customer: {
-        id: '1',
-        name: 'Sarah Johnson',
-        email: 'sarah@email.com',
-        phone: '(555) 123-4567',
-        address: '123 Main Street',
-        city: 'Springfield',
-        state: 'IL',
-        zip: '62701'
-      },
-      orderDate: '2025-01-01',
-      fulfillmentType: 'delivery',
-      pickupTime: '',
-      deliveryTime: '13:00',
-      eventTime: '15:00',
-      eventDate: '2025-01-15',
-      eventType: 'Wedding',
-      venue: 'Grand Ballroom at The Plaza',
-      guestCount: 120,
-      orderItems: [
-        { id: '1', name: '3-Tier Wedding Cake', description: 'Vanilla cake with buttercream frosting', quantity: 1, unitPrice: 450.00, total: 450.00 }
-      ],
-      payments: [
-        { id: '1', date: '2025-01-01', amount: 225.00, method: 'Credit Card', reference: 'TXID-12345' }
-      ],
-      subtotal: 450.00,
-      taxRate: 7.0,
-      taxAmount: 31.50,
-      total: 481.50,
-      depositAmount: 225.00,
-      balance: 256.50,
-      specialInstructions: 'Cake should match wedding colors: blush pink and gold.',
-      deliveryNotes: 'Delivery to venue at 1:00 PM. Ask for event coordinator at main entrance.',
-      status: 'in-production',
-      createdBy: 'admin',
-      createdAt: '2025-01-01T10:30:00Z',
-      lastUpdated: '2025-01-05T14:15:00Z'
-    },
-    {
-      id: 'O-202501-0002',
-      customer: {
-        id: '2',
-        name: 'Mike Chen',
-        email: 'mike@email.com',
-        phone: '(555) 234-5678',
-        address: '456 Oak Avenue',
-        city: 'Springfield',
-        state: 'IL',
-        zip: '62702'
-      },
-      orderDate: '2025-01-05',
-      fulfillmentType: 'pickup',
-      pickupTime: '15:30',
-      deliveryTime: '',
-      eventTime: '17:00',
-      eventDate: '2025-01-16',
-      eventType: 'Birthday',
-      guestCount: 25,
-      orderItems: [
-        { id: '1', name: 'Custom Birthday Cake', description: 'Chocolate cake with chocolate ganache', quantity: 1, unitPrice: 85.00, total: 85.00 },
-        { id: '2', name: 'Cupcakes (dozen)', description: 'Assorted flavors', quantity: 1, unitPrice: 36.00, total: 36.00 }
-      ],
-      payments: [
-        { id: '1', date: '2025-01-05', amount: 60.00, method: 'Cash' }
-      ],
-      subtotal: 121.00,
-      taxRate: 7.0,
-      taxAmount: 8.47,
-      total: 129.47,
-      depositAmount: 60.00,
-      balance: 69.47,
-      specialInstructions: 'Birthday cake for 40th celebration. Include "Happy 40th Mike!" text.',
-      deliveryNotes: '',
-      status: 'confirmed',
-      createdBy: 'admin',
-      createdAt: '2025-01-05T11:45:00Z',
-      lastUpdated: '2025-01-05T11:45:00Z'
-    },
-    {
-      id: 'O-202501-0003',
-      customer: {
-        id: '3',
-        name: 'Emma Davis',
-        email: 'emma@email.com',
-        phone: '(555) 345-6789',
-        address: '789 Pine Road',
-        city: 'Springfield',
-        state: 'IL',
-        zip: '62703'
-      },
-      orderDate: '2025-01-10',
-      fulfillmentType: 'delivery',
-      pickupTime: '',
-      deliveryTime: '15:30',
-      eventTime: '16:00',
-      eventDate: '2025-01-18',
-      eventType: 'Corporate Event',
-      venue: 'TechCorp Headquarters',
-      guestCount: 50,
-      orderItems: [
-        { id: '1', name: 'Corporate Cupcakes', description: 'With company logo', quantity: 48, unitPrice: 2.50, total: 120.00 },
-        { id: '2', name: 'Branded Cookies', description: 'Company logo cookies', quantity: 48, unitPrice: 3.00, total: 144.00 },
-        { id: '3', name: 'Delivery', description: 'Delivery to corporate office', quantity: 1, unitPrice: 25.00, total: 25.00 }
-      ],
-      payments: [],
-      subtotal: 289.00,
-      taxRate: 7.0,
-      taxAmount: 20.23,
-      total: 309.23,
-      depositAmount: 0.00,
-      balance: 309.23,
-      specialInstructions: 'All items must have company branding as per provided logo.',
-      deliveryNotes: 'Deliver to reception desk. Contact Emma upon arrival.',
-      status: 'quoted',
-      createdBy: 'admin',
-      createdAt: '2025-01-10T09:30:00Z',
-      lastUpdated: '2025-01-10T09:30:00Z'
-    }
-  ];
 
   useEffect(() => {
     // Simulate API call to fetch order data
     setLoading(true);
     
     // Find the order with the matching ID
-    const foundOrder = mockOrders.find(o => o.id === id);
+    const foundOrder = getOrderById(id);
     
     if (foundOrder) {
       setOrder(foundOrder);
     }
     
     setLoading(false);
-  }, [id]);
+  }, [id, getOrderById]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -274,14 +152,30 @@ const OrderDetail: React.FC = () => {
   const handleCreateInvoice = () => {
     // Generate new invoice number
     const invoiceNumber = generateDocumentNumber('invoice');
+
+    // Add action for invoice creation
+    if (order) {
+      addAction(order.id, {
+        type: 'status_change',
+        description: 'Invoice created from order',
+        performedBy: 'admin',
+        details: {
+          previousStatus: order.status,
+          newStatus: 'completed'
+        }
+      });
+      
+      // Update order status if not already completed
+      if (order.status !== 'completed') {
+        updateOrder(order.id, { status: 'completed' });
+      }
+    }
     
     // Navigate to create invoice page with order data
     navigate('/invoice/new', { 
       state: { 
         invoiceNumber,
-        convertedFromOrder: id,
-        customerId: order?.customer.id,
-        customerName: order?.customer.name
+        orderId: id
       } 
     });
   };

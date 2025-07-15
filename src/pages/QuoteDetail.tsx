@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useQuoteContext } from '../context/QuoteContext';
+import { useOrderContext } from '../context/OrderContext';
 import Header from '../components/Header';
 import Logo from '../components/Logo';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
@@ -81,150 +83,24 @@ interface QuoteData {
 const QuoteDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [quote, setQuote] = useState<QuoteData | null>(null);
+  const { getQuoteById, updateQuote, addAction } = useQuoteContext();
+  const { addOrder } = useOrderContext();
+  const [quote, setQuote] = useState<Quote | null>(null);
   const [loading, setLoading] = useState(true);
-
-  // Mock quotes data
-  const mockQuotes: QuoteData[] = [
-    {
-      id: 'Q-202501-0001',
-      customer: {
-        id: '1',
-        name: 'David Fraga',
-        email: 'david.fraga@example.com',
-        phone: '(555) 123-4567',
-        address: '123 Main Street',
-        city: 'Springfield',
-        state: 'IL',
-        zip: '62701'
-      },
-      quoteDate: '2025-01-15',
-      expirationDate: '2025-02-15',
-      fulfillmentType: 'delivery',
-      pickupTime: '',
-      deliveryTime: '14:00',
-      eventTime: '16:00',
-      eventDate: '2025-06-15',
-      eventType: 'Wedding',
-      poNumber: 'PO-12345',
-      lineItems: [
-        { id: '1', name: '3-Tier Wedding Cake', description: 'Vanilla cake with buttercream frosting', quantity: 1, unitPrice: 450.00, total: 450.00 },
-        { id: '2', name: 'Custom Cake Topper', description: 'Personalized with names', quantity: 1, unitPrice: 65.00, total: 65.00 },
-        { id: '3', name: 'Delivery & Setup', description: 'Includes setup at venue', quantity: 1, unitPrice: 85.00, total: 85.00 }
-      ],
-      subtotal: 600.00,
-      discountType: 'percentage',
-      discountValue: 0,
-      discountAmount: 0,
-      taxRate: 7.0,
-      taxAmount: 42.00,
-      shippingFee: 0,
-      total: 642.00,
-      customerNotes: 'Please ensure the cake matches our wedding colors: blush pink and gold.',
-      internalNotes: 'Client is very detail-oriented. Confirm all details before production.',
-      termsConditions: 'Payment terms: 50% deposit required to confirm order. Final payment due 14 days before event date. Cancellations within 30 days of event are subject to 50% fee.',
-      status: 'sent',
-      createdBy: 'admin',
-      createdAt: '2025-01-15T10:30:00Z',
-      lastUpdated: '2025-01-15T10:30:00Z'
-    },
-    {
-      id: 'Q-202501-0002',
-      customer: {
-        id: '2',
-        name: 'Sarah Johnson',
-        email: 'sarah@email.com',
-        phone: '(555) 234-5678',
-        address: '456 Oak Avenue',
-        city: 'Springfield',
-        state: 'IL',
-        zip: '62702'
-      },
-      quoteDate: '2025-01-10',
-      expirationDate: '2025-02-10',
-      fulfillmentType: 'pickup',
-      pickupTime: '12:00',
-      deliveryTime: '',
-      eventTime: '14:00',
-      eventDate: '2025-03-15',
-      eventType: 'Birthday',
-      poNumber: '',
-      lineItems: [
-        { id: '1', name: 'Custom Birthday Cake', description: '2-layer chocolate cake with buttercream', quantity: 1, unitPrice: 85.00, total: 85.00 },
-        { id: '2', name: 'Cupcakes (dozen)', description: 'Assorted flavors', quantity: 3, unitPrice: 36.00, total: 108.00 },
-        { id: '3', name: 'Cake Pops (dozen)', description: 'Chocolate and vanilla', quantity: 2, unitPrice: 24.00, total: 48.00 }
-      ],
-      subtotal: 241.00,
-      discountType: 'fixed',
-      discountValue: 20,
-      discountAmount: 20.00,
-      taxRate: 7.0,
-      taxAmount: 15.47,
-      shippingFee: 0,
-      total: 236.47,
-      customerNotes: 'Theme is "Under the Sea" with blue and teal colors.',
-      internalNotes: 'Customer is a repeat client, very easy to work with.',
-      termsConditions: 'Payment terms: Full payment required at time of pickup. Cancellations with less than 48 hours notice are subject to 50% fee.',
-      status: 'accepted',
-      createdBy: 'admin',
-      createdAt: '2025-01-10T14:45:00Z',
-      lastUpdated: '2025-01-11T09:15:00Z'
-    },
-    {
-      id: 'Q-202501-0003',
-      customer: {
-        id: '3',
-        name: 'Mike Chen',
-        email: 'mike@email.com',
-        phone: '(555) 345-6789',
-        address: '789 Pine Road',
-        city: 'Springfield',
-        state: 'IL',
-        zip: '62703'
-      },
-      quoteDate: '2025-01-05',
-      expirationDate: '2025-02-05',
-      fulfillmentType: 'delivery',
-      pickupTime: '',
-      deliveryTime: '10:00',
-      eventTime: '12:00',
-      eventDate: '2025-02-16',
-      eventType: 'Corporate',
-      poNumber: 'CORP-2025-001',
-      lineItems: [
-        { id: '1', name: 'Corporate Cupcakes', description: 'With company logo', quantity: 48, unitPrice: 2.50, total: 120.00 }
-      ],
-      subtotal: 120.00,
-      discountType: 'percentage',
-      discountValue: 0,
-      discountAmount: 0,
-      taxRate: 7.0,
-      taxAmount: 8.40,
-      shippingFee: 25.00,
-      total: 153.40,
-      customerNotes: 'Please ensure cupcakes have our company logo as discussed.',
-      internalNotes: 'Need to get high-resolution logo from client for printing.',
-      termsConditions: 'Payment terms: Net 30 days. PO required for all orders.',
-      status: 'draft',
-      createdBy: 'admin',
-      createdAt: '2025-01-05T11:20:00Z',
-      lastUpdated: '2025-01-05T11:20:00Z'
-    }
-  ];
 
   useEffect(() => {
     // Simulate API call to fetch quote data
     setLoading(true);
     
     // Find the quote with the matching ID
-    const foundQuote = mockQuotes.find(q => q.id === id);
+    const foundQuote = getQuoteById(id);
     
     if (foundQuote) {
       setQuote(foundQuote);
     }
     
     setLoading(false);
-  }, [id]);
+  }, [id, getQuoteById]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -269,14 +145,28 @@ const QuoteDetail: React.FC = () => {
   const handleConvertToOrder = () => {
     // Generate new order number
     const orderNumber = generateDocumentNumber('order');
+
+    // Add action for order conversion
+    if (quote) {
+      addAction(quote.id, {
+        type: 'status_change',
+        description: 'Quote converted to order',
+        performedBy: 'admin',
+        details: {
+          previousStatus: quote.status,
+          newStatus: 'accepted'
+        }
+      });
+      
+      // Update quote status
+      updateQuote(quote.id, { status: 'accepted' });
+    }
     
     // Navigate to create order page with quote data
     navigate('/orders/new', { 
       state: { 
         orderNumber,
-        convertedFromQuote: id,
-        customerId: quote?.customer.id,
-        customerName: quote?.customer.name
+        quoteId: id
       } 
     });
   };
