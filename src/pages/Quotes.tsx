@@ -403,12 +403,12 @@ const Quotes: React.FC = () => {
                         {quote.fulfillmentType === 'pickup' ? (
                           <span className="flex items-center">
                             <Package className="h-3 w-3 mr-1" /> 
-                            Pickup: {quote.pickupTime ? formatTime(quote.pickupTime) : 'TBD'}
+                            {quote.pickupTime ? formatTime(quote.pickupTime) : 'Pickup'}
                           </span>
                         ) : (
                           <span className="flex items-center">
                             <Truck className="h-3 w-3 mr-1" /> 
-                            Delivery: {quote.deliveryTime ? formatTime(quote.deliveryTime) : 'TBD'}
+                            {quote.deliveryTime ? formatTime(quote.deliveryTime) : 'Delivery'}
                           </span>
                         )}
                         {quote.eventTime && (
