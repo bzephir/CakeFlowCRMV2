@@ -197,8 +197,7 @@ const Orders: React.FC = () => {
   };
   const handleViewOrder = (orderId: string) => {
     // Navigate to order details page
-    console.log('View order:', orderId);
-    // navigate(`/orders/${orderId}`);
+    navigate(`/orders/${orderId}`);
   };
 
   const handleCreateOrder = () => {
