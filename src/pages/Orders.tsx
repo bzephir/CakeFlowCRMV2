@@ -54,6 +54,7 @@ const Orders: React.FC = () => {
       eventType: 'Birthday',
       eventDate: '2025-01-16',
       eventTime: '15:30',
+      pickupTime: '14:30',
       status: 'confirmed',
       total: 120.00,
       deposited: 60.00,
