@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useOrderContext } from '../context/OrderContext';
 import Header from '../components/Header';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
@@ -24,6 +25,7 @@ import {
 
 const Orders: React.FC = () => {
   const navigate = useNavigate();
+  const { orders, markAsOpened } = useOrderContext();
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
@@ -31,150 +33,6 @@ const Orders: React.FC = () => {
   const itemsPerPage = 10;
 
   // Mock orders with new numbering format
-  const orders = [
-    {
-      id: 'O-202501-0001',
-      customer: 'Sarah Johnson',
-      email: 'sarah@email.com',
-      eventType: 'Wedding',
-      eventDate: '2025-01-15',
-      eventTime: '13:00',
-      deliveryTime: '12:00',
-      status: 'in-production',
-      total: 450.00,
-      deposited: 225.00,
-      balance: 225.00,
-      items: ['3-Tier Wedding Cake', 'Cake Toppers'],
-      createdAt: '2025-01-01'
-    },
-    {
-      id: 'O-202501-0002',
-      customer: 'Mike Chen',
-      email: 'mike@email.com',
-      eventType: 'Birthday',
-      eventDate: '2025-01-16',
-      eventTime: '15:30',
-      pickupTime: '14:30',
-      status: 'confirmed',
-      total: 120.00,
-      deposited: 60.00,
-      balance: 60.00,
-      items: ['Custom Birthday Cake'],
-      createdAt: '2025-01-05'
-    },
-    {
-      id: 'O-202501-0003',
-      customer: 'Emma Davis',
-      email: 'emma@email.com',
-      eventType: 'Corporate Event',
-      eventDate: '2025-01-18',
-      eventTime: '16:00',
-      status: 'quoted',
-      total: 280.00,
-      deposited: 0.00,
-      balance: 280.00,
-      items: ['Corporate Cupcakes (48)', 'Branded Toppers'],
-      createdAt: '2025-01-10'
-    },
-    {
-      id: 'O-202412-0025',
-      customer: 'James Wilson',
-      email: 'james@email.com',
-      eventType: 'Anniversary',
-      eventDate: '2025-03-08',
-      eventTime: '22:00',
-      status: 'inquiry',
-      total: 180.00,
-      deposited: 0.00,
-      balance: 180.00,
-      items: ['Anniversary Cake'],
-      createdAt: '2024-12-12'
-    },
-    {
-      id: 'O-202412-0026',
-      customer: 'Lisa Park',
-      email: 'lisa@email.com',
-      eventType: 'Baby Shower',
-      eventDate: '2025-01-14',
-      eventTime: '11:00',
-      status: 'completed',
-      total: 200.00,
-      deposited: 200.00,
-      balance: 0.00,
-      items: ['Baby Shower Cake', 'Mini Cupcakes (24)'],
-      createdAt: '2024-11-28'
-    },
-    {
-      id: 'O-202412-0027',
-      customer: 'Robert Smith',
-      email: 'robert@email.com',
-      eventType: 'Graduation',
-      eventDate: '2025-02-05',
-      eventTime: '14:00',
-      status: 'confirmed',
-      total: 150.00,
-      deposited: 75.00,
-      balance: 75.00,
-      items: ['Graduation Cake', 'Cookies (12)'],
-      createdAt: '2024-12-10'
-    },
-    {
-      id: 'O-202412-0028',
-      customer: 'Jennifer Brown',
-      email: 'jennifer@email.com',
-      eventType: 'Birthday',
-      eventDate: '2025-01-30',
-      eventTime: '15:30',
-      status: 'in-production',
-      total: 95.00,
-      deposited: 95.00,
-      balance: 0.00,
-      items: ['Custom Birthday Cake'],
-      createdAt: '2024-12-05'
-    },
-    {
-      id: 'O-202411-0015',
-      customer: 'Michael Taylor',
-      email: 'michael@email.com',
-      eventType: 'Corporate Event',
-      eventDate: '2024-12-15',
-      eventTime: '16:00',
-      status: 'completed',
-      total: 350.00,
-      deposited: 350.00,
-      balance: 0.00,
-      items: ['Corporate Cupcakes (72)', 'Logo Cookies (24)'],
-      createdAt: '2024-11-20'
-    },
-    {
-      id: 'O-202411-0016',
-      customer: 'Jessica Lee',
-      email: 'jessica@email.com',
-      eventType: 'Wedding',
-      eventDate: '2025-03-10',
-      eventTime: '15:30',
-      status: 'confirmed',
-      total: 550.00,
-      deposited: 275.00,
-      balance: 275.00,
-      items: ['3-Tier Wedding Cake', 'Dessert Table'],
-      createdAt: '2024-11-15'
-    },
-    {
-      id: 'O-202411-0017',
-      customer: 'Daniel Garcia',
-      email: 'daniel@email.com',
-      eventType: 'Anniversary',
-      eventDate: '2025-02-20',
-      eventTime: '10:00',
-      status: 'quoted',
-      total: 175.00,
-      deposited: 0.00,
-      balance: 175.00,
-      items: ['Anniversary Cake'],
-      createdAt: '2024-11-10'
-    }
-  ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -199,6 +57,7 @@ const Orders: React.FC = () => {
   };
   const handleViewOrder = (orderId: string) => {
     // Navigate to order details page
+    markAsOpened(orderId);
     navigate(`/orders/${orderId}`);
   };
 
@@ -265,7 +124,8 @@ const Orders: React.FC = () => {
 
   // Filter orders based on search term and status filter
   const filteredOrders = orders.filter(order => {
-    const matchesSearch = order.customer.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    const fullName = `${order.firstName} ${order.lastName}`.toLowerCase();
+    const matchesSearch = fullName.includes(searchTerm.toLowerCase()) ||
                          order.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          order.id.includes(searchTerm);
     const matchesStatus = statusFilter === 'all' || order.status === statusFilter;
@@ -275,7 +135,11 @@ const Orders: React.FC = () => {
   // Pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentOrders = filteredOrders.slice(indexOfFirstItem, indexOfLastItem);
+  // Sort orders by submission date (newest first)
+  const sortedOrders = [...filteredOrders].sort((a, b) => 
+    new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime()
+  );
+  const currentOrders = sortedOrders.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
@@ -413,10 +277,12 @@ const Orders: React.FC = () => {
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">{order.customer}</div>
+                      <div className="text-sm font-medium text-gray-900">
+                        {order.firstName} {order.lastName}
+                      </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{order.eventType}</div>
+                      <div className="text-sm text-gray-900 capitalize">{order.type}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{formatDate(order.eventDate)}</div>
@@ -430,7 +296,9 @@ const Orders: React.FC = () => {
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right">
-                      <div className="text-sm font-medium text-gray-900">{formatCurrency(order.total)}</div>
+                      <div className="text-sm font-medium text-gray-900">
+                        {formatCurrency(order.total)}
+                      </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(order.status)}`}>

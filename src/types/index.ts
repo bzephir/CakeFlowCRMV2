@@ -60,18 +60,76 @@ export interface OrderItem {
 
 export interface Quote {
   id: string;
-  eventType: string;
-  eventTime?: string;
+  type: 'celebration' | 'wedding' | 'corporate';
+  status: 'draft' | 'sent' | 'accepted' | 'rejected' | 'expired';
+  
+  // Common fields across all quote types
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  eventDate: string;
   fulfillmentType: 'pickup' | 'delivery';
-  pickupTime?: string;
-  deliveryTime?: string;
   pickupTime: string;
   deliveryTime: string;
-  eventDate: string;
-  status: 'accepted' | 'sent' | 'draft' | 'rejected' | 'expired';
+  eventTime: string;
+  guestCount?: number;
+  budget?: string;
+  hearAboutUs?: string;
+  additionalNotes?: string;
+  
+  // Type-specific details
+  details: CelebrationInquiryDetails | WeddingInquiryDetails | CorporateInquiryDetails;
+  
+  // Quote-specific fields
+  quoteItems: QuoteItem[];
+  subtotal: number;
+  discountType: 'percentage' | 'fixed';
+  discountValue: number;
+  discountAmount: number;
+  taxRate: number;
+  taxAmount: number;
+  shippingFee: number;
   total: number;
-  createdAt: string;
+  customerNotes: string;
+  internalNotes: string;
+  termsConditions: string;
   expiryDate: string;
+  
+  // Metadata
+  submittedAt: string;
+  lastUpdated: string;
+  assignedTo?: string;
+  
+  // Action history
+  actions: QuoteAction[];
+}
+
+export interface QuoteItem {
+  id: string;
+  name: string;
+  description?: string;
+  quantity: number;
+  unitPrice: number;
+  total: number;
+}
+
+// Quote action/timeline interface
+export interface QuoteAction {
+  id: string;
+  type: 'status_change' | 'note_added' | 'email_sent' | 'call_made' | 'quote_sent' | 'meeting_scheduled';
+  description: string;
+  performedBy: string;
+  performedAt: string;
+  details?: {
+    previousStatus?: string;
+    newStatus?: string;
+    emailSubject?: string;
+    callDuration?: number;
+    quoteId?: string;
+    meetingDate?: string;
+    notes?: string;
+  };
 }
 
 export interface Invoice {
@@ -119,14 +177,6 @@ export interface Recipe {
   id: string;
   name: string;
   category: string;
-  servings: number;
-  prepTime: number;
-  difficulty: 'easy' | 'medium' | 'hard';
-  ingredients: Ingredient[];
-  instructions: string[];
-  cost: number;
-  profitMargin: number;
-  sellingPrice: number;
 }
 
 export interface Ingredient {
@@ -191,71 +241,4 @@ export interface WeddingInquiryDetails {
   services: string[];
   cakeStyle?: string;
   flavors?: string[];
-  dietaryRestrictions?: string[];
-  deliverySetup: boolean;
-  tastingRequested: boolean;
-  budgetRange?: string;
-  weddingPlanner?: {
-    name: string;
-    company: string;
-    contact: string;
-  };
-}
-
-export interface CorporateInquiryDetails {
-  companyName: string;
-  eventType: string;
-  services: string[];
-  recurring: boolean;
-  frequency?: string;
-  brandingRequired: boolean;
-  deliveryAddress?: string;
-  contactPerson: {
-    name: string;
-    title: string;
-    department: string;
-  };
-  approvalProcess?: string;
-  invoicingRequirements?: string;
-}
-
-// Inquiry action/timeline interface
-export interface InquiryAction {
-  id: string;
-  type: 'status_change' | 'note_added' | 'email_sent' | 'call_made' | 'quote_sent' | 'meeting_scheduled';
-  description: string;
-  performedBy: string;
-  performedAt: string;
-  details?: {
-    previousStatus?: string;
-    newStatus?: string;
-    emailSubject?: string;
-    callDuration?: number;
-    quoteId?: string;
-    meetingDate?: string;
-    notes?: string;
-  };
-}
-
-// Updated InquiryForm interface to align with new Inquiry type
-export interface InquiryForm {
-  id: string;
-  type: 'celebration' | 'wedding' | 'corporate';
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  eventDate: string;
-  eventTime: string;
-  occasion: string;
-  services: string[];
-  guestCount: number;
-  theme: string;
-  colors: string;
-  budget: string;
-  cakeTasting: boolean;
-  hearAboutUs: string;
-  inspirationPhotos: File[];
-  submittedAt: string;
-  status: 'new' | 'contacted' | 'quoted' | 'converted' | 'declined';
 }

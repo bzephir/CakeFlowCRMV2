@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useQuoteContext } from '../context/QuoteContext';
 import Header from '../components/Header';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
@@ -25,6 +26,7 @@ import {
 
 const Quotes: React.FC = () => {
   const navigate = useNavigate();
+  const { quotes, markAsOpened } = useQuoteContext();
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [selectedQuotes, setSelectedQuotes] = useState<string[]>([]);
@@ -32,118 +34,6 @@ const Quotes: React.FC = () => {
   const itemsPerPage = 10;
 
   // Mock quote data with new numbering format
-  const quotes = [
-    {
-      id: 'Q-202501-0001',
-      customer: 'David Fraga',
-      email: 'david.fraga@example.com',
-      issueDate: '2025-01-15',
-      expiryDate: '2025-02-15',
-      amount: 642.00,
-      status: 'sent',
-      eventDate: '2025-06-15'
-    },
-    {
-      id: 'Q-202501-0002',
-      customer: 'Sarah Johnson',
-      email: 'sarah@email.com',
-      issueDate: '2025-01-10',
-      expiryDate: '2025-02-10',
-      amount: 450.00,
-      status: 'accepted',
-      eventDate: '2025-03-15'
-    },
-    {
-      id: 'Q-202501-0003',
-      customer: 'Mike Chen',
-      email: 'mike@email.com',
-      issueDate: '2025-01-05',
-      expiryDate: '2025-02-05',
-      amount: 120.00,
-      status: 'draft',
-      eventDate: '2025-02-16'
-    },
-    {
-      id: 'Q-202412-0015',
-      customer: 'Emma Davis',
-      email: 'emma@email.com',
-      issueDate: '2024-12-20',
-      expiryDate: '2025-01-20',
-      amount: 280.00,
-      status: 'rejected',
-      eventDate: '2025-01-18'
-    },
-    {
-      id: 'Q-202412-0016',
-      customer: 'James Wilson',
-      email: 'james@email.com',
-      issueDate: '2024-12-15',
-      expiryDate: '2025-01-15',
-      amount: 180.00,
-      status: 'expired',
-      eventDate: '2025-01-20'
-    },
-    {
-      id: 'Q-202412-0017',
-      customer: 'Lisa Park',
-      email: 'lisa@email.com',
-      issueDate: '2024-12-10',
-      expiryDate: '2025-01-10',
-      amount: 200.00,
-      status: 'accepted',
-      eventDate: '2024-12-28'
-    },
-    {
-      id: 'Q-202412-0018',
-      customer: 'Robert Smith',
-      email: 'robert@email.com',
-      issueDate: '2024-12-05',
-      expiryDate: '2025-01-05',
-      amount: 350.00,
-      status: 'sent',
-      eventDate: '2024-12-22'
-    },
-    {
-      id: 'Q-202411-0025',
-      customer: 'Jennifer Brown',
-      email: 'jennifer@email.com',
-      issueDate: '2024-11-30',
-      expiryDate: '2024-12-30',
-      amount: 175.00,
-      status: 'expired',
-      eventDate: '2024-12-18'
-    },
-    {
-      id: 'Q-202411-0026',
-      customer: 'Michael Taylor',
-      email: 'michael@email.com',
-      issueDate: '2024-11-25',
-      expiryDate: '2024-12-25',
-      amount: 420.00,
-      status: 'accepted',
-      eventDate: '2024-12-12'
-    },
-    {
-      id: 'Q-202411-0027',
-      customer: 'Jessica Lee',
-      email: 'jessica@email.com',
-      issueDate: '2024-11-20',
-      expiryDate: '2024-12-20',
-      amount: 300.00,
-      status: 'sent',
-      eventDate: '2024-12-08'
-    },
-    {
-      id: 'Q-202411-0028',
-      customer: 'Daniel Garcia',
-      email: 'daniel@email.com',
-      issueDate: '2024-11-15',
-      expiryDate: '2024-12-15',
-      amount: 225.00,
-      status: 'draft',
-      eventDate: '2024-12-02'
-    }
-  ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -169,6 +59,7 @@ const Quotes: React.FC = () => {
 
   const handleViewQuote = (quoteId: string) => {
     // Navigate to quote details page
+    markAsOpened(quoteId);
     navigate(`/quotes/${quoteId}`); // This will now route to the QuoteDetail component
   };
 
@@ -239,7 +130,8 @@ const Quotes: React.FC = () => {
 
   // Filter quotes based on search term and status filter
   const filteredQuotes = quotes.filter(quote => {
-    const matchesSearch = quote.customer.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    const fullName = `${quote.firstName} ${quote.lastName}`.toLowerCase();
+    const matchesSearch = fullName.includes(searchTerm.toLowerCase()) ||
                          quote.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          quote.id.includes(searchTerm);
     const matchesStatus = statusFilter === 'all' || quote.status === statusFilter;
@@ -249,7 +141,11 @@ const Quotes: React.FC = () => {
   // Pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentQuotes = filteredQuotes.slice(indexOfFirstItem, indexOfLastItem);
+  // Sort quotes by submission date (newest first)
+  const sortedQuotes = [...filteredQuotes].sort((a, b) => 
+    new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime()
+  );
+  const currentQuotes = sortedQuotes.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredQuotes.length / itemsPerPage);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
@@ -390,10 +286,12 @@ const Quotes: React.FC = () => {
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">{quote.customer}</div>
+                      <div className="text-sm font-medium text-gray-900">
+                        {quote.firstName} {quote.lastName}
+                      </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{formatDate(quote.issueDate)}</div>
+                      <div className="text-sm text-gray-900">{formatDate(quote.submittedAt)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{formatDate(quote.issueDate)}</div>
@@ -422,7 +320,7 @@ const Quotes: React.FC = () => {
                       <div className="text-sm text-gray-900">{formatDate(quote.expiryDate)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right">
-                      <div className="text-sm font-medium text-gray-900">{formatCurrency(quote.amount)}</div>
+                      <div className="text-sm font-medium text-gray-900">{formatCurrency(quote.total)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(quote.status)}`}>
