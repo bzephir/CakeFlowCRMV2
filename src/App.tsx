@@ -11,6 +11,7 @@ import Recipes from './pages/Recipes';
 import RecipeDetail from './pages/RecipeDetail';
 import RecipeMarginReport from './pages/RecipeMarginReport';
 import InquiryForm from './pages/InquiryForm';
+import QuoteDetail from './pages/QuoteDetail';
 import Inquiries from './pages/Inquiries';
 import InquiryDetail from './pages/InquiryDetail';
 import Invoice from './pages/Invoice';
@@ -49,6 +50,7 @@ function App() {
                 <Route path="/inquiries/:id" element={<InquiryDetail />} />
                 <Route path="/inquiry-form" element={<InquiryForm />} />
                 <Route path="/quotes" element={<Quotes />} />
+                <Route path="/quotes/:id" element={<QuoteDetail />} />
                 <Route path="/quotes/new" element={<CreateQuote />} />
                 <Route path="/orders" element={<Orders />} />
                 <Route path="/orders/new" element={<CreateOrder />} />

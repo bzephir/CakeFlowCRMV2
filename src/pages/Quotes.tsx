@@ -169,7 +169,7 @@ const Quotes: React.FC = () => {
 
   const handleViewQuote = (quoteId: string) => {
     // Navigate to quote details page
-    navigate(`/quotes/${quoteId}`);
+    navigate(`/quotes/${quoteId}`); // This will now route to the QuoteDetail component
   };
 
   const handleCreateQuote = () => {
