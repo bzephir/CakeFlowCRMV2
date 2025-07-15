@@ -288,7 +288,7 @@ const Inquiries: React.FC = () => {
                           ? `Pickup: ${inquiry.pickupTime ? formatTime(inquiry.pickupTime) : 'TBD'}`
                           : `Delivery: ${inquiry.deliveryTime ? formatTime(inquiry.deliveryTime) : 'TBD'}`
                         }
-                        {inquiry.eventTime && <div className="text-xs text-gray-400">Event: {formatTime(inquiry.eventTime)}</div>}
+                       
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
