@@ -291,7 +291,7 @@ const Orders: React.FC = () => {
                       <div className="text-sm text-gray-900">{formatDate(order.eventDate)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{occasion.type}</div>
+                      <div className="text-sm text-gray-900">{details.occasion}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-500">
