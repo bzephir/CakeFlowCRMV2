@@ -291,9 +291,6 @@ const Quotes: React.FC = () => {
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{formatDate(quote.submittedAt)}</div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{formatDate(quote.issueDate)}</div>
                     </td>
                    <td className="px-2 py-1 whitespace-nowrap">
