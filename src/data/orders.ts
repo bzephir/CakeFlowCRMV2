@@ -4,7 +4,7 @@ import { Order, OrderAction } from '../types';
 export const mockOrders: Order[] = [
   {
     id: 'O-202501-0001',
-    type: 'wedding',
+    eventType: 'wedding',
     status: 'in-production',
     firstName: 'Sarah',
     lastName: 'Johnson',
@@ -101,7 +101,7 @@ export const mockOrders: Order[] = [
   },
   {
     id: 'O-202501-0002',
-    type: 'celebration',
+    eventType: 'celebration',
     status: 'confirmed',
     firstName: 'Mike',
     lastName: 'Chen',
@@ -178,7 +178,7 @@ export const mockOrders: Order[] = [
   },
   {
     id: 'O-202501-0003',
-    type: 'corporate',
+    eventType: 'corporate',
     status: 'quoted',
     firstName: 'Emma',
     lastName: 'Davis',
