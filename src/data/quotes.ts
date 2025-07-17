@@ -182,7 +182,7 @@ export const mockQuotes: Quote[] = [
   },
   {
     id: 'Q-202501-0003',
-    type: 'corporate',
+    eventType: 'corporate',
     status: 'draft',
     firstName: 'Mike',
     lastName: 'Chen',
@@ -198,7 +198,7 @@ export const mockQuotes: Quote[] = [
     additionalNotes: 'Need corporate-branded desserts for company event.',
     details: {
       companyName: 'TechCorp Solutions',
-      eventType: 'Product Launch',
+      occasion: 'Product Launch',
       services: ['Corporate Cupcakes', 'Branded Cookies'],
       recurring: false,
       brandingRequired: true,
