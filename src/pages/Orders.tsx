@@ -291,8 +291,8 @@ const Orders: React.FC = () => {
                    <td className="px-2 py-1 whitespace-nowrap">
   <div className="text-sm text-gray-900 capitalize">
     {order.type === 'celebration' && (order.details as CelebrationInquiryDetails).occasion}
-    {order.type === 'corporate' && (order.details as CorporateInquiryDetails).eventType}
-    {order.type === 'wedding' && 'Wedding'}
+    {order.type === 'corporate' && (order.details as CorporateInquiryDetails).occasion}
+    {order.type === 'wedding' && (order.details as WeddingInquiryDetails).occasion}
   </div>
 </td>
          <td className="px-2 py-1 whitespace-nowrap">
