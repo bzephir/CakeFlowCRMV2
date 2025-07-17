@@ -30,7 +30,7 @@ export interface Customer {
 
 export interface Order {
   id: string;
-  type: 'celebration' | 'wedding' | 'corporate';
+  eventType: 'celebration' | 'wedding' | 'corporate';
   customerId: string; 
   status: 'draft' | 'confirmed' | 'pending' | 'on hold' | 'in progress' | 'awaiting payment' | 'paid' | 'fulfilled' | 'cancelled' | 'refunded';
   //Common fields across all order types/stages
@@ -40,7 +40,6 @@ export interface Order {
   phone: string;
   eventDate: string;
   eventTime: string;
-  eventType: string;
   fulfillmentType: 'pickup' | 'delivery';
   pickupTime?: string;
   deliveryTime?: string;
