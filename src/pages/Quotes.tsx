@@ -307,7 +307,7 @@ const Quotes: React.FC = () => {
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{formatDate(quote.submittedAt)}</div>
+                      <div className="text-sm text-gray-900">{formatDate(quote.expirationDate)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right">
                       <div className="text-sm font-medium text-gray-900">{formatCurrency(quote.total)}</div>
