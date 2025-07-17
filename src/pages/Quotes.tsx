@@ -242,13 +242,16 @@ const Quotes: React.FC = () => {
                     Quote #
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Date Issued
+                  </th>
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Customer
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Event Date
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Date Issued
+                    Event Type
                   </th>
                   
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -287,6 +290,9 @@ const Quotes: React.FC = () => {
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">{formatDate(quote.issueDate)}</div>
+                    </td>
+                    <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900">
                         {quote.firstName} {quote.lastName}
                       </div>
@@ -295,9 +301,7 @@ const Quotes: React.FC = () => {
                       <div className="text-sm text-gray-900">{formatDate(quote.eventDate)}</div>
                     </td>
 
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{formatDate(quote.issueDate)}</div>
-                    </td>
+                    
                    
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-500">
