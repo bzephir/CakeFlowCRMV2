@@ -19,6 +19,7 @@ export const mockOrders: Order[] = [
     hearAboutUs: 'Instagram',
     additionalNotes: 'Cake should match wedding colors: blush pink and gold.',
     details: {
+      occasion: 'Wedding',
       weddingDate: '2025-01-15',
       venue: 'Grand Ballroom at The Plaza',
       weddingSize: 'medium',
@@ -194,7 +195,7 @@ export const mockOrders: Order[] = [
     additionalNotes: 'All items must have company branding as per provided logo.',
     details: {
       companyName: 'TechCorp Solutions',
-      eventType: 'Product Launch',
+      occasion: 'Product Launch',
       services: ['Corporate Cupcakes', 'Branded Cookies'],
       recurring: false,
       brandingRequired: true,
