@@ -62,7 +62,8 @@ export interface Order {
   assignedTo?: string;
   createdAt: string; // Date/time when the order record was created in the system
   actions:OrderAction[];
-
+// Type-specific details
+  details: CelebrationInquiryDetails | WeddingInquiryDetails | CorporateInquiryDetails;
 }
 
 export interface OrderItem {
