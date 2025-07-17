@@ -30,24 +30,40 @@ export interface Customer {
 
 export interface Order {
   id: string;
-  customer?: string;
-  email?: string;
+  type: 'celebration' | 'wedding' | 'corporate';
+  customerId: string; 
+  status: 'draft' | 'confirmed' | 'pending' | 'on hold' | 'in progress' | 'awaiting payment' | 'paid' | 'fulfilled' | 'cancelled' | 'refunded';
+  //Common fields across all order types/stages
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  eventDate: string;
+  eventTime: string;
+  eventType: string;
   fulfillmentType: 'pickup' | 'delivery';
   pickupTime?: string;
   deliveryTime?: string;
-  customerId: string;
-  customerName: string;
-  eventDate: string;
-  eventType: string;
-  status: 'inquiry' | 'quoted' | 'confirmed' | 'in-production' | 'completed' | 'cancelled';
-  items: string[];
+  venue?: string;
+  guestCount: number;
+  //Order-specific fields
+  orderItems: string[];
+  payments: Payment[];
   subtotal: number;
-  tax: number;
+  taxRate: number;
+  taxAmount: number;
   total: number;
-  deposited?: number;
-  balance?: number;
-  depositPaid: number;
-  createdAt: string;
+  depositAmount: number;
+  balance: number;
+  specialInstructions: string; // Specific instructions for production/delivery
+  deliveryNotes: string; // Notes specific to delivery logistics
+  // Metadata
+  submittedAt: string; // Date/time when the order was initially created/submitted
+  lastUpdated: string;
+  assignedTo?: string;
+  createdAt: string; // Date/time when the order record was created in the system
+  actions:OrderAction[];
+
 }
 
 export interface OrderItem {
