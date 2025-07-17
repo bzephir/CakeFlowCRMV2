@@ -287,9 +287,7 @@ const Orders: React.FC = () => {
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900 capitalize">{order.eventType}</div>
                     </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{formatDate(order.eventDate)}</div>
-                    </td>
+                    
                    <td className="px-2 py-1 whitespace-nowrap">
   <div className="text-sm text-gray-900 capitalize">
     {order.type === 'celebration' && (order.details as CelebrationInquiryDetails).occasion}
@@ -297,6 +295,9 @@ const Orders: React.FC = () => {
     {order.type === 'wedding' && 'Wedding'}
   </div>
 </td>
+         <td className="px-2 py-1 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">{formatDate(order.eventDate)}</div>
+                    </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-500">
                         {order.fulfillmentType === 'pickup' 
