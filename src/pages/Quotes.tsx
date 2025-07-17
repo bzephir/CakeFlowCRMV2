@@ -296,25 +296,8 @@ const Quotes: React.FC = () => {
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{formatDate(quote.issueDate)}</div>
                     </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">
-                        {quote.fulfillmentType === 'pickup' ? (
-                          <span className="flex items-center">
-                            <Package className="h-3 w-3 mr-1" /> 
-                            {quote.pickupTime ? formatTime(quote.pickupTime) : 'Pickup'}
-                          </span>
-                        ) : (
-                          <span className="flex items-center">
-                            <Truck className="h-3 w-3 mr-1" /> 
-                            {quote.deliveryTime ? formatTime(quote.deliveryTime) : 'Delivery'}
-                          </span>
-                        )}
-                        {quote.eventTime && (
-                          <div className="text-xs text-gray-500 mt-1">
-                            <span className="flex items-center"><Calendar className="h-3 w-3 mr-1" /> Event: {formatTime(quote.eventTime)}</span>
-                          </div>
-                        )}
-                      </div>
+                   <td className="px-2 py-1 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">{formatDate(quote.eventDate)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{formatDate(quote.expiryDate)}</div>
