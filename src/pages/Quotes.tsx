@@ -254,7 +254,7 @@ const Quotes: React.FC = () => {
                     Fulfillment
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Expiry Date
+                    Quote Expires
                   </th>
                   <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Amount
