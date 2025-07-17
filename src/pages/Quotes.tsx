@@ -300,9 +300,6 @@ const Quotes: React.FC = () => {
                       <div className="text-sm text-gray-900">{formatDate(quote.eventDate)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{formatDate(quote.eventDate)}</div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-500">
                         {quote.fulfillmentType === 'pickup' 
                           ? `Pickup: ${quote.pickupTime ? formatTime(quote.pickupTime) : 'TBD'}`
