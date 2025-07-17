@@ -303,11 +303,7 @@ const Orders: React.FC = () => {
                           ? `Pickup: ${order.pickupTime ? formatTime(order.pickupTime) : 'TBD'}`
                           : `Delivery: ${order.deliveryTime ? formatTime(order.deliveryTime) : 'TBD'}`
                         }
-                        {order.eventTime && (
-      <div className="text-xs text-gray-400 mt-1">
-        <span className="flex items-center"><Calendar className="h-3 w-3 mr-1" /> Event: {formatTime(order.eventTime)}</span>
-      </div>
-    )}
+                      
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right">
