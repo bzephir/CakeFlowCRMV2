@@ -69,11 +69,38 @@ export interface Order {
 export interface OrderItem {
   id: string;
   name: string;
+  description: string;
   quantity: number;
-  price: number;
+  unitprice: number;
   total: number;
 }
 
+export interface Payment {
+  id: string;
+  date:string;
+  amount: number;
+  method: string;
+  reference?: string; //e.g., transaction ID
+}
+
+export interface OrderAction {
+  id: string;
+  type: 'status_change' | 'note_added' | 'email-sent' | 'call_made' | 'paymenmt_received' |'qoute_sent';
+  description:string; 
+  performedBy: string;
+  performedAt: string;
+  details?: {
+    previousStatus?: string;
+    newStatus?: string;
+    emailSubject?: string;
+    callDuration?: number;
+    quoteId?: string;
+    amount?: number; // For payment_received
+    method?: string; // For payment_received
+    reference?: string; // For payment_received
+    notes?: string;
+    };
+}
 export interface Quote {
   id: string;
   type: 'celebration' | 'wedding' | 'corporate';
