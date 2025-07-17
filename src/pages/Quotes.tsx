@@ -245,11 +245,12 @@ const Quotes: React.FC = () => {
                     Customer
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Date Issued
-                  </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Event Date
                   </th>
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Date Issued
+                  </th>
+                  
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Fulfillment
                   </th>
@@ -290,13 +291,14 @@ const Quotes: React.FC = () => {
                         {quote.firstName} {quote.lastName}
                       </div>
                     </td>
+                    <td className="px-2 py-1 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">{formatDate(quote.eventDate)}</div>
+                    </td>
 
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{formatDate(quote.issueDate)}</div>
                     </td>
-                   <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{formatDate(quote.eventDate)}</div>
-                    </td>
+                   
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-500">
                         {quote.fulfillmentType === 'pickup' 
