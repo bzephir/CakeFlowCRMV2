@@ -300,7 +300,16 @@ const Quotes: React.FC = () => {
                       <div className="text-sm text-gray-900">{formatDate(quote.eventDate)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{formatDate(quote.expiryDate)}</div>
+                      <div className="text-sm text-gray-900">{formatDate(quote.eventDate)}</div>
+                    </td>
+                    <td className="px-2 py-1 whitespace-nowrap">
+                      <div className="text-sm text-gray-500">
+                        {quote.fulfillmentType === 'pickup' 
+                          ? `Pickup: ${quote.pickupTime ? formatTime(quote.pickupTime) : 'TBD'}`
+                          : `Delivery: ${quote.deliveryTime ? formatTime(quote.deliveryTime) : 'TBD'}`
+                        }
+                      
+                      </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right">
                       <div className="text-sm font-medium text-gray-900">{formatCurrency(quote.total)}</div>
