@@ -4,7 +4,7 @@ import { Quote, QuoteAction } from '../types';
 export const mockQuotes: Quote[] = [
   {
     id: 'Q-202501-0001',
-    type: 'wedding',
+    eventType: 'wedding',
     status: 'sent',
     firstName: 'David',
     lastName: 'Fraga',
@@ -92,7 +92,7 @@ export const mockQuotes: Quote[] = [
   },
   {
     id: 'Q-202501-0002',
-    type: 'celebration',
+    eventType: 'celebration',
     status: 'accepted',
     firstName: 'Sarah',
     lastName: 'Johnson',
