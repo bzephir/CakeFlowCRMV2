@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Header from '../components/Header';
 import StatCard from '../components/StatCard';
 import CalendarWidget from '../components/CalendarWidget';
@@ -281,7 +281,12 @@ const Dashboard: React.FC = () => {
                 {sortedTodaysOrders.map((order) => (
                   <tr key={order.id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">{order.customerName}</div>
+                      <Link 
+                        to={`/orders/${order.id}`}
+                        className="text-sm font-medium text-gray-900 hover:text-coral-600 transition-colors cursor-pointer"
+                      >
+                        {order.customerName}
+                      </Link>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-600">{formatTime(order.eventTime)}</div>
