@@ -19,7 +19,7 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, change, changeType, i
   };
 
   return (
-    <div className="bg-white overflow-hidden shadow-sm rounded-lg border border-gray-200 hover:shadow-md transition-shadow">
+    <div className="bg-white overflow-hidden shadow-sm rounded-lg border border-gray-200 hover:shadow-md transition-shadow h-32">
       <div className="p-6">
         <div className="flex items-center">
           <div className="flex-shrink-0">
