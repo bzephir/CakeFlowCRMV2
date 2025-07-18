@@ -373,7 +373,13 @@ const QuoteDetail: React.FC = () => {
               </div>
             </div>
           </div>
-
+              {/* Type-specific details */}
+          <div className="border-t border-gray-200 pt-4">
+          <h4 className="text-sm font-medium text-gray-900 mb-3 capitalize">
+          {quote.type} Details
+          </h4>
+            {renderTypeSpecificDetails(quote)}
+          </div>          
           {/* Quote Items */}
           <div className="px-6 py-4 border-b border-gray-200 print:py-2">
             <h2 className="text-lg font-medium text-gray-900 mb-3">Quote Items</h2>
