@@ -33,7 +33,7 @@ const Dashboard: React.FC = () => {
     { count: 7, label: 'invoices are overdue', icon: AlertCircle, color: 'text-red-600', link: '/invoices?status=overdue' },
     { count: 5, label: 'contracts need counter signatures', icon: FileText, color: 'text-orange-600', link: '/contracts' },
     { count: 3, label: 'workflow actions need approval', icon: UserCheck, color: 'text-yellow-600', link: '/workflows' },
-    { count: 2, label: 'incomplete tasks', icon: ClipboardList, color: 'text-blue-600', link: '/schedule?filter=tasks' },
+    { count: 2, label: 'incomplete tasks', icon: ClipboardList, color: 'text-blue-600', link: '/tasks' },
     { count: 1, label: 'inquiry not responded to', icon: Mail, color: 'text-purple-600', link: '/inquiries?status=new' }
   ];
 

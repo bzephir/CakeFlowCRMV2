@@ -18,6 +18,7 @@ import Invoices from './pages/Invoices';
 import Quotes from './pages/Quotes';
 import CreateQuote from './pages/CreateQuote';
 import CalendarPage from './pages/CalendarPage';
+import Tasks from './pages/Tasks';
 import Settings from './pages/Settings';
 
 // Placeholder components for other routes
@@ -51,6 +52,7 @@ function App() {
                 <Route path="/quotes" element={<Quotes />} />
                 <Route path="/quotes/new" element={<CreateQuote />} />
                 <Route path="/orders" element={<Orders />} />
+                <Route path="/tasks" element={<Tasks />} />
                 <Route path="/orders/new" element={<CreateOrder />} />
                 <Route path="/invoices" element={<Invoices />} />
                 <Route path="/invoice/:id" element={<Invoice />} />
