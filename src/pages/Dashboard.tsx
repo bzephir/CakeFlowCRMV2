@@ -190,13 +190,14 @@ const Dashboard: React.FC = () => {
               </ul>
             </div>
             </div>
-            <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
+            {/* <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
               <button className="text-sm text-coral-600 hover:text-coral-500 font-medium">
                 View all items →
               </button>
-            </div>
+            </div>*/}
           </div>
            </div>
+          
 {/* Chart Placeholder Grid */}
 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
   <DashboardChartPlaceholder
