@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import StatCard from '../components/StatCard';
 import CalendarWidget from '../components/CalendarWidget';
 import EventModal from '../components/EventModal';
+import DashboardChartPlaceholder from '../components/DashboardChartPlaceholder';
 import { 
   DollarSign, 
   ShoppingBag, 
