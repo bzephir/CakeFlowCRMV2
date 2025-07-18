@@ -282,13 +282,6 @@ const Invoice: React.FC = () => {
     });
   };
 
-  const handleSaveInvoice = () => {
-    // In a real app, this would save the invoice to your database
-    console.log('Saving invoice:', invoice);
-    alert(`Invoice ${invoice.id} saved successfully!`);
-    navigate('/invoices');
-  };
-
   return (
     <div className="flex-1 overflow-hidden print:block">
       <div className="hidden print:block p-6">
