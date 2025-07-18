@@ -223,6 +223,35 @@ const Dashboard: React.FC = () => {
 
         {/* Calendar Widget - Full Width */}
         <div className="mb-8">
+          <div className="bg-white shadow-sm rounded-lg border border-gray-200">
+            <div className="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-aqua-400 to-aqua-500 rounded-t-lg">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-white">Calendar Overview</h3>
+                <div className="flex space-x-3">
+                  <button
+                    onClick={() => setIsEventModalOpen(true)}
+                    className="inline-flex items-center px-3 py-1 border border-white/20 text-sm font-medium rounded-md text-white hover:bg-white/10 transition-colors"
+                  >
+                    <Calendar className="h-4 w-4 mr-2" />
+                    Create Event
+                  </button>
+                  <button
+                    onClick={() => navigate('/schedule')}
+                    className="inline-flex items-center px-3 py-1 border border-white/20 text-sm font-medium rounded-md text-white hover:bg-white/10 transition-colors"
+                  >
+                    View Full Calendar →
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="p-0">
+              <CalendarWidget
+                onCreateEvent={handleCreateEvent}
+                onViewEvent={handleViewEvent}
+              />
+            </div>
+          </div>
+        </div>
           <CalendarWidget
             onCreateEvent={handleCreateEvent}
             onViewEvent={handleViewEvent}
