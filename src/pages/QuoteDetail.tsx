@@ -5,17 +5,22 @@ import { useOrderContext } from '../context/OrderContext';
 import Header from '../components/Header';
 import Logo from '../components/Logo';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
-import { Quote, CelebrationInquiryDetails, WeddingInquiryDetails, CorporateInquiryDetails } from "../types/index.ts";
+import {
+  Quote,
+  CelebrationInquiryDetails,
+  WeddingInquiryDetails,
+  CorporateInquiryDetails,
+} from "../types/index.ts";
 import { generateDocumentNumber } from '../utils/documentNumbering';
-import { 
+import {
   ArrowLeft,
-  Printer, 
-  Download, 
-  Mail, 
-  Calendar, 
-  Clock, 
-  DollarSign, 
-  CheckCircle2, 
+  Printer,
+  Download,
+  Mail,
+  Calendar,
+  Clock,
+  DollarSign,
+  CheckCircle2,
   XCircle,
   Edit,
   ArrowRightCircle,
@@ -31,21 +36,25 @@ import {
   Percent
 } from 'lucide-react';
 
-// ==== Helper: render wedding/corporate/celebration details, and type switch ====
+// ------------ Helper functions -------------
+
 function renderWeddingDetails(details: WeddingInquiryDetails) {
   if (!details) return null;
   return (
     <section>
       <h3 className="text-base font-semibold mb-2">Wedding Details</h3>
       <div><strong>Venue:</strong> {details.venue}</div>
-      <div><strong>Wedding Size:</strong> {details.size || details.guestCount}</div>
+      <div><strong>Wedding Size:</strong> {details.weddingSize}</div>
       <div><strong>Cake Style:</strong> {details.cakeStyle}</div>
       <div><strong>Flavors:</strong> {details.flavors?.join(', ')}</div>
-      <div><strong>Dietary Restrictions:</strong> {details.dietaryRestrictions}</div>
-      <div><strong>Delivery/Setup:</strong> {details.deliveryNeeds}</div>
-      <div><strong>Tasting Request:</strong> {details.tastingRequested ? 'Yes' : 'No'}</div>
-      {details.plannerName && (
-        <div><strong>Wedding Planner:</strong> {details.plannerName} {details.plannerContact && `(${details.plannerContact})`}</div>
+      <div><strong>Dietary Restrictions:</strong> {details.dietaryRestrictions?.join(', ')}</div>
+      <div><strong>Delivery/Setup:</strong> {details.deliverySetup}</div>
+      <div><strong>Cake Tasting:</strong> {details.cakeTasting ? 'Yes' : 'No'}</div>
+      {details.weddingPlanner && (
+        <div>
+          <strong>Wedding Planner:</strong> {details.weddingPlanner.name}
+          {details.weddingPlanner.contact && <> ({details.weddingPlanner.contact})</>}
+        </div>
       )}
     </section>
   );
@@ -58,8 +67,8 @@ function renderCelebrationDetails(details: CelebrationInquiryDetails) {
       <h3 className="text-base font-semibold mb-2">Celebration Details</h3>
       <div><strong>Occasion:</strong> {details.occasion}</div>
       <div><strong>Theme:</strong> {details.theme}</div>
-      <div><strong>Colors:</strong> {details.colors?.join(', ')}</div>
-      <div><strong>Tasting Request:</strong> {details.tastingRequested ? 'Yes' : 'No'}</div>
+      <div><strong>Colors:</strong> {details.colors}</div>
+      <div><strong>Cake Tasting:</strong> {details.cakeTasting ? 'Yes' : 'No'}</div>
     </section>
   );
 }
@@ -71,10 +80,17 @@ function renderCorporateDetails(details: CorporateInquiryDetails) {
       <h3 className="text-base font-semibold mb-2">Corporate Event Details</h3>
       <div><strong>Company:</strong> {details.companyName}</div>
       <div><strong>Event Type:</strong> {details.eventType}</div>
-      <div><strong>Recurring:</strong> {details.isRecurring ? 'Yes' : 'No'}</div>
-      <div><strong>Branding Requirements:</strong> {details.branding}</div>
+      <div><strong>Recurring:</strong> {details.recurring ? 'Yes' : 'No'}</div>
+      <div><strong>Branding Required:</strong> {details.brandingRequired ? 'Yes' : 'No'}</div>
       <div><strong>Delivery Address:</strong> {details.deliveryAddress}</div>
-      <div><strong>Contact Person:</strong> {details.contactPerson}</div>
+      {details.contactPerson && (
+        <div>
+          <strong>Contact Person:</strong> {details.contactPerson.name}
+          {(details.contactPerson.title || details.contactPerson.department) &&
+            <> ({[details.contactPerson.title, details.contactPerson.department].filter(Boolean).join(', ')})</>
+          }
+        </div>
+      )}
       <div><strong>Approval Process:</strong> {details.approvalProcess}</div>
       <div><strong>Invoicing Requirements:</strong> {details.invoicingRequirements}</div>
     </section>
@@ -94,7 +110,7 @@ function renderTypeSpecificDetails(quote: Quote) {
   }
 }
 
-// ==== Main component ====
+// =========== Main Component ============
 
 const QuoteDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -155,19 +171,19 @@ const QuoteDetail: React.FC = () => {
   };
   const handleConvertToInvoice = () => {
     const invoiceNumber = generateDocumentNumber('invoice');
-    navigate('/invoice/new', { 
-      state: { 
+    navigate('/invoice/new', {
+      state: {
         invoiceNumber,
         convertedFromQuote: id,
-        customerId: quote?.id, // or whatever ID is appropriate for your system
+        customerId: quote?.id, // adjust as needed
         customerName: `${quote.firstName} ${quote.lastName}`
-      } 
+      }
     });
   };
   const handleDuplicate = () => {
     navigate('/quotes/new', {
       state: {
-        quoteId: id
+        quoteId: id // for duplication in CreateQuote
       }
     });
   };
@@ -205,12 +221,61 @@ const QuoteDetail: React.FC = () => {
 
   return (
     <div className="flex-1 overflow-hidden print:block">
-      {/* Print header, app header, and actions omitted for brevity */}
       <Header title="Quote Details" />
       <div className="p-6 print:p-0">
-        {/* Actions and document header omitted for brevity */}
+        {/* Back Button - hide when printing */}
+        <button
+          onClick={() => navigate('/quotes')}
+          className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 mb-6 transition-colors print:hidden"
+        >
+          <ArrowLeft className="h-4 w-4 mr-2" />
+          Back to Quotes
+        </button>
+
+        {/* Quote Actions - hide when printing */}
+        <div className="flex justify-end mb-6 print:hidden">
+          <button onClick={handlePrint}
+            className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 mr-3"
+          >
+            <Printer className="h-4 w-4 mr-2" />
+            Print
+          </button>
+          <button onClick={handleDownload}
+            className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 mr-3"
+          >
+            <Download className="h-4 w-4 mr-2" />
+            Download PDF
+          </button>
+          <button onClick={handleEmail}
+            className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 mr-3"
+          >
+            <Mail className="h-4 w-4 mr-2" />
+            Email Quote
+          </button>
+          <button onClick={handleEdit}
+            className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 mr-3"
+          >
+            <Edit className="h-4 w-4 mr-2" />
+            Edit
+          </button>
+          <button onClick={handleConvertToOrder}
+            className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gradient-to-r from-aqua-400 to-aqua-500 hover:from-aqua-500 hover:to-aqua-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-aqua-500 mr-3"
+          >
+            <ArrowRightCircle className="h-4 w-4 mr-2" />
+            Convert to Order
+          </button>
+          <button onClick={handleConvertToInvoice}
+            className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500"
+          >
+            <DollarSign className="h-4 w-4 mr-2" />
+            Convert to Invoice
+          </button>
+        </div>
+
+        {/* Quote Document */}
         <div className="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden print:shadow-none print:border-0">
-          {/* Quote Header and Customer/Event Details omitted for brevity */}
+          {/* Quote Header here ... */}
+          {/* Customer & Event Details */}
           <div className="px-6 py-4 border-b border-gray-200 print:py-2">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
@@ -241,25 +306,25 @@ const QuoteDetail: React.FC = () => {
                   </div>
                 </div>
               </div>
-              {/* ... Event Details Column as before ... */}
+              {/* Event Details column remains as before */}
             </div>
           </div>
 
-          {/* --- Type-specific details --- */}
+          {/* Type-specific details */}
           <div className="border-t border-gray-200 pt-4 mb-6">
             <h4 className="text-sm font-medium text-gray-900 mb-3 capitalize">
-              {(quote.type) + " Details"}
+              {quote.type} Details
             </h4>
             {renderTypeSpecificDetails(quote)}
           </div>
-          {/* ... Rest of your JSX document (items, summary, notes, etc.) ... */}
-          {/* No changes needed to summary/items/etc parts for these instructions */}
+
+          {/* ... Quote Items, Summary, Notes, and Footer stay the same ... */}
         </div>
 
-        {/* Additional Actions */}
+        {/* Additional Actions - hide when printing */}
         <div className="mt-6 flex justify-between print:hidden">
           <div>
-            <button 
+            <button
               onClick={handleDelete}
               className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-red-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
             >
@@ -268,21 +333,21 @@ const QuoteDetail: React.FC = () => {
             </button>
           </div>
           <div className="space-x-3">
-            <button 
+            <button
               onClick={handleDuplicate}
               className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500"
             >
               <Copy className="h-4 w-4 mr-2" />
               Duplicate
             </button>
-            <button 
+            <button
               onClick={handleConvertToOrder}
               className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gradient-to-r from-aqua-400 to-aqua-500 hover:from-aqua-500 hover:to-aqua-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-aqua-500"
             >
               <ArrowRightCircle className="h-4 w-4 mr-2" />
               Convert to Order
             </button>
-            <button 
+            <button
               onClick={handleConvertToInvoice}
               className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500"
             >
