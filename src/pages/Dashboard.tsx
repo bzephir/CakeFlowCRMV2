@@ -199,7 +199,8 @@ const Dashboard: React.FC = () => {
         {/* Recent Metrics and Today's Orders */}
         <div className="space-y-6">
           {/* Recent - Vertical List */}
-          <div className="bg-white shadow-sm rounded-lg border border-gray-200">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <div className="bg-white shadow-sm rounded-lg border border-gray-200">
             <div className="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-coral-400 to-pink-400 rounded-t-lg">
               <h3 className="text-lg font-semibold text-gray-900">Recent</h3>
             </div>
@@ -216,6 +217,7 @@ const Dashboard: React.FC = () => {
                   </li>
                 ))}
               </ul>
+            </div>
             </div>
             <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
               <button className="text-sm text-coral-600 hover:text-coral-500 font-medium">
