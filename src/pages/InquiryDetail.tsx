@@ -586,8 +586,8 @@ const InquiryDetail: React.FC = () => {
                           {inquiry.fulfillmentType === 'pickup' ? 'Pickup Time' : 'Delivery Time'}
                         </p>
                         <p className="text-sm text-gray-600">
-                          {inquires.fulfillmentType === 'pickup' 
-                            ? (inquiries.pickupTime ? formatTime(inquiries.pickupTime) : 'Not specified')
+                          {inquiry.fulfillmentType === 'pickup' 
+                            ? (inquiry.pickupTime ? formatTime(inquiry.pickupTime) : 'Not specified')
                             : (inquiry.deliveryTime ? formatTime(inquiry.deliveryTime) : 'Not specified')
                           }
                         </p>
