@@ -197,34 +197,7 @@ const Dashboard: React.FC = () => {
         </div>
 
         {/* Recent Metrics and Today's Orders */}
-        <div className="space-y-6">
-          {/* Recent - Vertical List */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-            <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-            <div className="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-coral-400 to-pink-400 rounded-t-lg">
-              <h3 className="text-lg font-semibold text-gray-900">Recent</h3>
-            </div>
-            <div className="overflow-hidden">
-              <ul className="divide-y divide-gray-200">
-                {recentMetrics.map((metric, index) => (
-                  <li key={index} className="px-4 py-2 hover:bg-gray-50 transition-colors">
-                    <div className="flex items-center space-x-3">
-                      <metric.icon className={`h-5 w-5 ${metric.color}`} />
-                      <span className="text-sm text-gray-900">
-                        <span className="font-semibold">{metric.count}</span> {metric.label}
-                      </span>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            </div>
-            <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
-              <button className="text-sm text-coral-600 hover:text-coral-500 font-medium">
-                View all items →
-              </button>
-            </div>
-          </div>
+       
           
           {/* Today's Orders - Table Format */}
           <div className="bg-white shadow-sm rounded-lg border border-gray-200">
