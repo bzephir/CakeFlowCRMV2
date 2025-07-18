@@ -35,7 +35,9 @@ const sampleInvoice = {
   },
   event: {
     date: '2025-06-15',
-    eventTime: '16:00',
+    fulfillmentType: 'delivery',
+    eventTime: '18:00',
+    deliveryTime: '16:00'
     venue: 'Grand Hotel Ballroom',
     guestCount: 150
   },
@@ -80,10 +82,10 @@ const Invoice: React.FC = () => {
     },
     event: {
       date: '',
-      fulfillmentType: 'delivery',
+      fulfillmentType: '',
       pickupTime: '',
-      deliveryTime: '16:00',
-      eventTime: '18:00',
+      deliveryTime: '',
+      eventTime: '',
       venue: '',
       guestCount: 0
     },
