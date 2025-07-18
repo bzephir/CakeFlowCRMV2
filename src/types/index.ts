@@ -61,7 +61,7 @@ export interface Order {
   assignedTo?: string;
   createdAt: string; // Date/time when the order record was created in the system
   actions:OrderAction[];
-// Type-specific details
+  // Type-specific details
   details: CelebrationInquiryDetails | WeddingInquiryDetails | CorporateInquiryDetails;
 }
 
@@ -100,6 +100,7 @@ export interface OrderAction {
     notes?: string;
     };
 }
+
 export interface Quote {
   id: string;
   type: 'celebration' | 'wedding' | 'corporate';
@@ -174,18 +175,76 @@ export interface QuoteAction {
   };
 }
 
+// ---------------------------
+// COMPREHENSIVE Invoice
+// ---------------------------
 export interface Invoice {
   id: string;
-  eventDate: string;
+  invoiceNumber: string;
+  orderId?: string;
+
+  // Customer info
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone?: string;
+  address1?: string;
+  city?: string;
+  state?: string;
+  zip?: string;
+
+  // Event info
+  eventType?: 'celebration' | 'wedding' | 'corporate';
+  eventName?: string;
+  eventDate?: string;
+  eventTime?: string;
   fulfillmentType: 'pickup' | 'delivery';
   pickupTime?: string;
   deliveryTime?: string;
-  eventTime?: string;
-  status: 'paid' | 'deposit-paid' | 'pending' | 'overdue' | 'draft';
+  venue?: string;
+
+  // Line items
+  items: InvoiceItem[];
+
+  subtotal: number;
+  taxRate: number;
+  taxAmount: number;
+  shippingFee?: number;
+  discountType?: 'percentage' | 'fixed';
+  discountValue?: number;
+  discountAmount?: number;
   total: number;
-  balance: number;
+
+  // Payments
+  payments: Payment[];
+  amountPaid: number;
+  balance: number; // remaining
+  nextPaymentDueDate?: string;
+
+  // Status
+  status: 'draft' | 'sent' | 'partial' | 'deposit_paid' | 'paid' | 'overdue' | 'void' | 'canceled';
+
+  // Dates
   issueDate: string;
-  dueDate: string;
+  dueDate: string; 
+
+  // Notes
+  notes?: string;
+  internalNotes?: string;
+  termsConditions?: string;
+
+  createdAt: string;
+  updatedAt: string;
+}
+
+// InvoiceItem reused from quote style
+export interface InvoiceItem {
+  id: string;
+  name: string;
+  description?: string;
+  quantity: number;
+  unitPrice: number;
+  total: number;
 }
 
 export interface Communication {
@@ -283,4 +342,46 @@ export interface WeddingInquiryDetails {
   services: string[];
   cakeStyle?: string;
   flavors?: string[];
+  dietaryRestrictions?: string[];
+  deliverySetup?: string;
+  cakeTasting?: boolean;
+  weddingPlanner?: {
+    name: string;
+    contact?: string;
+  };
+  inspirationPhotos?: string[];
+}
+
+export interface CorporateInquiryDetails {
+  companyName: string;
+  eventType: string;
+  recurring: boolean;
+  brandingRequired?: boolean;
+  deliveryAddress?: string;
+  contactPerson?: {
+    name: string;
+    title?: string;
+    department?: string;
+  };
+  approvalProcess?: string;
+  invoicingRequirements?: string;
+  inspirationPhotos?: string[];
+}
+
+// Action for Inquiry
+export interface InquiryAction {
+  id: string;
+  type: 'status_change' | 'note_added' | 'email_sent' | 'call_made' | 'quote_sent' | 'meeting_scheduled';
+  description: string;
+  performedBy: string;
+  performedAt: string;
+  details?: {
+    previousStatus?: string;
+    newStatus?: string;
+    emailSubject?: string;
+    callDuration?: number;
+    quoteId?: string;
+    meetingDate?: string;
+    notes?: string;
+  };
 }
