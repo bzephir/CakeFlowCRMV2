@@ -300,7 +300,7 @@ const Inquiries: React.FC = () => {
                       </span>
                        </td>
                      <td> <div className="text-xs text-gray-500 mt-1">
-                        {inquiry.assignedTo ? `Assigned to ${inquiry.assignedTo}` : 'Unassigned'}
+                        {inquiry.assignedTo ? `${inquiry.assignedTo}` : 'Unassigned'}
                       </div></td>
                      
                    
