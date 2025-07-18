@@ -20,23 +20,25 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, change, changeType, i
 
   return (
     <div className="bg-white overflow-hidden shadow-sm rounded-lg border border-gray-200 hover:shadow-md transition-shadow h-40">
-      <div className="p-6">
-        <div className="flex items-center">
+      <div className="p-4 h-full flex flex-col justify-between">
+        <div className="flex flex-col items-center text-center">
           <div className="flex-shrink-0">
-            <div className={`p-3 rounded-lg bg-gradient-to-r ${colorClasses[color]}`}>
-              <Icon className="h-6 w-6 text-white" />
+            <div className={`p-2 rounded-lg bg-gradient-to-r ${colorClasses[color]} mb-3`}>
+              <Icon className="h-5 w-5 text-white" />
             </div>
           </div>
-          <div className="ml-4 flex-1">
-            <p className="text-sm font-medium text-gray-500 truncate">{title}</p>
-            <p className="text-2xl font-semibold text-gray-900 tracking-tight">{value}</p>
-            {change && (
-              <p className={`text-sm font-medium ${changeType === 'increase' ? 'text-green-600' : 'text-red-600'}`}>
-                {changeType === 'increase' ? '+' : ''}{change}
-              </p>
-            )}
+          <div className="flex-1 flex flex-col justify-center">
+            <p className="text-xs font-medium text-gray-500 mb-2 leading-tight">{title}</p>
+            <p className="text-xl font-bold text-gray-900 tracking-tight mb-1">{value}</p>
           </div>
         </div>
+        {change && (
+          <div className="text-center">
+            <p className={`text-xs font-medium ${changeType === 'increase' ? 'text-green-600' : 'text-red-600'}`}>
+              {changeType === 'increase' ? '+' : ''}{change}
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
