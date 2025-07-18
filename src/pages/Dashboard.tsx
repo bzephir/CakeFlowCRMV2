@@ -169,7 +169,7 @@ const Dashboard: React.FC = () => {
           />
         </div>
 {/* Chart Placeholder Grid */}
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
   <DashboardChartPlaceholder
     title="Order Volume Trend"
     description="Line chart showing order growth over time."
