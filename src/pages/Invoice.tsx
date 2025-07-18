@@ -83,7 +83,7 @@ const Invoice: React.FC = () => {
       fulfillmentType: 'delivery',
       pickupTime: '',
       deliveryTime: '16:00',
-      eventTime: '',
+      eventTime: '18:00',
       venue: '',
       guestCount: 0
     },
