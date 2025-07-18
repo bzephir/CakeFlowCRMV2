@@ -37,7 +37,7 @@ const sampleInvoice = {
     date: '2025-06-15',
     fulfillmentType: 'delivery',
     eventTime: '18:00',
-    deliveryTime: '16:00'
+    deliveryTime: '16:00',
     venue: 'Grand Hotel Ballroom',
     guestCount: 150
   },
