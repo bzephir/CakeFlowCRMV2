@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useInvoiceContext } from '../context/InvoiceContext';
 import Header from '../components/Header';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
 import { generateDocumentNumber } from '../utils/documentNumbering';
@@ -23,6 +24,7 @@ import {
 
 const Invoices: React.FC = () => {
   const navigate = useNavigate();
+  const { invoices, deleteInvoice } = useInvoiceContext();
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [selectedInvoices, setSelectedInvoices] = useState<string[]>([]);
@@ -30,155 +32,6 @@ const Invoices: React.FC = () => {
   const itemsPerPage = 10;
 
   // Mock invoice data with new numbering format
-  const invoices = [
-    {
-      id: 'I-202501-0001',
-      customer: 'David Fraga',
-      issueDate: '2025-01-15',
-      dueDate: '2025-06-01',
-      amount: 642.00,
-      paid: 400.00,
-      balance: 242.00,
-      status: 'partial',
-      eventType: 'Wedding',
-      eventDate: '2025-06-15',
-      eventTime: '16:00',
-      deliveryTime:'12:00'
-    },
-    {
-      id: 'I-202501-0002',
-      customer: 'Sarah Johnson',
-      issueDate: '2025-01-10',
-      dueDate: '2025-01-25',
-      amount: 450.00,
-      paid: 450.00,
-      balance: 0.00,
-      status: 'paid',
-      eventType: 'Celebration',
-      eventDate: '2025-01-15',
-      eventTime: '14:00'
-    },
-    {
-      id: 'I-202501-0003',
-      customer: 'Mike Chen',
-      issueDate: '2025-01-05',
-      dueDate: '2025-01-20',
-      amount: 120.00,
-      paid: 0.00,
-      balance: 120.00,
-      status: 'overdue',
-      eventType: 'Corporate',
-      eventDate: '2025-01-16',
-      eventTime: '12:00'
-    },
-    {
-      id: 'I-202412-0045',
-      customer: 'Emma Davis',
-      issueDate: '2024-12-20',
-      dueDate: '2025-01-10',
-      amount: 280.00,
-      paid: 0.00,
-      balance: 280.00,
-      status: 'pending',
-      eventType: 'Celebration',
-      eventDate: '2025-01-18',
-      eventTime: '18:30'
-    },
-    {
-      id: 'I-202412-0046',
-      customer: 'James Wilson',
-      issueDate: '2024-12-15',
-      dueDate: '2025-01-05',
-      amount: 180.00,
-      paid: 0.00,
-      balance: 0.00,
-      status: 'cancelled',
-      eventType: 'Celebration',
-      eventDate: '2025-01-20',
-      eventTime: '11:00'
-    },
-    {
-      id: 'I-202412-0047',
-      customer: 'Lisa Park',
-      issueDate: '2024-12-10',
-      dueDate: '2024-12-25',
-      amount: 200.00,
-      paid: 200.00,
-      balance: 0.00,
-      status: 'paid',
-      eventType: 'Celebration',
-      eventDate: '2024-12-28',
-      eventTime: '13:00'
-    },
-    {
-      id: 'I-202412-0048',
-      customer: 'Robert Smith',
-      issueDate: '2024-12-05',
-      dueDate: '2024-12-20',
-      amount: 350.00,
-      paid: 150.00,
-      balance: 200.00,
-      status: 'deposit-paid',
-      eventType: 'Wedding',
-      eventDate: '2024-12-22',
-      eventTime: '17:00'
-    },
-    {
-      id: 'I-202411-0032',
-      customer: 'Jennifer Brown',
-      issueDate: '2024-11-30',
-      dueDate: '2024-12-15',
-      amount: 175.00,
-      paid: 25.00,
-      balance: 150.00,
-      status: 'overdue',
-      eventType: 'Celebration',
-      eventDate: '2024-12-18',
-      eventTime: '15:00'
-    },
-    {
-      id: 'I-202411-0033',
-      customer: 'Michael Taylor',
-      issueDate: '2024-11-25',
-      dueDate: '2024-12-10',
-      amount: 420.00,
-      paid: 420.00,
-      balance: 0.00,
-      status: 'paid',
-      eventType: 'Corporate',
-      eventDate: '2024-12-12',
-      eventTime: '09:00',
-      deliveryTiem: '08:30'
-  
-    },
-    {
-      id: 'I-202411-0034',
-      customer: 'Jessica Lee',
-      issueDate: '2024-11-20',
-      dueDate: '2024-12-05',
-      amount: 300.00,
-      paid: 0.00,
-      balance: 300.00,
-      status: 'pending',
-      eventType: 'Celebration',
-      eventDate: '2024-12-08',
-      eventTime: '19:00',
-      pickupTime: '14:00'
-    },
-    {
-      id: 'I-202411-0035',
-      customer: 'Daniel Garcia',
-      issueDate: '2024-11-15',
-      dueDate: '2024-11-30',
-      amount: 225.00,
-      paid: 0.00,
-      balance: 0.00,
-      status: 'cancelled',
-      eventType: 'Celebration',
-      eventDate: '2024-12-02',
-      eventTime: '10:30'
-    }
-  ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -243,7 +96,10 @@ const Invoices: React.FC = () => {
 
   const handleDeleteInvoice = (invoiceId: string) => {
     // Delete invoice
-    alert(`Delete invoice ${invoiceId}`);
+    if (confirm('Are you sure you want to delete this invoice?')) {
+      deleteInvoice(invoiceId);
+      alert(`Invoice ${invoiceId} deleted successfully!`);
+    }
   };
 
   const handleBulkAction = (action: 'send' | 'delete') => {
@@ -277,7 +133,9 @@ const Invoices: React.FC = () => {
 
   // Filter invoices based on search term and status filter
   const filteredInvoices = invoices.filter(invoice => {
-    const matchesSearch = invoice.customer.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    const fullName = `${invoice.firstName} ${invoice.lastName}`.toLowerCase();
+    const matchesSearch = fullName.includes(searchTerm.toLowerCase()) ||
+                         invoice.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          invoice.id.includes(searchTerm);
     const matchesStatus = statusFilter === 'all' || invoice.status === statusFilter;
     return matchesSearch && matchesStatus;
@@ -286,7 +144,11 @@ const Invoices: React.FC = () => {
   // Pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentInvoices = filteredInvoices.slice(indexOfFirstItem, indexOfLastItem);
+  // Sort invoices by issue date (newest first)
+  const sortedInvoices = [...filteredInvoices].sort((a, b) => 
+    new Date(b.issueDate).getTime() - new Date(a.issueDate).getTime()
+  );
+  const currentInvoices = sortedInvoices.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredInvoices.length / itemsPerPage);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
@@ -434,22 +296,26 @@ const Invoices: React.FC = () => {
                       <div className="text-sm text-gray-900">{formatDate(invoice.issueDate)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">{invoice.customer}</div>
+                      <div className="text-sm font-medium text-gray-900">
+                        {invoice.firstName} {invoice.lastName}
+                      </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{invoice.eventType}</div>
+                      <div className="text-sm text-gray-900 capitalize">{invoice.eventType}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right">
-                      <div className="text-sm font-medium text-gray-900">{formatCurrency(invoice.amount)}</div>
+                      <div className="text-sm font-medium text-gray-900">{formatCurrency(invoice.total)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right">
-                      <div className="text-sm font-medium text-gray-900">{formatCurrency(invoice.paid)}</div>
+                      <div className="text-sm font-medium text-gray-900">{formatCurrency(invoice.amountPaid)}</div>
                     </td>
                       <td className="px-2 py-1 whitespace-nowrap text-right">
                         <div className="text-sm font-medium text-gray-900">{formatCurrency(invoice.balance)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{formatDate(invoice.dueDate)}</div>
+                      <div className="text-sm text-gray-900">
+                        {invoice.nextPaymentDueDate ? formatDate(invoice.nextPaymentDueDate) : formatDate(invoice.dueDate)}
+                      </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(invoice.status)}`}>

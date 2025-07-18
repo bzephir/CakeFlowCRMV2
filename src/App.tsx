@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { InquiryProvider } from './context/InquiryContext';
 import { QuoteProvider } from './context/QuoteContext';
 import { OrderProvider } from './context/OrderContext';
+import { InvoiceProvider } from './context/InvoiceContext';
 import Sidebar from './components/Sidebar';
 import Dashboard from './pages/Dashboard';
 import Orders from './pages/Orders';
@@ -44,12 +45,13 @@ function App() {
     <InquiryProvider>
       <QuoteProvider>
         <OrderProvider>
-          <Router>
-            <div className="flex h-screen bg-gray-50">
-              <Sidebar />
-              <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
-                <div className="flex-1 overflow-y-auto">
-                  <Routes>
+          <InvoiceProvider>
+            <Router>
+              <div className="flex h-screen bg-gray-50">
+                <Sidebar />
+                <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
+                  <div className="flex-1 overflow-y-auto">
+                    <Routes>
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/schedule" element={<CalendarPage />} />
                 <Route path="/inquiries" element={<Inquiries />} />
@@ -63,6 +65,7 @@ function App() {
                 <Route path="/orders/new" element={<CreateOrder />} />
                 <Route path="/invoices" element={<Invoices />} />
                 <Route path="/invoice/:id" element={<Invoice />} />
+                <Route path="/invoice/:id" element={<InvoiceDetail />} />
                 <Route path="/invoice/new" element={<Invoice />} />
                 <Route path="/reports" element={<Reports />} />
                 <Route path="/production" element={<Production />} />
@@ -82,11 +85,12 @@ function App() {
                 <Route path="/vendors" element={<Vendors />} />
                 <Route path="/users" element={<Users />} />
                 <Route path="/settings" element={<Settings />} />
-                  </Routes>
+                    </Routes>
+                  </div>
                 </div>
               </div>
-            </div>
-          </Router>
+            </Router>
+          </InvoiceProvider>
         </OrderProvider>
       </QuoteProvider>
     </InquiryProvider>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useInvoiceContext } from '../context/InvoiceContext';
 import Header from '../components/Header';
 import Logo from '../components/Logo';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
@@ -83,143 +84,62 @@ interface InvoiceData {
 const InvoiceDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { getInvoiceById, updateInvoice, deleteInvoice, recordPayment } = useInvoiceContext();
   const [invoice, setInvoice] = useState<InvoiceData | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Sample invoice data - in a real app, this would come from your database
-  const sampleInvoices: InvoiceData[] = [
-    {
-      id: 'I-202501-0001',
-      customer: {
-        id: '1',
-        name: 'David Fraga',
-        email: 'david.fraga@example.com',
-        phone: '(555) 123-4567',
-        address: '123 Main Street',
-        city: 'Springfield',
-        state: 'IL',
-        zip: '62701'
-      },
-      event: {
-        date: '2025-06-15',
-        time: '16:00',
-        fulfillmentType: 'delivery',
-        pickupTime: '',
-        deliveryTime: '14:00',
-        venue: 'Grand Hotel Ballroom',
-        guestCount: 150
-      },
-      items: [
-        { id: '1', description: '3-Tier Wedding Cake', quantity: 1, price: 450.00 },
-        { id: '2', description: 'Custom Cake Topper', quantity: 1, price: 65.00 },
-        { id: '3', description: 'Delivery & Setup', quantity: 1, price: 85.00 }
-      ],
-      payments: [
-        { id: '1', date: '2025-01-15', amount: 300.00, method: 'Credit Card', reference: 'TXID-12345' }
-      ],
-      notes: 'Cake design to match wedding colors: blush pink and gold. Flavors: vanilla cake with strawberry filling (top tier), chocolate cake with raspberry filling (middle tier), and lemon cake with blueberry filling (bottom tier).',
-      terms: 'Final payment due 14 days before event date. Cancellations within 30 days of event are subject to 50% fee.',
-      subtotal: 600.00,
-      tax: 42.00,
-      total: 642.00,
-      balance: 342.00,
-      issueDate: '2025-01-15',
-      dueDate: '2025-06-01',
-      status: 'deposit-paid',
-      orderId: 'O-202501-0001'
-    },
-    {
-      id: 'I-202501-0002',
-      customer: {
-        id: '2',
-        name: 'Sarah Johnson',
-        email: 'sarah@email.com',
-        phone: '(555) 234-5678',
-        address: '456 Oak Avenue',
-        city: 'Springfield',
-        state: 'IL',
-        zip: '62702'
-      },
-      event: {
-        date: '2025-01-15',
-        time: '14:00',
-        fulfillmentType: 'pickup',
-        pickupTime: '12:00',
-        deliveryTime: '',
-        venue: 'Private Residence',
-        guestCount: 25
-      },
-      items: [
-        { id: '1', description: 'Custom Birthday Cake', quantity: 1, price: 85.00 },
-        { id: '2', description: 'Cupcakes (dozen)', quantity: 3, price: 36.00 },
-        { id: '3', description: 'Cake Pops (dozen)', quantity: 2, price: 24.00 }
-      ],
-      payments: [
-        { id: '1', date: '2025-01-10', amount: 450.00, method: 'Cash' }
-      ],
-      notes: 'Birthday cake for 30th celebration with blue and silver theme.',
-      terms: 'All sales are final. No refunds for picked-up items.',
-      subtotal: 241.00,
-      tax: 16.87,
-      total: 257.87,
-      balance: 0.00,
-      issueDate: '2025-01-10',
-      dueDate: '2025-01-15',
-      status: 'paid',
-      orderId: 'O-202412-0045'
-    },
-    {
-      id: 'I-202501-0003',
-      customer: {
-        id: '3',
-        name: 'Mike Chen',
-        email: 'mike@email.com',
-        phone: '(555) 345-6789',
-        address: '789 Pine Road',
-        city: 'Springfield',
-        state: 'IL',
-        zip: '62703'
-      },
-      event: {
-        date: '2025-01-16',
-        time: '12:00',
-        fulfillmentType: 'delivery',
-        pickupTime: '',
-        deliveryTime: '10:30',
-        venue: 'TechCorp Office',
-        guestCount: 50
-      },
-      items: [
-        { id: '1', description: 'Corporate Cupcakes', quantity: 48, price: 2.50 },
-        { id: '2', description: 'Delivery Fee', quantity: 1, price: 25.00 }
-      ],
-      payments: [],
-      notes: 'Cupcakes with company logo as per provided design.',
-      terms: 'Payment due within 30 days of invoice date. Late payments subject to 1.5% monthly interest.',
-      subtotal: 145.00,
-      tax: 10.15,
-      total: 155.15,
-      balance: 155.15,
-      issueDate: '2025-01-05',
-      dueDate: '2025-02-04',
-      status: 'overdue',
-      orderId: 'O-202412-0046'
-    }
-  ];
-
   useEffect(() => {
-    // Simulate API call to fetch invoice data
     setLoading(true);
     
-    // Find the invoice with the matching ID
-    const foundInvoice = sampleInvoices.find(i => i.id === id);
+    // Get invoice from context
+    const foundInvoice = getInvoiceById(id);
     
     if (foundInvoice) {
-      setInvoice(foundInvoice);
+      // Transform the invoice data to match the component's expected format
+      const transformedInvoice = {
+        id: foundInvoice.id,
+        customer: {
+          id: foundInvoice.id,
+          name: `${foundInvoice.firstName} ${foundInvoice.lastName}`,
+          email: foundInvoice.email,
+          phone: foundInvoice.phone || '',
+          address: foundInvoice.address1 || '',
+          city: foundInvoice.city || '',
+          state: foundInvoice.state || '',
+          zip: foundInvoice.zip || ''
+        },
+        event: {
+          date: foundInvoice.eventDate || '',
+          time: foundInvoice.eventTime || '',
+          fulfillmentType: foundInvoice.fulfillmentType,
+          pickupTime: foundInvoice.pickupTime || '',
+          deliveryTime: foundInvoice.deliveryTime || '',
+          venue: foundInvoice.venue || '',
+          guestCount: 0 // This would need to be added to the Invoice type
+        },
+        items: foundInvoice.items.map(item => ({
+          id: item.id,
+          description: item.name,
+          quantity: item.quantity,
+          price: item.unitPrice
+        })),
+        payments: foundInvoice.payments,
+        notes: foundInvoice.notes || '',
+        terms: foundInvoice.termsConditions || '',
+        subtotal: foundInvoice.subtotal,
+        tax: foundInvoice.taxAmount,
+        total: foundInvoice.total,
+        balance: foundInvoice.balance,
+        issueDate: foundInvoice.issueDate,
+        dueDate: foundInvoice.dueDate,
+        status: foundInvoice.status,
+        orderId: foundInvoice.orderId
+      };
+      setInvoice(transformedInvoice);
     }
     
     setLoading(false);
-  }, [id]);
+  }, [id, getInvoiceById]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -265,7 +185,35 @@ const InvoiceDetail: React.FC = () => {
 
   const handleRecordPayment = () => {
     // In a real app, this would open a payment form
-    alert('Record payment functionality would be implemented here');
+    const amount = prompt('Enter payment amount:');
+    const method = prompt('Enter payment method (e.g., Credit Card, Cash, Check):');
+    
+    if (amount && method && invoice) {
+      const paymentAmount = parseFloat(amount);
+      if (paymentAmount > 0) {
+        recordPayment(invoice.id, {
+          date: new Date().toISOString().split('T')[0],
+          amount: paymentAmount,
+          method,
+          reference: `REF-${Date.now()}`
+        });
+        
+        // Refresh the invoice data
+        const updatedInvoice = getInvoiceById(invoice.id);
+        if (updatedInvoice) {
+          // Transform and update local state
+          const transformedInvoice = {
+            ...invoice,
+            payments: updatedInvoice.payments,
+            balance: updatedInvoice.balance,
+            status: updatedInvoice.status
+          };
+          setInvoice(transformedInvoice);
+        }
+        
+        alert(`Payment of ${formatCurrency(paymentAmount)} recorded successfully!`);
+      }
+    }
   };
 
   const handleDuplicate = () => {
@@ -284,7 +232,8 @@ const InvoiceDetail: React.FC = () => {
   const handleDelete = () => {
     // In a real app, this would delete the invoice
     if (confirm('Are you sure you want to delete this invoice?')) {
-      alert(`Invoice ${id} deleted successfully`);
+      deleteInvoice(id!);
+      alert(`Invoice ${id} deleted successfully!`);
       navigate('/invoices');
     }
   };

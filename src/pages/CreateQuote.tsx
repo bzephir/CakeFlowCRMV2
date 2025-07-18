@@ -329,8 +329,6 @@ const CreateQuote: React.FC = () => {
 
   const handleSaveDraft = () => {
     if (validateForm()) {
-      console.log('Saving quote as draft:', formData);
-      
       // Prepare quote data for context
       const quoteData = {
         type: formData.customerInfo?.type || 'celebration',
@@ -381,8 +379,6 @@ const CreateQuote: React.FC = () => {
 
   const handleSendQuote = () => {
     if (validateForm()) {
-      console.log('Sending quote to customer:', formData);
-      
       // Prepare quote data for context
       const quoteData = {
         type: formData.customerInfo?.type || 'celebration',

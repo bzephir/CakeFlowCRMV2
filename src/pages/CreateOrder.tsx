@@ -334,8 +334,6 @@ const CreateOrder: React.FC = () => {
 
   const handleSaveOrder = () => {
     if (validateForm()) {
-      console.log('Saving order:', formData);
-      
       // Prepare order data for context
       const orderData = {
         type: formData.eventType.toLowerCase().includes('wedding') ? 'wedding' : 

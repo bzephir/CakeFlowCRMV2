@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useInvoiceContext } from '../context/InvoiceContext';
 import Header from '../components/Header';
 import Logo from '../components/Logo';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
@@ -60,6 +61,7 @@ const sampleInvoice = {
 
 const Invoice: React.FC = () => {
   const navigate = useNavigate();
+  const { addInvoice, updateInvoice, getInvoiceById } = useInvoiceContext();
   const { id } = useParams();
   const location = useLocation();
   const isNewInvoice = id === 'new';
@@ -67,40 +69,95 @@ const Invoice: React.FC = () => {
   // Get invoice number from location state if creating new invoice
   const invoiceNumber = location.state?.invoiceNumber || (isNewInvoice ? generateDocumentNumber('invoice') : id);
   
+  // Get existing invoice data if editing
+  const existingInvoice = !isNewInvoice ? getInvoiceById(id) : null;
+  
   // Initialize with sample data for existing invoice or empty data for new invoice
-  const [invoice, setInvoice] = useState(isNewInvoice ? {
+  const [invoice, setInvoice] = useState(existingInvoice || (isNewInvoice ? {
     id: invoiceNumber,
-    customer: {
-      name: '',
-      phone: '',
-      address: '',
-      city: '',
-      state: '',
-      zip: ''
-    },
-    event: {
-      date: '',
-      fulfillmentType: 'pickup',
-      pickupTime: '',
-      deliveryTime: '',
-      eventTime: '',
-      venue: '',
-      guestCount: 0
-    },
+    invoiceNumber,
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    address1: '',
+    city: '',
+    state: '',
+    zip: '',
+    eventType: 'celebration',
+    eventDate: '',
+    eventTime: '',
+    fulfillmentType: 'pickup',
+    pickupTime: '',
+    deliveryTime: '',
+    venue: '',
     items: [
-      { id: 1, description: '', quantity: 1, price: 0 }
+      { id: '1', name: '', description: '', quantity: 1, unitPrice: 0, total: 0 }
     ],
-    payments: [],
-    notes: '',
-    terms: 'Final payment due 14 days before event date. Cancellations within 30 days of event are subject to 50% fee.',
     subtotal: 0,
-    tax: 0,
+    taxRate: 7.0,
+    taxAmount: 0,
     total: 0,
+    payments: [],
+    amountPaid: 0,
     balance: 0,
+    status: 'draft',
     issueDate: new Date().toISOString().split('T')[0],
     dueDate: '',
-    status: 'draft'
-  } : sampleInvoice);
+    notes: '',
+    termsConditions: 'Final payment due 14 days before event date. Cancellations within 30 days of event are subject to 50% fee.'
+  } : sampleInvoice));
+
+  const handleSaveInvoice = () => {
+    if (isNewInvoice) {
+      // Add new invoice
+      addInvoice({
+        invoiceNumber: invoice.invoiceNumber,
+        orderId: invoice.orderId,
+        firstName: invoice.firstName,
+        lastName: invoice.lastName,
+        email: invoice.email,
+        phone: invoice.phone,
+        address1: invoice.address1,
+        city: invoice.city,
+        state: invoice.state,
+        zip: invoice.zip,
+        eventType: invoice.eventType,
+        eventName: invoice.eventName,
+        eventDate: invoice.eventDate,
+        eventTime: invoice.eventTime,
+        fulfillmentType: invoice.fulfillmentType,
+        pickupTime: invoice.pickupTime,
+        deliveryTime: invoice.deliveryTime,
+        venue: invoice.venue,
+        items: invoice.items,
+        subtotal: invoice.subtotal,
+        taxRate: invoice.taxRate,
+        taxAmount: invoice.taxAmount,
+        shippingFee: invoice.shippingFee,
+        discountType: invoice.discountType,
+        discountValue: invoice.discountValue,
+        discountAmount: invoice.discountAmount,
+        total: invoice.total,
+        payments: invoice.payments,
+        amountPaid: invoice.amountPaid,
+        balance: invoice.balance,
+        nextPaymentDueDate: invoice.nextPaymentDueDate,
+        status: invoice.status,
+        issueDate: invoice.issueDate,
+        dueDate: invoice.dueDate,
+        notes: invoice.notes,
+        internalNotes: invoice.internalNotes,
+        termsConditions: invoice.termsConditions
+      });
+      alert(`Invoice ${invoice.invoiceNumber} created successfully!`);
+    } else {
+      // Update existing invoice
+      updateInvoice(invoice.id, invoice);
+      alert(`Invoice ${invoice.invoiceNumber} updated successfully!`);
+    }
+    navigate('/invoices');
+  };
   
   const getStatusColor = (status: string) => {
     switch (status) {
