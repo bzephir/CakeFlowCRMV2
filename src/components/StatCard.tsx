@@ -29,7 +29,7 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, change, changeType, i
       <div className="p-4 flex flex-col justify-between h-32">
         <div className="text-center">
           <p className="text-sm font-semibold text-gray-600 mb-2 uppercase tracking-wide">{title}</p>
-          <p className="text-3xl font-bold text-gray-900 mb-2">{value}</p>
+          <p className="text-2xl font-bold text-gray-900 mb-2">{value}</p>
         </div>
         {change && (
           <div className="text-center mt-auto">
