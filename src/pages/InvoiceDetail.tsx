@@ -428,8 +428,14 @@ const InvoiceDetail: React.FC = () => {
                       </>
                     )}
                   </div>
-                  
-
+                                    {invoice.event.time && (
+                    <div className="flex items-start mb-1">
+                      <Clock className="h-4 w-4 mr-2 mt-0.5 text-gray-400" />
+                      <div>
+                        <p className="text-gray-900">Event at {formatTime(invoice.event.time)}</p>
+                      </div>
+                    </div>
+                  )}
                   
                   <div className="flex items-start mb-1">
                     <User className="h-4 w-4 mr-2 mt-0.5 text-gray-400" />
