@@ -5,6 +5,7 @@ import { useOrderContext } from '../context/OrderContext';
 import Header from '../components/Header';
 import Logo from '../components/Logo';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
+import {Quote, QuoteItem, CelebrationInquiryDetails, WeddingInquiryDetails, CorporateInquiryDetails} from "../types/index.ts";
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { 
   ArrowLeft,
@@ -30,55 +31,6 @@ import {
   Percent
 } from 'lucide-react';
 
-interface Customer {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  address: string;
-  city: string;
-  state: string;
-  zip: string;
-}
-
-interface LineItem {
-  id: string;
-  name: string;
-  description: string;
-  quantity: number;
-  unitPrice: number;
-  total: number;
-}
-
-interface QuoteData {
-  id: string;
-  customer: Customer;
-  quoteDate: string;
-  expirationDate: string;
-  fulfillmentType: 'pickup' | 'delivery';
-  pickupTime: string;
-  deliveryTime: string;
-  eventTime: string;
-  eventDate: string;
-  eventType: string;
-  poNumber: string;
-  lineItems: LineItem[];
-  subtotal: number;
-  discountType: 'percentage' | 'fixed';
-  discountValue: number;
-  discountAmount: number;
-  taxRate: number;
-  taxAmount: number;
-  shippingFee: number;
-  total: number;
-  customerNotes: string;
-  internalNotes: string;
-  termsConditions: string;
-  status: 'draft' | 'sent' | 'accepted' | 'rejected' | 'expired';
-  createdBy: string;
-  createdAt: string;
-  lastUpdated: string;
-}
 
 const QuoteDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -356,25 +308,25 @@ const QuoteDetail: React.FC = () => {
                 <div className="space-y-2">
                   <div className="flex items-center text-sm text-gray-600">
                     <User className="h-4 w-4 mr-2 text-gray-400" />
-                    <span className="font-medium">{quote.customer.name}</span>
+                    <span className="font-medium">{quote.firstName, quote.lastName}</span>
                   </div>
                   <div className="flex items-center text-sm text-gray-600">
                     <Mail className="h-4 w-4 mr-2 text-gray-400" />
-                    <a href={`mailto:${quote.customer.email}`} className="hover:text-coral-600 transition-colors">
-                      {quote.customer.email}
+                    <a href={`mailto:${quote.email}`} className="hover:text-coral-600 transition-colors">
+                      {quote.email}
                     </a>
                   </div>
                   <div className="flex items-center text-sm text-gray-600">
                     <Phone className="h-4 w-4 mr-2 text-gray-400" />
-                    <a href={`tel:${quote.customer.phone}`} className="hover:text-coral-600 transition-colors">
-                      {quote.customer.phone}
+                    <a href={`tel:${quote.phone}`} className="hover:text-coral-600 transition-colors">
+                      {quote.phone}
                     </a>
                   </div>
                   <div className="flex items-start text-sm text-gray-600">
                     <MapPin className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
                     <div>
-                      {quote.customer.address}<br />
-                      {quote.customer.city}, {quote.customer.state} {quote.customer.zip}
+                      {quote.address}<br />
+                      {quote.city}, {quote.state} {quote.zip}
                     </div>
                   </div>
                 </div>
@@ -436,7 +388,7 @@ const QuoteDetail: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {quote.lineItems.map((item) => (
+                  {quote.quoteItems.map((item) => (
                     <tr key={item.id}>
                       <td className="px-3 py-4 text-sm text-gray-900">
                         <div className="font-medium">{item.name}</div>
