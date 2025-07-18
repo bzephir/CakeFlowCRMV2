@@ -21,7 +21,7 @@ import {
   MapPin,
   Package,
   Truck,
-  FileText,create
+  FileText,
   MessageSquare,
   CreditCard,
   AlertCircle,
@@ -428,7 +428,8 @@ const InvoiceDetail: React.FC = () => {
                       </>
                     )}
                   </div>
-                                    {invoice.event.time && (
+                  
+                  {invoice.event.time && (
                     <div className="flex items-start mb-1">
                       <Clock className="h-4 w-4 mr-2 mt-0.5 text-gray-400" />
                       <div>
