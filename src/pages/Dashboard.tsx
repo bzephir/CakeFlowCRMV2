@@ -295,7 +295,10 @@ const Dashboard: React.FC = () => {
             </table>
           </div>
           <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
-            <button className="text-sm text-coral-600 hover:text-coral-500 font-medium">
+            <button 
+              onClick={() => navigate('/orders')}
+              className="text-sm text-coral-600 hover:text-coral-500 font-medium transition-colors"
+            >
               View all orders →
             </button>
           </div>
