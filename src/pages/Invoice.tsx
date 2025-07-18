@@ -107,7 +107,7 @@ const Invoice: React.FC = () => {
       case 'paid': return 'bg-mint-100 text-mint-800';
       case 'deposit-paid': return 'bg-coral-100 text-coral-800';
       case 'pending': return 'bg-aqua-100 text-aqua-800';
-      case 'overdue': return 'bg-pink-100 text-pink-800';
+      case 'overdue': return 'bg-red-200 text-red-900';
       case 'draft': return 'bg-gray-100 text-gray-800';
       default: return 'bg-gray-100 text-gray-800';
     }
