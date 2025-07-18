@@ -251,7 +251,7 @@ const Dashboard: React.FC = () => {
               />
             </div>
           </div>
-
+ </div>
         {/* Today's Orders */}
         <div className="bg-white shadow-sm rounded-lg border border-gray-200">
           <div className="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-coral-400 to-pink-400 rounded-t-lg">
