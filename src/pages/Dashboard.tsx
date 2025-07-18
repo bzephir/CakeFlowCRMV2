@@ -251,12 +251,6 @@ const Dashboard: React.FC = () => {
               />
             </div>
           </div>
-        </div>
-          <CalendarWidget
-            onCreateEvent={handleCreateEvent}
-            onViewEvent={handleViewEvent}
-          />
-        </div>
 
         {/* Today's Orders */}
         <div className="bg-white shadow-sm rounded-lg border border-gray-200">
