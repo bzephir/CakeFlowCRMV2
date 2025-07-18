@@ -31,7 +31,6 @@ export interface Customer {
 export interface Order {
   id: string;
   eventType: 'celebration' | 'wedding' | 'corporate';
-  customerId: string; 
   status: 'draft' | 'confirmed' | 'pending' | 'on hold' | 'in progress' | 'awaiting payment' | 'paid' | 'fulfilled' | 'cancelled' | 'refunded';
   //Common fields across all order types/stages
   firstName: string;
@@ -46,7 +45,7 @@ export interface Order {
   venue?: string;
   guestCount: number;
   //Order-specific fields
-  orderItems: string[];
+  orderItems: OrderItem[];
   payments: Payment[];
   subtotal: number;
   taxRate: number;
