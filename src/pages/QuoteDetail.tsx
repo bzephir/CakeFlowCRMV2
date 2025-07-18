@@ -373,7 +373,66 @@ const QuoteDetail: React.FC = () => {
               </div>
             </div>
           </div>
-              {/* Type-specific details */}
+          // Render wedding-specific fields
+function renderWeddingDetails(details: WeddingInquiryDetails) {
+  return (
+    <section>
+      <h3>Wedding Details</h3>
+      <div><strong>Venue:</strong> {details.venue}</div>
+      <div><strong>Wedding Size:</strong> {details.size}</div>
+      <div><strong>Cake Style:</strong> {details.cakeStyle}</div>
+      <div><strong>Flavors:</strong> {details.flavors?.join(', ')}</div>
+      <div><strong>Dietary Restrictions:</strong> {details.dietaryRestrictions}</div>
+      <div><strong>Delivery/Setup:</strong> {details.deliveryNeeds}</div>
+      <div><strong>Tasting Request:</strong> {details.tastingRequested ? 'Yes' : 'No'}</div>
+      <div><strong>Wedding Planner:</strong> {details.plannerName} ({details.plannerContact})</div>
+    </section>
+  );
+}
+
+// Render celebration-specific fields
+function renderCelebrationDetails(details: CelebrationInquiryDetails) {
+  return (
+    <section>
+      <h3>Celebration Details</h3>
+      <div><strong>Occasion:</strong> {details.occasion}</div>
+      <div><strong>Theme:</strong> {details.theme}</div>
+      <div><strong>Colors:</strong> {details.colors?.join(', ')}</div>
+      <div><strong>Tasting Request:</strong> {details.tastingRequested ? 'Yes' : 'No'}</div>
+    </section>
+  );
+}
+
+// Render corporate-specific fields
+function renderCorporateDetails(details: CorporateInquiryDetails) {
+  return (
+    <section>
+      <h3>Corporate Event Details</h3>
+      <div><strong>Company:</strong> {details.companyName}</div>
+      <div><strong>Event Type:</strong> {details.eventType}</div>
+      <div><strong>Recurring:</strong> {details.isRecurring ? 'Yes' : 'No'}</div>
+      <div><strong>Branding Requirements:</strong> {details.branding}</div>
+      <div><strong>Delivery Address:</strong> {details.deliveryAddress}</div>
+      <div><strong>Contact Person:</strong> {details.contactPerson}</div>
+      <div><strong>Approval Process:</strong> {details.approvalProcess}</div>
+      <div><strong>Invoicing Requirements:</strong> {details.invoicingRequirements}</div>
+    </section>
+  );
+}    
+          function renderTypeSpecificDetails(quote: Quote) {
+  switch (quote.type) {
+    case 'wedding':
+      return renderWeddingDetails(quote.details as WeddingInquiryDetails);
+    case 'celebration':
+      return renderCelebrationDetails(quote.details as CelebrationInquiryDetails);
+    case 'corporate':
+      return renderCorporateDetails(quote.details as CorporateInquiryDetails);
+    default:
+      return null;
+  }
+}
+
+          {/* Type-specific details */}
           <div className="border-t border-gray-200 pt-4">
           <h4 className="text-sm font-medium text-gray-900 mb-3 capitalize">
           {quote.type} Details
