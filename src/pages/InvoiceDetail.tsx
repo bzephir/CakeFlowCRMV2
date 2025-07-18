@@ -115,7 +115,7 @@ const InvoiceDetail: React.FC = () => {
           pickupTime: foundInvoice.pickupTime || '',
           deliveryTime: foundInvoice.deliveryTime || '',
           venue: foundInvoice.venue || '',
-          guestCount: 0 // This would need to be added to the Invoice type
+          guestCount: foundInvoice.guestCount || '',
         },
         items: foundInvoice.items.map(item => ({
           id: item.id,
