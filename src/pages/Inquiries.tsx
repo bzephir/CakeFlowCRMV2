@@ -299,11 +299,9 @@ const Inquiries: React.FC = () => {
                         {inquiry.status}
                       </span>
                        </td>
-                     <td> <div className="text-xs text-gray-500 mt-1">
+                     <td> <div className="text-s text-gray-900 mt-1">
                         {inquiry.assignedTo ? `${inquiry.assignedTo}` : 'Unassigned'}
                       </div></td>
-                     
-                   
                     <td className="px-2 py-1 whitespace-nowrap text-right text-sm font-medium">
                       <button 
                         onClick={() => handleViewInquiry(inquiry.id)}
