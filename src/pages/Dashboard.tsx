@@ -167,9 +167,9 @@ const Dashboard: React.FC = () => {
             icon={TrendingUp}
             color="pink"
           />
-        
          <div className="space-y-6">
-          {/* Recent - Vertical List */}
+          
+        {/* Recent - Vertical List */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
             <div className="bg-white shadow-sm rounded-lg border border-gray-200">
             <div className="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-coral-400 to-pink-400 rounded-t-lg">
@@ -196,7 +196,6 @@ const Dashboard: React.FC = () => {
               </button>
             </div>*/}
           </div>
-           </div>
           
 {/* Chart Placeholder Grid */}
 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
