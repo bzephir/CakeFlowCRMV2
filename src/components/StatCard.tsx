@@ -19,7 +19,7 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, change, changeType, i
   };
 
   return (
-    <div className="bg-white overflow-hidden shadow-sm rounded-lg border border-gray-200 hover:shadow-md transition-shadow h-48">
+    <div className="bg-white overflow-hidden shadow-sm rounded-lg border border-gray-200 hover:shadow-md transition-shadow h-50">
       {/* Colored Header with Icon */}
       <div className={`${colorClasses[color]} px-4 py-6 flex items-center justify-center`}>
         <Icon className="h-8 w-8 text-white" />
