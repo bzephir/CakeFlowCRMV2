@@ -167,6 +167,25 @@ const Dashboard: React.FC = () => {
             color="pink"
           />
         </div>
+{/* Chart Placeholder Grid */}
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+  <DashboardChartPlaceholder
+    title="Order Volume Trend"
+    description="Line chart showing order growth over time."
+  />
+  <DashboardChartPlaceholder
+    title="Revenue Breakdown"
+    description="Bar or donut chart by service type or product category."
+  />
+  <DashboardChartPlaceholder
+    title="Customer Acquisition"
+    description="How customers found your business."
+  />
+  <DashboardChartPlaceholder
+    title="Best-Selling Items"
+    description="Products contributing most to total revenue."
+  />
+</div>
 
         {/* Calendar Widget - Full Width */}
         <div className="mb-8">
