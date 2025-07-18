@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import StatCard from '../components/StatCard';
 import CalendarWidget from '../components/CalendarWidget';
@@ -22,17 +23,18 @@ import {
 } from 'lucide-react';
 
 const Dashboard: React.FC = () => {
+  const navigate = useNavigate();
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
 
   // Recent metrics data
   const recentMetrics = [
-    { count: 7, label: 'invoices are overdue', icon: AlertCircle, color: 'text-red-600' },
-    { count: 5, label: 'contracts need counter signatures', icon: FileText, color: 'text-orange-600' },
-    { count: 3, label: 'workflow actions need approval', icon: UserCheck, color: 'text-yellow-600' },
-    { count: 2, label: 'incomplete tasks', icon: ClipboardList, color: 'text-blue-600' },
-    { count: 1, label: 'inquiry not responded to', icon: Mail, color: 'text-purple-600' }
+    { count: 7, label: 'invoices are overdue', icon: AlertCircle, color: 'text-red-600', link: '/invoices?status=overdue' },
+    { count: 5, label: 'contracts need counter signatures', icon: FileText, color: 'text-orange-600', link: '/contracts' },
+    { count: 3, label: 'workflow actions need approval', icon: UserCheck, color: 'text-yellow-600', link: '/workflows' },
+    { count: 2, label: 'incomplete tasks', icon: ClipboardList, color: 'text-blue-600', link: '/schedule?filter=tasks' },
+    { count: 1, label: 'inquiry not responded to', icon: Mail, color: 'text-purple-600', link: '/inquiries?status=new' }
   ];
 
   // Today's orders data with pickup and delivery details
@@ -128,6 +130,10 @@ const Dashboard: React.FC = () => {
     alert(`Event "${eventData.title}" created successfully!`);
   };
 
+  const handleRecentItemClick = (link: string) => {
+    navigate(link);
+  };
+
   return (
     <div className="flex-1 overflow-hidden">
       <Header title="Dashboard" />
@@ -180,10 +186,10 @@ const Dashboard: React.FC = () => {
               <div className="overflow-hidden">
                 <ul className="divide-y divide-gray-200">
                   {recentMetrics.map((metric, index) => (
-                    <li key={index} className="px-4 py-2 hover:bg-gray-50 transition-colors">
-                      <div className="flex items-center space-x-3">
+                    <li key={index} className="px-4 py-2 hover:bg-gray-50 transition-colors cursor-pointer" onClick={() => handleRecentItemClick(metric.link)}>
+                      <div className="flex items-center space-x-3 group">
                         <metric.icon className={`h-5 w-5 ${metric.color}`} />
-                        <span className="text-sm text-gray-900">
+                        <span className="text-sm text-gray-900 group-hover:text-coral-600 transition-colors">
                           <span className="font-semibold">{metric.count}</span> {metric.label}
                         </span>
                       </div>
