@@ -4,6 +4,7 @@ import { InquiryProvider } from './context/InquiryContext';
 import Sidebar from './components/Sidebar';
 import Dashboard from './pages/Dashboard';
 import Orders from './pages/Orders';
+import OrderDetail from './pages/OrderDetail';
 import CreateOrder from './pages/CreateOrder';
 import CustomerDetail from './pages/CustomerDetail';
 import Customers from './pages/Customers';
@@ -54,7 +55,7 @@ function App() {
                 <Route path="/quotes/:id" element={<QuoteDetail />} />
                 <Route path="/quotes/new" element={<CreateQuote />} />
                 <Route path="/orders" element={<Orders />} />
-                <Route path="/tasks" element={<Tasks />} />
+                <Route path="/orders/:id" element={<OrderDetail />} />
                 <Route path="/orders/new" element={<CreateOrder />} />
                 <Route path="/invoices" element={<Invoices />} />
                 <Route path="/invoice/:id" element={<Invoice />} />
@@ -66,12 +67,13 @@ function App() {
                 <Route path="/recipes/margin-report" element={<RecipeMarginReport />} />
                 <Route path="/packages" element={<Packages />} />
                 <Route path="/inventory" element={<Inventory />} />
-                <Route path="/inventory-tracking" element={<InventoryTracking />} />
+                <Route path="/inventory-tracking" element={<InventoryTracking/>} />
                 <Route path="/customers" element={<Customers />} />
                 <Route path="/customers/:id" element={<CustomerDetail />} />
                 <Route path="/contracts" element={<Contracts />} />
                 <Route path="/venues" element={<Venues />} />
                 <Route path="/communication" element={<Communication />} />
+                <Route path="/tasks" element={<Tasks />} />
                 <Route path="/workflows" element={<Workflows />} />
                 <Route path="/import" element={<Import />} />
                 <Route path="/vendors" element={<Vendors />} />
