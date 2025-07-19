@@ -391,7 +391,7 @@ const Invoices: React.FC = () => {
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Event Date
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Total
                   </th>
                   <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
