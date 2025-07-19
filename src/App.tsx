@@ -16,6 +16,7 @@ import InquiryDetail from './pages/InquiryDetail';
 import Invoice from './pages/Invoice';
 import Invoices from './pages/Invoices';
 import Quotes from './pages/Quotes';
+import QuoteDetail from './pages/QuoteDetail';
 import CreateQuote from './pages/CreateQuote';
 import CalendarPage from './pages/CalendarPage';
 import Tasks from './pages/Tasks';
