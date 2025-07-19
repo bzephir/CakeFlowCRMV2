@@ -23,7 +23,8 @@ import {
   Users,
   MessageSquare,
   Calculator,
-  Percent
+  Percent,
+  Calendar
 } from 'lucide-react';
 
 // Define interfaces for the mock data structure
