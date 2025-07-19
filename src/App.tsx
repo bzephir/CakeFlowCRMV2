@@ -51,6 +51,7 @@ function App() {
                 <Route path="/inquiries/:id" element={<InquiryDetail />} />
                 <Route path="/inquiry-form" element={<InquiryForm />} />
                 <Route path="/quotes" element={<Quotes />} />
+                <Route path="/quotes/:id" element={<QuoteDetail />} />
                 <Route path="/quotes/new" element={<CreateQuote />} />
                 <Route path="/orders" element={<Orders />} />
                 <Route path="/tasks" element={<Tasks />} />
