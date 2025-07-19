@@ -438,6 +438,9 @@ const Invoices: React.FC = () => {
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{invoice.eventType}</div>
                     </td>
+                    <td className="px-2 py-1 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">{formatDate(invoice.eventDate)}</div>
+                    </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right">
                       <div className="text-sm font-medium text-gray-900">{formatCurrency(invoice.amount)}</div>
                     </td>
