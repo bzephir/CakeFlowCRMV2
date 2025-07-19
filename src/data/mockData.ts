@@ -1,5 +1,89 @@
 import { Inquiry, InquiryAction } from '../types';
 
+// Customer interface for mock data
+interface MockCustomer {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+}
+
+// Product interface for mock data
+interface MockProduct {
+  id: string;
+  name: string;
+  price: number;
+}
+
+// Order interface for mock data (matching the Order type from types/index.ts)
+interface MockOrder {
+  id: string;
+  customer?: string;
+  email?: string;
+  fulfillmentType: 'pickup' | 'delivery';
+  pickupTime?: string;
+  deliveryTime?: string;
+  customerId: string;
+  customerName: string;
+  eventDate: string;
+  eventType: string;
+  status: 'inquiry' | 'quoted' | 'confirmed' | 'in-production' | 'completed' | 'cancelled';
+  items: string[];
+  subtotal: number;
+  tax: number;
+  total: number;
+  deposited?: number;
+  balance?: number;
+  depositPaid: number;
+  createdAt: string;
+  eventTime?: string;
+}
+
+// Order Detail interface for detailed order view
+interface MockOrderDetail {
+  id: string;
+  customer: {
+    id: string;
+    name: string;
+    email: string;
+    phone: string;
+    address: string;
+    city: string;
+    state: string;
+    zip: string;
+  };
+  issueDate: string;
+  eventDate: string;
+  eventType: string;
+  fulfillmentType: 'pickup' | 'delivery';
+  pickupTime?: string;
+  deliveryTime?: string;
+  eventTime?: string;
+  poNumber?: string;
+  lineItems: {
+    id: string;
+    name: string;
+    description: string;
+    quantity: number;
+    unitPrice: number;
+    total: number;
+  }[];
+  subtotal: number;
+  taxRate: number;
+  taxAmount: number;
+  shippingFee: number;
+  total: number;
+  deposited: number;
+  balance: number;
+  customerNotes?: string;
+  internalNotes?: string;
+  status: 'inquiry' | 'quoted' | 'confirmed' | 'in-production' | 'completed' | 'cancelled';
+}
+
 // Mock inquiry data simulating a backend database
 export const mockInquiries: Inquiry[] = [
   {
@@ -421,4 +505,298 @@ export const getRecentInquiries = (limit: number = 5): Inquiry[] => {
   return mockInquiries
     .sort((a, b) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime())
     .slice(0, limit);
+};
+
+// Mock orders data for Orders page
+export const mockOrdersList: MockOrder[] = [
+  {
+    id: 'O-202501-0001',
+    customer: 'Sarah Johnson',
+    email: 'sarah@email.com',
+    fulfillmentType: 'delivery',
+    deliveryTime: '13:00',
+    customerId: '1',
+    customerName: 'Sarah Johnson',
+    eventDate: '2025-01-15',
+    eventTime: '15:00',
+    eventType: 'Wedding',
+    status: 'in-production',
+    items: ['3-Tier Wedding Cake', 'Cake Toppers'],
+    subtotal: 450.00,
+    tax: 31.50,
+    total: 481.50,
+    deposited: 225.00,
+    balance: 256.50,
+    depositPaid: 225.00,
+    createdAt: '2025-01-01'
+  },
+  {
+    id: 'O-202501-0002',
+    customer: 'Mike Chen',
+    email: 'mike@email.com',
+    fulfillmentType: 'pickup',
+    pickupTime: '15:30',
+    customerId: '2',
+    customerName: 'Mike Chen',
+    eventDate: '2025-01-16',
+    eventTime: '17:00',
+    eventType: 'Birthday',
+    status: 'confirmed',
+    items: ['Custom Birthday Cake'],
+    subtotal: 120.00,
+    tax: 8.40,
+    total: 128.40,
+    deposited: 60.00,
+    balance: 68.40,
+    depositPaid: 60.00,
+    createdAt: '2025-01-05'
+  },
+  {
+    id: 'O-202501-0003',
+    customer: 'Emma Davis',
+    email: 'emma@email.com',
+    fulfillmentType: 'delivery',
+    deliveryTime: '16:00',
+    customerId: '3',
+    customerName: 'Emma Davis',
+    eventDate: '2025-01-18',
+    eventTime: '18:30',
+    eventType: 'Corporate Event',
+    status: 'quoted',
+    items: ['Corporate Cupcakes (48)', 'Branded Toppers'],
+    subtotal: 280.00,
+    tax: 19.60,
+    total: 299.60,
+    deposited: 0.00,
+    balance: 299.60,
+    depositPaid: 0.00,
+    createdAt: '2025-01-10'
+  },
+  {
+    id: 'O-202412-0025',
+    customer: 'James Wilson',
+    email: 'james@email.com',
+    fulfillmentType: 'pickup',
+    pickupTime: '22:00',
+    customerId: '4',
+    customerName: 'James Wilson',
+    eventDate: '2025-03-08',
+    eventTime: '23:00',
+    eventType: 'Anniversary',
+    status: 'inquiry',
+    items: ['Anniversary Cake'],
+    subtotal: 180.00,
+    tax: 12.60,
+    total: 192.60,
+    deposited: 0.00,
+    balance: 192.60,
+    depositPaid: 0.00,
+    createdAt: '2024-12-12'
+  },
+  {
+    id: 'O-202412-0026',
+    customer: 'Lisa Park',
+    email: 'lisa@email.com',
+    fulfillmentType: 'pickup',
+    pickupTime: '11:00',
+    customerId: '5',
+    customerName: 'Lisa Park',
+    eventDate: '2025-01-14',
+    eventTime: '13:00',
+    eventType: 'Baby Shower',
+    status: 'completed',
+    items: ['Baby Shower Cake', 'Mini Cupcakes (24)'],
+    subtotal: 200.00,
+    tax: 14.00,
+    total: 214.00,
+    deposited: 214.00,
+    balance: 0.00,
+    depositPaid: 214.00,
+    createdAt: '2024-11-28'
+  },
+  {
+    id: 'O-202412-0027',
+    customer: 'Robert Smith',
+    email: 'robert@email.com',
+    fulfillmentType: 'delivery',
+    deliveryTime: '14:00',
+    customerId: '6',
+    customerName: 'Robert Smith',
+    eventDate: '2025-02-05',
+    eventTime: '16:00',
+    eventType: 'Graduation',
+    status: 'confirmed',
+    items: ['Graduation Cake', 'Cookies (12)'],
+    subtotal: 150.00,
+    tax: 10.50,
+    total: 160.50,
+    deposited: 75.00,
+    balance: 85.50,
+    depositPaid: 75.00,
+    createdAt: '2024-12-10'
+  },
+  {
+    id: 'O-202412-0028',
+    customer: 'Jennifer Brown',
+    email: 'jennifer@email.com',
+    fulfillmentType: 'pickup',
+    pickupTime: '15:30',
+    customerId: '7',
+    customerName: 'Jennifer Brown',
+    eventDate: '2025-01-30',
+    eventTime: '17:00',
+    eventType: 'Birthday',
+    status: 'in-production',
+    items: ['Custom Birthday Cake'],
+    subtotal: 95.00,
+    tax: 6.65,
+    total: 101.65,
+    deposited: 101.65,
+    balance: 0.00,
+    depositPaid: 101.65,
+    createdAt: '2024-12-05'
+  },
+  {
+    id: 'O-202411-0015',
+    customer: 'Michael Taylor',
+    email: 'michael@email.com',
+    fulfillmentType: 'delivery',
+    deliveryTime: '16:00',
+    customerId: '8',
+    customerName: 'Michael Taylor',
+    eventDate: '2024-12-15',
+    eventTime: '18:00',
+    eventType: 'Corporate Event',
+    status: 'completed',
+    items: ['Corporate Cupcakes (72)', 'Logo Cookies (24)'],
+    subtotal: 350.00,
+    tax: 24.50,
+    total: 374.50,
+    deposited: 374.50,
+    balance: 0.00,
+    depositPaid: 374.50,
+    createdAt: '2024-11-20'
+  },
+  {
+    id: 'O-202411-0016',
+    customer: 'Jessica Lee',
+    email: 'jessica@email.com',
+    fulfillmentType: 'pickup',
+    pickupTime: '15:30',
+    customerId: '9',
+    customerName: 'Jessica Lee',
+    eventDate: '2025-03-10',
+    eventTime: '17:00',
+    eventType: 'Wedding',
+    status: 'confirmed',
+    items: ['3-Tier Wedding Cake', 'Dessert Table'],
+    subtotal: 550.00,
+    tax: 38.50,
+    total: 588.50,
+    deposited: 275.00,
+    balance: 313.50,
+    depositPaid: 275.00,
+    createdAt: '2024-11-15'
+  },
+  {
+    id: 'O-202411-0017',
+    customer: 'Daniel Garcia',
+    email: 'daniel@email.com',
+    fulfillmentType: 'delivery',
+    deliveryTime: '10:00',
+    customerId: '10',
+    customerName: 'Daniel Garcia',
+    eventDate: '2025-02-20',
+    eventTime: '12:00',
+    eventType: 'Anniversary',
+    status: 'quoted',
+    items: ['Anniversary Cake'],
+    subtotal: 175.00,
+    tax: 12.25,
+    total: 187.25,
+    deposited: 0.00,
+    balance: 187.25,
+    depositPaid: 0.00,
+    createdAt: '2024-11-10'
+  }
+];
+
+// Mock customers data for CreateOrder page
+export const mockCustomersList: MockCustomer[] = [
+  {
+    id: '1',
+    name: 'Sarah Johnson',
+    email: 'sarah@email.com',
+    phone: '(555) 123-4567',
+    address: '123 Main Street',
+    city: 'Springfield',
+    state: 'IL',
+    zip: '62701'
+  },
+  {
+    id: '2',
+    name: 'Mike Chen',
+    email: 'mike@email.com',
+    phone: '(555) 234-5678',
+    address: '456 Oak Avenue',
+    city: 'Springfield',
+    state: 'IL',
+    zip: '62702'
+  },
+  {
+    id: '3',
+    name: 'Emma Davis',
+    email: 'emma@email.com',
+    phone: '(555) 345-6789',
+    address: '789 Pine Road',
+    city: 'Springfield',
+    state: 'IL',
+    zip: '62703'
+  }
+];
+
+// Mock products data for CreateOrder page
+export const mockProductsList: MockProduct[] = [
+  { id: '1', name: 'Wedding Cake - 3 Tier', price: 450.00 },
+  { id: '2', name: 'Birthday Cake - Custom', price: 85.00 },
+  { id: '3', name: 'Cupcakes (dozen)', price: 36.00 },
+  { id: '4', name: 'Cake Delivery', price: 25.00 },
+  { id: '5', name: 'Setup Service', price: 50.00 }
+];
+
+// Mock sample order for OrderDetail page
+export const mockSampleOrder: MockOrderDetail = {
+  id: 'O-202501-0001',
+  customer: {
+    id: '1',
+    name: 'Sarah Johnson',
+    email: 'sarah@email.com',
+    phone: '(555) 123-4567',
+    address: '123 Main Street',
+    city: 'Springfield',
+    state: 'IL',
+    zip: '62701'
+  },
+  issueDate: '2025-01-01',
+  eventDate: '2025-01-15',
+  eventType: 'Wedding',
+  fulfillmentType: 'delivery',
+  deliveryTime: '13:00',
+  eventTime: '15:00',
+  poNumber: 'PO-12345',
+  lineItems: [
+    { id: '1', name: '3-Tier Wedding Cake', description: 'Vanilla bean with strawberry filling', quantity: 1, unitPrice: 450.00, total: 450.00 },
+    { id: '2', name: 'Cake Toppers', description: 'Custom bride and groom toppers', quantity: 1, unitPrice: 50.00, total: 50.00 },
+    { id: '3', name: 'Delivery & Setup', description: 'Includes transport and on-site assembly', quantity: 1, unitPrice: 75.00, total: 75.00 }
+  ],
+  subtotal: 575.00,
+  taxRate: 7.0,
+  taxAmount: 40.25,
+  shippingFee: 0.00,
+  total: 615.25,
+  deposited: 300.00,
+  balance: 315.25,
+  customerNotes: 'Customer requested blush pink and gold accents. Cake to be delivered directly to venue coordinator.',
+  internalNotes: 'Venue contact: Jane Doe (555) 111-2222. Confirm delivery window 24 hours prior.',
+  status: 'in-production'
 };

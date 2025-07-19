@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Header from '../components/Header';
+import { mockCustomersList, mockProductsList } from '../data/mockData';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { 
   ArrowLeft,
@@ -24,17 +25,6 @@ import {
   Truck
 } from 'lucide-react';
 
-interface Customer {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  address: string;
-  city: string;
-  state: string;
-  zip: string;
-}
-
 interface OrderItem {
   id: string;
   name: string;
@@ -47,7 +37,7 @@ interface OrderItem {
 interface OrderFormData {
   orderNumber: string;
   customerId: string;
-  customerInfo: Customer | null;
+  customerInfo: any | null;
   eventDate: string;
   fulfillmentType: 'pickup' | 'delivery';
   pickupTime: string;
@@ -73,48 +63,9 @@ const CreateOrder: React.FC = () => {
   const location = useLocation();
   const orderNumber = location.state?.orderNumber || generateDocumentNumber('order');
 
-  // Mock customers data
-  const customers: Customer[] = [
-    {
-      id: '1',
-      name: 'Sarah Johnson',
-      email: 'sarah@email.com',
-      phone: '(555) 123-4567',
-      address: '123 Main Street',
-      city: 'Springfield',
-      state: 'IL',
-      zip: '62701'
-    },
-    {
-      id: '2',
-      name: 'Mike Chen',
-      email: 'mike@email.com',
-      phone: '(555) 234-5678',
-      address: '456 Oak Avenue',
-      city: 'Springfield',
-      state: 'IL',
-      zip: '62702'
-    },
-    {
-      id: '3',
-      name: 'Emma Davis',
-      email: 'emma@email.com',
-      phone: '(555) 345-6789',
-      address: '789 Pine Road',
-      city: 'Springfield',
-      state: 'IL',
-      zip: '62703'
-    }
-  ];
-
-  // Mock products/services
-  const products = [
-    { id: '1', name: 'Wedding Cake - 3 Tier', price: 450.00 },
-    { id: '2', name: 'Birthday Cake - Custom', price: 85.00 },
-    { id: '3', name: 'Cupcakes (dozen)', price: 36.00 },
-    { id: '4', name: 'Cake Delivery', price: 25.00 },
-    { id: '5', name: 'Setup Service', price: 50.00 }
-  ];
+  // Use centralized mock data
+  const customers = mockCustomersList;
+  const products = mockProductsList;
 
   const eventTypes = [
     'Wedding', 'Birthday', 'Anniversary', 'Corporate Event', 'Baby Shower',
@@ -179,7 +130,7 @@ const CreateOrder: React.FC = () => {
     }));
   };
 
-  const handleCustomerSelect = (customer: Customer) => {
+  const handleCustomerSelect = (customer: any) => {
     setFormData(prev => ({
       ...prev,
       customerId: customer.id,

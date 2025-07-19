@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
+import { mockOrdersList } from '../data/mockData';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
 import { 
@@ -29,150 +30,9 @@ const Orders: React.FC = () => {
   const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-
-  // Mock orders with new numbering format
-  const orders = [
-    {
-      id: 'O-202501-0001',
-      customer: 'Sarah Johnson',
-      email: 'sarah@email.com',
-      eventType: 'Wedding',
-      eventDate: '2025-01-15',
-      eventTime: '13:00',
-      status: 'in-production',
-      total: 450.00,
-      deposited: 225.00,
-      balance: 225.00,
-      items: ['3-Tier Wedding Cake', 'Cake Toppers'],
-      createdAt: '2025-01-01'
-    },
-    {
-      id: 'O-202501-0002',
-      customer: 'Mike Chen',
-      email: 'mike@email.com',
-      eventType: 'Birthday',
-      eventDate: '2025-01-16',
-      eventTime: '15:30',
-      status: 'confirmed',
-      total: 120.00,
-      deposited: 60.00,
-      balance: 60.00,
-      items: ['Custom Birthday Cake'],
-      createdAt: '2025-01-05'
-    },
-    {
-      id: 'O-202501-0003',
-      customer: 'Emma Davis',
-      email: 'emma@email.com',
-      eventType: 'Corporate Event',
-      eventDate: '2025-01-18',
-      eventTime: '16:00',
-      status: 'quoted',
-      total: 280.00,
-      deposited: 0.00,
-      balance: 280.00,
-      items: ['Corporate Cupcakes (48)', 'Branded Toppers'],
-      createdAt: '2025-01-10'
-    },
-    {
-      id: 'O-202412-0025',
-      customer: 'James Wilson',
-      email: 'james@email.com',
-      eventType: 'Anniversary',
-      eventDate: '2025-03-08',
-      eventTime: '22:00',
-      status: 'inquiry',
-      total: 180.00,
-      deposited: 0.00,
-      balance: 180.00,
-      items: ['Anniversary Cake'],
-      createdAt: '2024-12-12'
-    },
-    {
-      id: 'O-202412-0026',
-      customer: 'Lisa Park',
-      email: 'lisa@email.com',
-      eventType: 'Baby Shower',
-      eventDate: '2025-01-14',
-      eventTime: '11:00',
-      status: 'completed',
-      total: 200.00,
-      deposited: 200.00,
-      balance: 0.00,
-      items: ['Baby Shower Cake', 'Mini Cupcakes (24)'],
-      createdAt: '2024-11-28'
-    },
-    {
-      id: 'O-202412-0027',
-      customer: 'Robert Smith',
-      email: 'robert@email.com',
-      eventType: 'Graduation',
-      eventDate: '2025-02-05',
-      eventTime: '14:00',
-      status: 'confirmed',
-      total: 150.00,
-      deposited: 75.00,
-      balance: 75.00,
-      items: ['Graduation Cake', 'Cookies (12)'],
-      createdAt: '2024-12-10'
-    },
-    {
-      id: 'O-202412-0028',
-      customer: 'Jennifer Brown',
-      email: 'jennifer@email.com',
-      eventType: 'Birthday',
-      eventDate: '2025-01-30',
-      eventTime: '15:30',
-      status: 'in-production',
-      total: 95.00,
-      deposited: 95.00,
-      balance: 0.00,
-      items: ['Custom Birthday Cake'],
-      createdAt: '2024-12-05'
-    },
-    {
-      id: 'O-202411-0015',
-      customer: 'Michael Taylor',
-      email: 'michael@email.com',
-      eventType: 'Corporate Event',
-      eventDate: '2024-12-15',
-      eventTime: '16:00',
-      status: 'completed',
-      total: 350.00,
-      deposited: 350.00,
-      balance: 0.00,
-      items: ['Corporate Cupcakes (72)', 'Logo Cookies (24)'],
-      createdAt: '2024-11-20'
-    },
-    {
-      id: 'O-202411-0016',
-      customer: 'Jessica Lee',
-      email: 'jessica@email.com',
-      eventType: 'Wedding',
-      eventDate: '2025-03-10',
-      eventTime: '15:30',
-      status: 'confirmed',
-      total: 550.00,
-      deposited: 275.00,
-      balance: 275.00,
-      items: ['3-Tier Wedding Cake', 'Dessert Table'],
-      createdAt: '2024-11-15'
-    },
-    {
-      id: 'O-202411-0017',
-      customer: 'Daniel Garcia',
-      email: 'daniel@email.com',
-      eventType: 'Anniversary',
-      eventDate: '2025-02-20',
-      eventTime: '10:00',
-      status: 'quoted',
-      total: 175.00,
-      deposited: 0.00,
-      balance: 175.00,
-      items: ['Anniversary Cake'],
-      createdAt: '2024-11-10'
-    }
-  ];
+  
+  // Use centralized mock data
+  const orders = mockOrdersList;
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -422,8 +282,8 @@ const Orders: React.FC = () => {
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">
                         {order.fulfillmentType === 'pickup' 
-                          ? <span className="flex items-center"><Package className="h-3 w-3 mr-1" /> {order.pickupTime ? formatTime(order.pickupTime) : 'TBD'}</span>
-                          : <span className="flex items-center"><Truck className="h-3 w-3 mr-1" /> {order.deliveryTime ? formatTime(order.deliveryTime) : 'TBD'}</span>
+                          ? <span className="flex items-center"><Package className="h-3 w-3 mr-1" /> Pickup: {order.pickupTime ? formatTime(order.pickupTime) : 'TBD'}</span>
+                          : <span className="flex items-center"><Truck className="h-3 w-3 mr-1" /> Delivery: {order.deliveryTime ? formatTime(order.deliveryTime) : 'TBD'}</span>
                         }
                         {order.eventTime && (
                           <div className="text-xs text-gray-500 mt-1">
