@@ -21,6 +21,7 @@ import {
   Truck,
   MapPin,
   Users,
+  User,
   MessageSquare,
   Calculator,
   Calendar,
