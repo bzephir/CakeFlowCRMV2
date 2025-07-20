@@ -30,6 +30,63 @@ interface OrderItem {
   id: string;
   name: string;
   description: string;
+  quantity: number;
+  unitPrice: number;
+  total: number;
+}
+
+interface Customer {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+}
+
+interface OrderFormData {
+  orderNumber: string;
+  customerId: string;
+  customerInfo: Customer | null;
+  eventDate: string;
+  fulfillmentType: 'pickup' | 'delivery';
+  pickupTime: string;
+  deliveryTime: string;
+  eventTime: string;
+  eventType: string;
+  venue: string;
+  guestCount: number;
+  orderItems: OrderItem[];
+  subtotal: number;
+  taxRate: number;
+  taxAmount: number;
+  total: number;
+  depositAmount: number;
+  balance: number;
+  specialInstructions: string;
+  deliveryNotes: string;
+  status: 'inquiry' | 'quoted' | 'confirmed' | 'in-production' | 'completed';
+}
+
+const eventTypes = [
+  'Wedding',
+  'Birthday Party',
+  'Anniversary',
+  'Corporate Event',
+  'Baby Shower',
+  'Graduation',
+  'Holiday Party',
+  'Other'
+];
+
+const CreateOrder: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  const orderNumber = location.state?.orderNumber || generateDocumentNumber('order');
+
   // Use centralized mock data
   const customers = mockCustomersList;
   const products = mockProductsList;

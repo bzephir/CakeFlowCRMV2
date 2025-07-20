@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import { mockSampleOrder } from '../data/mockData';
 import { mockSampleOrder } from '../data/mockData';
+import { mockSampleOrder } from '../data/mockData';
 import Logo from '../components/Logo';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
 import { generateDocumentNumber } from '../utils/documentNumbering';
@@ -308,44 +309,6 @@ const OrderDetail: React.FC = () => {
                     <div className="flex justify-between pt-2 border-t border-gray-200">
                       <span className="text-lg font-semibold text-gray-900">Total:</span>
                       <span className="text-xl font-bold text-coral-600">{formatCurrency(order.total)}</span>
-                    </div>
-                    <div className="flex justify-between text-sm text-gray-600">
-                      <span>Deposited:</span>
-                      <span>{formatCurrency(order.deposited)}</span>
-                    </div>
-                    <div className="flex justify-between pt-2 border-t border-gray-200">
-                      <span className="text-lg font-semibold text-gray-900">Balance Due:</span>
-                      <span className="text-xl font-bold text-aqua-600">{formatCurrency(order.balance)}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Notes & Terms */}
-            <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-              <div className="p-6">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">Additional Information</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="text-sm font-semibold text-gray-900 mb-2">Customer Notes</h4>
-                    <p className="text-sm text-gray-600 whitespace-pre-line">
-                      {order.customerNotes || 'No customer notes.'}
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-semibold text-gray-900 mb-2">Internal Notes</h4>
-                    <p className="text-sm text-gray-600 whitespace-pre-line">
-                      {order.internalNotes || 'No internal notes.'}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   );
 };
 
