@@ -496,16 +496,7 @@ const Invoice: React.FC = () => {
                       )}
                     </div>
                     
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">Event Time (if applicable)</label>
-                      <input 
-                        type="time" 
-                        value={invoice.event.eventTime} 
-                        onChange={(e) => handleInputChange(e, 'event', 'eventTime')}
-                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
-                      />
-                    </div>
-                    <div>
+
                       <label className="block text-sm font-medium text-gray-700">Venue</label>
                       <input 
                         type="text" 
