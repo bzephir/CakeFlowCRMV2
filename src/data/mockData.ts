@@ -92,6 +92,7 @@ interface MockOrderDetail {
 export const mockInquiries: Inquiry[] = [
   {
     id: 'INQ-2025-001',
+    type:'wedding',
     eventType: 'wedding',
     status: 'new',
     firstName: 'Emily',
@@ -141,6 +142,7 @@ export const mockInquiries: Inquiry[] = [
   },
   {
     id: 'INQ-2025-002',
+    type:'celebration',
     eventType: 'celebration',
     status: 'opened',
     firstName: 'Michael',
@@ -202,6 +204,7 @@ export const mockInquiries: Inquiry[] = [
   },
   {
     id: 'INQ-2025-003',
+    type:'corporate',
     eventType: 'corporate',
     status: 'contacted',
     firstName: 'Jennifer',
@@ -293,6 +296,7 @@ export const mockInquiries: Inquiry[] = [
   },
   {
     id: 'INQ-2025-004',
+    type:'wedding',
     eventType: 'celebration',
     status: 'quoted',
     firstName: 'David',
