@@ -545,7 +545,7 @@ const QuoteDetail: React.FC = () => {
             {/* Line Items */}
             <div className="bg-white shadow-sm rounded-lg border border-gray-200">
               <div className="p-6">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">Line Items</h3>
+                <h3 className="text-lg font-medium text-gray-900 mb-4">Order Items</h3>
                 <div className="overflow-x-auto">
                   <table className="min-w-full divide-y divide-gray-200">
                     <thead>
