@@ -416,9 +416,8 @@ const OrderDetail: React.FC = () => {
                           {getStatusIcon(order.status)}
                           {order.status.charAt(0).toUpperCase() + order.status.slice(1).replace('-', ' ')}
                         </span>
-                        {order.poNumber && (
-      {/*} <span className="text-sm text-gray-500">PO: {order.poNumber}</span>*/}                        )} 
-                      </div>
+{/*{order.poNumber && (
+      } <span className="text-sm text-gray-500">PO: {order.poNumber}</span>                        )} */}                      </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
                         <div className="flex items-center text-gray-600">
                           <Calendar className="h-4 w-4 mr-2 text-gray-400" />
