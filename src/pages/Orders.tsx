@@ -285,9 +285,6 @@ const Orders: React.FC = () => {
                           ? <span className="flex items-center"><Package className="h-3 w-3 mr-1" /> Pickup: {order.pickupTime ? formatTime(order.pickupTime) : 'TBD'}</span>
                           : <span className="flex items-center"><Truck className="h-3 w-3 mr-1" /> Delivery: {order.deliveryTime ? formatTime(order.deliveryTime) : 'TBD'}</span>
                         }
-                        {order.eventTime && (
-                          <div className="text-xs text-gray-500 mt-1">
-                            <span className="flex items-center"><Calendar className="h-3 w-3 mr-1" /> Event: {formatTime(order.eventTime)}</span>
                           </div>
                         )}
                       </div>
