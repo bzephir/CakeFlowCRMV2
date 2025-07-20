@@ -309,6 +309,15 @@ const OrderDetail: React.FC = () => {
                     <div className="flex justify-between pt-2 border-t border-gray-200">
                       <span className="text-lg font-semibold text-gray-900">Total:</span>
                       <span className="text-xl font-bold text-coral-600">{formatCurrency(order.total)}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
