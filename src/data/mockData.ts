@@ -296,7 +296,7 @@ export const mockInquiries: Inquiry[] = [
   },
   {
     id: 'INQ-2025-004',
-    type:'wedding',
+    type:'celebration',
     eventType: 'celebration',
     status: 'quoted',
     firstName: 'David',
