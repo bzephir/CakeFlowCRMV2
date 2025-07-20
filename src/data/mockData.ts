@@ -92,7 +92,7 @@ interface MockOrderDetail {
 export const mockInquiries: Inquiry[] = [
   {
     id: 'INQ-2025-001',
-    type: 'wedding',
+    eventType: 'wedding',
     status: 'new',
     firstName: 'Emily',
     lastName: 'Rodriguez',
@@ -107,6 +107,7 @@ export const mockInquiries: Inquiry[] = [
     hearAboutUs: 'Instagram',
     additionalNotes: 'Looking for a romantic, elegant design with blush pink and gold accents.',
     details: {
+      occasion: 'wedding',
       weddingDate: '2025-08-15',
       venue: 'Grand Ballroom at The Plaza',
       weddingSize: 'medium',
@@ -140,7 +141,7 @@ export const mockInquiries: Inquiry[] = [
   },
   {
     id: 'INQ-2025-002',
-    type: 'celebration',
+    EventType: 'celebration',
     status: 'opened',
     firstName: 'Michael',
     lastName: 'Chen',
@@ -201,7 +202,7 @@ export const mockInquiries: Inquiry[] = [
   },
   {
     id: 'INQ-2025-003',
-    type: 'corporate',
+    eventType: 'corporate',
     status: 'contacted',
     firstName: 'Jennifer',
     lastName: 'Williams',
@@ -292,7 +293,7 @@ export const mockInquiries: Inquiry[] = [
   },
   {
     id: 'INQ-2025-004',
-    type: 'celebration',
+    eventType: 'celebration',
     status: 'quoted',
     firstName: 'David',
     lastName: 'Thompson',
@@ -385,7 +386,7 @@ export const mockInquiries: Inquiry[] = [
   },
   {
     id: 'INQ-2025-005',
-    type: 'wedding',
+    eventType: 'wedding',
     status: 'converted',
     firstName: 'Amanda',
     lastName: 'Foster',
@@ -400,6 +401,7 @@ export const mockInquiries: Inquiry[] = [
     hearAboutUs: 'Wedding Planner',
     additionalNotes: 'Outdoor garden wedding. Need weather-resistant setup.',
     details: {
+      occasion: 'wedding',
       weddingDate: '2025-06-28',
       venue: 'Rosewood Garden Estate',
       weddingSize: 'large',
