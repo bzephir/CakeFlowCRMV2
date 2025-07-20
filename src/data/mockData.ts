@@ -509,6 +509,106 @@ export const getRecentInquiries = (limit: number = 5): Inquiry[] => {
     .slice(0, limit);
 };
 
+// Quote Detail interface for mock data
+interface MockQuoteDetail {
+  id: string;
+  customer: {
+    id: string;
+    name: string;
+    email: string;
+    phone: string;
+    address: string;
+    city: string;
+    state: string;
+    zip: string;
+  };
+  issueDate: string;
+  expiryDate: string;
+  fulfillmentType: 'pickup' | 'delivery';
+  pickupTime?: string;
+  deliveryTime?: string;
+  eventTime?: string;
+  poNumber?: string;
+  lineItems: {
+    id: string;
+    name: string;
+    description: string;
+    quantity: number;
+    unitPrice: number;
+    total: number;
+  }[];
+  subtotal: number;
+  discountType: 'percentage' | 'fixed';
+  discountValue: number;
+  discountAmount: number;
+  taxRate: number;
+  taxAmount: number;
+  shippingFee: number;
+  total: number;
+  customerNotes?: string;
+  internalNotes?: string;
+  termsConditions: string;
+  status: 'draft' | 'sent' | 'accepted' | 'rejected' | 'expired';
+  details?: CelebrationInquiryDetails | WeddingInquiryDetails | CorporateInquiryDetails;
+  eventType?: string;
+}
+
+// Mock sample quote for QuoteDetail page
+export const mockSampleQuoteDetail: MockQuoteDetail = {
+  id: 'Q-202501-0001',
+  customer: {
+    id: '1',
+    name: 'David Fraga',
+    email: 'david.fraga@example.com',
+    phone: '(555) 123-4567',
+    address: '123 Main Street',
+    city: 'Springfield',
+    state: 'IL',
+    zip: '62701'
+  },
+  issueDate: '2025-01-15',
+  expiryDate: '2025-02-15',
+  fulfillmentType: 'delivery',
+  deliveryTime: '16:00',
+  eventTime: '18:00',
+  poNumber: 'PO-98765',
+  lineItems: [
+    { id: '1', name: '3-Tier Wedding Cake', description: 'Vanilla bean with raspberry filling', quantity: 1, unitPrice: 450.00, total: 450.00 },
+    { id: '2', name: 'Custom Cake Topper', description: 'Personalized acrylic topper', quantity: 1, unitPrice: 65.00, total: 65.00 },
+    { id: '3', name: 'Delivery & Setup', description: 'Includes transport and on-site assembly', quantity: 1, unitPrice: 85.00, total: 85.00 }
+  ],
+  subtotal: 600.00,
+  discountType: 'percentage',
+  discountValue: 5, // 5% discount
+  discountAmount: 30.00,
+  taxRate: 7.0,
+  taxAmount: 39.90, // 7% of (600 - 30)
+  shippingFee: 0.00,
+  total: 609.90,
+  customerNotes: 'Looking for a romantic, elegant design with blush pink and gold accents. Please ensure all flowers are edible or easily removable.',
+  internalNotes: 'Customer is very particular about color matching. Confirm final design sketch by 01/25.',
+  termsConditions: 'Payment terms: 50% deposit required to confirm order. Final payment due 14 days before event date. Cancellations within 30 days of event are subject to 50% fee.',
+  status: 'sent',
+  eventType: 'Wedding',
+  details: {
+    weddingDate: '2025-06-15',
+    venue: 'Grand Ballroom at The Plaza',
+    weddingSize: 'medium',
+    services: ['Wedding Cake', 'Groom\'s Cake', 'Dessert Table'],
+    cakeStyle: 'Three-tier with fresh flowers',
+    flavors: ['Vanilla Bean', 'Chocolate Raspberry', 'Lemon'],
+    dietaryRestrictions: ['Gluten-free option for 10 guests'],
+    deliverySetup: true,
+    tastingRequested: true,
+    budgetRange: '$2,500 - $5,000',
+    weddingPlanner: {
+      name: 'Sarah Mitchell',
+      company: 'Elegant Events Co.',
+      contact: 'sarah@elegantevents.com'
+    }
+  } as WeddingInquiryDetails
+};
+
 // Mock orders data for Orders page
 export const mockOrdersList: MockOrder[] = [
   {
