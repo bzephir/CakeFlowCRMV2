@@ -278,7 +278,7 @@ const Inquiries: React.FC = () => {
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900 capitalize"> {inquiry.type} </div>
+                      <div className="text-sm text-gray-900 capitalize"> {inquiry.eventType} </div>
                       <div className="text-sm text-gray-500">
                       </div>
                     </td>
