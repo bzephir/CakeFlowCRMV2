@@ -221,7 +221,7 @@ const Inquiries: React.FC = () => {
                   <th className="px-3 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Inquiry
                   </th>
-                  <th className="px-6 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-1 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Customer
                   </th>
                   <th className="px-3 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
