@@ -31,6 +31,7 @@ interface MockOrder {
   customerName: string;
   eventDate: string;
   eventType: string;
+  occasion:string;
   status: 'inquiry' | 'quoted' | 'confirmed' | 'in-production' | 'completed' | 'cancelled';
   items: string[];
   subtotal: number;
@@ -60,6 +61,7 @@ interface MockOrderDetail {
   issueDate: string;
   eventDate: string;
   eventType: string;
+  occasion: string;
   fulfillmentType: 'pickup' | 'delivery';
   pickupTime?: string;
   deliveryTime?: string;
@@ -551,6 +553,7 @@ interface MockQuoteDetail {
   status: 'draft' | 'sent' | 'accepted' | 'rejected' | 'expired';
   details?: CelebrationInquiryDetails | WeddingInquiryDetails | CorporateInquiryDetails;
   eventType?: string;
+  occasion: string;
 }
 
 // Mock orders data for Orders page
