@@ -425,10 +425,10 @@ const OrderDetail: React.FC = () => {
                           <Calendar className="h-4 w-4 mr-2 text-gray-400" />
                           Created: {formatDate(order.issueDate)}
                         </div>
-                        <div className="flex items-center text-gray-600">
+                        {/*  <div className="flex items-center text-gray-600">
                           <Clock className="h-4 w-4 mr-2 text-gray-400" />
                           Event Date: {formatDate(order.eventDate)}
-                        </div>
+                        </div>*/}
                       </div>
                     </div>
                   </div>
