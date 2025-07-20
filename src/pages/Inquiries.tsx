@@ -218,13 +218,13 @@ const Inquiries: React.FC = () => {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-3 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Inquiry
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-3 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Customer
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-3 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Event Type
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
