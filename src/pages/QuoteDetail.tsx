@@ -736,6 +736,7 @@ const QuoteDetail: React.FC = () => {
                 </div>
               </div>
             </div>
+          
           {/* Sidebar Actions */}
           <div className="space-y-6">
             <div className="bg-white shadow-sm rounded-lg border border-gray-200">
