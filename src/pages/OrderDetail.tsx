@@ -587,11 +587,7 @@ const OrderDetail: React.FC = () => {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Additional Information - Full Width at Bottom */}
+               {/* Additional Information */}
         <div className="mt-6">
           <div className="bg-white shadow-sm rounded-lg border border-gray-200">
             <div className="p-6">
@@ -622,6 +618,11 @@ const OrderDetail: React.FC = () => {
 
       </div>
     </div>
+            </div>
+          </div>
+        </div>
+
+       
   );
 };
 
