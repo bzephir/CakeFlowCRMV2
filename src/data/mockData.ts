@@ -220,8 +220,8 @@ export const mockInquiries: Inquiry[] = [
     hearAboutUs: 'Referral',
     additionalNotes: 'Monthly team celebration. Need professional presentation.',
     details: {
-      companyName: 'TechCorp Solutions',
       occasion: 'Team Celebration',
+      companyName: 'TechCorp Solutions',
       services: ['Corporate Cupcakes', 'Branded Cookies'],
       recurring: true,
       frequency: 'Monthly',
