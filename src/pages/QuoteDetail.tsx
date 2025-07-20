@@ -297,6 +297,7 @@ const QuoteDetail: React.FC = () => {
       setQuote(null);
     }
     setLoading(false);
+  }, [id]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -540,7 +541,6 @@ const QuoteDetail: React.FC = () => {
                 </div>
               </div>
             )}
-          </div>
 
             {/* Line Items */}
             <div className="bg-white shadow-sm rounded-lg border border-gray-200">
@@ -608,34 +608,8 @@ const QuoteDetail: React.FC = () => {
                 </div>
               </div>
             </div>
-                  {/* Additional Information - Full Width at Bottom */}
-        <div className="mt-6">
-            <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-              <div className="p-6">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">Additional Information</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="text-sm font-semibold text-gray-900 mb-2">Customer Notes</h4>
-                    <p className="text-sm text-gray-600 whitespace-pre-line">
-                      {quote.customerNotes || 'No customer notes.'}
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-semibold text-gray-900 mb-2">Internal Notes</h4>
-                    <p className="text-sm text-gray-600 whitespace-pre-line">
-                      {quote.internalNotes || 'No internal notes.'}
-                    </p>
-                  </div>
-                  <div className="md:col-span-2">
-                    <h4 className="text-sm font-semibold text-gray-900 mb-2">Terms & Conditions</h4>
-                    <p className="text-sm text-gray-600 whitespace-pre-line">
-                      {quote.termsConditions}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-        </div>
+          </div>
+
           {/* Sidebar Actions */}
           <div className="space-y-6">
             <div className="bg-white shadow-sm rounded-lg border border-gray-200">
@@ -683,7 +657,34 @@ const QuoteDetail: React.FC = () => {
           </div>
         </div>
 
-
+        {/* Additional Information - Full Width at Bottom */}
+        <div className="mt-6">
+          <div className="bg-white shadow-sm rounded-lg border border-gray-200">
+            <div className="p-6">
+              <h3 className="text-lg font-medium text-gray-900 mb-4">Additional Information</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="text-sm font-semibold text-gray-900 mb-2">Customer Notes</h4>
+                  <p className="text-sm text-gray-600 whitespace-pre-line">
+                    {quote.customerNotes || 'No customer notes.'}
+                  </p>
+                </div>
+                <div>
+                  <h4 className="text-sm font-semibold text-gray-900 mb-2">Internal Notes</h4>
+                  <p className="text-sm text-gray-600 whitespace-pre-line">
+                    {quote.internalNotes || 'No internal notes.'}
+                  </p>
+                </div>
+                <div className="md:col-span-2">
+                  <h4 className="text-sm font-semibold text-gray-900 mb-2">Terms & Conditions</h4>
+                  <p className="text-sm text-gray-600 whitespace-pre-line">
+                    {quote.termsConditions}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
