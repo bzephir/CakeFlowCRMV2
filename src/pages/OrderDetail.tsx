@@ -48,8 +48,9 @@ const OrderDetail: React.FC = () => {
   useEffect(() => {
     // In a real application, you would fetch the order data from an API
     // using the 'id' from useParams. For now, we use mock data.
-    if (id === mockSampleOrder.id) {
-      setOrder(mockSampleOrder);
+    const foundOrder = mockSampleOrdersDetail.find(order => order.id === id);
+    if (foundOrder) {
+      setOrder(foundOrder);
     } else {
       // Simulate a "not found" scenario for other IDs
       setOrder(null);
@@ -502,9 +503,9 @@ const OrderDetail: React.FC = () => {
               </div>
             </div>
 
-            {/* Event Specific Details */}
+            {/* Order Details */}  
             {order.details && (
-              <div className="bg-white shadow-sm rounded-lg border border-gray-200">
+              <div className="bg-white shadow-sm rounded-lg border border-gray-200">  
                 <div className="p-6">
                   <h3 className="text-lg font-medium text-gray-900 mb-4">Event Details</h3>
                   <div>
@@ -519,32 +520,14 @@ const OrderDetail: React.FC = () => {
               </div>
             )}
 
-            {/* Additional Information */}
-            <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-              <div className="p-6">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">Additional Information</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="text-sm font-semibold text-gray-900 mb-2">Customer Notes</h4>
-                    <p className="text-sm text-gray-600 whitespace-pre-line">
-                      {order.customerNotes || 'No customer notes.'}
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-semibold text-gray-900 mb-2">Internal Notes</h4>
-                    <p className="text-sm text-gray-600 whitespace-pre-line">
-                      {order.internalNotes || 'No internal notes.'}
-                    </p>
-                  </div>
-                  <div className="md:col-span-2">
-                    <h4 className="text-sm font-semibold text-gray-900 mb-2">Terms & Conditions</h4>
-                    <p className="text-sm text-gray-600 whitespace-pre-line">
-                      Payment terms: 50% deposit required to confirm order. Final payment due 14 days before event date. Cancellations within 30 days of event are subject to 50% fee.
-                    </p>
-                  </div>
+            {!order.details && (
+              <div className="bg-white shadow-sm rounded-lg border border-gray-200">
+                <div className="p-6">
+                  <h3 className="text-lg font-medium text-gray-900 mb-4">Event Details</h3>
+                  <p className="text-sm text-gray-500 italic">No additional event details available.</p>
                 </div>
               </div>
-            </div>
+            )}
   
             {/* Line Items */}
             <div className="bg-white shadow-sm rounded-lg border border-gray-200">
@@ -606,42 +589,30 @@ const OrderDetail: React.FC = () => {
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Sidebar Actions */}
-          <div className="space-y-6">
+            {/* Additional Information */}
             <div className="bg-white shadow-sm rounded-lg border border-gray-200">
               <div className="p-6">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">Order Actions</h3>
-                <div className="space-y-3">
-                  <button
-                    onClick={handleSendInvoice}
-                    className="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-aqua-400 to-aqua-500 hover:from-aqua-500 hover:to-aqua-600 transition-all"
-                  >
-                    <Send className="h-4 w-4 mr-2" />
-                    Send Invoice
-                  </button>
-                  <button
-                    onClick={handleEditOrder}
-                    className="w-full inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 transition-colors"
-                  >
-                    <Edit className="h-4 w-4 mr-2" />
-                    Edit Order
-                  </button>
-                  <button
-                    onClick={handleDuplicateOrder}
-                    className="w-full inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 transition-colors"
-                  >
-                    <Copy className="h-4 w-4 mr-2" />
-                    Duplicate Order
-                  </button>
-                  <button
-                    onClick={handleDeleteOrder}
-                    className="w-full inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 transition-colors"
-                  >
-                    <Trash2 className="h-4 w-4 mr-2" />
-                    Delete Order
-                  </button>
+                <h3 className="text-lg font-medium text-gray-900 mb-4">Additional Information</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <h4 className="text-sm font-semibold text-gray-900 mb-2">Customer Notes</h4>
+                    <p className="text-sm text-gray-600 whitespace-pre-line">
+                      {order.customerNotes || 'No customer notes.'}
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold text-gray-900 mb-2">Internal Notes</h4>
+                    <p className="text-sm text-gray-600 whitespace-pre-line">
+                      {order.internalNotes || 'No internal notes.'}
+                    </p>
+                  </div>
+                  <div className="md:col-span-2">
+                    <h4 className="text-sm font-semibold text-gray-900 mb-2">Terms & Conditions</h4>
+                    <p className="text-sm text-gray-600 whitespace-pre-line">
+                      Payment terms: 50% deposit required to confirm order. Final payment due 14 days before event date. Cancellations within 30 days of event are subject to 50% fee.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
