@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import { mockSampleOrder } from '../data/mockData';
+import { mockSampleOrder } from '../data/mockData';
 import Logo from '../components/Logo';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
 import { generateDocumentNumber } from '../utils/documentNumbering';
@@ -341,42 +342,6 @@ const OrderDetail: React.FC = () => {
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* Sidebar Actions */}
-          <div className="space-y-6">
-            <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-              <div className="p-6">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">Order Actions</h3>
-                <div className="space-y-3">
-                  <button
-                    onClick={handleSendInvoice}
-                    className="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-aqua-400 to-aqua-500 hover:from-aqua-500 hover:to-aqua-600 transition-all"
-                  >
-                    <Send className="h-4 w-4 mr-2" />
-                    Send Invoice
-                  </button>
-                  <button
-                    onClick={handleDuplicateOrder}
-                    className="w-full inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 transition-colors"
-                  >
-                    <Copy className="h-4 w-4 mr-2" />
-                    Duplicate Order
-                  </button>
-                  <button
-                    onClick={handleDeleteOrder}
-                    className="w-full inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 transition-colors"
-                  >
-                    <Trash2 className="h-4 w-4 mr-2" />
-                    Delete Order
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   );
 };
 

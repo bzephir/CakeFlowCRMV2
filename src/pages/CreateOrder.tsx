@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import { mockCustomersList, mockProductsList } from '../data/mockData';
+import { mockCustomersList, mockProductsList } from '../data/mockData';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { 
   ArrowLeft,
@@ -29,48 +30,9 @@ interface OrderItem {
   id: string;
   name: string;
   description: string;
-  quantity: number;
-  unitPrice: number;
-  total: number;
-}
-
-interface OrderFormData {
-  orderNumber: string;
-  customerId: string;
-  customerInfo: any | null;
-  eventDate: string;
-  fulfillmentType: 'pickup' | 'delivery';
-  pickupTime: string;
-  deliveryTime: string;
-  eventTime: string;
-  eventType: string;
-  venue: string;
-  guestCount: number;
-  orderItems: OrderItem[];
-  subtotal: number;
-  taxRate: number;
-  taxAmount: number;
-  total: number;
-  depositAmount: number;
-  balance: number;
-  specialInstructions: string;
-  deliveryNotes: string;
-  status: 'inquiry' | 'quoted' | 'confirmed' | 'in-production' | 'completed';
-}
-
-const CreateOrder: React.FC = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const orderNumber = location.state?.orderNumber || generateDocumentNumber('order');
-
   // Use centralized mock data
   const customers = mockCustomersList;
   const products = mockProductsList;
-
-  const eventTypes = [
-    'Wedding', 'Birthday', 'Anniversary', 'Corporate Event', 'Baby Shower',
-    'Graduation', 'Holiday Party', 'Bridal Shower', 'Engagement', 'Other'
-  ];
 
   const [formData, setFormData] = useState<OrderFormData>({
     orderNumber,
