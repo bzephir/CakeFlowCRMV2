@@ -512,9 +512,7 @@ const OrderDetail: React.FC = () => {
                     {order.eventType === 'Wedding' && renderWeddingDetails(order.details as WeddingInquiryDetails)}
                     {order.eventType === 'Birthday' && renderCelebrationDetails(order.details as CelebrationInquiryDetails)}
                     {order.eventType === 'Corporate Event' && renderCorporateDetails(order.details as CorporateInquiryDetails)}
-                    {order.eventType === 'Anniversary' && renderCelebrationDetails(order.details as CelebrationInquiryDetails)}
-                    {order.eventType === 'Baby Shower' && renderCelebrationDetails(order.details as CelebrationInquiryDetails)}
-                    {order.eventType === 'Graduation' && renderCelebrationDetails(order.details as CelebrationInquiryDetails)}
+
                   </div>
                 </div>
               </div>
