@@ -82,147 +82,241 @@ const OrderDetail: React.FC = () => {
   };
 
   const renderWeddingDetails = (details: WeddingInquiryDetails) => (
-    <div className="space-y-3">
-      <div className="flex items-start">
-        <MapPin className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
-        <div>
-          <p className="text-sm font-medium text-gray-900">Venue</p>
-          <p className="text-sm text-gray-600">{details.venue || 'Not specified'}</p>
-        </div>
-      </div>
-
-      <div className="flex items-start">
-        <Users className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
-        <div>
-          <p className="text-sm font-medium text-gray-900">Wedding Size</p>
-          <p className="text-sm text-gray-600 capitalize">{details.weddingSize || 'Not specified'}</p>
-        </div>
-      </div>
-
-      <div className="flex items-start">
-        <Cake className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
-        <div>
-          <p className="text-sm font-medium text-gray-900">Cake Style</p>
-          <p className="text-sm text-gray-600">{details.cakeStyle || 'Not specified'}</p>
-        </div>
-      </div>
-
-      {details.flavors && details.flavors.length > 0 && (
-        <div className="flex items-start">
-          <Utensils className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
-          <div>
-            <p className="text-sm font-medium text-gray-900">Flavors</p>
-            <ul className="text-sm text-gray-600 list-disc list-inside">
-              {details.flavors.map((flavor: string, index: number) => (
-                <li key={index}>{flavor}</li>
-              ))}
-            </ul>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Wedding Details Column */}
+      <div>
+        <h4 className="text-sm font-semibold text-gray-900 mb-3">Wedding Details</h4>
+        <div className="space-y-3">
+          <div className="flex items-start">
+            <MapPin className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Venue</p>
+              <p className="text-sm text-gray-600">{details.venue || 'Not specified'}</p>
+            </div>
           </div>
-        </div>
-      )}
 
-      {details.dietaryRestrictions && details.dietaryRestrictions.length > 0 && (
-        <div className="flex items-start">
-          <AlertCircle className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
-          <div>
-            <p className="text-sm font-medium text-gray-900">Dietary Restrictions</p>
-            <ul className="text-sm text-gray-600 list-disc list-inside">
-              {details.dietaryRestrictions.map((restriction: string, index: number) => (
-                <li key={index}>{restriction}</li>
-              ))}
-            </ul>
+          <div className="flex items-start">
+            <Users className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Wedding Size</p>
+              <p className="text-sm text-gray-600 capitalize">{details.weddingSize || 'Not specified'}</p>
+            </div>
           </div>
-        </div>
-      )}
 
-      <div className="flex items-start">
-        <Truck className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
-        <div>
-          <p className="text-sm font-medium text-gray-900">Delivery & Setup</p>
-          <p className="text-sm text-gray-600">{details.deliverySetup ? 'Required' : 'Not required'}</p>
+          <div className="flex items-start">
+            <Truck className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Delivery & Setup</p>
+              <p className="text-sm text-gray-600">{details.deliverySetup ? 'Required' : 'Not required'}</p>
+            </div>
+          </div>
+
+          <div className="flex items-start">
+            <Utensils className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Tasting</p>
+              <p className="text-sm text-gray-600">{details.tastingRequested ? 'Requested' : 'Not requested'}</p>
+            </div>
+          </div>
+
+          {details.weddingPlanner && (
+            <div className="flex items-start">
+              <User className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Wedding Planner</p>
+                <p className="text-sm text-gray-600">{details.weddingPlanner.name}</p>
+                <p className="text-sm text-gray-600">{details.weddingPlanner.company}</p>
+                <p className="text-sm text-gray-600">{details.weddingPlanner.contact}</p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
-      <div className="flex items-start">
-        <Utensils className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
-        <div>
-          <p className="text-sm font-medium text-gray-900">Tasting</p>
-          <p className="text-sm text-gray-600">{details.tastingRequested ? 'Requested' : 'Not requested'}</p>
+      {/* Cake Details Column */}
+      <div>
+        <h4 className="text-sm font-semibold text-gray-900 mb-3">Cake Details</h4>
+        <div className="space-y-3">
+          <div className="flex items-start">
+            <Cake className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Cake Style</p>
+              <p className="text-sm text-gray-600">{details.cakeStyle || 'Not specified'}</p>
+            </div>
+          </div>
+
+          {details.flavors && details.flavors.length > 0 && (
+            <div className="flex items-start">
+              <Utensils className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Flavors</p>
+                <ul className="text-sm text-gray-600 list-disc list-inside">
+                  {details.flavors.map((flavor: string, index: number) => (
+                    <li key={index}>{flavor}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
+
+          {details.dietaryRestrictions && details.dietaryRestrictions.length > 0 && (
+            <div className="flex items-start">
+              <AlertCircle className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Dietary Restrictions</p>
+                <ul className="text-sm text-gray-600 list-disc list-inside">
+                  {details.dietaryRestrictions.map((restriction: string, index: number) => (
+                    <li key={index}>{restriction}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
         </div>
       </div>
-
-      {details.weddingPlanner && (
-        <div className="flex items-start">
-          <User className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
-          <div>
-            <p className="text-sm font-medium text-gray-900">Wedding Planner</p>
-            <p className="text-sm text-gray-600">{details.weddingPlanner.name}</p>
-            <p className="text-sm text-gray-600">{details.weddingPlanner.company}</p>
-            <p className="text-sm text-gray-600">{details.weddingPlanner.contact}</p>
-          </div>
-        </div>
-      )}
     </div>
   );
 
   const renderCelebrationDetails = (details: CelebrationInquiryDetails) => (
-    <div className="space-y-3">
-      <div className="flex items-start">
-        <Tag className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
-        <div>
-          <p className="text-sm font-medium text-gray-900">Occasion</p>
-          <p className="text-sm text-gray-600">{details.occasion || 'Not specified'}</p>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Event Details Column */}
+      <div>
+        <h4 className="text-sm font-semibold text-gray-900 mb-3">Event Details</h4>
+        <div className="space-y-3">
+          <div className="flex items-start">
+            <Tag className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Occasion</p>
+              <p className="text-sm text-gray-600">{details.occasion || 'Not specified'}</p>
+            </div>
+          </div>
+
+          {details.theme && (
+            <div className="flex items-start">
+              <Palette className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Theme</p>
+                <p className="text-sm text-gray-600">{details.theme}</p>
+              </div>
+            </div>
+          )}
+
+          {details.colors && (
+            <div className="flex items-start">
+              <Palette className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Colors</p>
+                <p className="text-sm text-gray-600">{details.colors}</p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
-      {details.theme && (
-        <div className="flex items-start">
-          <Palette className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
-          <div>
-            <p className="text-sm font-medium text-gray-900">Theme</p>
-            <p className="text-sm text-gray-600">{details.theme}</p>
+      {/* Cake Details Column */}
+      <div>
+        <h4 className="text-sm font-semibold text-gray-900 mb-3">Cake Details</h4>
+        <div className="space-y-3">
+          <div className="flex items-start">
+            <Utensils className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Cake Tasting</p>
+              <p className="text-sm text-gray-600">{details.cakeTasting ? 'Requested' : 'Not requested'}</p>
+            </div>
           </div>
-        </div>
-      )}
-
-      {details.colors && (
-        <div className="flex items-start">
-          <Palette className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
-          <div>
-            <p className="text-sm font-medium text-gray-900">Colors</p>
-            <p className="text-sm text-gray-600">{details.colors}</p>
-          </div>
-        </div>
-      )}
-
-      <div className="flex items-start">
-        <Utensils className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
-        <div>
-          <p className="text-sm font-medium text-gray-900">Cake Tasting</p>
-          <p className="text-sm text-gray-600">{details.cakeTasting ? 'Requested' : 'Not requested'}</p>
         </div>
       </div>
     </div>
   );
 
   const renderCorporateDetails = (details: CorporateInquiryDetails) => (
-    <div className="space-y-3">
-      <div className="flex items-start">
-        <Building2 className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
-        <div>
-          <p className="text-sm font-medium text-gray-900">Company</p>
-          <p className="text-sm text-gray-600">{details.companyName || 'Not specified'}</p>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Company & Event Details Column */}
+      <div>
+        <h4 className="text-sm font-semibold text-gray-900 mb-3">Company & Event Details</h4>
+        <div className="space-y-3">
+          <div className="flex items-start">
+            <Building2 className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Company</p>
+              <p className="text-sm text-gray-600">{details.companyName || 'Not specified'}</p>
+            </div>
+          </div>
+
+          <div className="flex items-start">
+            <Tag className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Event Type</p>
+              <p className="text-sm text-gray-600">{details.eventType || 'Not specified'}</p>
+            </div>
+          </div>
+
+          <div className="flex items-start">
+            <Calendar className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Recurring</p>
+              <p className="text-sm text-gray-600">
+                {details.recurring ? `Yes (${details.frequency})` : 'No'}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-start">
+            <FileCheck className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Branding Required</p>
+              <p className="text-sm text-gray-600">{details.brandingRequired ? 'Yes' : 'No'}</p>
+            </div>
+          </div>
+
+          {details.deliveryAddress && (
+            <div className="flex items-start">
+              <MapPin className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Delivery Address</p>
+                <p className="text-sm text-gray-600">{details.deliveryAddress}</p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
-      <div className="flex items-start">
-        <Tag className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
-        <div>
-          <p className="text-sm font-medium text-gray-900">Event Type</p>
-          <p className="text-sm text-gray-600">{details.eventType || 'Not specified'}</p>
+      {/* Contact & Process Column */}
+      <div>
+        <h4 className="text-sm font-semibold text-gray-900 mb-3">Contact & Process</h4>
+        <div className="space-y-3">
+          {details.contactPerson && (
+            <div className="flex items-start">
+              <User className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Contact Person</p>
+                <p className="text-sm text-gray-600">{details.contactPerson.name}</p>
+                <p className="text-sm text-gray-600">{details.contactPerson.title}, {details.contactPerson.department}</p>
+              </div>
+            </div>
+          )}
+
+          {details.approvalProcess && (
+            <div className="flex items-start">
+              <Briefcase className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Approval Process</p>
+                <p className="text-sm text-gray-600">{details.approvalProcess}</p>
+              </div>
+            </div>
+          )}
+
+          {details.invoicingRequirements && (
+            <div className="flex items-start">
+              <FileText className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Invoicing Requirements</p>
+                <p className="text-sm text-gray-600">{details.invoicingRequirements}</p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
-      {/* Add more corporate-specific details as needed */}
     </div>
   );
 
