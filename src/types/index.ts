@@ -46,6 +46,7 @@ export interface Order {
   total: number;
   deposited?: number;
   balance?: number;
+  details?: CelebrationInquiryDetails | WeddingInquiryDetails | CorporateInquiryDetails;
   depositPaid: number;
   createdAt: string;
 }
@@ -71,6 +72,7 @@ export interface Quote {
   status: 'accepted' | 'sent' | 'draft' | 'rejected' | 'expired';
   total: number;
   createdAt: string;
+  details?: CelebrationInquiryDetails | WeddingInquiryDetails | CorporateInquiryDetails;
   expiryDate: string;
 }
 
@@ -84,6 +86,7 @@ export interface Invoice {
   status: 'paid' | 'deposit-paid' | 'pending' | 'overdue' | 'draft';
   total: number;
   balance: number;
+  details?: CelebrationInquiryDetails | WeddingInquiryDetails | CorporateInquiryDetails;
   issueDate: string;
   dueDate: string;
 }

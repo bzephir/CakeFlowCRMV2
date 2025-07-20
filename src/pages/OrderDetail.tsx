@@ -23,9 +23,20 @@ import {
   Users,
   MessageSquare,
   Calculator,
-  Percent,
-  Calendar
+  Calendar,
+  Tag,
+  Utensils,
+  Briefcase,
+  FileCheck,
+  Palette,
+  Cake,
+  Building2
 } from 'lucide-react';
+import {
+  CelebrationInquiryDetails,
+  WeddingInquiryDetails,
+  CorporateInquiryDetails
+} from '../types';
 
 const OrderDetail: React.FC = () => {
   const { id } = useParams();
@@ -68,6 +79,151 @@ const OrderDetail: React.FC = () => {
       default: return <AlertCircle className="h-4 w-4 mr-1" />;
     }
   };
+
+  const renderWeddingDetails = (details: WeddingInquiryDetails) => (
+    <div className="space-y-3">
+      <div className="flex items-start">
+        <MapPin className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+        <div>
+          <p className="text-sm font-medium text-gray-900">Venue</p>
+          <p className="text-sm text-gray-600">{details.venue || 'Not specified'}</p>
+        </div>
+      </div>
+
+      <div className="flex items-start">
+        <Users className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+        <div>
+          <p className="text-sm font-medium text-gray-900">Wedding Size</p>
+          <p className="text-sm text-gray-600 capitalize">{details.weddingSize || 'Not specified'}</p>
+        </div>
+      </div>
+
+      <div className="flex items-start">
+        <Cake className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+        <div>
+          <p className="text-sm font-medium text-gray-900">Cake Style</p>
+          <p className="text-sm text-gray-600">{details.cakeStyle || 'Not specified'}</p>
+        </div>
+      </div>
+
+      {details.flavors && details.flavors.length > 0 && (
+        <div className="flex items-start">
+          <Utensils className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+          <div>
+            <p className="text-sm font-medium text-gray-900">Flavors</p>
+            <ul className="text-sm text-gray-600 list-disc list-inside">
+              {details.flavors.map((flavor: string, index: number) => (
+                <li key={index}>{flavor}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+
+      {details.dietaryRestrictions && details.dietaryRestrictions.length > 0 && (
+        <div className="flex items-start">
+          <AlertCircle className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+          <div>
+            <p className="text-sm font-medium text-gray-900">Dietary Restrictions</p>
+            <ul className="text-sm text-gray-600 list-disc list-inside">
+              {details.dietaryRestrictions.map((restriction: string, index: number) => (
+                <li key={index}>{restriction}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+
+      <div className="flex items-start">
+        <Truck className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+        <div>
+          <p className="text-sm font-medium text-gray-900">Delivery & Setup</p>
+          <p className="text-sm text-gray-600">{details.deliverySetup ? 'Required' : 'Not required'}</p>
+        </div>
+      </div>
+
+      <div className="flex items-start">
+        <Utensils className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+        <div>
+          <p className="text-sm font-medium text-gray-900">Tasting</p>
+          <p className="text-sm text-gray-600">{details.tastingRequested ? 'Requested' : 'Not requested'}</p>
+        </div>
+      </div>
+
+      {details.weddingPlanner && (
+        <div className="flex items-start">
+          <User className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+          <div>
+            <p className="text-sm font-medium text-gray-900">Wedding Planner</p>
+            <p className="text-sm text-gray-600">{details.weddingPlanner.name}</p>
+            <p className="text-sm text-gray-600">{details.weddingPlanner.company}</p>
+            <p className="text-sm text-gray-600">{details.weddingPlanner.contact}</p>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
+  const renderCelebrationDetails = (details: CelebrationInquiryDetails) => (
+    <div className="space-y-3">
+      <div className="flex items-start">
+        <Tag className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+        <div>
+          <p className="text-sm font-medium text-gray-900">Occasion</p>
+          <p className="text-sm text-gray-600">{details.occasion || 'Not specified'}</p>
+        </div>
+      </div>
+
+      {details.theme && (
+        <div className="flex items-start">
+          <Palette className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+          <div>
+            <p className="text-sm font-medium text-gray-900">Theme</p>
+            <p className="text-sm text-gray-600">{details.theme}</p>
+          </div>
+        </div>
+      )}
+
+      {details.colors && (
+        <div className="flex items-start">
+          <Palette className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+          <div>
+            <p className="text-sm font-medium text-gray-900">Colors</p>
+            <p className="text-sm text-gray-600">{details.colors}</p>
+          </div>
+        </div>
+      )}
+
+      <div className="flex items-start">
+        <Utensils className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+        <div>
+          <p className="text-sm font-medium text-gray-900">Cake Tasting</p>
+          <p className="text-sm text-gray-600">{details.cakeTasting ? 'Requested' : 'Not requested'}</p>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderCorporateDetails = (details: CorporateInquiryDetails) => (
+    <div className="space-y-3">
+      <div className="flex items-start">
+        <Building2 className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+        <div>
+          <p className="text-sm font-medium text-gray-900">Company</p>
+          <p className="text-sm text-gray-600">{details.companyName || 'Not specified'}</p>
+        </div>
+      </div>
+
+      <div className="flex items-start">
+        <Tag className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+        <div>
+          <p className="text-sm font-medium text-gray-900">Event Type</p>
+          <p className="text-sm text-gray-600">{details.eventType || 'Not specified'}</p>
+        </div>
+      </div>
+      {/* Add more corporate-specific details as needed */}
+    </div>
+  );
 
   const handleEditOrder = () => {
     if (order) {
@@ -181,6 +337,20 @@ const OrderDetail: React.FC = () => {
                     </div>
                   </div>
                   
+                  {order.details && (
+                    <div className="border-t border-gray-200 pt-4 mt-4">
+                      <h4 className="text-sm font-medium text-gray-900 mb-3 capitalize">
+                        {order.eventType} Details
+                      </h4>
+                      {order.eventType === 'Wedding' && renderWeddingDetails(order.details as WeddingInquiryDetails)}
+                      {order.eventType === 'Birthday' && renderCelebrationDetails(order.details as CelebrationInquiryDetails)}
+                      {order.eventType === 'Corporate Event' && renderCorporateDetails(order.details as CorporateInquiryDetails)}
+                      {order.eventType === 'Anniversary' && renderCelebrationDetails(order.details as CelebrationInquiryDetails)}
+                      {order.eventType === 'Baby Shower' && renderCelebrationDetails(order.details as CelebrationInquiryDetails)}
+                      {order.eventType === 'Graduation' && renderCelebrationDetails(order.details as CelebrationInquiryDetails)}
+                    </div>
+                  )}
+
                   <div className="flex space-x-2">
                     <button
                       onClick={handleEditOrder}

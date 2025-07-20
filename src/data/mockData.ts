@@ -1,4 +1,4 @@
-import { Inquiry, InquiryAction } from '../types';
+import { Inquiry, InquiryAction, CelebrationInquiryDetails, WeddingInquiryDetails, CorporateInquiryDetails } from '../types';
 
 // Customer interface for mock data
 interface MockCustomer {
@@ -38,6 +38,7 @@ interface MockOrder {
   total: number;
   deposited?: number;
   balance?: number;
+  details?: CelebrationInquiryDetails | WeddingInquiryDetails | CorporateInquiryDetails;
   depositPaid: number;
   createdAt: string;
   eventTime?: string;
@@ -81,6 +82,7 @@ interface MockOrderDetail {
   balance: number;
   customerNotes?: string;
   internalNotes?: string;
+  details?: CelebrationInquiryDetails | WeddingInquiryDetails | CorporateInquiryDetails;
   status: 'inquiry' | 'quoted' | 'confirmed' | 'in-production' | 'completed' | 'cancelled';
 }
 
@@ -528,7 +530,20 @@ export const mockOrdersList: MockOrder[] = [
     deposited: 225.00,
     balance: 256.50,
     depositPaid: 225.00,
-    createdAt: '2025-01-01'
+    createdAt: '2025-01-01',
+    details: {
+      weddingDate: '2025-01-15',
+      venue: 'Grand Ballroom at The Plaza',
+      weddingSize: 'medium',
+      services: ['Wedding Cake', 'Groom\'s Cake', 'Dessert Table'],
+      cakeStyle: 'Three-tier with fresh flowers',
+      flavors: ['Vanilla Bean', 'Chocolate Raspberry', 'Lemon'],
+      dietaryRestrictions: ['Gluten-free option for 10 guests'],
+      deliverySetup: true,
+      tastingRequested: true,
+      budgetRange: '$2,500 - $5,000',
+      weddingPlanner: { name: 'Sarah Mitchell', company: 'Elegant Events Co.', contact: 'sarah@elegantevents.com' }
+    } as WeddingInquiryDetails
   },
   {
     id: 'O-202501-0002',
@@ -549,7 +564,16 @@ export const mockOrdersList: MockOrder[] = [
     deposited: 60.00,
     balance: 68.40,
     depositPaid: 60.00,
-    createdAt: '2025-01-05'
+    createdAt: '2025-01-05',
+    details: {
+      occasion: 'Birthday',
+      services: ['Custom Birthday Cake', 'Cupcakes'],
+      theme: 'Elegant Adult Birthday',
+      colors: 'Purple and Silver',
+      cakeTasting: false,
+      inspirationPhotos: []
+    } as CelebrationInquiryDetails
+
   },
   {
     id: 'O-202501-0003',
@@ -570,7 +594,19 @@ export const mockOrdersList: MockOrder[] = [
     deposited: 0.00,
     balance: 299.60,
     depositPaid: 0.00,
-    createdAt: '2025-01-10'
+    createdAt: '2025-01-10',
+    details: {
+      companyName: 'TechCorp Solutions',
+      eventType: 'Team Celebration',
+      services: ['Corporate Cupcakes', 'Branded Cookies'],
+      recurring: true,
+      frequency: 'Monthly',
+      brandingRequired: true,
+      deliveryAddress: '456 Business Plaza, Suite 200',
+      contactPerson: { name: 'Jennifer Williams', title: 'HR Manager', department: 'Human Resources' },
+      approvalProcess: 'Manager approval required for orders over $300',
+      invoicingRequirements: 'Net 30 payment terms, PO number required'
+    } as CorporateInquiryDetails
   },
   {
     id: 'O-202412-0025',
@@ -591,7 +627,15 @@ export const mockOrdersList: MockOrder[] = [
     deposited: 0.00,
     balance: 192.60,
     depositPaid: 0.00,
-    createdAt: '2024-12-12'
+    createdAt: '2024-12-12',
+    details: {
+      occasion: 'Anniversary',
+      services: ['Anniversary Cake'],
+      theme: 'Golden Anniversary',
+      colors: 'Gold and Cream',
+      cakeTasting: true,
+      inspirationPhotos: []
+    } as CelebrationInquiryDetails
   },
   {
     id: 'O-202412-0026',
@@ -612,7 +656,15 @@ export const mockOrdersList: MockOrder[] = [
     deposited: 214.00,
     balance: 0.00,
     depositPaid: 214.00,
-    createdAt: '2024-11-28'
+    createdAt: '2024-11-28',
+    details: {
+      occasion: 'Baby Shower',
+      services: ['Baby Shower Cake', 'Mini Cupcakes'],
+      theme: 'Pastel Animals',
+      colors: 'Blue, Pink, Yellow',
+      cakeTasting: false,
+      inspirationPhotos: []
+    } as CelebrationInquiryDetails
   },
   {
     id: 'O-202412-0027',
@@ -633,7 +685,15 @@ export const mockOrdersList: MockOrder[] = [
     deposited: 75.00,
     balance: 85.50,
     depositPaid: 75.00,
-    createdAt: '2024-12-10'
+    createdAt: '2024-12-10',
+    details: {
+      occasion: 'Graduation',
+      services: ['Graduation Cake', 'Cookies'],
+      theme: 'School Colors',
+      colors: 'Red and Black',
+      cakeTasting: false,
+      inspirationPhotos: []
+    } as CelebrationInquiryDetails
   },
   {
     id: 'O-202412-0028',
@@ -654,7 +714,15 @@ export const mockOrdersList: MockOrder[] = [
     deposited: 101.65,
     balance: 0.00,
     depositPaid: 101.65,
-    createdAt: '2024-12-05'
+    createdAt: '2024-12-05',
+    details: {
+      occasion: 'Birthday',
+      services: ['Custom Birthday Cake'],
+      theme: 'Superheroes',
+      colors: 'Blue, Red, Yellow',
+      cakeTasting: false,
+      inspirationPhotos: []
+    } as CelebrationInquiryDetails
   },
   {
     id: 'O-202411-0015',
@@ -675,7 +743,19 @@ export const mockOrdersList: MockOrder[] = [
     deposited: 374.50,
     balance: 0.00,
     depositPaid: 374.50,
-    createdAt: '2024-11-20'
+    createdAt: '2024-11-20',
+    details: {
+      companyName: 'Global Corp',
+      eventType: 'Corporate Event',
+      services: ['Corporate Cupcakes', 'Logo Cookies'],
+      recurring: false,
+      brandingRequired: true,
+      deliveryAddress: '100 Corporate Blvd',
+      contactPerson: { name: 'Michael Taylor', title: 'Event Coordinator', department: 'Marketing' },
+      approvalProcess: 'Standard',
+      invoicingRequirements: 'Invoice to be sent to accounts payable'
+    } as CorporateInquiryDetails
+
   },
   {
     id: 'O-202411-0016',
@@ -696,7 +776,19 @@ export const mockOrdersList: MockOrder[] = [
     deposited: 275.00,
     balance: 313.50,
     depositPaid: 275.00,
-    createdAt: '2024-11-15'
+    createdAt: '2024-11-15',
+    details: {
+      weddingDate: '2025-03-10',
+      venue: 'The Grand Hotel',
+      weddingSize: 'large',
+      services: ['Wedding Cake', 'Dessert Table'],
+      cakeStyle: 'Modern Minimalist',
+      flavors: ['Vanilla', 'Chocolate'],
+      dietaryRestrictions: [],
+      deliverySetup: true,
+      tastingRequested: true,
+      budgetRange: '$2,500 - $5,000'
+    } as WeddingInquiryDetails
   },
   {
     id: 'O-202411-0017',
@@ -717,7 +809,15 @@ export const mockOrdersList: MockOrder[] = [
     deposited: 0.00,
     balance: 187.25,
     depositPaid: 0.00,
-    createdAt: '2024-11-10'
+    createdAt: '2024-11-10',
+    details: {
+      occasion: 'Anniversary',
+      services: ['Anniversary Cake'],
+      theme: 'Romantic',
+      colors: 'Red and White',
+      cakeTasting: false,
+      inspirationPhotos: []
+    } as CelebrationInquiryDetails
   }
 ];
 
@@ -798,5 +898,18 @@ export const mockSampleOrder: MockOrderDetail = {
   balance: 315.25,
   customerNotes: 'Customer requested blush pink and gold accents. Cake to be delivered directly to venue coordinator.',
   internalNotes: 'Venue contact: Jane Doe (555) 111-2222. Confirm delivery window 24 hours prior.',
-  status: 'in-production'
+  status: 'in-production',
+  details: {
+    weddingDate: '2025-01-15',
+    venue: 'Grand Ballroom at The Plaza',
+    weddingSize: 'medium',
+    services: ['Wedding Cake', 'Groom\'s Cake', 'Dessert Table'],
+    cakeStyle: 'Three-tier with fresh flowers',
+    flavors: ['Vanilla Bean', 'Chocolate Raspberry', 'Lemon'],
+    dietaryRestrictions: ['Gluten-free option for 10 guests'],
+    deliverySetup: true,
+    tastingRequested: true,
+    budgetRange: '$2,500 - $5,000',
+    weddingPlanner: { name: 'Sarah Mitchell', company: 'Elegant Events Co.', contact: 'sarah@elegantevents.com' }
+  } as WeddingInquiryDetails
 };
