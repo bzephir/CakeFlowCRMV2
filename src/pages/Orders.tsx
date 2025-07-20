@@ -1,197 +1,416 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { Inquiry, InquiryAction } from '../types';
-import { mockInquiries, getNewInquiriesCount } from '../data/inquiries';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Header from '../components/Header';
 import { mockOrdersList } from '../data/mockData';
+import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
+import { generateDocumentNumber } from '../utils/documentNumbering';
+import { 
+  Plus, 
+  Search, 
+  Filter, 
+  Eye, 
+  Edit, 
+  Mail,
+  Trash2,
+  Calendar,
+  Copy,
+  FileText,
+  Clock, 
+  CheckCircle2, 
+  XCircle,
+  AlertCircle,
+  ArrowRightCircle,
+  Package,
+  Truck
+} from 'lucide-react';
 
-interface InquiryContextType {
-  inquiries: Inquiry[];
-  newInquiriesCount: number;
-  loading: boolean;
-  error: string | null;
-  
-  // Actions
-  addInquiry: (inquiry: Omit<Inquiry, 'id' | 'submittedAt' | 'lastUpdated' | 'actions'>) => void;
-  updateInquiry: (id: string, updates: Partial<Inquiry>) => void;
-  markAsOpened: (id: string) => void;
-  addAction: (inquiryId: string, action: Omit<InquiryAction, 'id' | 'performedAt'>) => void;
-  deleteInquiry: (id: string) => void;
-  
-  // Getters
-  getInquiryById: (id: string) => Inquiry | undefined;
-  getInquiriesByStatus: (status: string) => Inquiry[];
-  getInquiriesByType: (type: 'celebration' | 'wedding' | 'corporate') => Inquiry[];
-}
+const Orders: React.FC = () => {
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
-const InquiryContext = createContext<InquiryContextType | undefined>(undefined);
+  // Use centralized mock data
+  const orders = mockOrdersList;
 
-export const useInquiryContext = () => {
-  const context = useContext(InquiryContext);
-  if (context === undefined) {
-    throw new Error('useInquiryContext must be used within an InquiryProvider');
-  }
-  return context;
-};
-
-interface InquiryProviderProps {
-  children: ReactNode;
-}
-
-export const InquiryProvider: React.FC<InquiryProviderProps> = ({ children }) => {
-  const [inquiries, setInquiries] = useState<Inquiry[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  // Initialize with mock data
-  useEffect(() => {
-    try {
-      setInquiries(mockInquiries);
-      setLoading(false);
-    } catch (err) {
-      setError('Failed to load inquiries');
-      setLoading(false);
-    }
-  }, []);
-
-  // Calculate new inquiries count
-  const newInquiriesCount = inquiries.filter(inquiry => inquiry.status === 'new').length;
-
-  // Generate unique ID for new inquiries
-  const generateInquiryId = (): string => {
-    const year = new Date().getFullYear();
-    const existingIds = inquiries
-      .map(inquiry => inquiry.id)
-      .filter(id => id.startsWith(`INQ-${year}-`))
-      .map(id => parseInt(id.split('-')[2]))
-      .filter(num => !isNaN(num));
-    
-    const nextNumber = existingIds.length > 0 ? Math.max(...existingIds) + 1 : 1;
-    return `INQ-${year}-${nextNumber.toString().padStart(3, '0')}`;
-  };
-
-  // Generate unique ID for actions
-  const generateActionId = (): string => {
-    return `ACT-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-  };
-
-  const addInquiry = (inquiryData: Omit<Inquiry, 'id' | 'submittedAt' | 'lastUpdated' | 'actions'>) => {
-    const now = new Date().toISOString();
-    const newInquiry: Inquiry = {
-      ...inquiryData,
-      id: generateInquiryId(),
-      submittedAt: now,
-      lastUpdated: now,
-      actions: [
-        {
-          id: generateActionId(),
-          type: 'status_change',
-          description: 'Inquiry submitted',
-          performedBy: 'System',
-          performedAt: now,
-          details: {
-            newStatus: inquiryData.status
-          }
-        }
-      ]
-    };
-
-    setInquiries(prev => [newInquiry, ...prev]);
-  };
-
-  const updateInquiry = (id: string, updates: Partial<Inquiry>) => {
-    setInquiries(prev => prev.map(inquiry => {
-      if (inquiry.id === id) {
-        const updatedInquiry = {
-          ...inquiry,
-          ...updates,
-          lastUpdated: new Date().toISOString()
-        };
-
-        // If status is being updated, add an action
-        if (updates.status && updates.status !== inquiry.status) {
-          const statusAction: InquiryAction = {
-            id: generateActionId(),
-            type: 'status_change',
-            description: `Status changed from ${inquiry.status} to ${updates.status}`,
-            performedBy: updates.assignedTo || 'admin',
-            performedAt: new Date().toISOString(),
-            details: {
-              previousStatus: inquiry.status,
-              newStatus: updates.status
-            }
-          };
-
-          updatedInquiry.actions = [...inquiry.actions, statusAction];
-        }
-
-        return updatedInquiry;
-      }
-      return inquiry;
-    }));
-  };
-
-  const markAsOpened = (id: string) => {
-    const inquiry = inquiries.find(inq => inq.id === id);
-    if (inquiry && inquiry.status === 'new') {
-      updateInquiry(id, { 
-        status: 'opened',
-        assignedTo: 'admin' // In a real app, this would be the current user
-      });
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'completed': return 'bg-mint-100 text-mint-800';
+      case 'in-production': return 'bg-aqua-100 text-aqua-800';
+      case 'confirmed': return 'bg-coral-100 text-coral-800';
+      case 'quoted': return 'bg-pink-100 text-pink-800';
+      case 'inquiry': return 'bg-gray-100 text-gray-800';
+      case 'cancelled': return 'bg-red-100 text-red-800';
+      default: return 'bg-gray-100 text-gray-800';
     }
   };
 
-  const addAction = (inquiryId: string, actionData: Omit<InquiryAction, 'id' | 'performedAt'>) => {
-    const newAction: InquiryAction = {
-      ...actionData,
-      id: generateActionId(),
-      performedAt: new Date().toISOString()
-    };
-
-    setInquiries(prev => prev.map(inquiry => {
-      if (inquiry.id === inquiryId) {
-        return {
-          ...inquiry,
-          actions: [...inquiry.actions, newAction],
-          lastUpdated: new Date().toISOString()
-        };
-      }
-      return inquiry;
-    }));
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'completed': return <CheckCircle2 className="h-4 w-4 mr-1" />;
+      case 'in-production': return <Clock className="h-4 w-4 mr-1" />;
+      case 'confirmed': return <CheckCircle2 className="h-4 w-4 mr-1" />;
+      case 'quoted': return <AlertCircle className="h-4 w-4 mr-1" />;
+      case 'inquiry': return <AlertCircle className="h-4 w-4 mr-1" />;
+      case 'cancelled': return <XCircle className="h-4 w-4 mr-1" />;
+      default: return <AlertCircle className="h-4 w-4 mr-1" />;
+    }
   };
 
-  const deleteInquiry = (id: string) => {
-    setInquiries(prev => prev.filter(inquiry => inquiry.id !== id));
+  const handleViewOrder = (orderId: string) => {
+    navigate(`/orders/${orderId}`);
   };
 
-  const getInquiryById = (id: string): Inquiry | undefined => {
-    return inquiries.find(inquiry => inquiry.id === id);
+  const handleCreateOrder = () => {
+    const newOrderNumber = generateDocumentNumber('order');
+    console.log('Creating new order with number:', newOrderNumber);
+    navigate('/orders/new', { state: { orderNumber: newOrderNumber } });
   };
 
-  const getInquiriesByStatus = (status: string): Inquiry[] => {
-    return inquiries.filter(inquiry => inquiry.status === status);
+  const handleEditOrder = (orderId: string) => {
+    navigate(`/orders/${orderId}/edit`);
   };
 
-  const getInquiriesByType = (type: 'celebration' | 'wedding' | 'corporate'): Inquiry[] => {
-    return inquiries.filter(inquiry => inquiry.type === type);
+  const handleSendInvoice = (orderId: string) => {
+    const newInvoiceNumber = generateDocumentNumber('invoice');
+    console.log('Creating invoice for order:', orderId);
+    navigate('/invoice/new', { state: { convertedFromOrder: orderId, invoiceNumber: newInvoiceNumber } });
   };
 
-  const contextValue: InquiryContextType = {
-    inquiries,
-    newInquiriesCount,
-    loading,
-    error,
-    addInquiry,
-    updateInquiry,
-    markAsOpened,
-    addAction,
-    deleteInquiry,
-    getInquiryById,
-    getInquiriesByStatus,
-    getInquiriesByType
+  const handleDuplicateOrder = (orderId: string) => {
+    const newOrderNumber = generateDocumentNumber('order');
+    console.log('Duplicating order with new number:', newOrderNumber);
+    alert(`Duplicate order ${orderId} as ${newOrderNumber}`);
   };
+
+  const handleDeleteOrder = (orderId: string) => {
+    alert(`Delete order ${orderId}`);
+  };
+
+  const handleBulkAction = (action: 'send' | 'delete') => {
+    if (selectedOrders.length === 0) {
+      alert('Please select at least one order');
+      return;
+    }
+
+    if (action === 'send') {
+      alert(`Send ${selectedOrders.length} orders to customers`);
+    } else if (action === 'delete') {
+      alert(`Delete ${selectedOrders.length} orders`);
+    }
+  };
+
+  const toggleSelectOrder = (orderId: string) => {
+    if (selectedOrders.includes(orderId)) {
+      setSelectedOrders(selectedOrders.filter(id => id !== orderId));
+    } else {
+      setSelectedOrders([...selectedOrders, orderId]);
+    }
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedOrders.length === filteredOrders.length) {
+      setSelectedOrders([]);
+    } else {
+      setSelectedOrders(filteredOrders.map(order => order.id));
+    }
+  };
+
+  // Filter orders based on search term and status filter
+  const filteredOrders = orders.filter(order => {
+    const matchesSearch = order.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         order.id.includes(searchTerm);
+    const matchesStatus = statusFilter === 'all' || order.status === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
+
+  // Pagination
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentOrders = filteredOrders.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <InquiryContext.Provider value={contextValue}>
-      {children}
-    </InquiryContext.Provider>
+    <div className="flex-1 overflow-hidden">
+      <Header title="Orders" />
+      
+      <div className="p-6">
+        {/* Actions Bar */}
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+          <div className="flex flex-col sm:flex-row gap-4 flex-1">
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Search className="h-4 w-4 text-gray-400" />
+              </div>
+              <input
+                type="text"
+                placeholder="Search orders..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="block w-full sm:w-64 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+              />
+            </div>
+            
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Filter className="h-4 w-4 text-gray-400" />
+              </div>
+              <select
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+                className="block w-full sm:w-48 pl-10 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+              >
+                <option value="all">All Statuses</option>
+                <option value="inquiry">Inquiry</option>
+                <option value="quoted">Quoted</option>
+                <option value="confirmed">Confirmed</option>
+                <option value="in-production">In Production</option>
+                <option value="completed">Completed</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+          </div>
+          
+          <button 
+            onClick={handleCreateOrder}
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all"
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            Create Order
+          </button>
+        </div>
+
+        {/* Bulk Actions */}
+        {selectedOrders.length > 0 && (
+          <div className="mb-4 flex items-center gap-2">
+            <span className="text-sm text-gray-500">
+              {selectedOrders.length} selected
+            </span>
+            <button 
+              onClick={() => handleBulkAction('send')}
+              className="inline-flex items-center px-3 py-1 border border-gray-300 text-xs font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-colors"
+            >
+              <Mail className="h-3 w-3 mr-1" />
+              Send
+            </button>
+            <button 
+              onClick={() => handleBulkAction('delete')}
+              className="inline-flex items-center px-3 py-1 border border-gray-300 text-xs font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-colors"
+            >
+              <Trash2 className="h-3 w-3 mr-1" />
+              Delete
+            </button>
+          </div>
+        )}
+
+        {/* Orders Table */}
+        <div className="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-2 py-1 text-left">
+                    <div className="flex items-center">
+                      <input
+                        type="checkbox"
+                        checked={selectedOrders.length === filteredOrders.length && filteredOrders.length > 0}
+                        onChange={toggleSelectAll}
+                        className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
+                      />
+                    </div>
+                  </th>
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Order #
+                  </th>
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Customer
+                  </th>
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Event Type
+                  </th>
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Event Date
+                  </th>
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Fulfillment
+                  </th>
+                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Total
+                  </th>
+                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Balance
+                  </th>
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Status
+                  </th>
+                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {currentOrders.map((order) => (
+                  <tr key={order.id} className="hover:bg-gray-50 transition-colors">
+                    <td className="px-2 py-1 whitespace-nowrap">
+                      <div className="flex items-center">
+                        <input
+                          type="checkbox"
+                          checked={selectedOrders.includes(order.id)}
+                          onChange={() => toggleSelectOrder(order.id)}
+                          className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
+                        />
+                      </div>
+                    </td>
+                    <td className="px-2 py-1 whitespace-nowrap">
+                      <div className="text-sm font-medium text-gray-900 cursor-pointer hover:text-coral-600" onClick={() => handleViewOrder(order.id)}>
+                        {order.id}
+                      </div>
+                    </td>
+                    <td className="px-2 py-1 whitespace-nowrap">
+                      <div className="text-sm font-medium text-gray-900">{order.customerName}</div>
+                    </td>
+                    <td className="px-2 py-1 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">{order.eventType}</div>
+                    </td>
+                    <td className="px-2 py-1 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">{formatDate(order.eventDate)}</div>
+                    </td>
+                    <td className="px-2 py-1 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">
+                        {order.fulfillmentType === 'pickup' 
+                          ? <span className="flex items-center"><Package className="h-3 w-3 mr-1" /> Pickup: {order.pickupTime ? formatTime(order.pickupTime) : 'TBD'}</span>
+                          : <span className="flex items-center"><Truck className="h-3 w-3 mr-1" /> Delivery: {order.deliveryTime ? formatTime(order.deliveryTime) : 'TBD'}</span>
+                        }
+                        {order.eventTime && (
+                          <div className="text-xs text-gray-500 mt-1">
+                            <span className="flex items-center"><Calendar className="h-3 w-3 mr-1" /> Event: {formatTime(order.eventTime)}</span>
+                          </div>
+                        )}
+                      </div>
+                    </td>
+                    <td className="px-2 py-1 whitespace-nowrap text-right">
+                      <div className="text-sm font-medium text-gray-900">{formatCurrency(order.total)}</div>
+                    </td>
+                    <td className="px-2 py-1 whitespace-nowrap text-right">
+                      <div className="text-sm font-medium text-gray-900">{formatCurrency(order.balance || 0)}</div>
+                    </td>
+                    <td className="px-2 py-1 whitespace-nowrap">
+                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(order.status)}`}>
+                        {getStatusIcon(order.status)}
+                        {order.status.charAt(0).toUpperCase() + order.status.slice(1).replace('-', ' ')}
+                      </span>
+                    </td>
+                    <td className="px-2 py-1 whitespace-nowrap text-right text-sm font-medium">
+                      <div className="flex justify-end space-x-2">
+                        <button 
+                          onClick={() => handleViewOrder(order.id)}
+                          className="text-aqua-600 hover:text-aqua-900 transition-colors"
+                          title="View"
+                        >
+                          <Eye className="h-4 w-4" />
+                        </button>
+                        <button 
+                          onClick={() => handleEditOrder(order.id)}
+                          className="text-coral-600 hover:text-coral-900 transition-colors"
+                          title="Edit"
+                        >
+                          <Edit className="h-4 w-4" />
+                        </button>
+                        <button 
+                          onClick={() => handleSendInvoice(order.id)}
+                          className="text-mint-600 hover:text-mint-900 transition-colors"
+                          title="Send Invoice"
+                        >
+                          <ArrowRightCircle className="h-4 w-4" />
+                        </button>
+                        <button 
+                          onClick={() => handleDuplicateOrder(order.id)}
+                          className="text-gray-600 hover:text-gray-900 transition-colors"
+                          title="Duplicate"
+                        >
+                          <Copy className="h-4 w-4" />
+                        </button>
+                        <button 
+                          onClick={() => handleDeleteOrder(order.id)}
+                          className="text-pink-600 hover:text-pink-900 transition-colors"
+                          title="Delete"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* No Results */}
+        {filteredOrders.length === 0 && (
+          <div className="text-center py-12">
+            <div className="text-gray-500 text-lg">No orders found</div>
+            <div className="text-gray-400 text-sm mt-2">
+              {searchTerm || statusFilter !== 'all' 
+                ? 'Try adjusting your search or filter criteria'
+                : 'Get started by creating your first order'
+              }
+            </div>
+          </div>
+        )}
+
+        {/* Pagination */}
+        {filteredOrders.length > 0 && (
+          <div className="flex items-center justify-between mt-6">
+            <div className="text-sm text-gray-500">
+              Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, filteredOrders.length)} of {filteredOrders.length} orders
+            </div>
+            <div className="flex space-x-2">
+              <button
+                onClick={() => paginate(currentPage - 1)}
+                disabled={currentPage === 1}
+                className={`px-3 py-1 border rounded-md text-sm ${
+                  currentPage === 1
+                    ? 'border-gray-200 text-gray-400 cursor-not-allowed'
+                    : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+                }`}
+              >
+                Previous
+              </button>
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((number) => (
+                <button
+                  key={number}
+                  onClick={() => paginate(number)}
+                  className={`px-3 py-1 border rounded-md text-sm ${
+                    currentPage === number
+                      ? 'bg-coral-100 border-coral-500 text-coral-600'
+                      : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+                  }`}
+                >
+                  {number}
+                </button>
+              ))}
+              <button
+                onClick={() => paginate(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className={`px-3 py-1 border rounded-md text-sm ${
+                  currentPage === totalPages
+                    ? 'border-gray-200 text-gray-400 cursor-not-allowed'
+                    : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+                }`}
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
+
+export default Orders;
