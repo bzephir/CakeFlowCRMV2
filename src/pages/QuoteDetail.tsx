@@ -543,6 +543,7 @@ const QuoteDetail: React.FC = () => {
                   {quote.eventType === 'Graduation' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
                   {quote.eventType === 'Celebration' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
                   {quote.eventType === 'Corporate' && renderCorporateDetails(quote.details as CorporateInquiryDetails)}
+                   {quote.eventType === 'Team Building' && renderCorporateDetails(quote.details as CorporateInquiryDetails)}
                 </div>
               </div>
             )}
