@@ -213,7 +213,8 @@ const InquiryDetail: React.FC = () => {
         customerEmail: inquiry.email,
         customerPhone: inquiry.phone,
         eventDate: inquiry.eventDate,
-        eventType: inquiry.type
+        eventType: inquiry.type,
+        occasion: inquiry.occasion
       } 
     });
   };
