@@ -683,6 +683,7 @@ const QuoteDetail: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
     </div>
   );
 };
