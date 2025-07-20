@@ -501,19 +501,20 @@ const OrderDetail: React.FC = () => {
                 </div>
               </div>
             </div>
-  {/* Order Details */}  
-            <div className="bg-white shadow-sm rounded-lg border border-gray-200">  
+
+            {/* Order Details */}  
+            {order.details && (
+              <div className="bg-white shadow-sm rounded-lg border border-gray-200">  
                 <div className="p-6">
-                  {order.details && (
-                    <div>
-                      {order.eventType === 'Wedding' && renderWeddingDetails(order.details as WeddingInquiryDetails)}
-                      {order.eventType === 'Birthday' && renderCelebrationDetails(order.details as CelebrationInquiryDetails)}
-                      {order.eventType === 'Corporate Event' && renderCorporateDetails(order.details as CorporateInquiryDetails)}
-                      {order.eventType === 'Anniversary' && renderCelebrationDetails(order.details as CelebrationInquiryDetails)}
-                      {order.eventType === 'Baby Shower' && renderCelebrationDetails(order.details as CelebrationInquiryDetails)}
-                      {order.eventType === 'Graduation' && renderCelebrationDetails(order.details as CelebrationInquiryDetails)}
-                    </div>
-                  )}
+                  <h3 className="text-lg font-medium text-gray-900 mb-4">Event Details</h3>
+                  <div>
+                    {order.eventType === 'Wedding' && renderWeddingDetails(order.details as WeddingInquiryDetails)}
+                    {order.eventType === 'Birthday' && renderCelebrationDetails(order.details as CelebrationInquiryDetails)}
+                    {order.eventType === 'Corporate Event' && renderCorporateDetails(order.details as CorporateInquiryDetails)}
+                    {order.eventType === 'Anniversary' && renderCelebrationDetails(order.details as CelebrationInquiryDetails)}
+                    {order.eventType === 'Baby Shower' && renderCelebrationDetails(order.details as CelebrationInquiryDetails)}
+                    {order.eventType === 'Graduation' && renderCelebrationDetails(order.details as CelebrationInquiryDetails)}
+                  </div>
                 </div>
               </div>
             )}
@@ -523,7 +524,10 @@ const OrderDetail: React.FC = () => {
                 <div className="p-6">
                   <h3 className="text-lg font-medium text-gray-900 mb-4">Event Details</h3>
                   <p className="text-sm text-gray-500 italic">No additional event details available.</p>
-</div>  
+                </div>
+              </div>
+            )}
+  
             {/* Line Items */}
             <div className="bg-white shadow-sm rounded-lg border border-gray-200">
               <div className="p-6">
