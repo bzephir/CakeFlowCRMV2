@@ -523,6 +523,25 @@ const QuoteDetail: React.FC = () => {
               </div>
             </div>
 
+
+            {/* Event Specific Details */}
+            {quote.details && (
+              <div className="bg-white shadow-sm rounded-lg border border-gray-200">
+                <div className="p-6">
+                  <h3 className="text-lg font-medium text-gray-900 mb-4">Event Details</h3>
+                  {quote.eventType === 'Wedding' && renderWeddingDetails(quote.details as WeddingInquiryDetails)}
+                  {quote.eventType === 'Birthday' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
+                  {quote.eventType === 'Corporate Event' && renderCorporateDetails(quote.details as CorporateInquiryDetails)}
+                  {quote.eventType === 'Anniversary' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
+                  {quote.eventType === 'Baby Shower' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
+                  {quote.eventType === 'Graduation' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
+                  {quote.eventType === 'Celebration' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
+                  {quote.eventType === 'Corporate' && renderCorporateDetails(quote.details as CorporateInquiryDetails)}
+                </div>
+              </div>
+            )}
+          </div>
+
             {/* Line Items */}
             <div className="bg-white shadow-sm rounded-lg border border-gray-200">
               <div className="p-6">
@@ -589,25 +608,6 @@ const QuoteDetail: React.FC = () => {
                 </div>
               </div>
             </div>
-
-            {/* Event Specific Details */}
-            {quote.details && (
-              <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-                <div className="p-6">
-                  <h3 className="text-lg font-medium text-gray-900 mb-4">Event Details</h3>
-                  {quote.eventType === 'Wedding' && renderWeddingDetails(quote.details as WeddingInquiryDetails)}
-                  {quote.eventType === 'Birthday' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
-                  {quote.eventType === 'Corporate Event' && renderCorporateDetails(quote.details as CorporateInquiryDetails)}
-                  {quote.eventType === 'Anniversary' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
-                  {quote.eventType === 'Baby Shower' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
-                  {quote.eventType === 'Graduation' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
-                  {quote.eventType === 'Celebration' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
-                  {quote.eventType === 'Corporate' && renderCorporateDetails(quote.details as CorporateInquiryDetails)}
-                </div>
-              </div>
-            )}
-          </div>
-
           {/* Sidebar Actions */}
           <div className="space-y-6">
             <div className="bg-white shadow-sm rounded-lg border border-gray-200">
