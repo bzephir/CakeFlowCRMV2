@@ -588,7 +588,7 @@ const OrderDetail: React.FC = () => {
                 </div>
               </div>
                {/* Additional Information */}
-        <div className="mt-6">
+        
           <div className="bg-white shadow-sm rounded-lg border border-gray-200">
             <div className="p-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">Additional Information</h3>
