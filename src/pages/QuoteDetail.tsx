@@ -722,15 +722,17 @@ const QuoteDetail: React.FC = () => {
             </div>
 
             {/* Event Specific Details */}
-            {quote.customer && (
+            {quote.details && (
               <div className="bg-white shadow-sm rounded-lg border border-gray-200">
                 <div className="p-6">
-                  <h3 className="text-lg font-medium text-gray-900 mb-4">Event Specific Details</h3>
-                  {/* Note: In a real implementation, you would determine the event type from quote data */}
-                  {/* For now, we'll use a placeholder structure since the quote interface doesn't include type-specific details */}
-                  <div className="text-sm text-gray-500 italic">
-                    Event-specific details would be displayed here based on the quote type (wedding, celebration, or corporate).
-                  </div>
+                  {quote.eventType === 'Wedding' && renderWeddingDetails(quote.details as WeddingInquiryDetails)}
+                  {quote.eventType === 'Birthday' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
+                  {quote.eventType === 'Corporate Event' && renderCorporateDetails(quote.details as CorporateInquiryDetails)}
+                  {quote.eventType === 'Anniversary' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
+                  {quote.eventType === 'Baby Shower' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
+                  {quote.eventType === 'Graduation' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
+                  {quote.eventType === 'Celebration' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
+                  {quote.eventType === 'Corporate' && renderCorporateDetails(quote.details as CorporateInquiryDetails)}
                 </div>
               </div>
             )}
