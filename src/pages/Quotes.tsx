@@ -35,33 +35,33 @@ const Quotes: React.FC = () => {
   const quotes = [
     {
       id: 'Q-202501-0001',
-      customer: 'David Fraga',
-      email: 'david.fraga@example.com',
+      customer: 'Sarah Johnson',
+      email: 'sarah@email.com',
       issueDate: '2025-01-15',
       expiryDate: '2025-02-15',
-      amount: 642.00,
+      amount: 609.90,
       status: 'sent',
       eventDate: '2025-06-15'
     },
     {
       id: 'Q-202501-0002',
-      customer: 'Sarah Johnson',
-      email: 'sarah@email.com',
+      customer: 'Mike Chen',
+      email: 'mike@email.com',
       issueDate: '2025-01-10',
       expiryDate: '2025-02-10',
-      amount: 450.00,
+      amount: 134.82,
       status: 'accepted',
-      eventDate: '2025-03-15'
+      eventDate: '2025-01-16'
     },
     {
       id: 'Q-202501-0003',
-      customer: 'Mike Chen',
-      email: 'mike@email.com',
+      customer: 'Emma Davis',
+      email: 'emma@email.com',
       issueDate: '2025-01-05',
       expiryDate: '2025-02-05',
-      amount: 120.00,
-      status: 'draft',
-      eventDate: '2025-02-16'
+      amount: 391.96,
+      status: 'sent',
+      eventDate: '2025-01-18'
     },
     {
       id: 'Q-202412-0015',

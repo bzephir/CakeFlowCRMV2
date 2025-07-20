@@ -289,14 +289,14 @@ const QuoteDetail: React.FC = () => {
   useEffect(() => {
     // In a real application, you would fetch the quote data from an API
     // using the 'id' from useParams. For now, we use mock data.
-    if (id === mockSampleQuoteDetail.id) {
-      setQuote(mockSampleQuoteDetail);
+    const foundQuote = mockSampleQuotesDetail.find(quote => quote.id === id);
+    if (foundQuote) {
+      setQuote(foundQuote);
     } else {
       // Simulate a "not found" scenario for other IDs
       setQuote(null);
     }
     setLoading(false);
-  }, [id]);
 
   const getStatusColor = (status: string) => {
     switch (status) {

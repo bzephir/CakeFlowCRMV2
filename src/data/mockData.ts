@@ -553,62 +553,6 @@ interface MockQuoteDetail {
   eventType?: string;
 }
 
-// Mock sample quote for QuoteDetail page
-export const mockSampleQuoteDetail: MockQuoteDetail = {
-  id: 'Q-202501-0001',
-  customer: {
-    id: '1',
-    name: 'David Fraga',
-    email: 'david.fraga@example.com',
-    phone: '(555) 123-4567',
-    address: '123 Main Street',
-    city: 'Springfield',
-    state: 'IL',
-    zip: '62701'
-  },
-  issueDate: '2025-01-15',
-  expiryDate: '2025-02-15',
-  fulfillmentType: 'delivery',
-  deliveryTime: '16:00',
-  eventTime: '18:00',
-  poNumber: 'PO-98765',
-  lineItems: [
-    { id: '1', name: '3-Tier Wedding Cake', description: 'Vanilla bean with raspberry filling', quantity: 1, unitPrice: 450.00, total: 450.00 },
-    { id: '2', name: 'Custom Cake Topper', description: 'Personalized acrylic topper', quantity: 1, unitPrice: 65.00, total: 65.00 },
-    { id: '3', name: 'Delivery & Setup', description: 'Includes transport and on-site assembly', quantity: 1, unitPrice: 85.00, total: 85.00 }
-  ],
-  subtotal: 600.00,
-  discountType: 'percentage',
-  discountValue: 5, // 5% discount
-  discountAmount: 30.00,
-  taxRate: 7.0,
-  taxAmount: 39.90, // 7% of (600 - 30)
-  shippingFee: 0.00,
-  total: 609.90,
-  customerNotes: 'Looking for a romantic, elegant design with blush pink and gold accents. Please ensure all flowers are edible or easily removable.',
-  internalNotes: 'Customer is very particular about color matching. Confirm final design sketch by 01/25.',
-  termsConditions: 'Payment terms: 50% deposit required to confirm order. Final payment due 14 days before event date. Cancellations within 30 days of event are subject to 50% fee.',
-  status: 'sent',
-  eventType: 'Wedding',
-  details: {
-    weddingDate: '2025-06-15',
-    venue: 'Grand Ballroom at The Plaza',
-    weddingSize: 'medium',
-    services: ['Wedding Cake', 'Groom\'s Cake', 'Dessert Table'],
-    cakeStyle: 'Three-tier with fresh flowers',
-    flavors: ['Vanilla Bean', 'Chocolate Raspberry', 'Lemon'],
-    dietaryRestrictions: ['Gluten-free option for 10 guests'],
-    deliverySetup: true,
-    tastingRequested: true,
-    budgetRange: '$2,500 - $5,000',
-    weddingPlanner: {
-      name: 'Sarah Mitchell',
-      company: 'Elegant Events Co.',
-      contact: 'sarah@elegantevents.com'
-    }
-  } as WeddingInquiryDetails
-};
-
 // Mock orders data for Orders page
 export const mockOrdersList: MockOrder[] = [
   {
@@ -1230,51 +1174,315 @@ export const mockProductsList: MockProduct[] = [
 ];
 
 // Mock sample order for OrderDetail page
-export const mockSampleOrder: MockOrderDetail = {
-  id: 'O-202501-0001',
-  customer: {
-    id: '1',
-    name: 'Sarah Johnson',
-    email: 'sarah@email.com',
-    phone: '(555) 123-4567',
-    address: '123 Main Street',
-    city: 'Springfield',
-    state: 'IL',
-    zip: '62701'
+export const mockSampleOrdersDetail: MockOrderDetail[] = [
+  // Sarah Johnson - Wedding Order
+  {
+    id: 'O-202501-0001',
+    customer: {
+      id: '1',
+      name: 'Sarah Johnson',
+      email: 'sarah@email.com',
+      phone: '(555) 123-4567',
+      address: '123 Main Street',
+      city: 'Springfield',
+      state: 'IL',
+      zip: '62701'
+    },
+    issueDate: '2025-01-01',
+    eventDate: '2025-01-15',
+    eventType: 'Wedding',
+    fulfillmentType: 'delivery',
+    deliveryTime: '13:00',
+    eventTime: '15:00',
+    poNumber: 'PO-12345',
+    lineItems: [
+      { id: '1', name: '3-Tier Wedding Cake', description: 'Vanilla bean with strawberry filling', quantity: 1, unitPrice: 450.00, total: 450.00 },
+      { id: '2', name: 'Cake Toppers', description: 'Custom bride and groom toppers', quantity: 1, unitPrice: 50.00, total: 50.00 },
+      { id: '3', name: 'Delivery & Setup', description: 'Includes transport and on-site assembly', quantity: 1, unitPrice: 75.00, total: 75.00 }
+    ],
+    subtotal: 575.00,
+    taxRate: 7.0,
+    taxAmount: 40.25,
+    shippingFee: 0.00,
+    total: 615.25,
+    deposited: 300.00,
+    balance: 315.25,
+    customerNotes: 'Customer requested blush pink and gold accents. Cake to be delivered directly to venue coordinator.',
+    internalNotes: 'Venue contact: Jane Doe (555) 111-2222. Confirm delivery window 24 hours prior.',
+    status: 'in-production',
+    details: {
+      weddingDate: '2025-01-15',
+      venue: 'Grand Ballroom at The Plaza',
+      weddingSize: 'medium',
+      services: ['Wedding Cake', 'Groom\'s Cake', 'Dessert Table'],
+      cakeStyle: 'Three-tier with fresh flowers',
+      flavors: ['Vanilla Bean', 'Chocolate Raspberry', 'Lemon'],
+      dietaryRestrictions: ['Gluten-free option for 10 guests'],
+      deliverySetup: true,
+      tastingRequested: true,
+      budgetRange: '$2,500 - $5,000',
+      weddingPlanner: { name: 'Sarah Mitchell', company: 'Elegant Events Co.', contact: 'sarah@elegantevents.com' }
+    } as WeddingInquiryDetails
   },
-  issueDate: '2025-01-01',
-  eventDate: '2025-01-15',
-  eventType: 'Wedding',
-  fulfillmentType: 'delivery',
-  deliveryTime: '13:00',
-  eventTime: '15:00',
-  poNumber: 'PO-12345',
-  lineItems: [
-    { id: '1', name: '3-Tier Wedding Cake', description: 'Vanilla bean with strawberry filling', quantity: 1, unitPrice: 450.00, total: 450.00 },
-    { id: '2', name: 'Cake Toppers', description: 'Custom bride and groom toppers', quantity: 1, unitPrice: 50.00, total: 50.00 },
-    { id: '3', name: 'Delivery & Setup', description: 'Includes transport and on-site assembly', quantity: 1, unitPrice: 75.00, total: 75.00 }
-  ],
-  subtotal: 575.00,
-  taxRate: 7.0,
-  taxAmount: 40.25,
-  shippingFee: 0.00,
-  total: 615.25,
-  deposited: 300.00,
-  balance: 315.25,
-  customerNotes: 'Customer requested blush pink and gold accents. Cake to be delivered directly to venue coordinator.',
-  internalNotes: 'Venue contact: Jane Doe (555) 111-2222. Confirm delivery window 24 hours prior.',
-  status: 'in-production',
-  details: {
-    weddingDate: '2025-01-15',
-    venue: 'Grand Ballroom at The Plaza',
-    weddingSize: 'medium',
-    services: ['Wedding Cake', 'Groom\'s Cake', 'Dessert Table'],
-    cakeStyle: 'Three-tier with fresh flowers',
-    flavors: ['Vanilla Bean', 'Chocolate Raspberry', 'Lemon'],
-    dietaryRestrictions: ['Gluten-free option for 10 guests'],
-    deliverySetup: true,
-    tastingRequested: true,
-    budgetRange: '$2,500 - $5,000',
-    weddingPlanner: { name: 'Sarah Mitchell', company: 'Elegant Events Co.', contact: 'sarah@elegantevents.com' }
-  } as WeddingInquiryDetails
-};
+  // Mike Chen - Birthday Celebration Order
+  {
+    id: 'O-202501-0002',
+    customer: {
+      id: '2',
+      name: 'Mike Chen',
+      email: 'mike@email.com',
+      phone: '(555) 234-5678',
+      address: '456 Oak Avenue',
+      city: 'Springfield',
+      state: 'IL',
+      zip: '62702'
+    },
+    issueDate: '2025-01-05',
+    eventDate: '2025-01-16',
+    eventType: 'Birthday',
+    fulfillmentType: 'pickup',
+    pickupTime: '15:30',
+    eventTime: '17:00',
+    poNumber: 'PO-54321',
+    lineItems: [
+      { id: '1', name: 'Custom Birthday Cake', description: 'Chocolate fudge with vanilla buttercream', quantity: 1, unitPrice: 85.00, total: 85.00 },
+      { id: '2', name: 'Birthday Candles & Decorations', description: 'Number candles and themed decorations', quantity: 1, unitPrice: 15.00, total: 15.00 },
+      { id: '3', name: 'Mini Cupcakes (dozen)', description: 'Assorted flavors for guests', quantity: 2, unitPrice: 18.00, total: 36.00 }
+    ],
+    subtotal: 136.00,
+    taxRate: 7.0,
+    taxAmount: 9.52,
+    shippingFee: 0.00,
+    total: 145.52,
+    deposited: 72.76,
+    balance: 72.76,
+    customerNotes: 'Surprise party for my wife\'s 40th birthday. She loves chocolate! Please keep decorations elegant and sophisticated.',
+    internalNotes: 'Customer emphasized this is a surprise. Coordinate pickup time carefully. Wife prefers dark chocolate.',
+    status: 'confirmed',
+    details: {
+      occasion: 'Birthday',
+      services: ['Custom Birthday Cake', 'Mini Cupcakes'],
+      theme: 'Elegant Adult Birthday',
+      colors: 'Purple and Silver',
+      cakeTasting: false,
+      inspirationPhotos: ['birthday1.jpg', 'birthday2.jpg']
+    } as CelebrationInquiryDetails
+  },
+  // Emma Davis - Corporate Event Order
+  {
+    id: 'O-202501-0003',
+    customer: {
+      id: '3',
+      name: 'Emma Davis',
+      email: 'emma@email.com',
+      phone: '(555) 345-6789',
+      address: '789 Pine Road',
+      city: 'Springfield',
+      state: 'IL',
+      zip: '62703'
+    },
+    issueDate: '2025-01-10',
+    eventDate: '2025-01-18',
+    eventType: 'Corporate Event',
+    fulfillmentType: 'delivery',
+    deliveryTime: '16:00',
+    eventTime: '18:30',
+    poNumber: 'PO-CORP-2025-001',
+    lineItems: [
+      { id: '1', name: 'Corporate Cupcakes (48)', description: 'Branded cupcakes with company logo', quantity: 1, unitPrice: 144.00, total: 144.00 },
+      { id: '2', name: 'Logo Cookies (24)', description: 'Custom cookies with corporate branding', quantity: 1, unitPrice: 72.00, total: 72.00 },
+      { id: '3', name: 'Coffee & Pastry Station', description: 'Professional catering setup', quantity: 1, unitPrice: 95.00, total: 95.00 },
+      { id: '4', name: 'Delivery & Professional Setup', description: 'White-glove delivery and arrangement', quantity: 1, unitPrice: 50.00, total: 50.00 }
+    ],
+    subtotal: 361.00,
+    taxRate: 7.0,
+    taxAmount: 25.27,
+    shippingFee: 0.00,
+    total: 386.27,
+    deposited: 193.14,
+    balance: 193.13,
+    customerNotes: 'Monthly team celebration. Need professional presentation. Please ensure all items are individually wrapped for hygiene.',
+    internalNotes: 'Recurring monthly client. Very particular about presentation. Delivery contact: Reception desk, ask for Jennifer Williams.',
+    status: 'in-production',
+    details: {
+      companyName: 'TechCorp Solutions',
+      eventType: 'Team Celebration',
+      services: ['Corporate Cupcakes', 'Logo Cookies', 'Coffee & Pastry Station'],
+      recurring: true,
+      frequency: 'Monthly',
+      brandingRequired: true,
+      deliveryAddress: '456 Business Plaza, Suite 200',
+      contactPerson: {
+        name: 'Jennifer Williams',
+        title: 'HR Manager',
+        department: 'Human Resources'
+      },
+      approvalProcess: 'Manager approval required for orders over $300',
+      invoicingRequirements: 'Net 30 payment terms, PO number required'
+    } as CorporateInquiryDetails
+  }
+];
+
+// Mock sample quotes for QuoteDetail page
+export const mockSampleQuotesDetail: MockQuoteDetail[] = [
+  // Sarah Johnson - Wedding Quote
+  {
+    id: 'Q-202501-0001',
+    customer: {
+      id: '1',
+      name: 'Sarah Johnson',
+      email: 'sarah@email.com',
+      phone: '(555) 123-4567',
+      address: '123 Main Street',
+      city: 'Springfield',
+      state: 'IL',
+      zip: '62701'
+    },
+    issueDate: '2025-01-15',
+    expiryDate: '2025-02-15',
+    fulfillmentType: 'delivery',
+    deliveryTime: '16:00',
+    eventTime: '18:00',
+    poNumber: 'PO-98765',
+    lineItems: [
+      { id: '1', name: '3-Tier Wedding Cake', description: 'Vanilla bean with raspberry filling', quantity: 1, unitPrice: 450.00, total: 450.00 },
+      { id: '2', name: 'Custom Cake Topper', description: 'Personalized acrylic topper', quantity: 1, unitPrice: 65.00, total: 65.00 },
+      { id: '3', name: 'Delivery & Setup', description: 'Includes transport and on-site assembly', quantity: 1, unitPrice: 85.00, total: 85.00 }
+    ],
+    subtotal: 600.00,
+    discountType: 'percentage',
+    discountValue: 5,
+    discountAmount: 30.00,
+    taxRate: 7.0,
+    taxAmount: 39.90,
+    shippingFee: 0.00,
+    total: 609.90,
+    customerNotes: 'Looking for a romantic, elegant design with blush pink and gold accents. Please ensure all flowers are edible or easily removable.',
+    internalNotes: 'Customer is very particular about color matching. Confirm final design sketch by 01/25.',
+    termsConditions: 'Payment terms: 50% deposit required to confirm order. Final payment due 14 days before event date. Cancellations within 30 days of event are subject to 50% fee.',
+    status: 'sent',
+    eventType: 'Wedding',
+    details: {
+      weddingDate: '2025-06-15',
+      venue: 'Grand Ballroom at The Plaza',
+      weddingSize: 'medium',
+      services: ['Wedding Cake', 'Groom\'s Cake', 'Dessert Table'],
+      cakeStyle: 'Three-tier with fresh flowers',
+      flavors: ['Vanilla Bean', 'Chocolate Raspberry', 'Lemon'],
+      dietaryRestrictions: ['Gluten-free option for 10 guests'],
+      deliverySetup: true,
+      tastingRequested: true,
+      budgetRange: '$2,500 - $5,000',
+      weddingPlanner: {
+        name: 'Sarah Mitchell',
+        company: 'Elegant Events Co.',
+        contact: 'sarah@elegantevents.com'
+      }
+    } as WeddingInquiryDetails
+  },
+  // Mike Chen - Birthday Quote
+  {
+    id: 'Q-202501-0002',
+    customer: {
+      id: '2',
+      name: 'Mike Chen',
+      email: 'mike@email.com',
+      phone: '(555) 234-5678',
+      address: '456 Oak Avenue',
+      city: 'Springfield',
+      state: 'IL',
+      zip: '62702'
+    },
+    issueDate: '2025-01-10',
+    expiryDate: '2025-02-10',
+    fulfillmentType: 'pickup',
+    pickupTime: '15:30',
+    eventTime: '17:00',
+    poNumber: '',
+    lineItems: [
+      { id: '1', name: 'Custom Birthday Cake', description: 'Chocolate fudge with vanilla buttercream', quantity: 1, unitPrice: 85.00, total: 85.00 },
+      { id: '2', name: 'Birthday Decorations', description: 'Elegant candles and themed decorations', quantity: 1, unitPrice: 15.00, total: 15.00 },
+      { id: '3', name: 'Mini Cupcakes (2 dozen)', description: 'Assorted flavors for party guests', quantity: 1, unitPrice: 36.00, total: 36.00 }
+    ],
+    subtotal: 136.00,
+    discountType: 'fixed',
+    discountValue: 10.00,
+    discountAmount: 10.00,
+    taxRate: 7.0,
+    taxAmount: 8.82,
+    shippingFee: 0.00,
+    total: 134.82,
+    customerNotes: 'This is a surprise party for my wife\'s 40th birthday. She absolutely loves chocolate, especially dark chocolate. Please keep the design elegant and sophisticated.',
+    internalNotes: 'Customer emphasized surprise element. Coordinate pickup timing carefully. Wife has preference for dark chocolate over milk chocolate.',
+    termsConditions: 'Payment terms: 50% deposit required to confirm order. Final payment due 7 days before pickup date. Cancellations within 48 hours are subject to 25% fee.',
+    status: 'accepted',
+    eventType: 'Birthday',
+    details: {
+      occasion: 'Birthday',
+      services: ['Custom Birthday Cake', 'Mini Cupcakes'],
+      theme: 'Elegant Adult Birthday',
+      colors: 'Purple and Silver',
+      cakeTasting: false,
+      inspirationPhotos: ['birthday1.jpg', 'birthday2.jpg']
+    } as CelebrationInquiryDetails
+  },
+  // Emma Davis - Corporate Quote
+  {
+    id: 'Q-202501-0003',
+    customer: {
+      id: '3',
+      name: 'Emma Davis',
+      email: 'emma@email.com',
+      phone: '(555) 345-6789',
+      address: '789 Pine Road',
+      city: 'Springfield',
+      state: 'IL',
+      zip: '62703'
+    },
+    issueDate: '2025-01-05',
+    expiryDate: '2025-02-05',
+    fulfillmentType: 'delivery',
+    deliveryTime: '16:00',
+    eventTime: '18:30',
+    poNumber: 'PO-CORP-2025-001',
+    lineItems: [
+      { id: '1', name: 'Corporate Cupcakes (48)', description: 'Professional cupcakes with company logo toppers', quantity: 1, unitPrice: 144.00, total: 144.00 },
+      { id: '2', name: 'Branded Logo Cookies (24)', description: 'Custom cookies featuring company branding', quantity: 1, unitPrice: 72.00, total: 72.00 },
+      { id: '3', name: 'Coffee & Pastry Station', description: 'Professional catering station with coffee service', quantity: 1, unitPrice: 95.00, total: 95.00 },
+      { id: '4', name: 'Professional Delivery & Setup', description: 'White-glove delivery with professional arrangement', quantity: 1, unitPrice: 50.00, total: 50.00 }
+    ],
+    subtotal: 361.00,
+    discountType: 'percentage',
+    discountValue: 5,
+    discountAmount: 18.05,
+    taxRate: 7.0,
+    taxAmount: 24.01,
+    shippingFee: 25.00,
+    total: 391.96,
+    customerNotes: 'This is our monthly team celebration event. We need professional presentation as this will be attended by senior management. Please ensure all items are individually wrapped for hygiene purposes.',
+    internalNotes: 'Recurring monthly client - high value account. Very particular about presentation and timing. Delivery contact is Jennifer Williams at reception. Confirm delivery window 24 hours prior.',
+    termsConditions: 'Payment terms: Net 30 payment terms. Purchase order number required for all orders. Cancellations within 72 hours are subject to 50% fee. Monthly recurring orders receive 5% discount.',
+    status: 'sent',
+    eventType: 'Corporate Event',
+    details: {
+      companyName: 'TechCorp Solutions',
+      eventType: 'Team Celebration',
+      services: ['Corporate Cupcakes', 'Branded Logo Cookies', 'Coffee & Pastry Station'],
+      recurring: true,
+      frequency: 'Monthly',
+      brandingRequired: true,
+      deliveryAddress: '456 Business Plaza, Suite 200, Springfield, IL 62703',
+      contactPerson: {
+        name: 'Jennifer Williams',
+        title: 'HR Manager',
+        department: 'Human Resources'
+      },
+      approvalProcess: 'Manager approval required for orders over $300',
+      invoicingRequirements: 'Net 30 payment terms, PO number required for all corporate orders'
+    } as CorporateInquiryDetails
+  }
+];
+
+// Legacy export for backward compatibility
+export const mockSampleOrder = mockSampleOrdersDetail[0];
+export const mockSampleQuoteDetail = mockSampleQuotesDetail[0];
