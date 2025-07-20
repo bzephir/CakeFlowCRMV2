@@ -24,8 +24,22 @@ import {
   MessageSquare,
   Calculator,
   Percent,
-  Calendar
+  Calendar,
+  Tag,
+  Utensils,
+  Briefcase,
+  FileCheck,
+  Palette,
+  Cake,
+  Building2,
+  User
 } from 'lucide-react';
+
+import {
+  CelebrationInquiryDetails,
+  WeddingInquiryDetails,
+  CorporateInquiryDetails
+} from '../types';
 
 // Define interfaces for the mock data structure
 interface Customer {
@@ -71,6 +85,8 @@ interface Quote {
   internalNotes?: string;
   termsConditions: string;
   status: 'draft' | 'sent' | 'accepted' | 'rejected' | 'expired';
+  details?: CelebrationInquiryDetails | WeddingInquiryDetails | CorporateInquiryDetails;
+  eventType?: string;
 }
 
 // Sample quote data (in a real app, this would come from your database)
@@ -108,7 +124,25 @@ const sampleQuote: Quote = {
   customerNotes: 'Looking for a romantic, elegant design with blush pink and gold accents. Please ensure all flowers are edible or easily removable.',
   internalNotes: 'Customer is very particular about color matching. Confirm final design sketch by 01/25.',
   termsConditions: 'Payment terms: 50% deposit required to confirm order. Final payment due 14 days before event date. Cancellations within 30 days of event are subject to 50% fee.',
-  status: 'sent'
+  status: 'sent',
+  eventType: 'Wedding',
+  details: {
+    weddingDate: '2025-06-15',
+    venue: 'Grand Ballroom at The Plaza',
+    weddingSize: 'medium',
+    services: ['Wedding Cake', 'Groom\'s Cake', 'Dessert Table'],
+    cakeStyle: 'Three-tier with fresh flowers',
+    flavors: ['Vanilla Bean', 'Chocolate Raspberry', 'Lemon'],
+    dietaryRestrictions: ['Gluten-free option for 10 guests'],
+    deliverySetup: true,
+    tastingRequested: true,
+    budgetRange: '$2,500 - $5,000',
+    weddingPlanner: {
+      name: 'Sarah Mitchell',
+      company: 'Elegant Events Co.',
+      contact: 'sarah@elegantevents.com'
+    }
+  } as WeddingInquiryDetails
 };
 
 const QuoteDetail: React.FC = () => {
@@ -116,6 +150,245 @@ const QuoteDetail: React.FC = () => {
   const navigate = useNavigate();
   const [quote, setQuote] = useState<Quote | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const renderWeddingDetails = (details: WeddingInquiryDetails) => (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Wedding Details Column */}
+      <div>
+        <h4 className="text-sm font-semibold text-gray-900 mb-3">Wedding Details</h4>
+        <div className="space-y-3">
+          <div className="flex items-start">
+            <MapPin className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Venue</p>
+              <p className="text-sm text-gray-600">{details.venue || 'Not specified'}</p>
+            </div>
+          </div>
+
+          <div className="flex items-start">
+            <Users className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Wedding Size</p>
+              <p className="text-sm text-gray-600 capitalize">{details.weddingSize || 'Not specified'}</p>
+            </div>
+          </div>
+
+          <div className="flex items-start">
+            <Truck className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Delivery & Setup</p>
+              <p className="text-sm text-gray-600">{details.deliverySetup ? 'Required' : 'Not required'}</p>
+            </div>
+          </div>
+
+          <div className="flex items-start">
+            <Utensils className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Tasting</p>
+              <p className="text-sm text-gray-600">{details.tastingRequested ? 'Requested' : 'Not requested'}</p>
+            </div>
+          </div>
+
+          {details.weddingPlanner && (
+            <div className="flex items-start">
+              <User className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Wedding Planner</p>
+                <p className="text-sm text-gray-600">{details.weddingPlanner.name}</p>
+                <p className="text-sm text-gray-600">{details.weddingPlanner.company}</p>
+                <p className="text-sm text-gray-600">{details.weddingPlanner.contact}</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Cake Details Column */}
+      <div>
+        <h4 className="text-sm font-semibold text-gray-900 mb-3">Cake Details</h4>
+        <div className="space-y-3">
+          <div className="flex items-start">
+            <Cake className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Cake Style</p>
+              <p className="text-sm text-gray-600">{details.cakeStyle || 'Not specified'}</p>
+            </div>
+          </div>
+
+          {details.flavors && details.flavors.length > 0 && (
+            <div className="flex items-start">
+              <Utensils className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Flavors</p>
+                <ul className="text-sm text-gray-600 list-disc list-inside">
+                  {details.flavors.map((flavor: string, index: number) => (
+                    <li key={index}>{flavor}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
+
+          {details.dietaryRestrictions && details.dietaryRestrictions.length > 0 && (
+            <div className="flex items-start">
+              <AlertCircle className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Dietary Restrictions</p>
+                <ul className="text-sm text-gray-600 list-disc list-inside">
+                  {details.dietaryRestrictions.map((restriction: string, index: number) => (
+                    <li key={index}>{restriction}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderCelebrationDetails = (details: CelebrationInquiryDetails) => (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Event Details Column */}
+      <div>
+        <h4 className="text-sm font-semibold text-gray-900 mb-3">Event Details</h4>
+        <div className="space-y-3">
+          <div className="flex items-start">
+            <Tag className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Occasion</p>
+              <p className="text-sm text-gray-600">{details.occasion || 'Not specified'}</p>
+            </div>
+          </div>
+
+          {details.theme && (
+            <div className="flex items-start">
+              <Palette className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Theme</p>
+                <p className="text-sm text-gray-600">{details.theme}</p>
+              </div>
+            </div>
+          )}
+
+          {details.colors && (
+            <div className="flex items-start">
+              <Palette className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Colors</p>
+                <p className="text-sm text-gray-600">{details.colors}</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Cake Details Column */}
+      <div>
+        <h4 className="text-sm font-semibold text-gray-900 mb-3">Cake Details</h4>
+        <div className="space-y-3">
+          <div className="flex items-start">
+            <Utensils className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Cake Tasting</p>
+              <p className="text-sm text-gray-600">{details.cakeTasting ? 'Requested' : 'Not requested'}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderCorporateDetails = (details: CorporateInquiryDetails) => (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Company & Event Details Column */}
+      <div>
+        <h4 className="text-sm font-semibold text-gray-900 mb-3">Company & Event Details</h4>
+        <div className="space-y-3">
+          <div className="flex items-start">
+            <Building2 className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Company</p>
+              <p className="text-sm text-gray-600">{details.companyName || 'Not specified'}</p>
+            </div>
+          </div>
+
+          <div className="flex items-start">
+            <Tag className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Event Type</p>
+              <p className="text-sm text-gray-600">{details.eventType || 'Not specified'}</p>
+            </div>
+          </div>
+
+          <div className="flex items-start">
+            <Calendar className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Recurring</p>
+              <p className="text-sm text-gray-600">
+                {details.recurring ? `Yes (${details.frequency})` : 'No'}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-start">
+            <FileCheck className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Branding Required</p>
+              <p className="text-sm text-gray-600">{details.brandingRequired ? 'Yes' : 'No'}</p>
+            </div>
+          </div>
+
+          {details.deliveryAddress && (
+            <div className="flex items-start">
+              <MapPin className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Delivery Address</p>
+                <p className="text-sm text-gray-600">{details.deliveryAddress}</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Contact & Process Column */}
+      <div>
+        <h4 className="text-sm font-semibold text-gray-900 mb-3">Contact & Process</h4>
+        <div className="space-y-3">
+          {details.contactPerson && (
+            <div className="flex items-start">
+              <User className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Contact Person</p>
+                <p className="text-sm text-gray-600">{details.contactPerson.name}</p>
+                <p className="text-sm text-gray-600">{details.contactPerson.title}, {details.contactPerson.department}</p>
+              </div>
+            </div>
+          )}
+
+          {details.approvalProcess && (
+            <div className="flex items-start">
+              <Briefcase className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Approval Process</p>
+                <p className="text-sm text-gray-600">{details.approvalProcess}</p>
+              </div>
+            </div>
+          )}
+
+          {details.invoicingRequirements && (
+            <div className="flex items-start">
+              <FileText className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Invoicing Requirements</p>
+                <p className="text-sm text-gray-600">{details.invoicingRequirements}</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 
   useEffect(() => {
     // In a real application, you would fetch the quote data from an API
