@@ -662,7 +662,7 @@ const InquiryDetail: React.FC = () => {
                 {/* Type-specific details */}
                 <div className="border-t border-gray-200 pt-4">
                   <h4 className="text-sm font-medium text-gray-900 mb-3 capitalize">
-                    {inquiry.event} Details
+                    {inquiry.eventType} Details
                   </h4>
                   {renderTypeSpecificDetails()}
                 </div>
