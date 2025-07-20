@@ -285,7 +285,7 @@ const Inquiries: React.FC = () => {
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900 capitalize" > {formatDate(inquiry.eventDate)}</div>
                     </td>
-                    <td>
+                    <td className="px-2 py-1 whitespace-nowrap">
                       {inquiry.eventTime && <div className="text-sm text-gray-900">{formatTime(inquiry.eventTime)}</div>}
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
