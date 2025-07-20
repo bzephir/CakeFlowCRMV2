@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import { mockCustomersList, mockProductsList } from '../data/mockData';
-import { mockCustomersList, mockProductsList } from '../data/mockData';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { 
   ArrowLeft,
