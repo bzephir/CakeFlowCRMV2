@@ -417,8 +417,7 @@ const OrderDetail: React.FC = () => {
                           {order.status.charAt(0).toUpperCase() + order.status.slice(1).replace('-', ' ')}
                         </span>
                         {order.poNumber && (
-                          <span className="text-sm text-gray-500">PO: {order.poNumber}</span>
-                        )}
+      {/*} <span className="text-sm text-gray-500">PO: {order.poNumber}</span>*/}                        )} 
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
                         <div className="flex items-center text-gray-600">
