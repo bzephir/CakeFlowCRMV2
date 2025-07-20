@@ -447,7 +447,7 @@ const Invoice: React.FC = () => {
                 )}
               </div>
               <div>
-                <h2 className="text-lg font-medium text-gray-900 mb-3">Event Details</h2>
+                <h2 className="text-lg font-medium text-gray-900 mb-3"> Details</h2>
                 {isNewInvoice ? (
                   <div className="space-y-2">
                     <div>
