@@ -337,7 +337,7 @@ const OrderDetail: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                  
+             <div>   
                   {order.details && (
                     <div className="border-t border-gray-200 pt-4 mt-4">
                       <h4 className="text-sm font-medium text-gray-900 mb-3 capitalize">
@@ -351,7 +351,7 @@ const OrderDetail: React.FC = () => {
                       {order.eventType === 'Graduation' && renderCelebrationDetails(order.details as CelebrationInquiryDetails)}
                     </div>
                   )}
-
+</div>  
                   <div className="flex space-x-2">
                     <button
                       onClick={handleEditOrder}
