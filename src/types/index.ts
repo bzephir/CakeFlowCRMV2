@@ -207,7 +207,7 @@ export interface WeddingInquiryDetails {
 
 export interface CorporateInquiryDetails {
   companyName: string;
-  eventType: string;
+  occasion: string;
   services: string[];
   recurring: boolean;
   frequency?: string;
