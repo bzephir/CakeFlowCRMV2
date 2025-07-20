@@ -484,11 +484,6 @@ const OrderDetail: React.FC = () => {
                         Event Type: {order.eventType}
                       </div>
 
- <div className="flex items-center text-sm text-gray-600">
-                        <Calendar className="h-4 w-4 mr-2 text-gray-400" />
-                        Event Date: {formatDate(quote.issueDate)} {/* Using issueDate as placeholder for eventDate */}
-                      </div>   
-                      
                       {order.eventTime && (
                         <div className="flex items-center text-sm text-gray-600">
                           <Clock className="h-4 w-4 mr-2 text-gray-400" />
