@@ -447,7 +447,7 @@ const Invoice: React.FC = () => {
                 )}
               </div>
               <div>
-                <h2 className="text-lg font-medium text-gray-900 mb-3"> Details</h2>
+                <h2 className="text-lg font-medium text-gray-900 mb-3"> Event Details</h2>
                 {isNewInvoice ? (
                   <div className="space-y-2">
                     <div>
@@ -459,8 +459,8 @@ const Invoice: React.FC = () => {
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
                       />
                     </div>
-                                       <div>
-                      <label className="block text-sm font-medium text-gray-700">Event Time (if applicable)</label>
+                  <div>
+                      <label className="block text-sm font-medium text-gray-900">Event Time (if applicable)</label>
                       <input 
                         type="time" 
                         value={invoice.event.eventTime} 
