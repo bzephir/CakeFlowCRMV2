@@ -508,6 +508,12 @@ const QuoteDetail: React.FC = () => {
                         <Calendar className="h-4 w-4 mr-2 text-gray-400" />
                         Event Date: {formatDate(quote.issueDate)} {/* Using issueDate as placeholder for eventDate */}
                       </div>
+                      {quote.eventTime && (
+                        <div className="flex items-center text-sm text-gray-600">
+                          <Clock className="h-4 w-4 mr-2 text-gray-400" />
+                          Event Time: {formatTime(quote.eventTime)}
+                        </div>
+                      )}
                       <div className="flex items-center text-sm text-gray-600">
                         {quote.fulfillmentType === 'pickup' ? (
                           <Package className="h-4 w-4 mr-2 text-gray-400" />
@@ -516,12 +522,7 @@ const QuoteDetail: React.FC = () => {
                         )}
                         Fulfillment: {quote.fulfillmentType === 'pickup' ? `Pickup at ${formatTime(quote.pickupTime || '')}` : `Delivery at ${formatTime(quote.deliveryTime || '')}`}
                       </div>
-                      {quote.eventTime && (
-                        <div className="flex items-center text-sm text-gray-600">
-                          <Clock className="h-4 w-4 mr-2 text-gray-400" />
-                          Event Time: {formatTime(quote.eventTime)}
-                        </div>
-                      )}
+                      
                     </div>
                   </div>
                 </div>
