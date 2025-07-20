@@ -141,7 +141,7 @@ export const mockInquiries: Inquiry[] = [
   },
   {
     id: 'INQ-2025-002',
-    EventType: 'celebration',
+    eventType: 'celebration',
     status: 'opened',
     firstName: 'Michael',
     lastName: 'Chen',
@@ -1398,6 +1398,7 @@ export const mockSampleQuotesDetail: MockQuoteDetail[] = [
       state: 'IL',
       zip: '62702'
     },
+    eventType: 'celebration',
     issueDate: '2025-01-10',
     expiryDate: '2025-02-10',
     fulfillmentType: 'pickup',
