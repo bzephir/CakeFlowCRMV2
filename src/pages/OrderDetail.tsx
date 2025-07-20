@@ -407,7 +407,7 @@ const OrderDetail: React.FC = () => {
                 </div>
               </div>
             </div>
-  {/* Order Header */}  <div>   
+  {/* Order Details */}  <div className="bg-white shadow-sm rounded-lg border border-gray-200">   
                   {order.details && (
                     <div className="border-t border-gray-200 pt-4 mt-4">
                       <h4 className="text-sm font-medium text-gray-900 mb-3 capitalize">
