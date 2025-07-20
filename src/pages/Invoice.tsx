@@ -533,7 +533,14 @@ const Invoice: React.FC = () => {
                         </p>
                       </div>
                     </div>
-                    
+                      {invoice.event.eventTime && (
+                      <div className="flex items-start mb-1">
+                        <Clock className="h-4 w-4 mr-2 mt-0.5 text-gray-400" />
+                        <div>
+                          <p className="text-gray-900">Event at {formatTime(invoice.event.eventTime)}</p>
+                        </div>
+                      </div>
+                    )}
                     <div className="flex items-start mb-1">
                       {invoice.event.fulfillmentType === 'pickup' ? (
                         <>
@@ -551,15 +558,6 @@ const Invoice: React.FC = () => {
                         </>
                       )}
                     </div>
-                    
-                    {invoice.event.eventTime && (
-                      <div className="flex items-start mb-1">
-                        <Clock className="h-4 w-4 mr-2 mt-0.5 text-gray-400" />
-                        <div>
-                          <p className="text-gray-900">Event at {formatTime(invoice.event.eventTime)}</p>
-                        </div>
-                      </div>
-                    )}
                     
                     <div className="flex items-start mb-1">
                       <Users className="h-4 w-4 mr-2 mt-0.5 text-gray-400" />
