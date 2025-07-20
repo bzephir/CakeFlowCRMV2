@@ -483,6 +483,12 @@ const OrderDetail: React.FC = () => {
                         <Calendar className="h-4 w-4 mr-2 text-gray-400" />
                         Event Type: {order.eventType}
                       </div>
+                      {order.eventTime && (
+                        <div className="flex items-center text-sm text-gray-600">
+                          <Clock className="h-4 w-4 mr-2 text-gray-400" />
+                          Event Time: {formatTime(order.eventTime)}
+                        </div>
+                      )}
                       <div className="flex items-center text-sm text-gray-600">
                         {order.fulfillmentType === 'pickup' ? (
                           <Package className="h-4 w-4 mr-2 text-gray-400" />
@@ -491,12 +497,7 @@ const OrderDetail: React.FC = () => {
                         )}
                         Fulfillment: {order.fulfillmentType === 'pickup' ? `Pickup at ${formatTime(order.pickupTime || '')}` : `Delivery at ${formatTime(order.deliveryTime || '')}`}
                       </div>
-                      {order.eventTime && (
-                        <div className="flex items-center text-sm text-gray-600">
-                          <Clock className="h-4 w-4 mr-2 text-gray-400" />
-                          Event Time: {formatTime(order.eventTime)}
-                        </div>
-                      )}
+                      
                     </div>
                   </div>
                 </div>
