@@ -407,7 +407,21 @@ const OrderDetail: React.FC = () => {
                 </div>
               </div>
             </div>
-
+  {/* Order Header */}  <div>   
+                  {order.details && (
+                    <div className="border-t border-gray-200 pt-4 mt-4">
+                      <h4 className="text-sm font-medium text-gray-900 mb-3 capitalize">
+                        {order.eventType} Details
+                      </h4>
+                      {order.eventType === 'Wedding' && renderWeddingDetails(order.details as WeddingInquiryDetails)}
+                      {order.eventType === 'Birthday' && renderCelebrationDetails(order.details as CelebrationInquiryDetails)}
+                      {order.eventType === 'Corporate Event' && renderCorporateDetails(order.details as CorporateInquiryDetails)}
+                      {order.eventType === 'Anniversary' && renderCelebrationDetails(order.details as CelebrationInquiryDetails)}
+                      {order.eventType === 'Baby Shower' && renderCelebrationDetails(order.details as CelebrationInquiryDetails)}
+                      {order.eventType === 'Graduation' && renderCelebrationDetails(order.details as CelebrationInquiryDetails)}
+                    </div>
+                  )}
+</div>  
             {/* Line Items */}
             <div className="bg-white shadow-sm rounded-lg border border-gray-200">
               <div className="p-6">
