@@ -479,7 +479,7 @@ const OrderDetail: React.FC = () => {
                     <div className="space-y-2">
                       <div className="flex items-center text-sm text-gray-600">
                         <Calendar className="h-4 w-4 mr-2 text-gray-400" />
-                        Event Type: <div className="flex items-center text-sm text-gray-600 capitalize">{order.eventType)</div>
+                        Event Type: <div className="flex items-center text-sm text-gray-600 capitalize">{order.eventType}</div>
                       </div>
 
  <div className="flex items-center text-sm text-gray-600">
