@@ -108,7 +108,7 @@ export const mockInquiries: Inquiry[] = [
     hearAboutUs: 'Instagram',
     additionalNotes: 'Looking for a romantic, elegant design with blush pink and gold accents.',
     details: {
-      occasion: 'wedding',
+      occasion: 'wedding reception',
       weddingDate: '2025-08-15',
       venue: 'Grand Ballroom at The Plaza',
       weddingSize: 'medium',
@@ -405,7 +405,7 @@ export const mockInquiries: Inquiry[] = [
     hearAboutUs: 'Wedding Planner',
     additionalNotes: 'Outdoor garden wedding. Need weather-resistant setup.',
     details: {
-      occasion: 'wedding',
+      occasion: 'wedding reception',
       weddingDate: '2025-06-28',
       venue: 'Rosewood Garden Estate',
       weddingSize: 'large',
