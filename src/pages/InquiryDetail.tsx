@@ -238,6 +238,13 @@ const InquiryDetail: React.FC = () => {
   const renderWeddingDetails = (details: any) => (
     <div className="space-y-3">
       <div className="flex items-start">
+        <Tag className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+        <div>
+          <p className="text-sm font-medium text-gray-900">Occasion</p>
+          <p className="text-sm text-gray-600">{details.occasion || 'Not specified'}</p>
+        </div>
+      </div>
+      <div className="flex items-start">
         <MapPin className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
         <div>
           <p className="text-sm font-medium text-gray-900">Venue</p>
