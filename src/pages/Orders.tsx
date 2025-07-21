@@ -1,23 +1,24 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useOrderContext } from '../context/OrderContext';
 import Header from '../components/Header';
-import { generateDocumentNumber } from '../utils/documentNumbering';
+import { mockOrdersList } from '../data/mockData';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
+import { generateDocumentNumber } from '../utils/documentNumbering';
 import { 
   Plus, 
   Search, 
   Filter, 
   Eye, 
   Edit, 
-  CheckCircle2, 
-  Clock, 
-  AlertCircle,
-  Calendar,
-  DollarSign,
-  Trash2,
   Mail,
+  Trash2,
+  Calendar,
   Copy,
+  FileText,
+  Clock, 
+  CheckCircle2, 
+  XCircle,
+  AlertCircle,
   ArrowRightCircle,
   Package,
   Truck
@@ -25,14 +26,14 @@ import {
 
 const Orders: React.FC = () => {
   const navigate = useNavigate();
-  const { orders, markAsOpened } = useOrderContext();
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  // Mock orders with new numbering format
+  // Use centralized mock data
+  const orders = mockOrdersList;
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -41,6 +42,7 @@ const Orders: React.FC = () => {
       case 'confirmed': return 'bg-coral-100 text-coral-800';
       case 'quoted': return 'bg-pink-100 text-pink-800';
       case 'inquiry': return 'bg-gray-100 text-gray-800';
+      case 'cancelled': return 'bg-red-100 text-red-800';
       default: return 'bg-gray-100 text-gray-800';
     }
   };
@@ -52,44 +54,38 @@ const Orders: React.FC = () => {
       case 'confirmed': return <CheckCircle2 className="h-4 w-4 mr-1" />;
       case 'quoted': return <AlertCircle className="h-4 w-4 mr-1" />;
       case 'inquiry': return <AlertCircle className="h-4 w-4 mr-1" />;
+      case 'cancelled': return <XCircle className="h-4 w-4 mr-1" />;
       default: return <AlertCircle className="h-4 w-4 mr-1" />;
     }
   };
+
   const handleViewOrder = (orderId: string) => {
-    // Navigate to order details page
-    markAsOpened(orderId);
     navigate(`/orders/${orderId}`);
   };
 
   const handleCreateOrder = () => {
-    // Generate new order number and navigate to create order page
     const newOrderNumber = generateDocumentNumber('order');
     console.log('Creating new order with number:', newOrderNumber);
     navigate('/orders/new', { state: { orderNumber: newOrderNumber } });
   };
 
   const handleEditOrder = (orderId: string) => {
-    // Navigate to order edit page
-    console.log('Edit order:', orderId);
-    // navigate(`/orders/${orderId}/edit`);
+    navigate(`/orders/${orderId}/edit`);
   };
 
   const handleSendInvoice = (orderId: string) => {
-    // Send invoice email
-    console.log('Send invoice for order:', orderId);
-    alert(`Create and send invoice for order ${orderId}`);
+    const newInvoiceNumber = generateDocumentNumber('invoice');
+    console.log('Creating invoice for order:', orderId);
+    navigate('/invoice/new', { state: { convertedFromOrder: orderId, invoiceNumber: newInvoiceNumber } });
   };
 
   const handleDuplicateOrder = (orderId: string) => {
-    // Duplicate order with new order number
     const newOrderNumber = generateDocumentNumber('order');
     console.log('Duplicating order with new number:', newOrderNumber);
     alert(`Duplicate order ${orderId} as ${newOrderNumber}`);
   };
 
   const handleDeleteOrder = (orderId: string) => {
-    // Delete order
-    console.log('Delete order:', orderId);
     alert(`Delete order ${orderId}`);
   };
 
@@ -100,7 +96,7 @@ const Orders: React.FC = () => {
     }
 
     if (action === 'send') {
-      alert(`Send invoices for ${selectedOrders.length} orders`);
+      alert(`Send ${selectedOrders.length} orders to customers`);
     } else if (action === 'delete') {
       alert(`Delete ${selectedOrders.length} orders`);
     }
@@ -124,9 +120,7 @@ const Orders: React.FC = () => {
 
   // Filter orders based on search term and status filter
   const filteredOrders = orders.filter(order => {
-    const fullName = `${order.firstName} ${order.lastName}`.toLowerCase();
-    const matchesSearch = fullName.includes(searchTerm.toLowerCase()) ||
-                         order.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    const matchesSearch = order.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          order.id.includes(searchTerm);
     const matchesStatus = statusFilter === 'all' || order.status === statusFilter;
     return matchesSearch && matchesStatus;
@@ -135,11 +129,7 @@ const Orders: React.FC = () => {
   // Pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  // Sort orders by submission date (newest first)
-  const sortedOrders = [...filteredOrders].sort((a, b) => 
-    new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime()
-  );
-  const currentOrders = sortedOrders.slice(indexOfFirstItem, indexOfLastItem);
+  const currentOrders = filteredOrders.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
@@ -180,6 +170,7 @@ const Orders: React.FC = () => {
                 <option value="confirmed">Confirmed</option>
                 <option value="in-production">In Production</option>
                 <option value="completed">Completed</option>
+                <option value="cancelled">Cancelled</option>
               </select>
             </div>
           </div>
@@ -189,7 +180,7 @@ const Orders: React.FC = () => {
             className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all"
           >
             <Plus className="h-4 w-4 mr-2" />
-            New Order
+            Create Order
           </button>
         </div>
 
@@ -204,7 +195,7 @@ const Orders: React.FC = () => {
               className="inline-flex items-center px-3 py-1 border border-gray-300 text-xs font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-colors"
             >
               <Mail className="h-3 w-3 mr-1" />
-              Send Invoice
+              Send
             </button>
             <button 
               onClick={() => handleBulkAction('delete')}
@@ -242,16 +233,16 @@ const Orders: React.FC = () => {
                     Event Type
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Occasion
-                  </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Event Date
                   </th>
-                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Fulfillment
                   </th>
                   <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Amount
+                    Total
+                  </th>
+                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Balance
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
@@ -280,42 +271,32 @@ const Orders: React.FC = () => {
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
-                        {order.firstName} {order.lastName}
-                      </div>
+                      <div className="text-sm font-medium text-gray-900">{order.customerName}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900 capitalize">{order.eventType}</div>
+                      <div className="text-sm text-gray-900">{order.eventType}</div>
                     </td>
-                    
-                   <td className="px-2 py-1 whitespace-nowrap">
-  <div className="text-sm text-gray-900 capitalize">
-    {order.eventType === 'celebration' && (order.details as CelebrationInquiryDetails).occasion}
-    {order.eventType === 'corporate' && (order.details as CorporateInquiryDetails).occasion}
-    {order.eventType === 'wedding' && 'Wedding'}
-  </div>
-</td>
-         <td className="px-2 py-1 whitespace-nowrap">
+                    <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{formatDate(order.eventDate)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-900">
                         {order.fulfillmentType === 'pickup' 
-                          ? `Pickup: ${order.pickupTime ? formatTime(order.pickupTime) : 'TBD'}`
-                          : `Delivery: ${order.deliveryTime ? formatTime(order.deliveryTime) : 'TBD'}`
+                          ? <span className="flex items-center"><Package className="h-3 w-3 mr-1" /> Pickup: {order.pickupTime ? formatTime(order.pickupTime) : 'TBD'}</span>
+                          : <span className="flex items-center"><Truck className="h-3 w-3 mr-1" /> Delivery: {order.deliveryTime ? formatTime(order.deliveryTime) : 'TBD'}</span>
                         }
-                      
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right">
-                      <div className="text-sm font-medium text-gray-900">
-                        {formatCurrency(order.total)}
-                      </div>
+                      <div className="text-sm font-medium text-gray-900">{formatCurrency(order.total)}</div>
+                    </td>
+                    <td className="px-2 py-1 whitespace-nowrap text-right">
+                      <div className="text-sm font-medium text-gray-900">{formatCurrency(order.balance || 0)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(order.status)}`}>
                         {getStatusIcon(order.status)}
-                        <span className="capitalize">{order.status.replace('-', ' ')}</span>
+                        {order.status.charAt(0).toUpperCase() + order.status.slice(1).replace('-', ' ')}
                       </span>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right text-sm font-medium">
@@ -337,7 +318,7 @@ const Orders: React.FC = () => {
                         <button 
                           onClick={() => handleSendInvoice(order.id)}
                           className="text-mint-600 hover:text-mint-900 transition-colors"
-                          title="Create Invoice"
+                          title="Send Invoice"
                         >
                           <ArrowRightCircle className="h-4 w-4" />
                         </button>
