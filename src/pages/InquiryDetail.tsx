@@ -616,7 +616,7 @@ console.log("Delivery Time from inquiryData:", inquiryData?.deliveryTime);
                         <p className="text-sm text-gray-600">{inquiry.eventTime ? formatTime(inquiry.eventTime) : 'Not applicable'} 
 </p>
 {console.log("Event Time rendering check:", inquiry.eventTime, inquiry.eventTime ? formatTime(inquiry.eventTime) : 'Not applicable')}
-</p>
+
                       </div>
                     </div>
                     
