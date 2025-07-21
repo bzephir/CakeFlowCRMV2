@@ -258,7 +258,6 @@ const Inquiries: React.FC = () => {
                         <div className="ml-4">
                           <div className="text-sm font-medium text-gray-900">{inquiry.id}</div>
                           <div className="text-xs text-gray-500 flex items-center">
-                          
                           </div>
                         </div>
                       </div>
