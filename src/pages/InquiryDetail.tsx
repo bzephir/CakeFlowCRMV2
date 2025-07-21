@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useInquiryContext } from '../context/InquiryContext';
 import Header from '../components/Header';
+import { formatTime } from '../utils/formatters';
 import { 
   ArrowLeft,
   ArrowRight,
@@ -45,10 +46,6 @@ const InquiryDetail: React.FC = () => {
   const [newNote, setNewNote] = useState('');
   const [showAddNote, setShowAddNote] = useState(false);
 
-  useEffect(() => {
-    if (id) {
-      const inquiryData = getInquiryById(id);
-      setInquiry(inquiryData);
       setLoading(false);
     }
   }, [id, getInquiryById]);
@@ -59,14 +56,6 @@ const InquiryDetail: React.FC = () => {
       year: 'numeric', 
       month: 'long', 
       day: 'numeric' 
-    });
-  };
-
-  const formatTime = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleTimeString('en-US', { 
-      hour: '2-digit', 
-      minute: '2-digit'
     });
   };
 
