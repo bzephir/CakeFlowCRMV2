@@ -1449,7 +1449,8 @@ export const mockSampleQuotesDetail: MockQuoteDetail[] = [
       state: 'IL',
       zip: '62703'
     },
-    occasion:'issueDate: '2025-01-05',
+    occasion:'Team Celebration',
+    eventDate: '2025-01-07',
     expiryDate: '2025-02-05',
     fulfillmentType: 'delivery',
     deliveryTime: '16:00',
