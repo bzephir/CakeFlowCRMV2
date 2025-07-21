@@ -49,6 +49,11 @@ const InquiryDetail: React.FC = () => {
     if (id) {
       const inquiryData = getInquiryById(id);
       setInquiry(inquiryData);
+      console.log("Inquiry object loaded:", inquiryData);
+console.log("Event Time from inquiryData:", inquiryData?.eventTime);
+console.log("Pickup Time from inquiryData:", inquiryData?.pickupTime);
+console.log("Delivery Time from inquiryData:", inquiryData?.deliveryTime);
+
       setLoading(false);
     }
   }, [id, getInquiryById]);
