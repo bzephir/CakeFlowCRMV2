@@ -264,8 +264,7 @@ const Inquiries: React.FC = () => {
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="flex items-center">
-                     
+                  
                         <div className="ml-4">
                           <div className="text-sm font-medium text-gray-900">
                             {inquiry.firstName} {inquiry.lastName}
@@ -274,7 +273,7 @@ const Inquiries: React.FC = () => {
                             <span className="flex items-center">
                             </span>
                           </div>
-                        </div>
+                        
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
