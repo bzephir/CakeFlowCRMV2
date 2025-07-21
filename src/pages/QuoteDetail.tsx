@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import { MockQuoteDetail, mockSampleQuotesDetail } from '../data/mockData';
+import { mockSampleQuoteDetail, mockSampleQuotesDetail } from '../data/mockData';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { 
@@ -21,9 +21,9 @@ import {
   Truck,
   MapPin,
   Users,
-  User,
   MessageSquare,
   Calculator,
+  Percent,
   Calendar,
   Tag,
   Utensils,
@@ -31,56 +31,21 @@ import {
   FileCheck,
   Palette,
   Cake,
-  Building2
+  Building2,
+  User
 } from 'lucide-react';
+
 import {
   CelebrationInquiryDetails,
   WeddingInquiryDetails,
   CorporateInquiryDetails
 } from '../types';
 
-const OrderDetail: React.FC = () => {
+const QuoteDetail: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [order, setOrder] = useState<any | null>(null);
+  const [quote, setQuote] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // In a real application, you would fetch the order data from an API
-    // using the 'id' from useParams. For now, we use mock data.
-    const foundOrder = mockSampleOrdersDetail.find(order => order.id === id);
-    if (foundOrder) {
-      setOrder(foundOrder);
-    } else {
-      // Simulate a "not found" scenario for other IDs
-      setOrder(null);
-    }
-    setLoading(false);
-  }, [id]);
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'completed': return 'bg-mint-100 text-mint-800';
-      case 'in-production': return 'bg-aqua-100 text-aqua-800';
-      case 'confirmed': return 'bg-coral-100 text-coral-800';
-      case 'quoted': return 'bg-pink-100 text-pink-800';
-      case 'inquiry': return 'bg-gray-100 text-gray-800';
-      case 'cancelled': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
-  };
-
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'completed': return <CheckCircle2 className="h-4 w-4 mr-1" />;
-      case 'in-production': return <Clock className="h-4 w-4 mr-1" />;
-      case 'confirmed': return <CheckCircle2 className="h-4 w-4 mr-1" />;
-      case 'quoted': return <AlertCircle className="h-4 w-4 mr-1" />;
-      case 'inquiry': return <AlertCircle className="h-4 w-4 mr-1" />;
-      case 'cancelled': return <Trash2 className="h-4 w-4 mr-1" />;
-      default: return <AlertCircle className="h-4 w-4 mr-1" />;
-    }
-  };
 
   const renderWeddingDetails = (details: WeddingInquiryDetails) => (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -321,61 +286,110 @@ const OrderDetail: React.FC = () => {
     </div>
   );
 
-  const handleEditOrder = () => {
-    if (order) {
-      console.log('Edit order:', order.id);
-      // navigate(`/orders/${order.id}/edit`); // Placeholder for edit page
-      alert(`Editing order ${order.id}`);
+  useEffect(() => {
+    // In a real application, you would fetch the quote data from an API
+    // using the 'id' from useParams. For now, we use mock data.
+    const foundQuote = mockSampleQuotesDetail.find(quote => quote.id === id);
+    if (foundQuote) {
+      setQuote(foundQuote);
+    } else {
+      // Simulate a "not found" scenario for other IDs
+      setQuote(null);
+    }
+    setLoading(false);
+  }, [id]);
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'accepted': return 'bg-mint-100 text-mint-800';
+      case 'sent': return 'bg-aqua-100 text-aqua-800';
+      case 'draft': return 'bg-gray-100 text-gray-800';
+      case 'rejected': return 'bg-pink-100 text-pink-800';
+      case 'expired': return 'bg-gray-100 text-gray-800';
+      default: return 'bg-gray-100 text-gray-800';
     }
   };
 
-  const handleSendInvoice = () => {
-    if (order) {
-      const newInvoiceNumber = generateDocumentNumber('invoice');
-      console.log('Send invoice for order:', order.id);
-      alert(`Creating and sending invoice ${newInvoiceNumber} for order ${order.id}`);
-      // navigate('/invoice/new', { state: { convertedFromOrder: order.id, invoiceNumber: newInvoiceNumber } });
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'accepted': return <CheckCircle2 className="h-4 w-4 mr-1" />;
+      case 'sent': return <Mail className="h-4 w-4 mr-1" />;
+      case 'draft': return <FileText className="h-4 w-4 mr-1" />;
+      case 'rejected': return <AlertCircle className="h-4 w-4 mr-1" />;
+      case 'expired': return <Clock className="h-4 w-4 mr-1" />;
+      default: return <AlertCircle className="h-4 w-4 mr-1" />;
     }
   };
 
-  const handleDuplicateOrder = () => {
-    if (order) {
+  const handleEditQuote = () => {
+    if (quote) {
+      console.log('Edit quote:', quote.id);
+      // navigate(`/quotes/${quote.id}/edit`); // Placeholder for edit page
+      alert(`Editing quote ${quote.id}`);
+    }
+  };
+
+  const handleSendQuote = () => {
+    if (quote) {
+      console.log('Send quote:', quote.id);
+      alert(`Sending quote ${quote.id} to ${quote.customer.email}`);
+    }
+  };
+
+  const handleDownloadPDF = () => {
+    if (quote) {
+      console.log('Download PDF for quote:', quote.id);
+      alert(`Downloading PDF for quote ${quote.id}`);
+    }
+  };
+
+  const handleConvertToOrder = () => {
+    if (quote) {
       const newOrderNumber = generateDocumentNumber('order');
-      console.log('Duplicate order:', order.id);
-      alert(`Duplicating order ${order.id} as ${newOrderNumber}`);
-      // navigate('/orders/new', { state: { duplicateFrom: order.id, orderNumber: newOrderNumber } });
+      console.log('Convert to order:', quote.id);
+      alert(`Converting quote ${quote.id} to order ${newOrderNumber}`);
+      // navigate('/orders/new', { state: { convertedFromQuote: quote.id, orderNumber: newOrderNumber } });
     }
   };
 
-  const handleDeleteOrder = () => {
-    if (order && window.confirm(`Are you sure you want to delete order ${order.id}?`)) {
-      console.log('Delete order:', order.id);
-      alert(`Order ${order.id} deleted.`);
-      navigate('/orders'); // Go back to orders list after deletion
+  const handleDuplicateQuote = () => {
+    if (quote) {
+      const newQuoteNumber = generateDocumentNumber('quote');
+      console.log('Duplicate quote:', quote.id);
+      alert(`Duplicating quote ${quote.id} as ${newQuoteNumber}`);
+      // navigate('/quotes/new', { state: { duplicateFrom: quote.id, quoteNumber: newQuoteNumber } });
+    }
+  };
+
+  const handleDeleteQuote = () => {
+    if (quote && window.confirm(`Are you sure you want to delete quote ${quote.id}?`)) {
+      console.log('Delete quote:', quote.id);
+      alert(`Quote ${quote.id} deleted.`);
+      navigate('/quotes'); // Go back to quotes list after deletion
     }
   };
 
   if (loading) {
     return (
       <div className="flex-1 flex items-center justify-center">
-        <p className="text-gray-500">Loading order details...</p>
+        <p className="text-gray-500">Loading quote details...</p>
       </div>
     );
   }
 
-  if (!order) {
+  if (!quote) {
     return (
       <div className="flex-1 flex items-center justify-center">
         <div className="text-center">
           <AlertCircle className="h-12 w-12 text-coral-500 mx-auto mb-4" />
-          <h2 className="text-2xl font-semibold text-gray-900 mb-2">Order Not Found</h2>
-          <p className="text-gray-600 mb-4">The order you're looking for doesn't exist or has been removed.</p>
+          <h2 className="text-2xl font-semibold text-gray-900 mb-2">Quote Not Found</h2>
+          <p className="text-gray-600 mb-4">The quote you're looking for doesn't exist or has been removed.</p>
           <button
-            onClick={() => navigate('/orders')}
+            onClick={() => navigate('/quotes')}
             className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 transition-all"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Orders
+            Back to Quotes
           </button>
         </div>
       </div>
@@ -384,67 +398,76 @@ const OrderDetail: React.FC = () => {
 
   return (
     <div className="flex-1 overflow-hidden">
-      <Header title={`Order ${order.id}`} />
+      <Header title={`Quote ${quote.id}`} />
       
       <div className="p-6">
         {/* Back Button */}
         <button
-          onClick={() => navigate('/orders')}
+          onClick={() => navigate('/quotes')}
           className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 mb-6 transition-colors"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
-          Back to Orders
+          Back to Quotes
         </button>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Order Header */}
+            {/* Quote Header */}
             <div className="bg-white shadow-sm rounded-lg border border-gray-200">
               <div className="p-6">
                 <div className="flex items-start justify-between">
                   <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center">
+                    <div className="w-12 h-12 bg-gradient-to-r from-aqua-400 to-aqua-500 rounded-full flex items-center justify-center">
                       <FileText className="h-6 w-6 text-white" />
                     </div>
                     <div>
                       <h2 className="text-xl font-semibold text-gray-900 mb-1">
-                        Order #{order.id}
+                        Quote #{quote.id}
                       </h2>
                       <div className="flex items-center space-x-3 mb-2">
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(order.status)}`}>
-                          {getStatusIcon(order.status)}
-                          {order.status.charAt(0).toUpperCase() + order.status.slice(1).replace('-', ' ')}
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(quote.status)}`}>
+                          {getStatusIcon(quote.status)}
+                          {quote.status.charAt(0).toUpperCase() + quote.status.slice(1)}
                         </span>
-{/*{order.poNumber && (
-      } <span className="text-sm text-gray-500">PO: {order.poNumber}</span>                        )} */}                      </div>
+                        {quote.poNumber && (
+                          <span className="text-sm text-gray-500">PO: {quote.poNumber}</span>
+                        )}
+                      </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
                         <div className="flex items-center text-gray-600">
                           <Calendar className="h-4 w-4 mr-2 text-gray-400" />
-                          Created: {formatDate(order.issueDate)}
+                          Issued: {formatDate(quote.issueDate)}
                         </div>
-                        {/*  <div className="flex items-center text-gray-600">
+                        <div className="flex items-center text-gray-600">
                           <Clock className="h-4 w-4 mr-2 text-gray-400" />
-                          Event Date: {formatDate(order.eventDate)}
-                        </div>*/}
+                          Expires: {formatDate(quote.expiryDate)}
+                        </div>
                       </div>
                     </div>
                   </div>
-         
+                  
                   <div className="flex space-x-2">
                     <button
-                      onClick={handleEditOrder}
+                      onClick={handleEditQuote}
                       className="inline-flex items-center px-3 py-1 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 transition-colors"
                     >
                       <Edit className="h-4 w-4 mr-1" />
                       Edit
                     </button>
                     <button
-                      onClick={handleSendInvoice}
+                      onClick={handleSendQuote}
                       className="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-aqua-400 to-aqua-500 hover:from-aqua-500 hover:to-aqua-600 transition-all"
                     >
                       <Send className="h-4 w-4 mr-1" />
-                      Send Invoice
+                      Send
+                    </button>
+                    <button
+                      onClick={handleConvertToOrder}
+                      className="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 transition-all"
+                    >
+                      <DollarSign className="h-4 w-4 mr-1" />
+                      Convert to Order
                     </button>
                   </div>
                 </div>
@@ -462,12 +485,12 @@ const OrderDetail: React.FC = () => {
                       <Users className="h-4 w-4 mr-2 text-coral-500" />
                       Customer
                     </h4>
-                    <p className="font-medium">{order.customer.name}</p>
-                    <p className="text-sm text-gray-600">{order.customer.email}</p>
-                    <p className="text-sm text-gray-600">{order.customer.phone}</p>
+                    <p className="font-medium">{quote.customer.name}</p>
+                    <p className="text-sm text-gray-600">{quote.customer.email}</p>
+                    <p className="text-sm text-gray-600">{quote.customer.phone}</p>
                     <p className="text-sm text-gray-600 mt-2">
-                      {order.customer.address}<br/>
-                      {order.customer.city}, {order.customer.state} {order.customer.zip}
+                      {quote.customer.address}<br/>
+                      {quote.customer.city}, {quote.customer.state} {quote.customer.zip}
                     </p>
                   </div>
                   {/* Event Info */}
@@ -477,28 +500,27 @@ const OrderDetail: React.FC = () => {
                       Event Details
                     </h4>
                     <div className="space-y-2">
+                       <div className="flex items-center text-sm text-gray-600">
+                        <Calendar className="h-4 w-4 mr-2 text-gray-400" />
+                        Event Type: {quote.eventType}
+                      </div>
                       <div className="flex items-center text-sm text-gray-600">
                         <Calendar className="h-4 w-4 mr-2 text-gray-400" />
-                        Event Type: {order.eventType}
+                        Event Date: {formatDate(quote.issueDate)} {/* Using issueDate as placeholder for eventDate */}
                       </div>
-
- <div className="flex items-center text-sm text-gray-600">
-                        <Calendar className="h-4 w-4 mr-2 text-gray-400" />
-                        Event Date: {formatDate(order.eventDate)} {/* Using issueDate as placeholder for eventDate */}
-                      </div>   
-                                            {order.eventTime && (
+                      {quote.eventTime && (
                         <div className="flex items-center text-sm text-gray-600">
                           <Clock className="h-4 w-4 mr-2 text-gray-400" />
-                          Event Time: {formatTime(order.eventTime)}
+                          Event Time: {formatTime(quote.eventTime)}
                         </div>
                       )}
                       <div className="flex items-center text-sm text-gray-600">
-                        {order.fulfillmentType === 'pickup' ? (
+                        {quote.fulfillmentType === 'pickup' ? (
                           <Package className="h-4 w-4 mr-2 text-gray-400" />
                         ) : (
                           <Truck className="h-4 w-4 mr-2 text-gray-400" />
                         )}
-                        Fulfillment: {order.fulfillmentType === 'pickup' ? `Pickup at ${formatTime(order.pickupTime || '')}` : `Delivery at ${formatTime(order.deliveryTime || '')}`}
+                        Fulfillment: {quote.fulfillmentType === 'pickup' ? `Pickup at ${formatTime(quote.pickupTime || '')}` : `Delivery at ${formatTime(quote.deliveryTime || '')}`}
                       </div>
                       
                     </div>
@@ -507,30 +529,25 @@ const OrderDetail: React.FC = () => {
               </div>
             </div>
 
-            {/* Order Details */}  
-            {order.details && (
-              <div className="bg-white shadow-sm rounded-lg border border-gray-200">  
-                <div className="p-6">
-                  <h3 className="text-lg font-medium text-gray-900 mb-4">Event Details</h3>
-                  <div>
-                    {order.eventType === 'Wedding' && renderWeddingDetails(order.details as WeddingInquiryDetails)}
-                    {order.eventType === 'Birthday' && renderCelebrationDetails(order.details as CelebrationInquiryDetails)}
-                    {order.eventType === 'Corporate Event' && renderCorporateDetails(order.details as CorporateInquiryDetails)}
 
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {!order.details && (
+            {/* Event Specific Details */}
+            {quote.details && (
               <div className="bg-white shadow-sm rounded-lg border border-gray-200">
                 <div className="p-6">
                   <h3 className="text-lg font-medium text-gray-900 mb-4">Event Details</h3>
-                  <p className="text-sm text-gray-500 italic">No additional event details available.</p>
+                  {quote.eventType === 'Wedding' && renderWeddingDetails(quote.details as WeddingInquiryDetails)}
+                  {quote.eventType === 'Birthday' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
+                  {quote.eventType === 'Corporate Event' && renderCorporateDetails(quote.details as CorporateInquiryDetails)}
+                  {quote.eventType === 'Anniversary' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
+                  {quote.eventType === 'Baby Shower' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
+                  {quote.eventType === 'Graduation' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
+                  {quote.eventType === 'Celebration' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
+                  {quote.eventType === 'Corporate' && renderCorporateDetails(quote.details as CorporateInquiryDetails)}
+                   {quote.eventType === 'Team Building' && renderCorporateDetails(quote.details as CorporateInquiryDetails)}
                 </div>
               </div>
             )}
-  
+
             {/* Line Items */}
             <div className="bg-white shadow-sm rounded-lg border border-gray-200">
               <div className="p-6">
@@ -546,7 +563,7 @@ const OrderDetail: React.FC = () => {
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                      {order.lineItems.map((item) => (
+                      {quote.lineItems.map((item) => (
                         <tr key={item.id}>
                           <td className="px-3 py-4 text-sm font-medium text-gray-900">
                             {item.name}
@@ -571,21 +588,27 @@ const OrderDetail: React.FC = () => {
                   <div className="w-full md:w-1/2 space-y-2">
                     <div className="flex justify-between text-sm text-gray-600">
                       <span>Subtotal:</span>
-                      <span>{formatCurrency(order.subtotal)}</span>
+                      <span>{formatCurrency(quote.subtotal)}</span>
                     </div>
-                    {order.shippingFee > 0 && (
+                    {quote.discountAmount > 0 && (
                       <div className="flex justify-between text-sm text-gray-600">
-                        <span>Shipping:</span>
-                        <span>{formatCurrency(order.shippingFee)}</span>
+                        <span>Discount ({quote.discountType === 'percentage' ? `${quote.discountValue}%` : 'Fixed'}):</span>
+                        <span className="text-red-600">-{formatCurrency(quote.discountAmount)}</span>
                       </div>
                     )}
                     <div className="flex justify-between text-sm text-gray-600">
-                      <span>Tax ({order.taxRate}%):</span>
-                      <span>{formatCurrency(order.taxAmount)}</span>
+                      <span>Tax ({quote.taxRate}%):</span>
+                      <span>{formatCurrency(quote.taxAmount)}</span>
                     </div>
+                    {quote.shippingFee > 0 && (
+                      <div className="flex justify-between text-sm text-gray-600">
+                        <span>Shipping:</span>
+                        <span>{formatCurrency(quote.shippingFee)}</span>
+                      </div>
+                    )}
                     <div className="flex justify-between pt-2 border-t border-gray-200">
                       <span className="text-lg font-semibold text-gray-900">Total:</span>
-                      <span className="text-xl font-bold text-coral-600">{formatCurrency(order.total)}</span>
+                      <span className="text-xl font-bold text-coral-600">{formatCurrency(quote.total)}</span>
                     </div>
                   </div>
                 </div>
@@ -600,21 +623,67 @@ const OrderDetail: React.FC = () => {
                   <div>
                     <h4 className="text-sm font-semibold text-gray-900 mb-2">Customer Notes</h4>
                     <p className="text-sm text-gray-600 whitespace-pre-line">
-                      {order.customerNotes || 'No customer notes.'}
+                      {quote.customerNotes || 'No customer notes.'}
                     </p>
                   </div>
                   <div>
                     <h4 className="text-sm font-semibold text-gray-900 mb-2">Internal Notes</h4>
                     <p className="text-sm text-gray-600 whitespace-pre-line">
-                      {order.internalNotes || 'No internal notes.'}
+                      {quote.internalNotes || 'No internal notes.'}
                     </p>
                   </div>
                   <div className="md:col-span-2">
                     <h4 className="text-sm font-semibold text-gray-900 mb-2">Terms & Conditions</h4>
                     <p className="text-sm text-gray-600 whitespace-pre-line">
-                      Payment terms: 50% deposit required to confirm order. Final payment due 14 days before event date. Cancellations within 30 days of event are subject to 50% fee.
+                      {quote.termsConditions}
                     </p>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Sidebar Actions */}
+          <div className="space-y-6">
+            <div className="bg-white shadow-sm rounded-lg border border-gray-200">
+              <div className="p-6">
+                <h3 className="text-lg font-medium text-gray-900 mb-4">Quote Actions</h3>
+                <div className="space-y-3">
+                  <button
+                    onClick={handleSendQuote}
+                    className="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-aqua-400 to-aqua-500 hover:from-aqua-500 hover:to-aqua-600 transition-all"
+                  >
+                    <Send className="h-4 w-4 mr-2" />
+                    Send Quote
+                  </button>
+                  <button
+                    onClick={handleDownloadPDF}
+                    className="w-full inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+                  >
+                    <Download className="h-4 w-4 mr-2" />
+                    Download PDF
+                  </button>
+                  <button
+                    onClick={handleConvertToOrder}
+                    className="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 transition-all"
+                  >
+                    <DollarSign className="h-4 w-4 mr-2" />
+                    Convert to Order
+                  </button>
+                  <button
+                    onClick={handleDuplicateQuote}
+                    className="w-full inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+                  >
+                    <Copy className="h-4 w-4 mr-2" />
+                    Duplicate Quote
+                  </button>
+                  <button
+                    onClick={handleDeleteQuote}
+                    className="w-full inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+                  >
+                    <Trash2 className="h-4 w-4 mr-2" />
+                    Delete Quote
+                  </button>
                 </div>
               </div>
             </div>
@@ -625,4 +694,4 @@ const OrderDetail: React.FC = () => {
   );
 };
 
-export default OrderDetail;
+export default QuoteDetail;
