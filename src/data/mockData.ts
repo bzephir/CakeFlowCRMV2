@@ -1453,6 +1453,7 @@ export const mockSampleQuotesDetail: MockQuoteDetail[] = [
     expiryDate: '2025-02-05',
     fulfillmentType: 'delivery',
     deliveryTime: '16:00',
+    eventDate: '2025-01-17'
     eventTime: '18:30',
     poNumber: 'PO-CORP-2025-001',
     lineItems: [
