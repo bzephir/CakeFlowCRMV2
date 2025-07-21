@@ -351,6 +351,9 @@ const Quotes: React.FC = () => {
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Date Issued
                   </th>
+                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Event Type
+                  </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Event Date
                   </th>
