@@ -352,19 +352,16 @@ const Quotes: React.FC = () => {
                     Date Issued
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Event Date
+                     Expiry Date
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Expiry Date
+                     Amount
                   </th>
                   <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Amount
+                     Status
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
+                     Actions
                   </th>
                 </tr>
               </thead>
@@ -393,9 +390,6 @@ const Quotes: React.FC = () => {
                       <div className="text-sm text-gray-900">{formatDate(quote.issueDate)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{formatDate(quote.issueDate)}</div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{formatDate(quote.expiryDate)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right">
@@ -407,7 +401,7 @@ const Quotes: React.FC = () => {
                         {quote.status.charAt(0).toUpperCase() + quote.status.slice(1)}
                       </span>
                     </td>
-                    <td className="px-2 py-1 whitespace-nowrap text-right text-sm font-medium">
+                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <div className="flex justify-end space-x-2">
                         <button 
                           onClick={() => handleViewQuote(quote.id)}
