@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import Logo from '../components/Logo';
+import { mockCustomersList, mockProductsList } from '../data/mockData';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { 
   ArrowLeft,
@@ -79,48 +80,19 @@ const CreateQuote: React.FC = () => {
   const location = useLocation();
   const quoteNumber = location.state?.quoteNumber || generateDocumentNumber('quote');
 
-  // Mock customers data
-  const customers: Customer[] = [
-    {
-      id: '1',
-      name: 'Sarah Johnson',
-      email: 'sarah@email.com',
-      phone: '(555) 123-4567',
-      address: '123 Main Street',
-      city: 'Springfield',
-      state: 'IL',
-      zip: '62701'
-    },
-    {
-      id: '2',
-      name: 'Mike Chen',
-      email: 'mike@email.com',
-      phone: '(555) 234-5678',
-      address: '456 Oak Avenue',
-      city: 'Springfield',
-      state: 'IL',
-      zip: '62702'
-    },
-    {
-      id: '3',
-      name: 'Emma Davis',
-      email: 'emma@email.com',
-      phone: '(555) 345-6789',
-      address: '789 Pine Road',
-      city: 'Springfield',
-      state: 'IL',
-      zip: '62703'
-    }
-  ];
+  // Use centralized mock data
+  const customers: Customer[] = mockCustomersList.map(customer => ({
+    id: customer.id,
+    name: customer.name,
+    email: customer.email,
+    phone: customer.phone,
+    address: customer.address,
+    city: customer.city,
+    state: customer.state,
+    zip: customer.zip
+  }));
 
-  // Mock products/services
-  const products = [
-    { id: '1', name: 'Wedding Cake - 3 Tier', price: 450.00 },
-    { id: '2', name: 'Birthday Cake - Custom', price: 85.00 },
-    { id: '3', name: 'Cupcakes (dozen)', price: 36.00 },
-    { id: '4', name: 'Cake Delivery', price: 25.00 },
-    { id: '5', name: 'Setup Service', price: 50.00 }
-  ];
+  const products = mockProductsList;
 
   const [formData, setFormData] = useState<QuoteFormData>({
     quoteNumber,

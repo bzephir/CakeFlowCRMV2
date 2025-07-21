@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import { mockSampleQuoteDetail, mockSampleQuotesDetail } from '../data/mockData';
+import { mockSampleQuoteDetail, mockSampleQuotesDetail, mockQuotesList } from '../data/mockData';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
 import { 
@@ -32,119 +32,8 @@ const Quotes: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  // Mock quote data with new numbering format
-  const quotes = [
-    {
-      id: 'Q-202501-0001',
-      customer: 'Sarah Johnson',
-      email: 'sarah@email.com',
-      issueDate: '2025-01-15',
-      expiryDate: '2025-02-15',
-      amount: 609.90,
-      status: 'sent',
-      eventDate: '2025-06-15'
-    },
-    {
-      id: 'Q-202501-0002',
-      customer: 'Mike Chen',
-      email: 'mike@email.com',
-      issueDate: '2025-01-10',
-      expiryDate: '2025-02-10',
-      amount: 134.82,
-      status: 'accepted',
-      eventDate: '2025-01-16'
-    },
-    {
-      id: 'Q-202501-0003',
-      customer: 'Emma Davis',
-      email: 'emma@email.com',
-      issueDate: '2025-01-05',
-      expiryDate: '2025-02-05',
-      amount: 391.96,
-      status: 'sent',
-      eventDate: '2025-01-18'
-    },
-    {
-      id: 'Q-202412-0015',
-      customer: 'Emma Davis',
-      email: 'emma@email.com',
-      issueDate: '2024-12-20',
-      expiryDate: '2025-01-20',
-      amount: 280.00,
-      status: 'rejected',
-      eventDate: '2025-01-18'
-    },
-    {
-      id: 'Q-202412-0016',
-      customer: 'James Wilson',
-      email: 'james@email.com',
-      issueDate: '2024-12-15',
-      expiryDate: '2025-01-15',
-      amount: 180.00,
-      status: 'expired',
-      eventDate: '2025-01-20'
-    },
-    {
-      id: 'Q-202412-0017',
-      customer: 'Lisa Park',
-      email: 'lisa@email.com',
-      issueDate: '2024-12-10',
-      expiryDate: '2025-01-10',
-      amount: 200.00,
-      status: 'accepted',
-      eventDate: '2024-12-28'
-    },
-    {
-      id: 'Q-202412-0018',
-      customer: 'Robert Smith',
-      email: 'robert@email.com',
-      issueDate: '2024-12-05',
-      expiryDate: '2025-01-05',
-      amount: 350.00,
-      status: 'sent',
-      eventDate: '2024-12-22'
-    },
-    {
-      id: 'Q-202411-0025',
-      customer: 'Jennifer Brown',
-      email: 'jennifer@email.com',
-      issueDate: '2024-11-30',
-      expiryDate: '2024-12-30',
-      amount: 175.00,
-      status: 'expired',
-      eventDate: '2024-12-18'
-    },
-    {
-      id: 'Q-202411-0026',
-      customer: 'Michael Taylor',
-      email: 'michael@email.com',
-      issueDate: '2024-11-25',
-      expiryDate: '2024-12-25',
-      amount: 420.00,
-      status: 'accepted',
-      eventDate: '2024-12-12'
-    },
-    {
-      id: 'Q-202411-0027',
-      customer: 'Jessica Lee',
-      email: 'jessica@email.com',
-      issueDate: '2024-11-20',
-      expiryDate: '2024-12-20',
-      amount: 300.00,
-      status: 'sent',
-      eventDate: '2024-12-08'
-    },
-    {
-      id: 'Q-202411-0028',
-      customer: 'Daniel Garcia',
-      email: 'daniel@email.com',
-      issueDate: '2024-11-15',
-      expiryDate: '2024-12-15',
-      amount: 225.00,
-      status: 'draft',
-      eventDate: '2024-12-02'
-    }
-  ];
+  // Use centralized mock data
+  const quotes = mockQuotesList;
 
   const getStatusColor = (status: string) => {
     switch (status) {
