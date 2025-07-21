@@ -264,16 +264,12 @@ const Inquiries: React.FC = () => {
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                  
-                       
                           <div className="text-sm font-medium text-gray-900">
                             {inquiry.firstName} {inquiry.lastName}
                           </div>
                           <div className="flex flex-col text-xs text-gray-500">
                             <span className="flex items-center">
                             </span>
-                       
-                        
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
