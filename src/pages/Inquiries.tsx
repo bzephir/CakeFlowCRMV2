@@ -307,7 +307,7 @@ const Inquiries: React.FC = () => {
                     </td>
                       <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">
-                        {inquiry.assignedTo ? `${inquiry.assignedTo} : 'Unassigned'}
+                        {inquiry.assignedTo ? ` ${inquiry.assignedTo}` : 'Unassigned'}
                       </div>
                       </td>
                   
