@@ -252,9 +252,7 @@ const Inquiries: React.FC = () => {
                   <tr key={inquiry.id} className={`hover:bg-gray-50 transition-colors ${inquiry.status === 'new' ? 'bg-coral-50' : ''}`}>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="flex items-center">
-                        <div className="flex-shrink-0">
-                          {getTypeIcon(inquiry.type)}
-                        </div>
+
                         <div className="ml-4">
                           <div className="text-sm font-medium text-gray-900">{inquiry.id}</div>
                           <div className="text-xs text-gray-500 flex items-center">
