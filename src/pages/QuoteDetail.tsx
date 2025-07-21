@@ -502,7 +502,7 @@ const QuoteDetail: React.FC = () => {
                     <div className="space-y-2">
                        <div className="flex items-center text-sm text-gray-600">
                         <Calendar className="h-4 w-4 mr-2 text-gray-400" />
-                        Event Type: <span className="capitalize">quote.eventType</span>
+                        Event Type: <span className="capitalize">{quote.eventType}</span>
                       </div>
                       <div className="flex items-center text-sm text-gray-600">
                         <Calendar className="h-4 w-4 mr-2 text-gray-400" />
