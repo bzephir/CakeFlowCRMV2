@@ -578,8 +578,7 @@ console.log("Delivery Time from inquiryData:", inquiryData?.deliveryTime);
                   <Calendar className="h-5 w-5 mr-2 text-coral-500" />
                   Event Details
                 </h3>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                 {console.log("Inquiry object at Event Details section:", inquiry)}                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                   <div className="space-y-3">
                     <div className="flex items-start">
                       <Calendar className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
@@ -605,7 +604,7 @@ console.log("Delivery Time from inquiryData:", inquiryData?.deliveryTime);
                             : (inquiry.deliveryTime ? formatTime(inquiry.deliveryTime) : 'Not specified')
                           }
                         </p>
-                        {console.log("Fulfillment Time rendering check:", inquiry.fulfillmentType, inquiry.pickupTime, inquiry.deliveryTime)}
+                        {console.log("Fulfillment Type:", inquiry.fulfillmentType, "Pickup Time value:", inquiry.pickupTime, "Delivery Time value:", inquiry.deliveryTime, "Formatted:", inquiry.fulfillmentType === 'pickup' ? (inquiry.pickupTime ? formatTime(inquiry.pickupTime) : 'Not specified') : (inquiry.deliveryTime ? formatTime(inquiry.deliveryTime) : 'Not specified'))}
                       </div>
                     </div>
                     
@@ -615,7 +614,7 @@ console.log("Delivery Time from inquiryData:", inquiryData?.deliveryTime);
                         <p className="text-sm font-medium text-gray-900">Event Time</p>
                         <p className="text-sm text-gray-600">{inquiry.eventTime ? formatTime(inquiry.eventTime) : 'Not applicable'} 
 </p>
-{console.log("Event Time rendering check:", inquiry.eventTime, inquiry.eventTime ? formatTime(inquiry.eventTime) : 'Not applicable')}
+ {console.log("Event Time value:", inquiry.eventTime, "Formatted:", inquiry.eventTime ? formatTime(inquiry.eventTime) : 'Not applicable')}
 
                       </div>
                     </div>
