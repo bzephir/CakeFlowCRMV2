@@ -390,6 +390,7 @@ export const mockInquiries: Inquiry[] = [
   },
   {
     id: 'INQ-2025-005',
+    type:'wedding',
     eventType: 'wedding',
     status: 'converted',
     firstName: 'Amanda',
