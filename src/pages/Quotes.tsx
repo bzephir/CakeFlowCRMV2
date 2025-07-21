@@ -35,33 +35,33 @@ const Quotes: React.FC = () => {
   const quotes = [
     {
       id: 'Q-202501-0001',
-      customer: 'David Fraga',
-      email: 'david.fraga@example.com',
+      customer: 'Sarah Johnson',
+      email: 'sarah@email.com',
       issueDate: '2025-01-15',
       expiryDate: '2025-02-15',
-      amount: 642.00,
+      amount: 609.90,
       status: 'sent',
       eventDate: '2025-06-15'
     },
     {
       id: 'Q-202501-0002',
-      customer: 'Sarah Johnson',
-      email: 'sarah@email.com',
+      customer: 'Mike Chen',
+      email: 'mike@email.com',
       issueDate: '2025-01-10',
       expiryDate: '2025-02-10',
-      amount: 450.00,
+      amount: 134.82,
       status: 'accepted',
-      eventDate: '2025-03-15'
+      eventDate: '2025-01-16'
     },
     {
       id: 'Q-202501-0003',
-      customer: 'Mike Chen',
-      email: 'mike@email.com',
+      customer: 'Emma Davis',
+      email: 'emma@email.com',
       issueDate: '2025-01-05',
       expiryDate: '2025-02-05',
-      amount: 120.00,
-      status: 'draft',
-      eventDate: '2025-02-16'
+      amount: 391.96,
+      status: 'sent',
+      eventDate: '2025-01-18'
     },
     {
       id: 'Q-202412-0015',
@@ -355,15 +355,18 @@ const Quotes: React.FC = () => {
                     Event Date
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Fulfillment
+                  </th>
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Expiry Date
                   </th>
                   <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Amount
                   </th>
-                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -393,7 +396,20 @@ const Quotes: React.FC = () => {
                       <div className="text-sm text-gray-900">{formatDate(quote.issueDate)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{formatDate(quote.eventDate)}</div>
+                      <div className="text-sm text-gray-900">{formatDate(quote.issueDate)}</div>
+                    </td>
+                    <td className="px-2 py-1 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">
+                        {quote.fulfillmentType === 'pickup' 
+                          ? <span className="flex items-center"><Package className="h-3 w-3 mr-1" /> {quote.pickupTime ? formatTime(quote.pickupTime) : 'TBD'}</span>
+                          : <span className="flex items-center"><Truck className="h-3 w-3 mr-1" /> {quote.deliveryTime ? formatTime(quote.deliveryTime) : 'TBD'}</span>
+                        }
+                        {quote.eventTime && (
+                          <div className="text-xs text-gray-500 mt-1">
+                            <span className="flex items-center"><Calendar className="h-3 w-3 mr-1" /> Event: {formatTime(quote.eventTime)}</span>
+                          </div>
+                        )}
+                      </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{formatDate(quote.expiryDate)}</div>
@@ -407,7 +423,7 @@ const Quotes: React.FC = () => {
                         {quote.status.charAt(0).toUpperCase() + quote.status.slice(1)}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <td className="px-2 py-1 whitespace-nowrap text-right text-sm font-medium">
                       <div className="flex justify-end space-x-2">
                         <button 
                           onClick={() => handleViewQuote(quote.id)}
