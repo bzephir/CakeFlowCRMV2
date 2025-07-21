@@ -46,6 +46,10 @@ const InquiryDetail: React.FC = () => {
   const [newNote, setNewNote] = useState('');
   const [showAddNote, setShowAddNote] = useState(false);
 
+  useEffect(() => {
+    if (id) {
+      const inquiryData = getInquiryById(id);
+      setInquiry(inquiryData);
       setLoading(false);
     }
   }, [id, getInquiryById]);
