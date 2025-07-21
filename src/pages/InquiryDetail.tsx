@@ -605,14 +605,20 @@ console.log("Delivery Time from inquiryData:", inquiryData?.deliveryTime);
                             : (inquiry.deliveryTime ? formatTime(inquiry.deliveryTime) : 'Not specified')
                           }
                         </p>
-                      </div>
+                        {console.log("Fulfillment Time rendering check:", inquiry.fulfillmentType, inquiry.pickupTime, inquiry.deliveryTime)}
+                     
+                    </div>
                     </div>
                     
                     <div className="flex items-start">
                       <Clock className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
                       <div>
                         <p className="text-sm font-medium text-gray-900">Event Time</p>
-                        <p className="text-sm text-gray-600">{inquiry.eventTime ? formatTime(inquiry.eventTime) : 'Not applicable'}</p>
+                        <p className="text-sm text-gray-600">{inquiry.eventTime ? formatTime(inquiry.eventTime) : 'Not applicable'} <p className="text-sm text-gray-600">
+  {inquiry.eventTime ? formatTime(inquiry.eventTime) : 'Not applicable'}
+</p>
+{console.log("Event Time rendering check:", inquiry.eventTime, inquiry.eventTime ? formatTime(inquiry.eventTime) : 'Not applicable')}
+</p>
                       </div>
                     </div>
                     
