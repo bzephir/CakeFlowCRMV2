@@ -21,13 +21,13 @@ export const formatDate = (dateString: string) => {
  * @returns Formatted time string (e.g., "2:00 PM")
  */
 export const formatTime = (timeString: string) => {
-  if (!timeString) return '';
+  if (!timeString) return 'EMPTY_TIME_DEBUG';
   // Convert 24-hour format to 12-hour format
   const [hours, minutes] = timeString.split(':');
   const hour = parseInt(hours);
   const ampm = hour >= 12 ? 'PM' : 'AM';
   const hour12 = hour % 12 || 12;
-  return `${hour12}:${minutes} ${ampm}`;
+  return `DEBUG_TIME_${hour12}:${minutes} ${ampm}`;
 };
 
 /**
