@@ -252,7 +252,9 @@ const Inquiries: React.FC = () => {
                   <tr key={inquiry.id} className={`hover:bg-gray-50 transition-colors ${inquiry.status === 'new' ? 'bg-coral-50' : ''}`}>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="flex items-center">
-
+                        <div className="flex-shrink-0">
+                          {getTypeIcon(inquiry.type)}
+                        </div>
                         <div className="ml-4">
                           <div className="text-sm font-medium text-gray-900">{inquiry.id}</div>
                           <div className="text-xs text-gray-500 flex items-center">
@@ -263,10 +265,7 @@ const Inquiries: React.FC = () => {
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="flex items-center">
-                        <div className="flex-shrink-0">
-                          {/* <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center">
-                            <User className="h-4 w-4 text-white" />                          </div>*/}
-                        </div>
+                     
                         <div className="ml-4">
                           <div className="text-sm font-medium text-gray-900">
                             {inquiry.firstName} {inquiry.lastName}
