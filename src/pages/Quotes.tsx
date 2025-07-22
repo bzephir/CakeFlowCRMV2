@@ -186,7 +186,7 @@ const Quotes: React.FC = () => {
           
           <button 
             onClick={handleCreateQuote}
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-bold rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all"
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all"
           >
             <Plus className="h-4 w-4 mr-2" />
             Create Quote
@@ -232,34 +232,34 @@ const Quotes: React.FC = () => {
                       />
                     </div>
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
                     Quote #
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
                     Customer
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
                     Date Issued
                   </th>
-                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                   <th className="px-2 py-1 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
                     Event Type
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
                     Event Date
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
                     Fulfillment
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
                     Expiry Date
                   </th>
-                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-right text-xs font-bold text-gray-900 uppercase tracking-wider">
                     Amount
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-right text-xs font-bold text-gray-900 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -278,24 +278,24 @@ const Quotes: React.FC = () => {
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900 cursor-pointer hover:text-coral-600" onClick={() => handleViewQuote(quote.id)}>
+                      <div className="text-sm font-medium text-gray-700 cursor-pointer hover:text-coral-600" onClick={() => handleViewQuote(quote.id)}>
                         {quote.id}
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">{quote.customer}</div>
+                      <div className="text-sm font-medium text-gray-700">{quote.customer}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{formatDate(quote.issueDate)}</div>
+                      <div className="text-sm text-gray-700">{formatDate(quote.issueDate)}</div>
                     </td>
                      <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{quote.eventType}</div>
+                      <div className="text-sm text-gray-700">{quote.eventType}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{formatDate(quote.eventDate)}</div>
+                      <div className="text-sm text-gray-700">{formatDate(quote.eventDate)}</div>
                     </td>
                      <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">
+                      <div className="text-sm text-gray-700">
                         {quote.fulfillmentType === 'pickup' 
                           ? <span className="flex items-center"><Package className="h-3 w-3 mr-1" /> Pickup: {quote.pickupTime ? formatTime(quote.pickupTime) : 'TBD'}</span>
                           : <span className="flex items-center"><Truck className="h-3 w-3 mr-1" /> Delivery: {quote.deliveryTime ? formatTime(quote.deliveryTime) : 'TBD'}</span>
@@ -303,10 +303,10 @@ const Quotes: React.FC = () => {
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{formatDate(quote.expiryDate)}</div>
+                      <div className="text-sm text-gray-700">{formatDate(quote.expiryDate)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right">
-                      <div className="text-sm font-medium text-gray-900">{formatCurrency(quote.amount)}</div>
+                      <div className="text-sm font-medium text-gray-700">{formatCurrency(quote.amount)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(quote.status)}`}>
