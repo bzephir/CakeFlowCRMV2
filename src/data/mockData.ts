@@ -1377,6 +1377,7 @@ export const mockSampleQuotesDetail: MockQuoteDetail[] = [
     termsConditions: 'Payment terms: 50% deposit required to confirm order. Final payment due 14 days before event date. Cancellations within 30 days of event are subject to 50% fee.',
     status: 'sent',
     eventType: 'Wedding',
+    eventDate: '2025-06-15',
     details: {
       weddingDate: '2025-06-15',
       venue: 'Grand Ballroom at The Plaza',
