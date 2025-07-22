@@ -506,7 +506,7 @@ const QuoteDetail: React.FC = () => {
                       </div>
                       <div className="flex items-center text-sm text-gray-600">
                         <Calendar className="h-4 w-4 mr-2 text-gray-400" />
-                        Event Date: {formatDate(quote.issueDate)} {/* Using issueDate as placeholder for eventDate */}
+                        Event Date: {formatDate(quote.eventDate)} {/* Using issueDate as placeholder for eventDate */}
                       </div>
                       {quote.eventTime && (
                         <div className="flex items-center text-sm text-gray-600">
