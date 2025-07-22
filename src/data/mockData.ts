@@ -1456,12 +1456,11 @@ export const mockSampleQuotesDetail: MockQuoteDetail[] = [
       zip: '62703'
     },
     occasion:'Team Celebration',
-    eventDate: '2025-01-07',
     expiryDate: '2025-02-05',
     fulfillmentType: 'delivery',
     deliveryTime: '16:00',
     eventType: 'corporate',
-    eventDate: '2025-01-17',
+    eventDate: '2025-03-17',
     eventTime: '18:30',
     poNumber: 'PO-CORP-2025-001',
     lineItems: [
