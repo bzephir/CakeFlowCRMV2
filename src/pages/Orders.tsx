@@ -223,7 +223,7 @@ const Orders: React.FC = () => {
                       />
                     </div>
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
                     Order #
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
