@@ -20,7 +20,6 @@ import {
   Settings,
   UserCheck,
   Calendar,
-  Receipt,
   Upload,
   Truck,
   Cog,
