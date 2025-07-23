@@ -176,11 +176,14 @@ export interface Inquiry {
 
 // Type-specific inquiry details
 export interface CelebrationInquiryDetails {
+  eventType: string;
   occasion: string;
+  guestCount: string;
   services: string[];
   theme?: string;
   colors?: string;
   cakeTasting: boolean;
+  Poc: string;
   inspirationPhotos?: string[];
 }
 
