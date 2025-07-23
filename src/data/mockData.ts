@@ -1298,7 +1298,7 @@ export const mockSampleOrdersDetail: MockOrderDetail[] = [
     },
     issueDate: '2025-01-10',
     eventDate: '2025-01-18',
-    eventType: 'corporate',
+    
     fulfillmentType: 'delivery',
     deliveryTime: '16:00',
     eventTime: '18:30',
@@ -1319,6 +1319,7 @@ export const mockSampleOrdersDetail: MockOrderDetail[] = [
     customerNotes: 'Monthly team celebration. Need professional presentation. Please ensure all items are individually wrapped for hygiene.',
     internalNotes: 'Recurring monthly client. Very particular about presentation. Delivery contact: Reception desk, ask for Jennifer Williams.',
     status: 'in-production',
+    eventType: 'corporate',
     details: {
       companyName: 'TechCorp Solutions',
       occasion: 'Employee Appreciation',
