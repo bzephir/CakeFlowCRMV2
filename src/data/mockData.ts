@@ -31,7 +31,7 @@ interface MockOrder {
   customerName: string;
   eventDate: string;
   eventType: string;
-  occasion:string;
+  occasion: string;
   status: 'inquiry' | 'quoted' | 'confirmed' | 'in-production' | 'completed' | 'cancelled';
   items: string[];
   subtotal: number;
