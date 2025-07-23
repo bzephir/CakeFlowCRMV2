@@ -19,6 +19,7 @@ import {
   ClipboardList,
   Mail,
   MapPin,
+  House,
   Package
 } from 'lucide-react';
 
