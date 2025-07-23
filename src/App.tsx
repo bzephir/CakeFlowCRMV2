@@ -22,6 +22,8 @@ import CreateQuote from './pages/CreateQuote';
 import CalendarPage from './pages/CalendarPage';
 import Tasks from './pages/Tasks';
 import Settings from './pages/Settings';
+import Reports from './pages/Reports';
+
 
 // Placeholder components for other routes
 const Reports = () => <div className="p-6"><h1 className="text-2xl font-bold">Reports</h1><p>Analytics and reports coming soon...</p></div>;
@@ -79,6 +81,7 @@ function App() {
                 <Route path="/vendors" element={<Vendors />} />
                 <Route path="/users" element={<Users />} />
                 <Route path="/settings" element={<Settings />} />
+                <Route path="/reports" element={<Reports />} />
               </Routes>
             </div>
           </div>
