@@ -1458,7 +1458,6 @@ export const mockSampleQuotesDetail: MockQuoteDetail[] = [
     expiryDate: '2025-02-05',
     fulfillmentType: 'delivery',
     deliveryTime: '16:00',
-    eventType: 'corporate',
     eventDate: '2025-03-17',
     eventTime: '18:30',
     poNumber: 'PO-CORP-2025-001',
@@ -1480,6 +1479,7 @@ export const mockSampleQuotesDetail: MockQuoteDetail[] = [
     internalNotes: 'Recurring monthly client - high value account. Very particular about presentation and timing. Delivery contact is Jennifer Williams at reception. Confirm delivery window 24 hours prior.',
     termsConditions: 'Payment terms: Net 30 payment terms. Purchase order number required for all orders. Cancellations within 72 hours are subject to 50% fee. Monthly recurring orders receive 5% discount.',
     status: 'sent',
+    eventType: 'corporate',
     details: {
       companyName: 'TechCorp Solutions',
       occasion: 'Coproate Gifting',
