@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DollarSign, ShoppingBag, Users, ChartBar } from 'lucide-react';
+import { DollarSign, ShoppingBag, Users, BarChart3 } from 'lucide-react';
 import StatCard from '../components/StatCard';
 // Create this if you haven’t already
 
@@ -32,7 +32,7 @@ const Reports = () => {
     <div className="p-6">
       {/* Page Header */}
       <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
-        <ChartBar className="w-6 h-6 text-indigo-500" />
+        <BarChart3 className="w-6 h-6 text-indigo-500" />
         Reports
       </h1>
 
