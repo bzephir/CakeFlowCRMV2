@@ -147,7 +147,7 @@ const QuoteDetail: React.FC = () => {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {/* Event Details Column */}
       <div>
-        <h4 className="text-sm font-semibold text-gray-900 mb-3">Order Details</h4>
+        <h4 className="text-sm font-semibold text-gray-900 mb-3">Celebration Details</h4>
         <div className="space-y-3">
           <div className="flex items-start">
             <Tag className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
