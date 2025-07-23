@@ -536,6 +536,8 @@ interface MockQuoteDetail {
   fulfillmentType: 'pickup' | 'delivery';
   pickupTime?: string;
   deliveryTime?: string;
+  eventType?: string;
+  occasion: string;
   eventTime?: string;
   poNumber?: string;
   lineItems: {
@@ -559,8 +561,6 @@ interface MockQuoteDetail {
   termsConditions: string;
   status: 'draft' | 'sent' | 'accepted' | 'rejected' | 'expired';
   details?: CelebrationInquiryDetails | WeddingInquiryDetails | CorporateInquiryDetails;
-  eventType?: string;
-  occasion: string;
 }
 
 // Mock orders data for Orders page
@@ -575,7 +575,7 @@ export const mockOrdersList: MockOrder[] = [
     customerName: 'Sarah Johnson',
     eventDate: '2025-01-15',
     eventTime: '15:00',
-    eventType: 'Wedding',
+    eventType: 'wedding',
     status: 'in-production',
     items: ['3-Tier Wedding Cake', 'Cake Toppers'],
     subtotal: 450.00,
@@ -609,7 +609,7 @@ export const mockOrdersList: MockOrder[] = [
     customerName: 'Mike Chen',
     eventDate: '2025-01-16',
     eventTime: '17:00',
-    eventType: 'Celebration',
+    eventType: 'celebration',
     status: 'confirmed',
     items: ['Custom Birthday Cake'],
     subtotal: 120.00,
@@ -825,7 +825,7 @@ export const mockOrdersList: MockOrder[] = [
     customerName: 'Jessica Lee',
     eventDate: '2025-03-10',
     eventTime: '17:00',
-    eventType: 'Wedding',
+    eventType: 'wedding',
     status: 'confirmed',
     items: ['3-Tier Wedding Cake', 'Dessert Table'],
     subtotal: 550.00,
@@ -859,7 +859,6 @@ export const mockOrdersList: MockOrder[] = [
     eventType: 'celebration',
     eventDate: '2025-02-20',
     eventTime: '12:00',
-    occasion: 'Anniversary',
     status: 'quoted',
     items: ['Anniversary Cake'],
     subtotal: 175.00,
@@ -888,7 +887,7 @@ export const mockOrdersList: MockOrder[] = [
     customerName: 'Rachel Martinez',
     eventDate: '2025-12-20',
     eventTime: '19:30',
-    occasion: 'Holiday Party',
+    eventType: 'celebration',
     status: 'confirmed',
     items: ['Holiday Themed Cupcakes (60)', 'Christmas Cookies (36)', 'Hot Chocolate Bar Setup'],
     subtotal: 420.00,
@@ -917,7 +916,7 @@ export const mockOrdersList: MockOrder[] = [
     customerName: 'Thomas Anderson',
     eventDate: '2025-05-15',
     eventTime: '16:00',
-    occasion: 'Retirement Party',
+    eventType: 'celebration',
     status: 'in-production',
     items: ['Retirement Celebration Cake', 'Mini Dessert Platters (3)'],
     subtotal: 285.00,
@@ -984,7 +983,7 @@ export const mockOrdersList: MockOrder[] = [
     customerName: 'Global Tech Solutions',
     eventDate: '2025-03-05',
     eventTime: '10:30',
-    eventType: 'Corporate Event',
+    eventType: 'Corporate',
     status: 'quoted',
     items: ['Corporate Logo Cake', 'Branded Cupcakes (120)', 'Coffee & Pastry Station'],
     subtotal: 680.00,
@@ -1020,7 +1019,7 @@ export const mockOrdersList: MockOrder[] = [
     customerName: 'Maria Gonzalez',
     eventDate: '2025-02-28',
     eventTime: '18:00',
-    eventType: 'Celebration',
+    eventType: 'celebration',
     status: 'in-production',
     items: ['Quinceañera Cake (3-tier)', 'Mini Tres Leches Cakes (24)', 'Decorated Cookies (48)'],
     subtotal: 395.00,
@@ -1049,7 +1048,7 @@ export const mockOrdersList: MockOrder[] = [
     customerName: 'David Kim',
     eventDate: '2025-06-08',
     eventTime: '14:00',
-    eventType: 'Celebration',
+    eventType: 'celebration',
     status: 'confirmed',
     items: ['Graduation Cap Cake', 'School Colors Cupcakes (36)', 'Diploma Cookies (24)'],
     subtotal: 245.00,
@@ -1322,7 +1321,7 @@ export const mockSampleOrdersDetail: MockOrderDetail[] = [
     status: 'in-production',
     details: {
       companyName: 'TechCorp Solutions',
-      occasion: 'Team Celebration',
+      occasion: 'Employee Appreciation',
       services: ['Corporate Cupcakes', 'Logo Cookies', 'Coffee & Pastry Station'],
       recurring: true,
       frequency: 'Monthly',
@@ -1484,7 +1483,7 @@ export const mockSampleQuotesDetail: MockQuoteDetail[] = [
     eventType: 'Corporate Event',
     details: {
       companyName: 'TechCorp Solutions',
-      occasion: 'Team Celebration',
+      occasion: 'Coproate Gifting',
       services: ['Corporate Cupcakes', 'Branded Logo Cookies', 'Coffee & Pastry Station'],
       recurring: true,
       frequency: 'Monthly',
@@ -1542,7 +1541,7 @@ export const mockQuotesList = [
     amount: 391.96,
     status: 'sent',
     eventDate: '2025-01-18',
-    eventType: 'Corporate Event',
+    eventType: 'Corporate',
     fulfillmentType: 'delivery' as 'pickup' | 'delivery',
     deliveryTime: '16:00'
   },
@@ -1620,7 +1619,7 @@ export const mockQuotesList = [
     amount: 420.00,
     status: 'accepted',
     eventDate: '2024-12-12',
-    eventType: 'Corporate Event',
+    eventType: 'Corporate',
     fulfillmentType: 'delivery' as 'pickup' | 'delivery',
     deliveryTime: '09:00'
   },
