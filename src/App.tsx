@@ -26,7 +26,7 @@ import Reports from './pages/Reports';
 
 
 // Placeholder components for other routes
-const Reports = () => <div className="p-6"><h1 className="text-2xl font-bold">Reports</h1><p>Analytics and reports coming soon...</p></div>;
+
 const Production = () => <div className="p-6"><h1 className="text-2xl font-bold">Production</h1><p>Production management coming soon...</p></div>;
 const Packages = () => <div className="p-6"><h1 className="text-2xl font-bold">Packages</h1><p>Package management coming soon...</p></div>;
 const Inventory = () => <div className="p-6"><h1 className="text-2xl font-bold">Inventory</h1><p>Inventory management coming soon...</p></div>;
