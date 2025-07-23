@@ -135,9 +135,11 @@ const Orders: React.FC = () => {
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <div className="flex-1 overflow-hidden">
-      <Header title="Orders" />
-      
+     <div className="p-6">
+      <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
+        <FileText className="w-6 h-6 text-coral-500" />
+        Orders
+      </h1>
       <div className="p-6">
         {/* Actions Bar */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
