@@ -8,6 +8,7 @@ import {
   FileText,
   Receipt,
   BarChart3,
+  ChartBar,
   Factory,
   ChefHat,
   Package,
