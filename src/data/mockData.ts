@@ -1409,7 +1409,6 @@ export const mockSampleQuotesDetail: MockQuoteDetail[] = [
       state: 'IL',
       zip: '62702'
     },
-    eventType: 'celebration',
     issueDate: '2025-01-10',
     expiryDate: '2025-02-10',
     fulfillmentType: 'pickup',
@@ -1433,6 +1432,7 @@ export const mockSampleQuotesDetail: MockQuoteDetail[] = [
     internalNotes: 'Customer emphasized surprise element. Coordinate pickup timing carefully. Wife has preference for dark chocolate over milk chocolate.',
     termsConditions: 'Payment terms: 50% deposit required to confirm order. Final payment due 7 days before pickup date. Cancellations within 48 hours are subject to 25% fee.',
     status: 'accepted',
+    eventType: 'celebration',
     details: {
       occasion: 'Birthday',
       services: ['Custom Birthday Cake', 'Mini Cupcakes'],
@@ -1480,7 +1480,6 @@ export const mockSampleQuotesDetail: MockQuoteDetail[] = [
     internalNotes: 'Recurring monthly client - high value account. Very particular about presentation and timing. Delivery contact is Jennifer Williams at reception. Confirm delivery window 24 hours prior.',
     termsConditions: 'Payment terms: Net 30 payment terms. Purchase order number required for all orders. Cancellations within 72 hours are subject to 50% fee. Monthly recurring orders receive 5% discount.',
     status: 'sent',
-    eventType: 'Corporate Event',
     details: {
       companyName: 'TechCorp Solutions',
       occasion: 'Coproate Gifting',
