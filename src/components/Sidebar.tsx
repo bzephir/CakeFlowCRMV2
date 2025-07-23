@@ -57,6 +57,7 @@ const Sidebar: React.FC = () => {
         { name: 'Orders', href: '/orders', icon: FileText },
         { name: 'Invoices', href: '/invoices', icon: DollarSign },
         { name: 'Reports', href: '/reports', icon: BarChart3 },
+ 
       ]
     },
     {
