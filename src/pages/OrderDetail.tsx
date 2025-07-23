@@ -514,9 +514,8 @@ const OrderDetail: React.FC = () => {
                   <h3 className="text-lg font-medium text-gray-900 mb-4">Event Details</h3>
                   <div>
                     {order.eventType === 'Wedding' && renderWeddingDetails(order.details as WeddingInquiryDetails)}
-                    {(order.eventType === 'Celebration' && renderCelebrationDetails(order.details as CelebrationInquiryDetails)},
-                    {order.eventType === 'Corporate' && renderCorporateDetails(order.details as CorporateInquiryDetails)},
-
+                    {(order.eventType === 'Celebration' && renderCelebrationDetails(order.details as CelebrationInquiryDetails)}
+                    {order.eventType === 'Corporate' && renderCorporateDetails(order.details as CorporateInquiryDetails)}
                   </div>
                 </div>
               </div>
