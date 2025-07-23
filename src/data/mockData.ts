@@ -1276,6 +1276,7 @@ export const mockSampleOrdersDetail: MockOrderDetail[] = [
     status: 'confirmed',
     details: {
       occasion: 'Birthday',
+      guestCount: '40',
       services: ['Custom Birthday Cake', 'Mini Cupcakes'],
       theme: 'Elegant Adult Birthday',
       colors: 'Purple and Silver',
