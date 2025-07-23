@@ -535,9 +535,9 @@ const QuoteDetail: React.FC = () => {
               <div className="bg-white shadow-sm rounded-lg border border-gray-200">
                 <div className="p-6">
                   <h3 className="text-lg font-medium text-gray-900 mb-4">Order Details</h3>
-                  {quote.eventType === 'Wedding' && renderWeddingDetails(quote.details as WeddingInquiryDetails)}
-                  {quote.eventType === 'celebration' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
-                  {quote.eventType === 'Corporate' && renderCorporateDetails(quote.details as CorporateInquiryDetails)}
+                  {(quote.eventType === 'wedding') && renderWeddingDetails(quote.details as WeddingInquiryDetails)}
+                  {(quote.eventType === 'celebration') && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
+                  {(quote.eventType === 'corporate') && renderCorporateDetails(quote.details as CorporateInquiryDetails)}
                  
                 </div>
               </div>
