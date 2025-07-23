@@ -536,14 +536,9 @@ const QuoteDetail: React.FC = () => {
                 <div className="p-6">
                   <h3 className="text-lg font-medium text-gray-900 mb-4">Event Details</h3>
                   {quote.eventType === 'Wedding' && renderWeddingDetails(quote.details as WeddingInquiryDetails)}
-                  {quote.eventType === 'Birthday' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
-                  {quote.eventType === 'Corporate Event' && renderCorporateDetails(quote.details as CorporateInquiryDetails)}
-                  {quote.eventType === 'Anniversary' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
-                  {quote.eventType === 'Baby Shower' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
-                  {quote.eventType === 'Graduation' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
-                  {quote.eventType === 'Celebration' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
+                  {quote.eventType === 'celebration' && renderCelebrationDetails(quote.details as CelebrationInquiryDetails)}
                   {quote.eventType === 'Corporate' && renderCorporateDetails(quote.details as CorporateInquiryDetails)}
-                   {quote.eventType === 'Team Building' && renderCorporateDetails(quote.details as CorporateInquiryDetails)}
+                 
                 </div>
               </div>
             )}
