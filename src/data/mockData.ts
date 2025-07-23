@@ -1376,7 +1376,7 @@ export const mockSampleQuotesDetail: MockQuoteDetail[] = [
     internalNotes: 'Customer is very particular about color matching. Confirm final design sketch by 01/25.',
     termsConditions: 'Payment terms: 50% deposit required to confirm order. Final payment due 14 days before event date. Cancellations within 30 days of event are subject to 50% fee.',
     status: 'sent',
-    eventType: 'Wedding',
+    eventType: 'wedding',
     eventDate: '2025-06-15',
     details: {
       weddingDate: '2025-06-15',
@@ -1433,7 +1433,6 @@ export const mockSampleQuotesDetail: MockQuoteDetail[] = [
     internalNotes: 'Customer emphasized surprise element. Coordinate pickup timing carefully. Wife has preference for dark chocolate over milk chocolate.',
     termsConditions: 'Payment terms: 50% deposit required to confirm order. Final payment due 7 days before pickup date. Cancellations within 48 hours are subject to 25% fee.',
     status: 'accepted',
-    occasion: 'Birthday',
     details: {
       occasion: 'Birthday',
       services: ['Custom Birthday Cake', 'Mini Cupcakes'],
