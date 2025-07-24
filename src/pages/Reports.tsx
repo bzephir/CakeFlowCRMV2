@@ -17,18 +17,7 @@ const Reports = () => {
   const [isError, setIsError] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
 
-  // Dummy summary data
-  const summaryStats = {
-    totalSales: "$43,500",
-    totalOrders: 215,
-    totalCustomers: 128,
-  };
 
-  const dummyOrders = [
-    { id: "ORD001", customer: "Jane Smith", date: "Jul 21", total: "$205.00", status: "Paid" },
-    { id: "ORD002", customer: "Carlos Vega", date: "Jul 20", total: "$150.00", status: "Unpaid" },
-    { id: "ORD003", customer: "Ava Johnson", date: "Jul 18", total: "$325.00", status: "Shipped" },
-  ];
 
   return (
     <div className="p-6">
