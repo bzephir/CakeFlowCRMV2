@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Inquiry, InquiryAction } from '../types';
 import { mockInquiries, getNewInquiriesCount } from '../data/mockData';
+import { InquiryProvider } from './context/InquiryContext';
 
 interface InquiryContextType {
   inquiries: Inquiry[];
