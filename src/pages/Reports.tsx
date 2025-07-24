@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { DollarSign, ShoppingBag, Users, BarChart3 } from 'lucide-react';
 import StatCard from '../components/StatCard';
-import { mockSalesReportData } from '../data/mockData';
+import { summaryStats, mockSalesReportData, dummyOrders } from '../data/mockData';
 
 // Create this if you haven’t already
 
