@@ -1,23 +1,31 @@
 import React, { useState } from 'react';
 import { DollarSign, ShoppingBag, Users, BarChart3 } from 'lucide-react';
 import StatCard from '../components/StatCard';
-import { summaryStats, mockSalesReportData, dummyOrders } from '../data/mockData';
+import SalesLineChart from '../components/SalesLineChart';
+import CustomerGrowthBarChart from '../components/CustomerGrowthBarChart';
+// Adjust the above imports if needed for your project
 
-// Create this if you haven’t already
+import {
+  summaryStats,
+  mockSalesReportData,
+  mockOrderSummary,
+  mockCustomerGrowth,
+} from '../data/mockData';
 
-const Reports = () => {
-  // UI state
+const Reports: React.FC = () => {
+  // State for filters and tab navigation
   const [startDate, setStartDate] = useState<string | null>(null);
   const [endDate, setEndDate] = useState<string | null>(null);
   const [reportType, setReportType] = useState<'sales' | 'orders' | 'customers'>('sales');
   const [productCategory, setProductCategory] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'salesOverview' | 'orderSummary' | 'customerGrowth'>('salesOverview');
+  const [activeTab, setActiveTab] = useState<'salesOverview' | 'orderSummary' | 'customerGrowth'>(
+    'salesOverview'
+  );
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [isEmpty, setIsEmpty] = useState(false);
-
-
+  // States for loading/error/empty
+  const [isLoading] = useState(false);
+  const [isError] = useState(false);
+  const [isEmpty] = useState(false);
 
   return (
     <div className="p-6">
@@ -27,7 +35,7 @@ const Reports = () => {
         Reports
       </h1>
 
-      {/* Filter Section */}
+      {/* Filter section */}
       <div className="bg-white p-4 border rounded-md shadow-sm mb-8 flex flex-wrap gap-4">
         <input
           type="date"
@@ -53,9 +61,7 @@ const Reports = () => {
         <select
           className="border rounded px-3 py-2 text-sm"
           value={productCategory ?? ''}
-          onChange={(e) =>
-            setProductCategory(e.target.value === '' ? null : e.target.value)
-          }
+          onChange={(e) => setProductCategory(e.target.value === '' ? null : e.target.value)}
         >
           <option value="">All Categories</option>
           <option value="cakes">Cakes</option>
@@ -63,7 +69,7 @@ const Reports = () => {
         </select>
       </div>
 
-      {/* Summary Cards Grid */}
+      {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <StatCard
           title="Total Sales"
@@ -119,53 +125,53 @@ const Reports = () => {
         </button>
       </div>
 
-      {/* Conditional Tab Content */}
-      {isLoading ? (
-        <div className="text-gray-400 text-center py-10">Loading...</div>
-      ) : isError ? (
-        <div className="text-red-500 text-center py-10">Error loading reports.</div>
-      ) : isEmpty ? (
-        <div className="text-gray-400 text-center py-10">No data available for selected filters.</div>
-      ) : (
-        <div className="bg-white border rounded-md p-6 shadow-sm">
-          {activeTab === 'salesOverview' && (
-            <div className="text-gray-500 text-center font-medium">📈 Sales Overview Chart Placeholder</div>
-          )}
-
-          {activeTab === 'orderSummary' && (
-            <div className="overflow-x-auto">
-              <table className="table-auto w-full text-sm">
-                <thead className="bg-gray-50 text-left text-gray-600 font-medium">
-                  <tr>
-                    <th className="px-4 py-2">Order ID</th>
-                    <th className="px-4 py-2">Customer</th>
-                    <th className="px-4 py-2">Date</th>
-                    <th className="px-4 py-2">Total</th>
-                    <th className="px-4 py-2">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {dummyOrders.map((order) => (
-                    <tr key={order.id} className="border-t text-gray-700">
-                      <td className="px-4 py-2">{order.id}</td>
-                      <td className="px-4 py-2">{order.customer}</td>
-                      <td className="px-4 py-2">{order.date}</td>
-                      <td className="px-4 py-2">{order.total}</td>
-                      <td className="px-4 py-2">
-                        <span className="px-2 py-1 rounded bg-gray-100 text-xs">{order.status}</span>
-                      </td>
+      {/* Tab Content */}
+      <div className="bg-white border rounded-md p-6 shadow-sm min-h-[200px]">
+        {isLoading ? (
+          <div className="text-gray-400 text-center py-10">Loading...</div>
+        ) : isError ? (
+          <div className="text-red-500 text-center py-10">Error loading reports.</div>
+        ) : isEmpty ? (
+          <div className="text-gray-400 text-center py-10">No data available for selected filters.</div>
+        ) : (
+          <>
+            {activeTab === 'salesOverview' && (
+              <SalesLineChart data={mockSalesReportData} />
+            )}
+            {activeTab === 'orderSummary' && (
+              <div className="overflow-x-auto">
+                <table className="table-auto w-full text-sm">
+                  <thead className="bg-gray-50 text-left text-gray-600 font-medium">
+                    <tr>
+                      <th className="px-4 py-2">Order ID</th>
+                      <th className="px-4 py-2">Customer</th>
+                      <th className="px-4 py-2">Date</th>
+                      <th className="px-4 py-2">Total</th>
+                      <th className="px-4 py-2">Status</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-
-          {activeTab === 'customerGrowth' && (
-            <div className="text-gray-500 text-center font-medium">📊 Customer Growth Chart Placeholder</div>
-          )}
-        </div>
-      )}
+                  </thead>
+                  <tbody>
+                    {mockOrderSummary.map((order) => (
+                      <tr key={order.id} className="border-t text-gray-700">
+                        <td className="px-4 py-2">{order.id}</td>
+                        <td className="px-4 py-2">{order.customer}</td>
+                        <td className="px-4 py-2">{order.date}</td>
+                        <td className="px-4 py-2">{order.total}</td>
+                        <td className="px-4 py-2">
+                          <span className="px-2 py-1 rounded bg-gray-100 text-xs">{order.status}</span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+            {activeTab === 'customerGrowth' && (
+              <CustomerGrowthBarChart data={mockCustomerGrowth} />
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 };
