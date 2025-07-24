@@ -87,14 +87,24 @@ interface MockOrderDetail {
   details?: CelebrationInquiryDetails | WeddingInquiryDetails | CorporateInquiryDetails;
   status: 'inquiry' | 'quoted' | 'confirmed' | 'in-production' | 'completed' | 'cancelled';
 }
-// src/data/mockData.ts
-
+//Mock Reort Data
 export const mockSalesReportData = [
   { label: 'Jan', value: 12000 },
   { label: 'Feb', value: 15000 },
   { label: 'Mar', value: 13000 },
   { label: 'Apr', value: 17000 },
   { label: 'May', value: 22000 },
+];
+export const mockOrderSummary = [
+  { id: 'ORD001', customer: 'Jane Smith', date: 'Jul 21', total: '$205.00', status: 'Paid' },
+  { id: 'ORD002', customer: 'Carlos Vega', date: 'Jul 20', total: '$150.00', status: 'Unpaid' },
+  // ...
+];
+
+export const mockCustomerGrowth = [
+  { label: 'Jan', value: 12 },
+  { label: 'Feb', value: 18 },
+  { label: 'Mar', value: 22 },
 ];
 
 // Mock inquiry data simulating a backend database
