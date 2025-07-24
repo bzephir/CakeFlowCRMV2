@@ -88,6 +88,9 @@ interface MockOrderDetail {
   status: 'inquiry' | 'quoted' | 'confirmed' | 'in-production' | 'completed' | 'cancelled';
 }
 //Mock Reort Data
+// src/data/mockData.ts
+
+// Mock data for sales report (line chart)
 export const mockSalesReportData = [
   { label: 'Jan', value: 12000 },
   { label: 'Feb', value: 15000 },
@@ -95,24 +98,33 @@ export const mockSalesReportData = [
   { label: 'Apr', value: 17000 },
   { label: 'May', value: 22000 },
 ];
+
+// Mock data for order summary table
 export const mockOrderSummary = [
   { id: 'ORD001', customer: 'Jane Smith', date: 'Jul 21', total: '$205.00', status: 'Paid' },
   { id: 'ORD002', customer: 'Carlos Vega', date: 'Jul 20', total: '$150.00', status: 'Unpaid' },
-  // ...
+  { id: 'ORD003', customer: 'Ava Johnson', date: 'Jul 19', total: '$320.00', status: 'Pending' },
+  { id: 'ORD004', customer: 'Michael Lee', date: 'Jul 18', total: '$450.00', status: 'Shipped' },
+  { id: 'ORD005', customer: 'Sophia Chen', date: 'Jul 17', total: '$180.00', status: 'Paid' },
 ];
 
+// Mock data for customer growth (bar chart)
 export const mockCustomerGrowth = [
   { label: 'Jan', value: 12 },
   { label: 'Feb', value: 18 },
   { label: 'Mar', value: 22 },
+  { label: 'Apr', value: 25 },
+  { label: 'May', value: 30 },
 ];
 
+// Mock summary stats for the overview cards
 export const summaryStats = {
   totalSales: "$43,500",
   totalOrders: 215,
   totalCustomers: 128,
 };
 
+// Legacy dummy orders (can be kept or replaced by mockOrderSummary)
 export const dummyOrders = [
   { id: "ORD001", customer: "Jane Smith", date: "Jul 21", total: "$205.00", status: "Paid" },
   { id: "ORD002", customer: "Carlos Vega", date: "Jul 20", total: "$150.00", status: "Unpaid" },
