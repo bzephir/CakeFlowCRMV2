@@ -23,7 +23,7 @@ import CalendarPage from './pages/CalendarPage';
 import Tasks from './pages/Tasks';
 import Settings from './pages/Settings';
 import Reports from './pages/Reports';
-import Forms from './pages/Forms';
+import {FormsModule} from './pages/Forms';
 
 
 // Placeholder components for other routes
@@ -72,7 +72,7 @@ function App() {
                 <Route path="/inventory-tracking" element={<InventoryTracking/>} />
                 <Route path="/customers" element={<Customers />} />
                 <Route path="/customers/:id" element={<CustomerDetail />} />
-                <Route path="/forms" element={<Forms />} />
+                <Route path="/forms" element={<FormsModule />} />
                 <Route path="/venues" element={<Venues />} />
                 <Route path="/communication" element={<Communication />} />
                 <Route path="/tasks" element={<Tasks />} />
