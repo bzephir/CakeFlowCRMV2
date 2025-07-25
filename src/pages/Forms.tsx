@@ -41,7 +41,7 @@ const FormsModule: React.FC = () => {
     <div style={{ padding: "1rem" }}>
       {/* Page Header */}
            <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
-        < Form className="w-6 h-6 text-coral-500" />
+        < FileSignature className="w-6 h-6 text-coral-500" />
         Reports
       </h1>
       <Header title="Forms Management" subtitle="Manage all your contracts, agreements, questionnaires, proposals, and lead capture forms" />
