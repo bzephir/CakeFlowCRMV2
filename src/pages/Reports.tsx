@@ -35,7 +35,7 @@ const Reports: React.FC = () => {
         Reports
     </h1>      
     <Header className="text-2xl font-bold mb-6 flex items-center gap-2">
-      </>
+      </Header>
       {/* Filter section */}
       <div className="bg-white p-4 border rounded-md shadow-sm mb-8 flex flex-wrap gap-4">
         <input
