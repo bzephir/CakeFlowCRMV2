@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { DollarSign, ShoppingBag, Users, BarChart3 } from 'lucide-react';
+import { DollarSign, ShoppingBag, Users, BarChart3 } from 'lucide-react'; // Ensure BarChart3 is imported
 import StatCard from '../components/StatCard';
 import SalesLineChart from '../components/SalesLineChart';
 import CustomerGrowthBarChart from '../components/CustomerGrowthBarChart';
-import Header from '../components/Header';
-// Adjust the above imports if needed for your project
+import Header from '../components/Header'; // Ensure Header is imported
 
 import {
   summaryStats,
@@ -31,8 +30,7 @@ const Reports: React.FC = () => {
   return (
     <div className="p-6">
       {/* Page Header */}
-       
-    <Header icon="BarChart3" title="Reports" className="text-2xl font-bold mb-6 flex items-center gap-2"/>
+      <Header title="Reports" icon={BarChart3} /> {/* Pass BarChart3 as the icon prop */}
           {/* Filter section */}
       <div className="bg-white p-4 border rounded-md shadow-sm mb-8 flex flex-wrap gap-4">
         <input
