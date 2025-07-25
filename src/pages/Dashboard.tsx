@@ -137,11 +137,7 @@ const Dashboard: React.FC = () => {
 
   return (
      <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
-        <Home className="w-6 h-6 text-pink-500" />
-        Dashboard
-      </h1>
-      
+ <Header title="Dashboard" icon={Home} />
       <div className="p-6">
         {/* Stats Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
