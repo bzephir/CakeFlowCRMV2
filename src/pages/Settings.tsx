@@ -1670,7 +1670,7 @@ const Settings: React.FC = () => {
 
   return (
     <div className="p-6">
-      <Header title="Admin Settings" icon:{subtitle="Configure your application settings and preferences" />
+      <Header title="Admin Settings" icon:{Gear} />
      
       <div className="flex h-full">
         {/* Sidebar */}
