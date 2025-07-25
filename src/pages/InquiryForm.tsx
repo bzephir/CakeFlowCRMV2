@@ -42,7 +42,7 @@ const InquiryForm: React.FC = () => {
       'Bachelor/Bachelorette Party', 'Wedding Shower', 'Other'
     ],
     corporate: [
-      'Corporate Gifting', 'Company Anniversary', 'Product Launch', 'Holiday Party', 'Team Building', 'Thank You', 'Branding', 'Employee Appreciation'
+      'Corporate Gifting', 'Company Anniversary', 'Product Launch', 'Holiday Party', 'Team Building', 'Thank You', 'Branding', 'Employee Appreciation',
       'Conference', 'Award Ceremony', 'Client Appreciation', 'Other'
     ]
   };
