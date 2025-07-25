@@ -61,10 +61,7 @@ const CalendarPage: React.FC = () => {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
-        <CalendarIcon className="w-6 h-6 text-blue-500" />
-        Calendar
-      </h1>
+ <Header title="Calendar" icon={Calendar} /> {/* Pass BarChart3 as the icon prop */}
       
       <div className="p-6">
         {/* Calendar Controls */}
