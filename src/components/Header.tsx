@@ -5,10 +5,10 @@ import { Bell, Search, User, Mail, LogOut, Settings } from 'lucide-react';
 interface HeaderProps {
   title: string;
   subtitle?: string;
-  icon?: React.ElementType;
+  icon?: React.ElementType; // Change type from 'string' to 'React.ElementType' and make it optional
 }
 
-const Header: React.FC<HeaderProps> = ({ title, subtitle }) => {
+const Header: React.FC<HeaderProps> = ({ title, subtitle, icon: IconComponent }) => { // Destructure icon as IconComponent
   const navigate = useNavigate();
 
   const handleMailboxClick = () => {
@@ -35,8 +35,10 @@ const Header: React.FC<HeaderProps> = ({ title, subtitle }) => {
     <div className="bg-white shadow-sm border-b border-gray-200">
       <div className="flex items-center justify-between px-6 py-4">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900 tracking-tight">
-             {IconComponent && <IconComponent className="w-6 h-6 text-coral-500" />} {/* Conditionally render the icon */}{title}</h1>
+          <h1 className="text-2xl font-semibold text-gray-900 tracking-tight flex items-center gap-2">
+            {IconComponent && <IconComponent className="w-6 h-6 text-coral-500" />} {/* Conditionally render the icon */}
+            {title}
+          </h1>
           {subtitle && <p className="text-sm text-gray-600 mt-1">{subtitle}</p>}
         </div>
         
