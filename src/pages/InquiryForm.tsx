@@ -35,16 +35,14 @@ const InquiryForm: React.FC = () => {
 
   const occasions = {
     celebration: [
-      'Anniversary', 'Baby Shower', 'Bachelor/Bachelorette', 'Birthday', 'Bridal Shower',
-      'Christening', 'Communion', 'Engagement', 'Gender Reveal', 'Graduation',
-      'Holiday', 'Promotion', 'Quinceanera', 'Retirement', 'Sweet 16', 'Other'
+      'Anniversary', 'Baby Shower', 'Bachelor/Bachelorette', 'Bah Mitzvah',               'Baptism', 'Birthday', 'Bridal Shower', 'Christening', 'Communion',                 'Engagement', 'Farewell', 'Gender Reveal', 'Graduation', 'Holiday',                 'Promotion', 'Quinceanera', 'Religious', 'Retirement', 'Reunion', 'Sweet 16', 'Other'
     ],
     wedding: [
       'Wedding Reception', 'Rehearsal Dinner', 'Engagement Party', 'Bridal Shower',
       'Bachelor/Bachelorette Party', 'Wedding Shower', 'Other'
     ],
     corporate: [
-      'Company Anniversary', 'Product Launch', 'Holiday Party', 'Team Building',
+      'Corporate Gifting', 'Company Anniversary', 'Product Launch', 'Holiday Party', 'Team Building', 'Thank You', 'Branding', 'Employee Appreciation'
       'Conference', 'Award Ceremony', 'Client Appreciation', 'Other'
     ]
   };
