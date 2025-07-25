@@ -27,7 +27,7 @@ const sampleTemplates: FormTemplate[] = [
   // Add more sample forms as needed
 ];
 
-const FormsModuleTableView: React.FC = () => {
+const FormsModule: React.FC = () => {
   // Organize forms by category for easy column population
   const formsByCategory = Object.values(FormCategory).reduce((acc, category) => {
     acc[category] = sampleTemplates.filter((form) => form.category === category);
