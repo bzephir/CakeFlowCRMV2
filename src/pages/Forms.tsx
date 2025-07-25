@@ -1,7 +1,8 @@
-// FormsModule.tsx
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-// Define the form categories
+// Assuming you have a reusable Header component used on Reports page
+import Header from "../components/Header"; // adjust import path accordingly
+
 export enum FormCategory {
   Contracts = "Contracts",
   Agreements = "Agreements",
@@ -14,114 +15,136 @@ interface FormTemplate {
   id: string;
   title: string;
   category: FormCategory;
-  createdAt: Date;
-  updatedAt: Date;
   status: "Draft" | "Active" | "Archived";
-  data: any; // JSON schema or fields for the form
 }
 
 const sampleTemplates: FormTemplate[] = [
-  {
-    id: "template1",
-    title: "Standard Contract",
-    category: FormCategory.Contracts,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    status: "Active",
-    data: {} // template structure here
-  },
-  // add other sample templates as needed
+  { id: "1", title: "Standard Contract", category: FormCategory.Contracts, status: "Active" },
+  { id: "2", title: "Custom Agreement", category: FormCategory.Agreements, status: "Draft" },
+  { id: "3", title: "Customer Questionnaire", category: FormCategory.Questionnaires, status: "Active" },
+  { id: "4", title: "Wedding Proposal", category: FormCategory.Proposals, status: "Active" },
+  { id: "5", title: "Lead Capture Form", category: FormCategory.Inquiry, status: "Active" },
+  // Add more sample forms as needed
 ];
 
-export const FormsModule: React.FC = () => {
-  const [forms, setForms] = useState<FormTemplate[]>(sampleTemplates);
-  const [selectedCategory, setSelectedCategory] = useState<FormCategory>(FormCategory.Contracts);
-  const [selectedForm, setSelectedForm] = useState<FormTemplate | null>(null);
+const FormsModuleTableView: React.FC = () => {
+  // Organize forms by category for easy column population
+  const formsByCategory = Object.values(FormCategory).reduce((acc, category) => {
+    acc[category] = sampleTemplates.filter((form) => form.category === category);
+    return acc;
+  }, {} as Record<FormCategory, FormTemplate[]>);
 
-  // Filter forms by category
-  const filteredForms = forms.filter((f) => f.category === selectedCategory);
-
-  // Handle form selection
-  const handleSelectForm = (form: FormTemplate) => {
-    setSelectedForm(form);
-  };
-
-  // Placeholder: Form editor UI component (could be a drag-drop builder)
-  const FormEditor: React.FC<{ form: FormTemplate }> = ({ form }) => {
-    return (
-      <div style={{ border: "1px solid #ccc", padding: "1rem", marginTop: "1rem" }}>
-        <h3>Editing: {form.title}</h3>
-        {/* Render form fields for editing here */}
-        <p><i>(Form builder UI goes here)</i></p>
-      </div>
-    );
-  };
+  // Optional state to track selected form if you want to enable editing on selection
+  const [selectedFormId, setSelectedFormId] = useState<string | null>(null);
 
   return (
-    <div style={{ display: "flex", height: "100%" }}>
-      {/* Sidebar navigation for categories */}
-      <nav style={{ width: 200, borderRight: "1px solid #ddd", padding: "1rem" }}>
-        <h2>Forms</h2>
-        {Object.values(FormCategory).map((category) => (
-          <div
-            key={category}
-            onClick={() => {
-              setSelectedCategory(category);
-              setSelectedForm(null);
-            }}
-            style={{
-              cursor: "pointer",
-              fontWeight: category === selectedCategory ? "bold" : "normal",
-              marginBottom: "0.5rem",
-            }}
-          >
-            {category}
-          </div>
-        ))}
-      </nav>
+    <div style={{ padding: "1rem" }}>
+      {/* Page Header */}
+      <Header title="Forms Management" subtitle="Manage all your contracts, agreements, questionnaires, proposals, and lead capture forms" />
 
-      {/* List of forms for selected category */}
-      <section style={{ flex: 1, padding: "1rem", overflowY: "auto" }}>
-        <h2>{selectedCategory}</h2>
-        {filteredForms.length === 0 && <p>No forms in this category.</p>}
-        <ul>
-          {filteredForms.map((form) => (
-            <li
-              key={form.id}
-              onClick={() => handleSelectForm(form)}
-              style={{
-                cursor: "pointer",
-                backgroundColor: form.id === selectedForm?.id ? "#eef" : "transparent",
-                padding: "0.5rem",
-                marginBottom: "0.25rem",
-              }}
-            >
-              {form.title} - <small>{form.status}</small>
-            </li>
+      {/* Forms Table */}
+      <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "1rem" }}>
+        <thead>
+          <tr>
+            {Object.values(FormCategory).map((category) => (
+              <th
+                key={category}
+                style={{
+                  borderBottom: "2px solid #ccc",
+                  padding: "0.75rem",
+                  textAlign: "left",
+                  backgroundColor: "#f9f9f9",
+                  verticalAlign: "top",
+                }}
+              >
+                {category}
+                <br />
+                <button
+                  style={{ marginTop: "0.5rem", fontSize: "0.8rem" }}
+                  onClick={() => {
+                    // Logic to add a new form in this category (expand as needed)
+                    alert(`Add new form to ${category}`);
+                  }}
+                >
+                  + New Form
+                </button>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {/* Calculate max number of forms in any category to define number of rows */}
+          {Array.from({
+            length: Math.max(
+              ...Object.values(formsByCategory).map((forms) => forms.length)
+            ),
+          }).map((_, rowIndex) => (
+            <tr key={rowIndex}>
+              {Object.values(FormCategory).map((category) => {
+                const form = formsByCategory[category][rowIndex];
+                return (
+                  <td
+                    key={category}
+                    style={{
+                      borderBottom: "1px solid #eee",
+                      padding: "0.5rem",
+                      verticalAlign: "top",
+                      cursor: form ? "pointer" : "default",
+                      backgroundColor:
+                        form && form.id === selectedFormId ? "#eef6fc" : "transparent",
+                    }}
+                    onClick={() => form && setSelectedFormId(form.id)}
+                    title={form ? `${form.title} (${form.status})` : ""}
+                  >
+                    {form ? (
+                      <>
+                        <strong>{form.title}</strong>
+                        <br />
+                        <small>Status: {form.status}</small>
+                      </>
+                    ) : (
+                      <em style={{ color: "#aaa" }}>—</em>
+                    )}
+                  </td>
+                );
+              })}
+            </tr>
           ))}
-        </ul>
-        {/* Button to add new form */}
-        <button
-          onClick={() => {
-            const newForm: FormTemplate = {
-              id: `form_${Date.now()}`,
-              title: "New Form",
-              category: selectedCategory,
-              createdAt: new Date(),
-              updatedAt: new Date(),
-              status: "Draft",
-              data: {},
-            };
-            setForms([...forms, newForm]);
-            setSelectedForm(newForm);
+        </tbody>
+      </table>
+
+      {/* Optional: Display details or editor below the table when a form is selected */}
+      {selectedFormId && (
+        <div
+          style={{
+            marginTop: "1rem",
+            padding: "1rem",
+            border: "1px solid #ccc",
+            borderRadius: "4px",
+            backgroundColor: "#fafafa",
           }}
         >
-          + New {selectedCategory} Form
-        </button>
-
-        {/* Form Editor */}
-        {selectedForm && <FormEditor form={selectedForm} />}
-      </section>
+          {/* Locate selected form */}
+          {(() => {
+            const selectedForm = sampleTemplates.find((f) => f.id === selectedFormId);
+            if (!selectedForm) return <p>Form not found.</p>;
+            return (
+              <>
+                <h3>Editing: {selectedForm.title}</h3>
+                <p>
+                  Category: {selectedForm.category} <br />
+                  Status: {selectedForm.status}
+                </p>
+                {/* Placeholder for your form editor UI */}
+                <p><i>Form builder/edit UI goes here...</i></p>
+                {/* Add buttons for saving, updating status, etc. */}
+              </>
+            );
+          })()}
+        </div>
+      )}
     </div>
   );
 };
+
+export default FormsModuleTableView;
