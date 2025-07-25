@@ -4,7 +4,7 @@ import {
   Settings as SettingsIcon,
   Building2,
   Palette,
-  Gear,
+  Cog,
   Globe,
   CreditCard,
   Mail,
@@ -1671,7 +1671,7 @@ const Settings: React.FC = () => {
   return (
     <div className="p-6">
       {/*Page Header*/}
-      <Header title="Admin Settings" icon={Gear} />
+      <Header title="Admin Settings" icon={Cog} />
      
       <div className="flex h-full">
         {/* Sidebar */}
