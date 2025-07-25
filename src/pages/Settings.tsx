@@ -4,6 +4,7 @@ import {
   Settings as SettingsIcon,
   Building2,
   Palette,
+  Gear,
   Globe,
   CreditCard,
   Mail,
@@ -1668,8 +1669,8 @@ const Settings: React.FC = () => {
   };
 
   return (
-    <div className="flex-1 overflow-hidden">
-      <Header title="Admin Settings" subtitle="Configure your application settings and preferences" />
+    <div className="p-6">
+      <Header title="Admin Settings" icon:{subtitle="Configure your application settings and preferences" />
      
       <div className="flex h-full">
         {/* Sidebar */}
