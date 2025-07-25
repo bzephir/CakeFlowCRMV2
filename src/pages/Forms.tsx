@@ -39,7 +39,7 @@ const FormsModule: React.FC = () => {
   const [selectedFormId, setSelectedFormId] = useState<string | null>(null);
 
   return (
-    <div style={{ padding: "1rem" }}>
+   <div style={{ padding: "p-6" }}>
       {/* Page Header */}
            <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
         < FileSignature className="w-6 h-6 text-coral-500" />
