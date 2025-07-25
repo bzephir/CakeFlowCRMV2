@@ -22,6 +22,7 @@ import {
   FileText,
   Star,
   Tag,
+  Users,
   MessageSquare
 } from 'lucide-react';
 
@@ -302,8 +303,10 @@ const Customers: React.FC = () => {
 
   return (
     <div className="flex-1 overflow-hidden">
-      <Header title="Customers" />
-      
+       <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
+        < Users className="w-6 h-6 text-coral-500" />
+        Customers
+      </h1>
       <div className="p-6">
         {/* Actions Bar */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
