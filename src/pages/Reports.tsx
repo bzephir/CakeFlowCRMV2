@@ -32,7 +32,7 @@ const Reports: React.FC = () => {
     <div className="p-6">
       {/* Page Header */}
        
-    <Header title="Reports" className="text-2xl font-bold mb-6 flex items-center gap-2"/>
+    <Header icon="BarChart" title="Reports" className="text-2xl font-bold mb-6 flex items-center gap-2"/>
           {/* Filter section */}
       <div className="bg-white p-4 border rounded-md shadow-sm mb-8 flex flex-wrap gap-4">
         <input
