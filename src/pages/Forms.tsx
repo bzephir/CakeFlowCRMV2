@@ -43,7 +43,7 @@ const FormsModule: React.FC = () => {
       {/* Page Header */}
            <Header title="Forms" icon={FileSignature} />
       {/* Forms Table */}
-      <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "1rem" }}>
+     <div bg-white, shadow-sm, rounded-lg, border, border-gray-200, overflow-hidden> <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "1rem" }}>
         <thead>
           <tr>
             {Object.values(FormCategory).map((category) => (
