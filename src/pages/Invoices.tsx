@@ -290,10 +290,7 @@ const Invoices: React.FC = () => {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
-        <DollarSign className="w-6 h-6 text-green-500" />
-        Invoices
-      </h1>
+      <Header title="Invoice"icon={DollarSign} />
       <div className="p-6">
         {/* Actions Bar */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
