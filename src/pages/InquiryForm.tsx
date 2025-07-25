@@ -18,7 +18,7 @@ const InquiryForm: React.FC = () => {
     email: '',
     phone: '',
     eventDate: '',
-    fulfillmentType: 'pickup', 'delivery',
+    fulfillmentType: 'pickup' | 'delivery',
     pickupTime: '',
     deliveryTime: '',
     eventTime: '',
