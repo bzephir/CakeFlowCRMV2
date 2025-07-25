@@ -4,13 +4,14 @@ import { FilePen, FileSignature, Plus } from 'lucide-react'; // Import Plus icon
 // Assuming you have a reusable Header component used on Reports page
 import Header from "../components/Header"; // adjust import path accordingly
 
-export const FormCategory {
-  Contracts = "Contracts",
-  Agreements = "Agreements",
-  Questionnaires = "Questionnaires",
-  Proposals = "Proposals",
-  Inquiry = "Inquiry / Lead Capture",
-}
+export const FormCategory = {
+  Contracts: "Contracts",
+  Agreements: "Agreements",
+  Questionnaires: "Questionnaires",
+  Proposals: "Proposals",
+  Inquiry: "Inquiry / Lead Capture",
+};
+
 
 interface FormTemplate {
   id: string;
