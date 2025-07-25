@@ -45,8 +45,7 @@ const FormsModule: React.FC = () => {
         < FileSignature className="w-6 h-6 text-coral-500" />
         Forms
       </h1>
-      <Header title="Forms Management" subtitle="Manage all your contracts, agreements, questionnaires, proposals, and lead capture forms" />
-
+     
       {/* Forms Table */}
       <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "1rem" }}>
         <thead>
