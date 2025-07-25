@@ -147,4 +147,4 @@ const FormsModuleTableView: React.FC = () => {
   );
 };
 
-export default FormsModuleTableView;
+export default FormsModule;
