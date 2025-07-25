@@ -34,8 +34,7 @@ const Reports: React.FC = () => {
         <BarChart3 className="w-6 h-6 text-indigo-500" />
         Reports
       </h1>
- <div style={{ padding: "p-6" }}>
-     
+
       {/* Filter section */}
       <div className="bg-white p-4 border rounded-md shadow-sm mb-8 flex flex-wrap gap-4">
         <input
