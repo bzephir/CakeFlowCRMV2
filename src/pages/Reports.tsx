@@ -3,6 +3,7 @@ import { DollarSign, ShoppingBag, Users, BarChart3 } from 'lucide-react';
 import StatCard from '../components/StatCard';
 import SalesLineChart from '../components/SalesLineChart';
 import CustomerGrowthBarChart from '../components/CustomerGrowthBarChart';
+import Header from '../components/Header';
 // Adjust the above imports if needed for your project
 
 import {
