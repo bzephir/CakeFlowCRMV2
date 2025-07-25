@@ -610,10 +610,7 @@ const Recipes: React.FC = () => {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
-        < ChefHat className="w-6 h-6 text-coral-500" />
-        Recipes
-      </h1> 
+      <Header title="Recipes" icon={ChefHat} /> 
       <div className="p-6">
         {/* Actions Bar */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
