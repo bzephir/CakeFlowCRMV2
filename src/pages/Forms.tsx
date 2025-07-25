@@ -43,7 +43,7 @@ const FormsModule: React.FC = () => {
       {/* Page Header */}
            <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
         < FileSignature className="w-6 h-6 text-coral-500" />
-        Reports
+        Forms
       </h1>
       <Header title="Forms Management" subtitle="Manage all your contracts, agreements, questionnaires, proposals, and lead capture forms" />
 
