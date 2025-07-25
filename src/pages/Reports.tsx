@@ -136,9 +136,7 @@ const Reports: React.FC = () => {
         ) : (
           <>
             {activeTab === 'salesOverview' && (
-              <div className="w-3/4 h-48 mx-auto">
                 <SalesLineChart data={mockSalesReportData} />
-              </div>
             )}
             {activeTab === 'orderSummary' && (
               <div className="overflow-x-auto">
@@ -169,9 +167,7 @@ const Reports: React.FC = () => {
               </div>
             )}
   {activeTab === 'customerGrowth' && (
-              <div className="w-3/4 h-48 mx-auto">
-                <CustomerGrowthBarChart data={mockCustomerGrowth} />
-              </div>
+                <CustomerGrowthBarChart data={mockCustomerGrowth} />   
             )}
           </>
         )}
