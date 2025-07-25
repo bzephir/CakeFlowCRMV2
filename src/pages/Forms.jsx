@@ -4,7 +4,7 @@ import { FilePen, FileSignature, Plus } from 'lucide-react'; // Import Plus icon
 // Assuming you have a reusable Header component used on Reports page
 import Header from "../components/Header"; // adjust import path accordingly
 
-export type FormCategory {
+export enum FormCategory {
   Contracts = "Contracts",
   Agreements = "Agreements",
   Questionnaires = "Questionnaires",
@@ -38,98 +38,98 @@ const FormsModule: React.FC = () => {
   // Optional state to track selected form if you want to enable editing on selection
   const [selectedFormId, setSelectedFormId] = useState<string | null>(null);
 
-  return (
-   <div className="p-6">
-      {/* Page Header */}
-           <Header title="Forms" icon={FileSignature} />
-      {/* Forms Table */}
-     <div className="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              {Object.values(FormCategory).map((category) => (
-                <th
-                  key={category}
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider align-top"
-                >
-                  {category}
-                  <button
-                    className="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-coral-400 hover:bg-coral-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all mt-2"
-                    onClick={() => {
-                      // Logic to add a new form in this category (expand as needed)
-                      alert(`Add new form to ${category}`);
-                    }}
-                  >
-                    <Plus className="h-3 w-3 mr-1" /> {/* Plus icon */}
-                    New Form
-                  </button>
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {/* Calculate max number of forms in any category to define number of rows */}
-            {Array.from({
-              length: Math.max(
-                ...Object.values(formsByCategory).map((forms) => forms.length)
-              ),
-            }).map((_, rowIndex) => (
-              <tr key={rowIndex}>
-                {Object.values(FormCategory).map((category) => {
-                  const form = formsByCategory[category][rowIndex];
-                  return (
-                    <td
-                      key={category}
-                      className={`px-6 py-4 whitespace-nowrap align-top ${
-                        form ? "cursor-pointer" : ""
-                      } ${
-                        form && form.id === selectedFormId ? "bg-coral-50" : ""
-                      }`}
-                      onClick={() => form && setSelectedFormId(form.id)}
-                      title={form ? `${form.title} (${form.status})` : ""}
-                    >
-                      {form ? (
-                        <>
-                          <strong className="font-medium text-gray-900">{form.title}</strong>
-                          <br />
-                          <small className="text-xs text-gray-500">Status: {form.status}</small>
-                        </>
-                      ) : (
-                        <em className="text-gray-400">—</em>
-                      )}
-                    </td>
-                  );
-                })}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+return (
+  <div className="p-6">
+    {/* Page Header */}
+    <Header title="Forms" icon={FileSignature} />
 
-      {/* Optional: Display details or editor below the table when a form is selected */}
-      {selectedFormId && (
-        <div
-          className="mt-6 p-6 border border-gray-200 rounded-lg shadow-sm bg-white"
-        >
-          {/* Locate selected form */}
-          {(() => {
-            const selectedForm = sampleTemplates.find((f) => f.id === selectedFormId);
-            if (!selectedForm) return <p className="text-sm text-gray-600">Form not found.</p>;
-            return (
-              <>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Editing: {selectedForm.title}</h3>
-                <p className="text-sm text-gray-600 mb-2">
-                  Category: {selectedForm.category} <br />
-                  Status: {selectedForm.status}
-                </p>
-                {/* Placeholder for your form editor UI */}
-                <p className="text-sm text-gray-500 italic"><i>Form builder/edit UI goes here...</i></p>
-                {/* Add buttons for saving, updating status, etc. */}
-              </>
-            );
-          })()}
-        </div>
-    
-  );
-};
+    {/* Forms Table */}
+    <div className="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden">
+      <table className="min-w-full divide-y divide-gray-200">
+        <thead className="bg-gray-50">
+          <tr>
+            {Object.values(FormCategory).map((category) => (
+              <th
+                key={category}
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider align-top"
+              >
+                {category}
+                <button
+                  className="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-coral-400 hover:bg-coral-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all mt-2"
+                  onClick={() => {
+                    alert(`Add new form to ${category}`);
+                  }}
+                >
+                  <Plus className="h-3 w-3 mr-1" /> {/* Plus icon */}
+                  New Form
+                </button>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody className="bg-white divide-y divide-gray-200">
+          {Array.from({
+            length: Math.max(
+              ...Object.values(formsByCategory).map((forms) => forms.length)
+            ),
+          }).map((_, rowIndex) => (
+            <tr key={rowIndex}>
+              {Object.values(FormCategory).map((category) => {
+                const form = formsByCategory[category][rowIndex];
+                return (
+                  <td
+                    key={category}
+                    className={`px-6 py-4 whitespace-nowrap align-top ${
+                      form ? "cursor-pointer" : ""
+                    } ${form && form.id === selectedFormId ? "bg-coral-50" : ""}`}
+                    onClick={() => form && setSelectedFormId(form.id)}
+                    title={form ? `${form.title} (${form.status})` : ""}
+                  >
+                    {form ? (
+                      <>
+                        <strong className="font-medium text-gray-900">{form.title}</strong>
+                        <br />
+                        <small className="text-xs text-gray-500">Status: {form.status}</small>
+                      </>
+                    ) : (
+                      <em className="text-gray-400">—</em>
+                    )}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    {/* Optional: Display details or editor below the table when a form is selected */}
+    {selectedFormId && (
+      <div className="mt-6 p-6 border border-gray-200 rounded-lg shadow-sm bg-white">
+        {(() => {
+          const selectedForm = sampleTemplates.find((f) => f.id === selectedFormId);
+          if (!selectedForm)
+            return <p className="text-sm text-gray-600">Form not found.</p>;
+          return (
+            <>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                Editing: {selectedForm.title}
+              </h3>
+              <p className="text-sm text-gray-600 mb-2">
+                Category: {selectedForm.category} <br />
+                Status: {selectedForm.status}
+              </p>
+              {/* Placeholder for your form editor UI */}
+              <p className="text-sm text-gray-500 italic">
+                <i>Form builder/edit UI goes here...</i>
+              </p>
+            </>
+          );
+        })()}
+      </div>
+    )}
+  </div>
+);
+
 
 export default FormsModule;
