@@ -41,11 +41,7 @@ const FormsModule: React.FC = () => {
   return (
    <div className="p-6">
       {/* Page Header */}
-           <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
-        < FileSignature className="w-6 h-6 text-coral-500" />
-        Forms
-      </h1>
-     
+           <Header title="Forms" icon={FileSignature} />
       {/* Forms Table */}
       <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "1rem" }}>
         <thead>
