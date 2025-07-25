@@ -5,7 +5,7 @@ import { Bell, Search, User, Mail, LogOut, Settings } from 'lucide-react';
 interface HeaderProps {
   title: string;
   subtitle?: string;
-  icon: string;
+  iconComponent: React.ElementType;
 }
 
 const Header: React.FC<HeaderProps> = ({ title, subtitle }) => {
