@@ -30,7 +30,7 @@ const Reports: React.FC = () => {
   return (
     <div className="p-6">
       {/* Page Header */}
-      <h1>
+    <h1>
       <BarChart3 className="w-6 h-6 text-indigo-500" />
         Reports
     </h1>      
