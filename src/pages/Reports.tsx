@@ -33,7 +33,7 @@ const Reports: React.FC = () => {
       <Header className="text-2xl font-bold mb-6 flex items-center gap-2">
         <BarChart3 className="w-6 h-6 text-indigo-500" />
         Reports
-      />
+    
       {/* Filter section */}
       <div className="bg-white p-4 border rounded-md shadow-sm mb-8 flex flex-wrap gap-4">
         <input
