@@ -1670,7 +1670,7 @@ const Settings: React.FC = () => {
   return (
     <div className="flex-1 overflow-hidden">
       <Header title="Admin Settings" subtitle="Configure your application settings and preferences" />
-      
+     
       <div className="flex h-full">
         {/* Sidebar */}
         <div className="w-80 bg-white border-r border-gray-200 overflow-y-auto">
