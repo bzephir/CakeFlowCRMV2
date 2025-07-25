@@ -136,7 +136,7 @@ const Orders: React.FC = () => {
 
   return (
      <div className="p-6">
-  <Header title="Orders" icon={BarChart3} /> 
+  <Header title="Orders" icon={FileText} /> 
       <div className="p-6">
         {/* Actions Bar */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
