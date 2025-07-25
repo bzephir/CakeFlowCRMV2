@@ -4,7 +4,7 @@ import { FilePen, FileSignature, Plus } from 'lucide-react'; // Import Plus icon
 // Assuming you have a reusable Header component used on Reports page
 import Header from "../components/Header"; // adjust import path accordingly
 
-export enum FormCategory {
+export const FormCategory {
   Contracts = "Contracts",
   Agreements = "Agreements",
   Questionnaires = "Questionnaires",
@@ -130,6 +130,5 @@ return (
     )}
   </div>
 );
-
 
 export default FormsModule;
