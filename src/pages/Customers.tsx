@@ -302,7 +302,7 @@ const Customers: React.FC = () => {
   });
 
   return (
-    <div className="flex-1 overflow-hidden">
+    <div className="p-6">
        <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
         < Users className="w-6 h-6 text-coral-500" />
         Customers
