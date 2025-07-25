@@ -17,6 +17,7 @@ import {
   MessageSquare,
   MapPin,
   FileSignature,
+  FilePen,
   Settings,
   UserCheck,
   Calendar,
