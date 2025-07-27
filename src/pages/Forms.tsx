@@ -52,7 +52,7 @@ const FormsModule: React.FC = () => {
               {Object.values(FormCategory).map((category) => (
                 <th
                   key={category}
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider align-top bg-coral rounded-t-lg border-t border-x border-vcoral-200 border-b-0  "
+                  className="px-6 py-3 px-4 pt-4 pb-2text-left text-xs font-medium text-gray-900 uppercase tracking-wider align-top bg-coral rounded-t-lg border-t border-x border-vcoral-200 border-b-0 relative z-10 "
                 >
                   {category}
                   <button
