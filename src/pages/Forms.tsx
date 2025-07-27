@@ -47,12 +47,12 @@ const FormsModule: React.FC = () => {
       {/* Forms Table Box */}
       <div className="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden mt-6">   
         <table className="min-w-full divide-y divide-gray-200">
-          <thead>
+          <thead className="mr-4">
             <tr>
               {Object.values(FormCategory).map((category) => (
                 <th
                   key={category}
-                  className="px-6 py-3 px-4 pt-4 pb-4 text-center text-xs font-medium text-gray-900 uppercase tracking-wider align-top bg-gradient-to-r from-coral-400 to-pink-400 rounded-t-lg border-t border-x border-coral-200 border-b-0 relative z-10 "
+                  className="mr-4 px-6 py-3 px-4 pt-4 pb-4 text-center text-xs font-medium text-gray-900 uppercase tracking-wider align-top bg-gradient-to-r from-coral-400 to-pink-400 rounded-t-lg border-t border-x border-coral-200 border-b-0 relative z-10 "
                 >
                  {category}
                   <button
