@@ -47,7 +47,7 @@ const FormsModule: React.FC = () => {
       {/* Forms Table Box */}
       <div className="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden mt-6">   
         <table className="min-w-full divide-y divide-gray-200">
-          <thead className="mr-4">
+          <thead>
             <tr>
               {Object.values(FormCategory).map((category) => (
                 <th
