@@ -91,7 +91,7 @@ const FormsModule: React.FC = () => {
             }}
             className={`text-md font-semibold px-6 py-2 rounded-t-lg transition focus:outline-none ${
               category === selectedCategory
-                ? "bg-coral-400 text-white shadow-sm border border-b-transparent rounded-t-lg"
+                ? "bg-coral-400 text-white shadow-md border border-b-transparent rounded-t-lg"
                 : "bg-gray-100 text-gray-600 hover:bg-coral-100 border border-transparent hover:border-coral-300"
             }`}
             style={{ minWidth: 160, letterSpacing: 0.6 }}
