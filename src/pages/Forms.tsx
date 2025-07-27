@@ -52,10 +52,19 @@ const FormsModule: React.FC = () => {
               {Object.values(FormCategory).map((category) => (
                 <th
                   key={category}
-                  className="px-6 py-3 px-4 pt-4 text-center text-xs font-medium text-gray-900 uppercase tracking-wider align-top bg-gradient-to-r from-coral-400 to-pink-400 rounded-t-lg border-t border-x border-coral-200 border-b-0 relative z-10 "
+                  className="px-6 py-3 px-4 pt-4 pb-4 text-center text-xs font-medium text-gray-900 uppercase tracking-wider align-top bg-gradient-to-r from-coral-400 to-pink-400 rounded-t-lg border-t border-x border-coral-200 border-b-0 relative z-10 "
                 >
-                 
-                </th>
+                 {category}
+                  <button
+                    className="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-coral-400 hover:bg-coral-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all mt-2"
+                    onClick={() => {
+                      // Replace with your Add New Form UI flow
+                      alert(`Add new form to ${category}`);
+                    }}
+                  >
+                    <Plus className="h-3 w-3 mr-1" />
+                    New Form
+                  </button>                 </th>
               ))}
             </tr>
           </thead>
