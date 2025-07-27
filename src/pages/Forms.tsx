@@ -3,7 +3,7 @@ import React, { useState, useMemo } from "react";
 import { FileSignature, Plus } from "lucide-react";
 import Header from "../components/Header";
 // Adjust import paths as needed:
-import { formTemplatesMock, FormTemplate } from "../data/mockdata";
+import { formTemplatesMock, FormTemplate } from "../data/mockData";
 
 // Move your enum to a shared location if you want to, but here's the local setup again for clarity
 export enum FormCategory {
