@@ -1,6 +1,6 @@
 // src/pages/Forms.tsx
 import React, { useState } from "react";
-import { FileSignature, Plus } from "lucide-react"; // Icons
+import { FileSignature, CheckCircle2 } from "lucide-react"; // Icons
 import Header from "../components/Header"; // Adjust path as needed
 
 // Enum for form categories
@@ -68,14 +68,14 @@ const FormsModule: React.FC = () => {
               ),
             }).map((_, rowIndex) => (
               <tr key={rowIndex}>
-                {Object.values(FormCategory).map((category) => {
+                {Object.values(FormCategory).map((category, index) => {
                   const form = formsByCategory[category][rowIndex];
                   return (
                     <td
                       key={category}
                       className={`px-6 py-4 whitespace-nowrap align-top ${
                         form ? "cursor-pointer" : ""
-                      } ${form && form.id === selectedFormId ? "bg-coral-50" : ""}`}
+                      } ${form && form.id === selectedFormId ? "bg-coral-50" : ""} ${index < Object.values(FormCategory).length - 1 ? 'mr-4' : ''}`}
                       onClick={() => form && setSelectedFormId(form.id)}
                       title={form ? `${form.title} (${form.status})` : ""}
                     >
