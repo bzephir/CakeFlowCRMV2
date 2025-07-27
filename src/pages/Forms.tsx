@@ -47,18 +47,15 @@ const FormsModule: React.FC = () => {
       {/* Forms Table Box */}
       <div className="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden mt-6">   
         <table className="min-w-full divide-y divide-gray-200">
-          <thead className="mr-4">
+          <thead>
             <tr>
-              {Object.values(FormCategory).map((category) => (
+              {Object.values(FormCategory).map((category, index) => (
                 <th
                   key={category}
-                  className="mr-4 px-6 py-3 px-4 pt-4 pb-4 text-center text-xs font-medium text-gray-900 uppercase tracking-wider align-top bg-gradient-to-r from-coral-400 to-pink-400 rounded-t-lg border-t border-x border-coral-200 border-b-0 relative z-10 "
-                >
-key={category}
                   className={`px-4 pt-4 pb-2 text-center text-xs font-medium text-white uppercase tracking-wider align-top bg-gradient-to-r from-coral-400 to-pink-400 rounded-t-lg border-t border-x border-coral-200 border-b-0 relative z-10 ${index < Object.values(FormCategory).length - 1 ? 'mr-4' : ''}`}
-                
+                >
                  {category}
-                 <Plus className="h-4 w-4 text-white mx-auto mt-2" />
+                 <CheckCircle2 className="h-4 w-4 text-white mx-auto mt-2" />
                 </th>
               ))}
             </tr>
