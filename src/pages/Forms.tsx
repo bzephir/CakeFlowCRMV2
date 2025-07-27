@@ -17,17 +17,9 @@ interface FormTemplate {
   id: string;
   title: string;
   category: FormCategory;
-  status: "Draft" | "Active" | "Archived";
+  createdAt: string;
 }
 
-// Sample static data (replace or fetch from API/backend)
-const sampleTemplates: FormTemplate[] = [
-  { id: "1", title: "Standard Contract", category: FormCategory.Contracts, status: "Active" },
-  { id: "2", title: "Custom Agreement", category: FormCategory.Agreements, status: "Draft" },
-  { id: "3", title: "Customer Questionnaire", category: FormCategory.Questionnaires, status: "Active" },
-  { id: "4", title: "Wedding Proposal", category: FormCategory.Proposals, status: "Active" },
-  { id: "5", title: "Lead Capture Form", category: FormCategory.Inquiry, status: "Active" },
-];
 
 const FormsModule: React.FC = () => {
   // Group forms by category for populating columns
