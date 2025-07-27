@@ -45,8 +45,8 @@ const FormsModule: React.FC = () => {
       <Header title="Forms" icon={FileSignature} />
 
       {/* Forms Table Box */}
-      <div className="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-coral-400 to-pink-400 rounded-t-lg">   
-        <table className="min-w-full divide-y divide-gray-200">
+      <div className="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden mt-6">   
+        <table className="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden mt-6">     
           <thead className="bg-gray-50">
             <tr>
               {Object.values(FormCategory).map((category) => (
