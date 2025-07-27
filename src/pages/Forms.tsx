@@ -111,7 +111,7 @@ const FormsModule: React.FC = () => {
           title={`Add new form to ${selectedCategory}`}
         >
           <Plus className="mr-2" />
-          New {selectedCategory.split(" ")[0]} Form
+          New {selectedCategory.split(" ")[0]}
         </button>
       </div>
 
