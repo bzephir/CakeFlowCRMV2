@@ -22,7 +22,7 @@ interface FormTemplate {
 
 // Sample static data (replace or fetch from API/backend)
 const sampleTemplates: FormTemplate[] = [
-  { id: "1", title: "Standard Contract", category: FormCategory.Contracts, createdAt: "2024-01-01T10:00:00Z" },
+  { id: "1", title: "Standard Contract", category: FormCategory.Contracts, createdAt: '2024-01-01T10:00:00Z' },
   { id: "2", title: "Custom Agreement", category: FormCategory.Agreements, createdAt: "Draft" },
   { id: "3", title: "Customer Questionnaire", category: FormCategory.Questionnaires, createdAt: "Active" },
   { id: "4", title: "Wedding Proposal", category: FormCategory.Proposals, createdAt: "Active" },
