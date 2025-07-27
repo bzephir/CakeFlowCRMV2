@@ -1,7 +1,7 @@
 // src/pages/Forms.tsx
 import React, { useState } from "react";
 import { FileSignature, Plus } from "lucide-react"; // Icons
-import { mockOrdersList } from '../data/mockData';
+import { formTemplatesMock, FormTemplate } from '../data/mockData';
 import Header from "../components/Header"; // Adjust path as needed
 
 
