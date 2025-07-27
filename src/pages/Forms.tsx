@@ -151,7 +151,7 @@ const FormsModule: React.FC = () => {
             return (
               <>
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-lg font-bold text-coral-600">{selectedForm.title}</h3>
+                  <h3 className="text-md font-bold text-coral-600">{selectedForm.title}</h3>
                   {/* Optional: add edit/delete buttons here */}
                 </div>
                 <div className="text-sm text-gray-600 mb-2">
