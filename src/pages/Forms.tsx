@@ -80,7 +80,7 @@ const FormsModule: React.FC = () => {
             }
             className="border px-2 py-1 rounded"
           >
-            <option value="asc">Alphabetical A-Z</option>
+            <option value="asc">Acsending</option>
             <option value="desc">Alphabetical Z-A</option>
           </select>
         </label>
