@@ -35,22 +35,18 @@ const FormsModule: React.FC = () => {
     });
   }, [templates, sortBy, sortOrder]);
 
-  // Group forms by category for table columns
-  const formsByCategory = useMemo(
-    () =>
-      Object.values(FormCategory).reduce<Record<FormCategory, FormTemplate[]>>(
-        (acc, category) => {
-          acc[category] = sortedTemplates.filter(
-            (form) => form.category === category
-          );
-          return acc;
-        },
-        {} as Record<FormCategory, FormTemplate[]>
-      ),
-    [sortedTemplates]
+  const categories = Object.values(FormCategory);
+
+  // State for selected category tab
+  const [selectedCategory, setSelectedCategory] = useState<FormCategory>(categories[0]);
+
+  // Forms in the selected category
+  const formsForCategory = useMemo(
+    () => sortedTemplates.filter((form) => form.category === selectedCategory),
+    [sortedTemplates, selectedCategory]
   );
 
-  // Example selection state (prepare for 'create/view/edit' modal logic)
+  // Selected form for detail panel
   const [selectedFormId, setSelectedFormId] = useState<string | null>(null);
 
   return (
@@ -75,114 +71,94 @@ const FormsModule: React.FC = () => {
           Order:{" "}
           <select
             value={sortOrder}
-            onChange={(e) =>
-              setSortOrder(e.target.value as "asc" | "desc")
-            }
+            onChange={(e) => setSortOrder(e.target.value as "asc" | "desc")}
             className="border px-2 py-1 rounded"
           >
-            <option value="asc">Acsending</option>
-            <option value="desc">Alphabetical Z-A</option>
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
           </select>
         </label>
       </div>
 
-      {/* Forms Table */}
-      <div className="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden mt-6">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead>
-            <tr>
-              {Object.values(FormCategory).map((category, index) => (
-                <th
-                  key={category}
-                  className={`mr-6 px-4 py-6 text-md text-bold font-medium text-white uppercase tracking-wider bg-gradient-to-r from-coral-400 to-pink-400 rounded-t-lg border-t border-x border-b-0 relative z-10 ${
-                    index < Object.values(FormCategory).length - 1 ? "mr-6" : ""
-                  }`}
-                >
-                  <div className="flex items-center justify-between pt-4">
-                    <span>{category}</span>
-                    <Plus
-                      className="h-4 w-4 text-white cursor-pointer"
-                      title="Add New Form"
-                      onClick={() => {
-                        // e.g. open modal, set new form state, etc
-                      }}
-                    />
-                  </div>
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {Array.from({
-              length: Math.max(
-                ...Object.values(formsByCategory).map(
-                  (forms) => forms.length
-                )
-              ),
-            }).map((_, rowIndex) => (
-              <tr key={rowIndex}>
-                {Object.values(FormCategory).map((category, index) => {
-                  const form = formsByCategory[category][rowIndex];
-                  return (
-                    <td
-                      key={category}
-                      className={`px-6 py-6 whitespace-nowrap align-top ${
-                        form ? "cursor-pointer" : ""
-                      } ${
-                        form && form.id === selectedFormId
-                          ? "bg-coral-50"
-                          : ""
-                      } ${index < Object.values(FormCategory).length - 1 ? "mr-6" : ""}`}
-                      onClick={() => form && setSelectedFormId(form.id)}
-                      title={form ? form.title : ""}
-                    >
-                      {form ? (
-                        <>
-                          <strong className="font-medium text-gray-900">
-                            {form.title}
-                          </strong>
-                          <br />
-                          <span className="text-xs text-gray-400">
-                            {new Date(form.createdAt).toLocaleDateString()}
-                          </span>
-                        </>
-                      ) : (
-                        <em className="text-gray-400">—</em>
-                      )}
-                    </td>
-                  );
-                })}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      {/* Category tabs */}
+      <div className="flex gap-12 mb-8 border-b border-gray-300">
+        {categories.map((category) => (
+          <button
+            key={category}
+            onClick={() => {
+              setSelectedCategory(category);
+              setSelectedFormId(null);
+            }}
+            className={`text-lg font-semibold px-6 py-2 rounded-t-lg transition focus:outline-none ${
+              category === selectedCategory
+                ? "bg-coral-400 text-white shadow-md border border-b-transparent rounded-t-lg"
+                : "bg-gray-100 text-gray-600 hover:bg-coral-100 border border-transparent hover:border-coral-300"
+            }`}
+            style={{ minWidth: 160, letterSpacing: 0.6 }}
+          >
+            {category}
+          </button>
+        ))}
       </div>
 
-      {/* Example selected form panel / placeholder */}
+      {/* New Form Button for selected category */}
+      <div className="flex justify-end mb-4">
+        <button
+          className="inline-flex items-center px-4 py-2 bg-coral-400 hover:bg-coral-500 text-white rounded shadow-sm transition focus:outline-none"
+          onClick={() => {
+            // TODO: open the form creation modal or logic here
+          }}
+          title={`Add new form to ${selectedCategory}`}
+        >
+          <Plus className="mr-2" />
+          New {selectedCategory.split(" ")[0]} Form
+        </button>
+      </div>
+
+      {/* List of forms for the selected category */}
+      <div>
+        {formsForCategory.length === 0 ? (
+          <div className="text-gray-400 py-12 text-center text-sm italic">
+            No forms in this category yet.
+          </div>
+        ) : (
+          <ul className="space-y-2">
+            {formsForCategory.map((form) => (
+              <li key={form.id}>
+                <button
+                  className={`w-full text-left px-5 py-3 rounded-lg shadow-sm bg-white hover:bg-coral-50 border border-gray-200 flex justify-between items-center ${
+                    form.id === selectedFormId ? "ring-2 ring-coral-400" : ""
+                  }`}
+                  onClick={() => setSelectedFormId(form.id)}
+                  title={form.title}
+                >
+                  <span className="font-medium text-gray-800">{form.title}</span>
+                  {/* Add icons or other minimal info here if desired */}
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      {/* Selected form panel (details/editor placeholder) */}
       {selectedFormId && (
-        <div className="mt-6 p-6 border border-gray-200 rounded-lg shadow-sm bg-white">
+        <div className="mt-8 max-w-lg mx-auto p-6 border border-gray-200 rounded-lg shadow-sm bg-white">
           {(() => {
-            const selectedForm = templates.find(
-              (f) => f.id === selectedFormId
-            );
+            const selectedForm = templates.find((f) => f.id === selectedFormId);
             if (!selectedForm)
-              return (
-                <p className="text-sm text-gray-600">Form not found.</p>
-              );
+              return <p className="text-sm text-gray-600">Form not found.</p>;
             return (
               <>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                  {selectedForm.title}
-                </h3>
-                <p className="text-sm text-gray-600 mb-2">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-lg font-bold text-coral-600">{selectedForm.title}</h3>
+                  {/* Optional: add edit/delete buttons here */}
+                </div>
+                <div className="text-sm text-gray-600 mb-2">
                   Category: {selectedForm.category}
-                  <br />
-                  Created: {new Date(selectedForm.createdAt).toLocaleString()}
-                </p>
-                {/* Replace with real form builder/editor */}
-                <p className="text-sm text-gray-500 italic">
-                  <i>Form builder/edit UI goes here…</i>
-                </p>
+                </div>
+                {/* Insert your form builder/editor component here */}
+                <div className="text-xs text-gray-400 italic">Form builder/edit UI goes here…</div>
               </>
             );
           })()}
