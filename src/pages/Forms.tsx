@@ -56,7 +56,7 @@ const FormsModule: React.FC = () => {
                 >
                   {category}
                   <button
-                    className="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-coral-400 hover:bg-coral-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all mt-2"
+                    className="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400hover:bg-coral-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all mt-2"
                     onClick={() => {
                       // Replace with your Add New Form UI flow
                       alert(`Add new form to ${category}`);
