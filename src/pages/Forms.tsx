@@ -85,7 +85,7 @@ const FormsModule: React.FC = () => {
                         <>
                           <strong className="font-medium text-gray-900">{form.title}</strong>
                           <br />
-                          <small className="text-xs text-gray-500">Status: {form.status}</small>
+                          
                         </>
                       ) : (
                         <em className="text-gray-400">—</em>
