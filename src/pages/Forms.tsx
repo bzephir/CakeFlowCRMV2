@@ -1,6 +1,6 @@
 // src/pages/Forms.tsx
 import React, { useState } from "react";
-import { FileSignature, CheckCircle2 } from "lucide-react"; // Icons
+import { FileSignature, Plus } from "lucide-react"; // Icons
 import Header from "../components/Header"; // Adjust path as needed
 
 // Enum for form categories
@@ -55,7 +55,7 @@ const FormsModule: React.FC = () => {
                   className={`px-4 pt-4 pb-2 text-center text-xs font-medium text-white uppercase tracking-wider align-top bg-gradient-to-r from-coral-400 to-pink-400 rounded-t-lg border-t border-x border-coral-200 border-b-0 relative z-10 ${index < Object.values(FormCategory).length - 1 ? 'mr-4' : ''}`}
                 >
                  {category}
-                 <CheckCircle2 className="h-4 w-4 text-white mx-auto mt-2" />
+                 <Plus className="h-4 w-4 text-white mx-auto mt-2" />
                 </th>
               ))}
             </tr>
