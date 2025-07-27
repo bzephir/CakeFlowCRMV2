@@ -75,7 +75,7 @@ const FormsModule: React.FC = () => {
                   return (
                     <td
                       key={category}
-                      className={`px-6 py-4 whitespace-nowrap align-top ${
+                      className={`px-6 py-8 whitespace-nowrap align-top ${
                         form ? "cursor-pointer" : ""
                       } ${form && form.id === selectedFormId ? "bg-coral-50" : ""} ${index < Object.values(FormCategory).length - 1 ? 'mr-6' : ''}`}
                       onClick={() => form && setSelectedFormId(form.id)}
