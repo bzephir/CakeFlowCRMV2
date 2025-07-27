@@ -45,14 +45,14 @@ const FormsModule: React.FC = () => {
       <Header title="Forms" icon={FileSignature} />
 
       {/* Forms Table Box */}
-      <div className="mr-6 bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden mt-6">   
+      <div className="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden mt-6">   
         <table className="min-w-full divide-y divide-gray-200">
           <thead>
             <tr>
               {Object.values(FormCategory).map((category, index) => (
                 <th
                   key={category}
-                  className={`px-4 py-4 text-xs font-medium text-white uppercase tracking-wider align-top bg-gradient-to-r from-coral-400 to-pink-400 rounded-t-lg border-t border-x border-coral-200 border-b-0 relative z-10 ${index < Object.values(FormCategory).length - 1 ? 'mr-6' : ''}`}
+                  className={`mr-6 px-4 py-4 text-xs font-medium text-white uppercase tracking-wider align-top bg-gradient-to-r from-coral-400 to-pink-400 rounded-t-lg border-t border-x border-gray-900 border-b-0 relative z-10 ${index < Object.values(FormCategory).length - 1 ? 'mr-6' : ''}`}
                 >
                  <div className="flex items-center justify-between">
                    <span>{category}</span>
