@@ -132,7 +132,7 @@ const FormsModule: React.FC = () => {
                   onClick={() => setSelectedFormId(form.id)}
                   title={form.title}
                 >
-                  <span className="font-medium text-gray-800">{form.title}</span>
+                  <span className="font-small text-gray-800">{form.title}</span>
                   {/* Add icons or other minimal info here if desired */}
                 </button>
               </li>
