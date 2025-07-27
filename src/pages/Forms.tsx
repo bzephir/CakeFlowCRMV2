@@ -52,10 +52,12 @@ const FormsModule: React.FC = () => {
               {Object.values(FormCategory).map((category, index) => (
                 <th
                   key={category}
-                  className={`px-4 pt-4 pb-2 text-center text-xs font-medium text-white uppercase tracking-wider align-top bg-gradient-to-r from-coral-400 to-pink-400 rounded-t-lg border-t border-x border-coral-200 border-b-0 relative z-10 ${index < Object.values(FormCategory).length - 1 ? 'mr-4' : ''}`}
+                  className={`px-4 py-4 text-xs font-medium text-white uppercase tracking-wider align-top bg-gradient-to-r from-coral-400 to-pink-400 rounded-t-lg border-t border-x border-coral-200 border-b-0 relative z-10 ${index < Object.values(FormCategory).length - 1 ? 'mr-4' : ''}`}
                 >
-                 {category}
-                 <Plus className="h-4 w-4 text-white mx-auto mt-2" />
+                 <div className="flex items-center justify-between">
+                   <span>{category}</span>
+                   <Plus className="h-4 w-4 text-white" />
+                 </div>
                 </th>
               ))}
             </tr>
