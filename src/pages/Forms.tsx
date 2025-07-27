@@ -52,7 +52,7 @@ const FormsModule: React.FC = () => {
               {Object.values(FormCategory).map((category, index) => (
                 <th
                   key={category}
-                  className={`px-4 py-4 text-xs font-medium text-white uppercase tracking-wider align-top bg-gradient-to-r from-coral-400 to-pink-400 rounded-t-lg border-t border-x border-coral-200 border-b-0 relative z-10 ${index < Object.values(FormCategory).length - 1 ? 'mr-4' : ''}`}
+                  className={`px-4 py-4 text-xs font-medium text-white uppercase tracking-wider align-top bg-gradient-to-r from-coral-400 to-pink-400 rounded-t-lg border-t border-x border-coral-200 border-b-0 relative z-10 ${index < Object.values(FormCategory).length - 1 ? 'mr-6' : ''}`}
                 >
                  <div className="flex items-center justify-between">
                    <span>{category}</span>
@@ -77,7 +77,7 @@ const FormsModule: React.FC = () => {
                       key={category}
                       className={`px-6 py-4 whitespace-nowrap align-top ${
                         form ? "cursor-pointer" : ""
-                      } ${form && form.id === selectedFormId ? "bg-coral-50" : ""} ${index < Object.values(FormCategory).length - 1 ? 'mr-4' : ''}`}
+                      } ${form && form.id === selectedFormId ? "bg-coral-50" : ""} ${index < Object.values(FormCategory).length - 1 ? 'mr-6' : ''}`}
                       onClick={() => form && setSelectedFormId(form.id)}
                       title={form ? `${form.title} (${form.status})` : ""}
                     >
