@@ -71,69 +71,23 @@ const FormDetail: React.FC = () => {
         {filledBody}
       </ReactMarkdown>
 
-      {/* Signature blocks */}
-      <div className="mt-10 space-y-10">
-        {/* Intro text above client signature */}
-        <p className="mb-4 text-gray-700">
-          Please provide your full legal name in the fields below to serve as your formal signature on this contract.
-        </p>
+      import SignatureBlock from "../components/SignatureBlock"; // Adjust path accordingly
 
-        {/* Client Signature */}
-        <section>
-          <h1 className="font-semibold mb-8 text-center text-xl">Signatures</h1>
-          <h2 className="font-semibold mb-3">Client</h2>
-          <div className="flex space-x-6 max-w-md">
-            <label className="flex flex-col flex-1">
-              <span className="mb-1 text-sm">First Name</span>
-              <input
-                type="text"
-                name="clientFirstName"
-                placeholder="Enter first name"
-                className="border border-gray-300 rounded px-3 py-2"
-              />
-            </label>
-            <label className="flex flex-col flex-1">
-              <span className="mb-1 text-sm">Last Name</span>
-              <input
-                type="text"
-                name="clientLastName"
-                placeholder="Enter last name"
-                className="border border-gray-300 rounded px-3 py-2"
-              />
-            </label>
-          </div>
-        </section>
+// inside your component render (e.g., below your Markdown contract)
+<>
+  {/* ... other content */}
 
-        {/* Owner Signature */}
-        <section>
-          <h2 className="font-semibold mb-3">Owner</h2>
-          <div className="flex space-x-6 max-w-md">
-            <label className="flex flex-col flex-1">
-              <span className="mb-1 text-sm">First Name</span>
-              <input
-                type="text"
-                name="ownerFirstName"
-                placeholder="Enter first name"
-                className="border border-gray-300 rounded px-3 py-2"
-              />
-            </label>
-            <label className="flex flex-col flex-1">
-              <span className="mb-1 text-sm">Last Name</span>
-              <input                 type="text"
-                name="ownerLastName"
-                placeholder="Enter last name"
-                className="border border-gray-300 rounded px-3 py-2"
-              />
-            </label>
-          </div>
+  <h1 className="text-3xl font-bold mb-6">{form.title}</h1>
+  
+  <ReactMarkdown {/* your props */}>{filledBody}</ReactMarkdown>
+  
+  {/* Signature blocks */}
+  <div className="mt-10">
+    <SignatureBlock role="Client" />
+    <SignatureBlock role="Owner" showAdminNote />
+  </div>
+</>
 
-          {/* Text below owner signature */}
-          <p className="mt-4 text-gray-700">
-            By signing above, the owner agrees to the terms and conditions outlined in this contract.
-          </p>
-        </section>
-      </div>
-    </div>
   );
 };
 
