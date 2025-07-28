@@ -68,25 +68,6 @@ a.    This contract shall be governed by the laws of the State of Florida, and a
 {{paymentSchedule | paymentScheduleFilter}}
 
 ---
-
-Signatures
-
-**Client:**  
-I agree to the terms and conditions of this contract.
-
-First Name              Last Name  
-Signature Box  
-*The date will be recorded once the form is submitted.*
-
-*This field is for internal use and will be recorded on the final document once it is countersigned. The client won’t see this field when they receive the contract to sign.*  
-*The note/alert for the admin will read and be highlighted “The field is for you to countersign. Don’t worry your client won’t see this.”*
-
-**Owner:**  
-I agree to the terms and conditions of this contract.
-
-First Name              Last Name  
-Signature Box  
-*The date will be recorded once the form is submitted.*
     `,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
