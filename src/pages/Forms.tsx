@@ -5,7 +5,33 @@ import Header from "../components/Header";
 // Adjust import paths as needed:
 import { formTemplatesMock, FormTemplate } from "../data/mockData";
 
-// Move your enum to a shared location if you want to, but here's the local setup again for clarity
+/**
+ * Utility to render templates with {{merge_fields}} and simple | filters (like longDate).
+ * (Still included in case you want to preview later or reuse utility)
+ */
+function renderTemplate(
+  template: string,
+  data: Record<string, any>
+): string {
+  return template.replace(/{{\s*([\w.]+)(\s*\|\s*[\w]+)?\s*}}/g, (_m, path, filterWithPipe) => {
+    const value = path.split('.').reduce((o, k) => (o ? o[k] : undefined), data);
+    if (filterWithPipe) {
+      const [, filter] = filterWithPipe.split('|').map(s => s.trim());
+      return applyFilter(value, filter);
+    }
+    return value ?? "";
+  });
+}
+
+function applyFilter(value: any, filter?: string) {
+  if (!filter) return value ?? "";
+  if (filter === "longDate" && value)
+    return new Date(value).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+  if (filter === "mediumDate" && value)
+    return new Date(value).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+  return value ?? "";
+}
+
 export enum FormCategory {
   Contracts = "Contracts",
   Agreements = "Agreements",
@@ -15,56 +41,53 @@ export enum FormCategory {
 }
 
 const FormsModule: React.FC = () => {
-  // Use state for templates so you can add/edit later
+  // Editable templates state
   const [templates, setTemplates] = useState<FormTemplate[]>(formTemplatesMock);
 
-  // Sorting states
+  // Sorting controls state
   const [sortBy, setSortBy] = useState<"title" | "createdAt">("createdAt");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
-  // UseMemo for efficient sorting on state change
+  // Sorted templates, memoized
   const sortedTemplates = useMemo(() => {
     return [...templates].sort((a, b) => {
-      let cmp = 0;
-      if (sortBy === "title") {
-        cmp = a.title.localeCompare(b.title);
-      } else if (sortBy === "createdAt") {
-        cmp = a.createdAt.localeCompare(b.createdAt);
-      }
-      return sortOrder === "asc" ? cmp : -cmp;
+      const compareVal =
+        sortBy === "title"
+          ? a.title.localeCompare(b.title)
+          : a.createdAt.localeCompare(b.createdAt);
+      return sortOrder === "asc" ? compareVal : -compareVal;
     });
   }, [templates, sortBy, sortOrder]);
 
-  // Group forms by category for table columns
-  const formsByCategory = useMemo(
-    () =>
-      Object.values(FormCategory).reduce<Record<FormCategory, FormTemplate[]>>(
-        (acc, category) => {
-          acc[category] = sortedTemplates.filter(
-            (form) => form.category === category
-          );
-          return acc;
-        },
-        {} as Record<FormCategory, FormTemplate[]>
-      ),
-    [sortedTemplates]
-  );
+  // Categories and state for selected category/tab
+  const categories = Object.values(FormCategory);
+  const [selectedCategory, setSelectedCategory] = useState<FormCategory>(categories[0]);
 
-  // Example selection state (prepare for 'create/view/edit' modal logic)
-  const [selectedFormId, setSelectedFormId] = useState<string | null>(null);
+  // Templates filtered by selected category
+  const templatesForCategory = sortedTemplates.filter(t => t.category === selectedCategory);
+
+  // Currently selected template ID
+  const [selectedTemplateId, setSelectedTemplateId] = useState<string>(templatesForCategory[0]?.id || "");
+
+  // Update selectedTemplateId if templatesForCategory changes and no longer contains the current selectedTemplateId
+  React.useEffect(() => {
+    if (!templatesForCategory.some(t => t.id === selectedTemplateId)) {
+      setSelectedTemplateId(templatesForCategory[0]?.id || "");
+    }
+  }, [templatesForCategory, selectedTemplateId]);
 
   return (
     <div className="p-6">
-      {/* Unified Header */}
+      {/* Page Header */}
       <Header title="Forms" icon={FileSignature} />
 
-      {/* Sorting controls */}
+      {/* Sorting Controls */}
       <div className="flex gap-4 mb-4">
         <label>
           Sort by:{" "}
           <select
             value={sortBy}
-            onChange={(e) => setSortBy(e.target.value as "title" | "createdAt")}
+            onChange={e => setSortBy(e.target.value as "title" | "createdAt")}
             className="border px-2 py-1 rounded"
           >
             <option value="title">Title</option>
@@ -75,121 +98,29 @@ const FormsModule: React.FC = () => {
           Order:{" "}
           <select
             value={sortOrder}
-            onChange={(e) =>
-              setSortOrder(e.target.value as "asc" | "desc")
-            }
+            onChange={e => setSortOrder(e.target.value as "asc" | "desc")}
             className="border px-2 py-1 rounded"
           >
-            <option value="asc">Acsending</option>
-            <option value="desc">Alphabetical Z-A</option>
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
           </select>
         </label>
       </div>
 
-      {/* Forms Table */}
-      <div className="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden mt-6">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead>
-            <tr>
-              {Object.values(FormCategory).map((category, index) => (
-                <th
-                  key={category}
-                  className={`mr-6 px-4 py-6 text-md text-bold font-medium text-white uppercase tracking-wider bg-gradient-to-r from-coral-400 to-pink-400 rounded-t-lg border-t border-x border-b-0 relative z-10 ${
-                    index < Object.values(FormCategory).length - 1 ? "mr-6" : ""
-                  }`}
-                >
-                  <div className="flex items-center justify-between pt-4">
-                    <span>{category}</span>
-                    <Plus
-                      className="h-4 w-4 text-white cursor-pointer"
-                      title="Add New Form"
-                      onClick={() => {
-                        // e.g. open modal, set new form state, etc
-                      }}
-                    />
-                  </div>
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {Array.from({
-              length: Math.max(
-                ...Object.values(formsByCategory).map(
-                  (forms) => forms.length
-                )
-              ),
-            }).map((_, rowIndex) => (
-              <tr key={rowIndex}>
-                {Object.values(FormCategory).map((category, index) => {
-                  const form = formsByCategory[category][rowIndex];
-                  return (
-                    <td
-                      key={category}
-                      className={`px-6 py-6 whitespace-nowrap align-top ${
-                        form ? "cursor-pointer" : ""
-                      } ${
-                        form && form.id === selectedFormId
-                          ? "bg-coral-50"
-                          : ""
-                      } ${index < Object.values(FormCategory).length - 1 ? "mr-6" : ""}`}
-                      onClick={() => form && setSelectedFormId(form.id)}
-                      title={form ? form.title : ""}
-                    >
-                      {form ? (
-                        <>
-                          <strong className="font-medium text-gray-900">
-                            {form.title}
-                          </strong>
-                          <br />
-                          <span className="text-xs text-gray-400">
-                            {new Date(form.createdAt).toLocaleDateString()}
-                          </span>
-                        </>
-                      ) : (
-                        <em className="text-gray-400">—</em>
-                      )}
-                    </td>
-                  );
-                })}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {/* Example selected form panel / placeholder */}
-      {selectedFormId && (
-        <div className="mt-6 p-6 border border-gray-200 rounded-lg shadow-sm bg-white">
-          {(() => {
-            const selectedForm = templates.find(
-              (f) => f.id === selectedFormId
-            );
-            if (!selectedForm)
-              return (
-                <p className="text-sm text-gray-600">Form not found.</p>
-              );
-            return (
-              <>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                  {selectedForm.title}
-                </h3>
-                <p className="text-sm text-gray-600 mb-2">
-                  Category: {selectedForm.category}
-                  <br />
-                  Created: {new Date(selectedForm.createdAt).toLocaleString()}
-                </p>
-                {/* Replace with real form builder/editor */}
-                <p className="text-sm text-gray-500 italic">
-                  <i>Form builder/edit UI goes here…</i>
-                </p>
-              </>
-            );
-          })()}
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default FormsModule;
+      {/* Category Tabs */}
+      <div className="flex gap-12 mb-8 border-b border-gray-300">
+        {categories.map(category => (
+          <button
+            key={category}
+            onClick={() => {
+              setSelectedCategory(category);
+              // Reset selected template on category change:
+              const firstTemplate = sortedTemplates.find(t => t.category === category);
+              setSelectedTemplateId(firstTemplate?.id || "");
+            }}
+            className={`text-md font-semibold px-6 py-2 rounded-t-lg transition focus:outline-none ${
+              category === selectedCategory
+                ? "bg-coral-400 text-white shadow-md border border-b-transparent rounded-t-lg"
+                : "bg-gray-100 text-gray-600 hover:bg-coral-100 border border-transparent hover:border-coral-300"
+            }`}
+            style={{ min
