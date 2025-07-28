@@ -1,3 +1,5 @@
+export type FormCategory = 'Contracts' | 'Agreements' | 'Questionnaires' | 'Proposals' | 'Inquiry / Lead Capture';
+
 export interface FormTemplate {
   id: string;
   title: string;
