@@ -3,7 +3,8 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { ArrowLeft } from "lucide-react";
-
+import { clientDataByFormId } from "../data/clientInfo";
+import { adminInfo } from "../data/adminInfo";
 import SignatureBlock from "./SignatureBlock";
 import { formTemplatesMock, mockCustomersList } from "../data/mockData";
 
