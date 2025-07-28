@@ -93,7 +93,7 @@ const FormDetail: React.FC = () => {
               />
             </label>
             <label className="flex flex-col flex-1">
-              <span className="mb-1 font-small">Last Name</span>
+              <span className="mb-1 text-sm">Last Name</span>
               <input
                 type="text"
                 name="clientLastName"
