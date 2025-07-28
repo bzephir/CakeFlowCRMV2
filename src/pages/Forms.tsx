@@ -1,36 +1,9 @@
 // src/pages/Forms.tsx
 import React, { useState, useMemo } from "react";
-import { FileSignature, Plus } from "lucide-react";
+import { FileSignature, Plus, Trash2, Copy } from "lucide-react";
 import Header from "../components/Header";
-// Adjust import paths as needed:
 import { formTemplatesMock, FormTemplate } from "../data/mockData";
-
-/**
- * Utility to render templates with {{merge_fields}} and simple | filters (like longDate).
- * (Still included in case you want to preview later or reuse utility)
- */
-function renderTemplate(
-  template: string,
-  data: Record<string, any>
-): string {
-  return template.replace(/{{\s*([\w.]+)(\s*\|\s*[\w]+)?\s*}}/g, (_m, path, filterWithPipe) => {
-    const value = path.split('.').reduce((o, k) => (o ? o[k] : undefined), data);
-    if (filterWithPipe) {
-      const [, filter] = filterWithPipe.split('|').map(s => s.trim());
-      return applyFilter(value, filter);
-    }
-    return value ?? "";
-  });
-}
-
-function applyFilter(value: any, filter?: string) {
-  if (!filter) return value ?? "";
-  if (filter === "longDate" && value)
-    return new Date(value).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
-  if (filter === "mediumDate" && value)
-    return new Date(value).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
-  return value ?? "";
-}
+import { useNavigate } from "react-router-dom"; // for navigation on click, adjust if you use a different router
 
 export enum FormCategory {
   Contracts = "Contracts",
@@ -40,15 +13,25 @@ export enum FormCategory {
   Inquiry = "Inquiry / Lead Capture",
 }
 
+// Optional date formatting helper
+function formatDate(dateString: string) {
+  return new Date(dateString).toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}
+
 const FormsModule: React.FC = () => {
-  // Editable templates state
   const [templates, setTemplates] = useState<FormTemplate[]>(formTemplatesMock);
 
-  // Sorting controls state
+  // Sorting state
   const [sortBy, setSortBy] = useState<"title" | "createdAt">("createdAt");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
-  // Sorted templates, memoized
+  const navigate = useNavigate();
+
+  // Sort templates based on sort state
   const sortedTemplates = useMemo(() => {
     return [...templates].sort((a, b) => {
       const compareVal =
@@ -59,35 +42,67 @@ const FormsModule: React.FC = () => {
     });
   }, [templates, sortBy, sortOrder]);
 
-  // Categories and state for selected category/tab
-  const categories = Object.values(FormCategory);
-  const [selectedCategory, setSelectedCategory] = useState<FormCategory>(categories[0]);
+  // Group templates by category for easy rendering
+  const templatesByCategory = useMemo(() => {
+    return Object.values(FormCategory).reduce((acc, cat) => {
+      acc[cat] = sortedTemplates.filter((t) => t.category === cat);
+      return acc;
+    }, {} as Record<FormCategory, FormTemplate[]>);
+  }, [sortedTemplates]);
 
-  // Templates filtered by selected category
-  const templatesForCategory = sortedTemplates.filter(t => t.category === selectedCategory);
-
-  // Currently selected template ID
-  const [selectedTemplateId, setSelectedTemplateId] = useState<string>(templatesForCategory[0]?.id || "");
-
-  // Update selectedTemplateId if templatesForCategory changes and no longer contains the current selectedTemplateId
-  React.useEffect(() => {
-    if (!templatesForCategory.some(t => t.id === selectedTemplateId)) {
-      setSelectedTemplateId(templatesForCategory[0]?.id || "");
+  // Handlers for delete and duplicate actions
+  const handleDelete = (id: string) => {
+    if (window.confirm("Are you sure you want to delete this form?")) {
+      setTemplates((prev) => prev.filter((t) => t.id !== id));
     }
-  }, [templatesForCategory, selectedTemplateId]);
+  };
+
+  const handleDuplicate = (id: string) => {
+    const toDuplicate = templates.find((t) => t.id === id);
+    if (!toDuplicate) return;
+    const newId = `dup-${Date.now()}`;
+    const duplicatedForm: FormTemplate = {
+      ...toDuplicate,
+      id: newId,
+      title: toDuplicate.title + " (Copy)",
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    setTemplates((prev) => [...prev, duplicatedForm]);
+  };
+
+  // Handler for clicking a form name to navigate to a mock form page
+  const handleFormClick = (id: string) => {
+    // Navigate to mock page for given form
+    // Example path: /forms/mock/{id} (adjust as you build mock pages)
+    navigate(`/forms/mock/${id}`);
+  };
+
+  // Handler to create new form (default "Contracts" category and title)
+  const handleNewForm = () => {
+    const newId = `new-${Date.now()}`;
+    const newTemplate: FormTemplate = {
+      id: newId,
+      title: "New Form",
+      category: FormCategory.Contracts,
+      body: "New form content here...",
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    setTemplates((prev) => [...prev, newTemplate]);
+  };
 
   return (
     <div className="p-6">
-      {/* Page Header */}
       <Header title="Forms" icon={FileSignature} />
 
       {/* Sorting Controls */}
-      <div className="flex gap-4 mb-4">
+      <div className="flex gap-4 mb-6 items-center flex-wrap">
         <label>
-          Sort by:{" "}
+          <span className="mr-2 text-gray-700 font-semibold">Sort by:</span>
           <select
             value={sortBy}
-            onChange={e => setSortBy(e.target.value as "title" | "createdAt")}
+            onChange={(e) => setSortBy(e.target.value as "title" | "createdAt")}
             className="border px-2 py-1 rounded"
           >
             <option value="title">Title</option>
@@ -95,85 +110,91 @@ const FormsModule: React.FC = () => {
           </select>
         </label>
         <label>
-          Order:{" "}
+          <span className="mr-2 text-gray-700 font-semibold">Order:</span>
           <select
             value={sortOrder}
-            onChange={e => setSortOrder(e.target.value as "asc" | "desc")}
+            onChange={(e) => setSortOrder(e.target.value as "asc" | "desc")}
             className="border px-2 py-1 rounded"
           >
             <option value="asc">Ascending</option>
             <option value="desc">Descending</option>
           </select>
         </label>
-      </div>
 
-      {/* Category Tabs */}
-      <div className="flex gap-12 mb-8 border-b border-gray-300">
-        {categories.map(category => (
-          <button
-            key={category}
-            onClick={() => {
-              setSelectedCategory(category);
-              // Reset selected template on category change:
-              const firstTemplate = sortedTemplates.find(t => t.category === category);
-              setSelectedTemplateId(firstTemplate?.id || "");
-            }}
-            className={`text-md font-semibold px-6 py-2 rounded-t-lg transition focus:outline-none ${
-              category === selectedCategory
-                ? "bg-coral-400 text-white shadow-md border border-b-transparent rounded-t-lg"
-                : "bg-gray-100 text-gray-600 hover:bg-coral-100 border border-transparent hover:border-coral-300"
-            }`}
-            style={{ minWidth: 160, letterSpacing: 0.6 }}
-          >
-            {category}
-          </button>
-        ))}
-      </div>
-
-      {/* New Form Button */}
-      <div className="flex justify-end mb-4">
         <button
-          className="inline-flex items-center px-4 py-2 bg-coral-400 hover:bg-coral-500 text-white rounded shadow-sm transition focus:outline-none"
-          title={`Add new form to ${selectedCategory}`}
-          onClick={() => {
-            // Create new form template with temporary id
-            const newId = `new-${Date.now()}`;
-            const newTemplate: FormTemplate = {
-              id: newId,
-              title: `New ${selectedCategory} Form`,
-              category: selectedCategory,
-              body: `New form content here...`,
-              createdAt: new Date().toISOString(),
-              updatedAt: new Date().toISOString(),
-            };
-            setTemplates(prev => [...prev, newTemplate]);
-            setSelectedTemplateId(newId);
-          }}
+          onClick={handleNewForm}
+          className="ml-auto inline-flex items-center px-4 py-2 bg-coral-400 hover:bg-coral-500 text-white rounded shadow-sm transition focus:outline-none"
+          title="Create new form"
         >
           <Plus className="mr-2" />
-          New {selectedCategory.split(" ")[0]}
+          New Form
         </button>
       </div>
 
-      {/* Template Selection Buttons */}
-      <div className="flex gap-3 mb-6 overflow-x-auto">
-        {templatesForCategory.length === 0 && (
-          <div className="italic text-gray-500">No forms in this category</div>
-        )}
-        {templatesForCategory.map(template => (
-          <button
-            key={template.id}
-            className={`px-4 py-2 rounded-lg border transition whitespace-nowrap ${
-              template.id === selectedTemplateId
-                ? "bg-coral-400 text-white border-coral-500"
-                : "bg-white border-gray-300 hover:bg-coral-50"
-            }`}
-            onClick={() => setSelectedTemplateId(template.id)}
-          >
-            {template.title}
-          </button>
-        ))}
-      </div>
+      {/* Categories and their forms */}
+      {Object.values(FormCategory).map((category) => {
+        const forms = templatesByCategory[category];
+        return (
+          <div key={category} className="mb-10">
+            <h3 className="text-xl font-semibold mb-4 text-gray-800">{category}</h3>
+            {forms.length === 0 ? (
+              <p className="text-gray-400 italic">No forms in this category.</p>
+            ) : (
+              <table className="min-w-full border border-gray-200 rounded-md shadow-sm">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="text-left px-4 py-2 border-b border-gray-200 text-gray-700 font-medium">
+                      Form Name
+                    </th>
+                    <th className="text-left px-4 py-2 border-b border-gray-200 text-gray-700 font-medium w-36">
+                      Created Date
+                    </th>
+                    <th className="text-center px-4 py-2 border-b border-gray-200 text-gray-700 font-medium w-28">
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {forms.map((form) => (
+                    <tr key={form.id} className="hover:bg-coral-50">
+                      <td className="px-4 py-3 border-b border-gray-200">
+                        <button
+                          onClick={() => handleFormClick(form.id)}
+                          className="text-coral-600 hover:underline focus:outline-none"
+                          title={`Open ${form.title}`}
+                        >
+                          {form.title}
+                        </button>
+                      </td>
+                      <td className="px-4 py-3 border-b border-gray-200 text-gray-600">
+                        {formatDate(form.createdAt)}
+                      </td>
+                      <td className="px-4 py-3 border-b border-gray-200 text-center space-x-3">
+                        <button
+                          onClick={() => handleDuplicate(form.id)}
+                          className="text-gray-600 hover:text-coral-600 focus:outline-none"
+                          title="Duplicate form"
+                          aria-label={`Duplicate ${form.title}`}
+                        >
+                          <Copy size={18} />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(form.id)}
+                          className="text-red-600 hover:text-red-800 focus:outline-none"
+                          title="Delete form"
+                          aria-label={`Delete ${form.title}`}
+                        >
+                          <Trash2 size={18} />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 };
