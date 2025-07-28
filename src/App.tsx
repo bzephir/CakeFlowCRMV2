@@ -25,7 +25,6 @@ import Settings from './pages/Settings';
 import Reports from './pages/Reports';
 import FormsModule from './pages/Forms';
 
-
 // Placeholder components for other routes
 
 const Production = () => <div className="p-6"><h1 className="text-2xl font-bold">Production</h1><p>Production management coming soon...</p></div>;
@@ -82,6 +81,8 @@ function App() {
                 <Route path="/users" element={<Users />} />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/reports" element={<Reports />} />
+                <Route path="/forms" element={<FormsModule />} />
+                <Route path="/forms/mock/:id" element={<FormDetail />} />
               </Routes>
             </div>
           </div>
