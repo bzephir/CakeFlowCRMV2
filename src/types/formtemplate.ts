@@ -1,4 +1,4 @@
-export interface FormTemplate {
+export interface formtemplate {
   id: string;
   title: string;
   category: string;         // e.g., 'Contracts', 'Agreements', etc.
