@@ -1,4 +1,11 @@
-export type FormCategory = 'Contracts' | 'Agreements' | 'Questionnaires' | 'Proposals' | 'Inquiry / Lead Capture';
+// src/types/formcategory.ts or in your formtemplate.ts file
+export enum FormCategory {
+  Contracts = "Contracts",
+  Agreements = "Agreements",
+  Questionnaires = "Questionnaires",
+  Proposals = "Proposals",
+  Inquiry = "Inquiry / Lead Capture",
+}
 
 export interface FormTemplate {
   id: string;
