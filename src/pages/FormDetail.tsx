@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { formTemplatesMock } from "../data/mockData";
 import ReactMarkdown from "react-markdown";
 import { ArrowLeft } from "lucide-react";
+ import SignatureBlock from "../components/SignatureBlock"; // Adjust path accordingly
 
 interface RouteParams {
   id: string;
@@ -71,7 +72,7 @@ const FormDetail: React.FC = () => {
         {filledBody}
       </ReactMarkdown>
 
-      import SignatureBlock from "../components/SignatureBlock"; // Adjust path accordingly
+     
 
 // inside your component render (e.g., below your Markdown contract)
 <>
