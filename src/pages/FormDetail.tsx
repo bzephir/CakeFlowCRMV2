@@ -44,7 +44,7 @@ const FormDetail: React.FC<FormDetailProps> = ({ isAdminView }) => {
   }
 
   // Lookup client and owner info
-  const client = clientDataByFormId[form.id] || { firstName: "", lastName: "", fullName: "" };
+ const client = clientDataByFormId[form.id] || { firstName: "", lastName: "", fullName: "" };
   const owner = adminInfo;
 
   const isAttachedToClient = client.firstName !== "" && client.lastName !== "";
