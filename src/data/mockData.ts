@@ -1,5 +1,6 @@
 import { Inquiry, InquiryAction, CelebrationInquiryDetails, WeddingInquiryDetails, CorporateInquiryDetails } from '../types';
 import { FormCategory } from "../pages/Forms"; // Adjust path if needed
+import { FormTemplate } from "../types/formtemplate";
 
 // Customer interface for mock data
 interface MockCustomer {
