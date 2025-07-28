@@ -104,8 +104,8 @@ const FormsModule: React.FC = () => {
             onChange={e => setSortBy(e.target.value as "title" | "createdAt")}
             className="border px-2 py-1 rounded"
           >
-            <option value="title">Title</option>
             <option value="createdAt">Created At</option>
+            <option value="title">Title</option>
           </select>
         </label>
         <label>
