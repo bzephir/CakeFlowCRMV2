@@ -40,11 +40,11 @@ const FormDetail: React.FC = () => {
   if (!form) {
     return <div className="p-6 text-red-600">Form not found</div>;
   }
-const client = clientDataByFormId[form.id] || { firstName: "", lastName: "", fullName: "" };
-const owner = adminInfo;
+
  
   // Fill placeholders in contract body before rendering markdown
-  const clientFullName = `${client.firstName || ""} ${client.lastName || ""}`.trim() || client.name || "";
+const client = clientDataByFormId[form.id] || { firstName: "", lastName: "", fullName: "" };
+const owner = adminInfo;
   const filledBody = fillPlaceholders(form.body, clientFullName);
 
   return (
