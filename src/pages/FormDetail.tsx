@@ -3,7 +3,7 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { ArrowLeft } from "lucide-react";
-import {SignatureBlock} from "../components/SignatureBlock";
+import SignatureBlock from "../components/SignatureBlock";
 import { formTemplatesMock } from "../data/mockForms"; // adjust if needed
 import { clientDataByFormId } from "../data/clientInfo"; // update per your data files
 import { adminInfo } from "../data/adminInfo";
