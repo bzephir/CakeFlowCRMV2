@@ -1,4 +1,4 @@
-import { FormCategory, FormTemplate } from ".data/mockData";
+import { FormCategory, FormTemplate } from "../types/formtemplate";
 
 export const mockForms: FormTemplate[] = [
   {
