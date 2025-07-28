@@ -1,15 +1,13 @@
-// src/components/FormDetail.tsx
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { formTemplatesMock } from "../data/mockData";
 import ReactMarkdown from "react-markdown";
-import { ArrowLeft } from "lucide-react"; // Back arrow icon
+import { ArrowLeft } from "lucide-react";
 
 interface RouteParams {
   id: string;
 }
 
-// Simple function to replace placeholders with sample data
 function fillPlaceholders(template: string): string {
   return template
     .replace(/{{client.name}}/g, "Jane Smith")
@@ -72,55 +70,68 @@ const FormDetail: React.FC = () => {
       >
         {filledBody}
       </ReactMarkdown>
-       {/* Signature inputs below */}
-      <div className="mt-8 space-y-8">
-        <div>
-          <h2 className="font-semibold mb-2">Client Signature</h2>
-          <div className="flex space-x-4 max-w-md">
+
+      {/* Signature blocks */}
+      <div className="mt-10 space-y-10">
+        {/* Intro text above client signature */}
+        <p className="mb-4 text-gray-700">
+          Please provide your full legal name in the fields below to serve as your formal signature on this contract.
+        </p>
+
+        {/* Client Signature */}
+        <section>
+          <h2 className="font-semibold mb-3">Client Signature</h2>
+          <div className="flex space-x-6 max-w-md">
             <label className="flex flex-col flex-1">
-              First Name
+              <span className="mb-1 font-medium">First Name</span>
               <input
                 type="text"
                 name="clientFirstName"
-                placeholder="First Name"
-                className="border border-gray-300 rounded px-3 py-2 mt-1"
+                placeholder="Enter first name"
+                className="border border-gray-300 rounded px-3 py-2"
               />
             </label>
             <label className="flex flex-col flex-1">
-              Last Name
+              <span className="mb-1 font-medium">Last Name</span>
               <input
                 type="text"
                 name="clientLastName"
-                placeholder="Last Name"
-                className="border border-gray-300 rounded px-3 py-2 mt-1"
+                placeholder="Enter last name"
+                className="border border-gray-300 rounded px-3 py-2"
               />
             </label>
           </div>
-        </div>
+        </section>
 
-        <div>
-          <h2 className="font-semibold mb-2">Owner Signature</h2>
-          <div className="flex space-x-4 max-w-md">
+        {/* Owner Signature */}
+        <section>
+          <h2 className="font-semibold mb-3">Owner Signature</h2>
+          <div className="flex space-x-6 max-w-md">
             <label className="flex flex-col flex-1">
-              First Name
+              <span className="mb-1 font-medium">First Name</span>
               <input
                 type="text"
                 name="ownerFirstName"
-                placeholder="First Name"
-                className="border border-gray-300 rounded px-3 py-2 mt-1"
+                placeholder="Enter first name"
+                className="border border-gray-300 rounded px-3 py-2"
               />
             </label>
             <label className="flex flex-col flex-1">
-              Last Name
+              <span className="mb-1 font-medium">Last Name</span>
               <input
                 type="text"
                 name="ownerLastName"
-                placeholder="Last Name"
-                className="border border-gray-300 rounded px-3 py-2 mt-1"
+                placeholder="Enter last name"
+                className="border border-gray-300 rounded px-3 py-2"
               />
             </label>
           </div>
-        </div>
+
+          {/* Text below owner signature */}
+          <p className="mt-4 text-gray-700">
+            By signing above, the owner agrees to the terms and conditions outlined in this contract.
+          </p>
+        </section>
       </div>
     </div>
   );
