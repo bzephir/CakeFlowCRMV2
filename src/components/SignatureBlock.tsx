@@ -2,10 +2,17 @@ import React from "react";
 
 interface SignatureBlockProps {
   role: "Client" | "Owner";
-  showAdminNote?: boolean; // For Owner block to show admin note box
+  showAdminNote?: boolean;
+  firstName?: string;
+  lastName?: string;
 }
 
-const SignatureBlock: React.FC<SignatureBlockProps> = ({ role, showAdminNote = false }) => {
+const SignatureBlock: React.FC<SignatureBlockProps> = ({
+  role,
+  showAdminNote = false,
+  firstName = "",
+  lastName = "",
+}) => {
   return (
     <section className="mb-10">
       <h2 className="font-semibold mb-2">{role}:</h2>
@@ -28,6 +35,7 @@ const SignatureBlock: React.FC<SignatureBlockProps> = ({ role, showAdminNote = f
             type="text"
             name={`${role.toLowerCase()}FirstName`}
             placeholder="First Name"
+            defaultValue={firstName}
             className="border border-gray-300 rounded px-3 py-2"
           />
         </label>
@@ -37,13 +45,14 @@ const SignatureBlock: React.FC<SignatureBlockProps> = ({ role, showAdminNote = f
             type="text"
             name={`${role.toLowerCase()}LastName`}
             placeholder="Last Name"
+            defaultValue={lastName}
             className="border border-gray-300 rounded px-3 py-2"
           />
         </label>
 
         {/* Signature box spanning both columns */}
         <label className="col-span-2 flex flex-col mt-2">
-          <span className="mb-1 font-medium">Signature</span>
+          <span className="mb-1 font-medium">Signature Box</span>
           <input
             type="text"
             name={`${role.toLowerCase()}Signature`}
