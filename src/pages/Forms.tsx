@@ -30,7 +30,9 @@ const FormsModule: React.FC = () => {
 
   const navigate = useNavigate();
 
-  // Sort templates once globally
+  const categories = Object.values(FormCategory);
+
+  // Sort all templates once globally by selected sorting options
   const sortedTemplates = useMemo(() => {
     return [...templates].sort((a, b) => {
       const compareVal =
@@ -40,8 +42,6 @@ const FormsModule: React.FC = () => {
       return sortOrder === "asc" ? compareVal : -compareVal;
     });
   }, [templates, sortBy, sortOrder]);
-
-  const categories = Object.values(FormCategory);
 
   // Group sorted templates by category
   const templatesByCategory = useMemo(() => {
@@ -76,11 +76,10 @@ const FormsModule: React.FC = () => {
   };
 
   const handleNewForm = () => {
-    // You can decide which category a new form belongs to — here default to first category
     const newId = `new-${Date.now()}`;
     const newTemplate: FormTemplate = {
       id: newId,
-      title: `New Form`,
+      title: "New Form",
       category: categories[0],
       body: "New form content here...",
       createdAt: new Date().toISOString(),
@@ -133,13 +132,15 @@ const FormsModule: React.FC = () => {
 
       {/* Multi-column table: category headers with vertical lists underneath */}
       <div className="overflow-x-auto">
-        <table className="min-w-full border border-gray-200 rounded-md shadow-sm table-fixed">
+        <table
+          className="min-w-full border border-gray-200 rounded-md shadow-sm table-fixed border-separate border-spacing-x-4"
+        >
           <thead className="bg-gradient-to-r from-coral-400 to-pink-400 text-white sticky top-0 z-10">
             <tr>
               {categories.map(category => (
                 <th
                   key={category}
-                  className="px-6 py-4 border border-white text-left align-top font-semibold"
+                  className="px-6 py-4 text-left align-top font-semibold rounded-t-lg select-none"
                   style={{ minWidth: 220 }}
                 >
                   {category}
@@ -148,17 +149,16 @@ const FormsModule: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {/* Each row aligns the forms vertically per category column */}
             {Array.from({ length: maxFormsCount }).map((_, rowIndex) => (
               <tr key={rowIndex} className="bg-white">
-                {categories.map((category) => {
+                {categories.map(category => {
                   const formsInCat = templatesByCategory[category];
                   const form = formsInCat[rowIndex];
 
                   return (
                     <td
                       key={category}
-                      className="px-4 py-3 border border-gray-200 align-top vertical-align-top text-sm"
+                      className="px-6 py-3 align-top text-sm border-b border-gray-200"
                       style={{ minWidth: 220, verticalAlign: "top" }}
                     >
                       {form ? (
@@ -167,7 +167,7 @@ const FormsModule: React.FC = () => {
                             role="link"
                             tabIndex={0}
                             onClick={() => handleFormClick(form.id)}
-                            onKeyDown={(e) => {
+                            onKeyDown={e => {
                               if (e.key === "Enter" || e.key === " ") {
                                 handleFormClick(form.id);
                               }
@@ -177,9 +177,6 @@ const FormsModule: React.FC = () => {
                           >
                             {form.title}
                           </span>
-                          <div className="text-gray-500 text-xs">
-                            {formatDate(form.createdAt)}
-                          </div>
                           <div className="flex space-x-3 mt-1">
                             <button
                               onClick={() => handleDuplicate(form.id)}
@@ -199,10 +196,7 @@ const FormsModule: React.FC = () => {
                             </button>
                           </div>
                         </div>
-                      ) : (
-                        // Empty cell for row alignment if no form at this index
-                        null
-                      )}
+                      ) : null}
                     </td>
                   );
                 })}
