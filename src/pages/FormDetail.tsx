@@ -28,52 +28,68 @@ function fillPlaceholders(template: string): string {
     .replace(/{{paymentSchedule \| paymentScheduleFilter}}/g, "- 20% Deposit (non-refundable)\n- 80% Final Payment");
 }
 
+// ... other imports remain the same
 const FormDetail: React.FC = () => {
-  const { id } = useParams<RouteParams>();
-  const navigate = useNavigate();
-
-  const form = formTemplatesMock.find((f) => f.id === id);
-
-  if (!form) return <div>Form not found</div>;
-
-  const filledBody = fillPlaceholders(form.body);
-
+  // ... existing code
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded shadow-sm">
-      {/* Back button */}
-      <button
-        onClick={() => navigate(-1)}
-        className="flex items-center space-x-2 text-coral-600 hover:text-coral-800 mb-6 focus:outline-none"
-        aria-label="Go back"
-        type="button"
-      >
-        <ArrowLeft size={20} />
-        <span className="font-medium">Back</span>
-      </button>
+      {/* Back button as before */}
+      {/* ... existing back button and title */}
 
-      <h1 className="text-3xl font-bold mb-6">{form.title}</h1>
-
-      <ReactMarkdown
-        components={{
-          h1: ({ node, ...props }) => <h1 className="text-2xl font-bold my-4" {...props} />,
-          h2: ({ node, ...props }) => <h2 className="text-xl font-semibold my-3" {...props} />,
-          h3: ({ node, ...props }) => <h3 className="text-lg font-semibold my-2" {...props} />,
-          p: ({ node, ...props }) => <p className="mb-3 leading-relaxed" {...props} />,
-          li: ({ node, ...props }) => <li className="ml-6 list-disc mb-1" {...props} />,
-          code: ({ node, ...props }) => (
-            <code className="bg-gray-100 rounded px-1 py-0.5 text-sm font-mono" {...props} />
-          ),
-          pre: ({ node, ...props }) => (
-            <pre className="bg-gray-100 p-4 rounded overflow-x-auto" {...props} />
-          ),
-          strong: ({ node, ...props }) => <strong className="font-semibold" {...props} />,
-          em: ({ node, ...props }) => <em className="italic" {...props} />,
-        }}
-      >
+      <ReactMarkdown /* ...existing props */>
         {filledBody}
       </ReactMarkdown>
+
+      {/* Signature inputs below */}
+      <div className="mt-8 space-y-8">
+        <div>
+          <h2 className="font-semibold mb-2">Client Signature</h2>
+          <div className="flex space-x-4 max-w-md">
+            <label className="flex flex-col flex-1">
+              First Name
+              <input
+                type="text"
+                name="clientFirstName"
+                placeholder="First Name"
+                className="border border-gray-300 rounded px-3 py-2 mt-1"
+              />
+            </label>
+            <label className="flex flex-col flex-1">
+              Last Name
+              <input
+                type="text"
+                name="clientLastName"
+                placeholder="Last Name"
+                className="border border-gray-300 rounded px-3 py-2 mt-1"
+              />
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <h2 className="font-semibold mb-2">Owner Signature</h2>
+          <div className="flex space-x-4 max-w-md">
+            <label className="flex flex-col flex-1">
+              First Name
+              <input
+                type="text"
+                name="ownerFirstName"
+                placeholder="First Name"
+                className="border border-gray-300 rounded px-3 py-2 mt-1"
+              />
+            </label>
+            <label className="flex flex-col flex-1">
+              Last Name
+              <input
+                type="text"
+                name="ownerLastName"
+                placeholder="Last Name"
+                className="border border-gray-300 rounded px-3 py-2 mt-1"
+              />
+            </label>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
-
-export default FormDetail;
