@@ -96,7 +96,7 @@ const FormsModule: React.FC = () => {
       <Header title="Forms" icon={FileSignature} />
 
       {/* Sorting Controls and New Form Button */}
-      <div className="flex gap-4 mb-6 items-center flex-wrap">
+      <div className="flex gap-4 mb-6 items-center flex-wrap text-sm">
         <label>
           Sort by:{" "}
           <select
