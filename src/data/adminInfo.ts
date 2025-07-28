@@ -8,7 +8,7 @@ export interface AdminInfo {
 }
 
 export const adminInfo: AdminInfo = {
-  firstName: "John",
-  lastName: "Doe",
-  fullName: "John Doe",
+  firstName: "Sara",
+  lastName: "Warsaw",
+  fullName: "Sara Warsaw",
 };
