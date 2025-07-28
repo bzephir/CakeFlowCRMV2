@@ -97,9 +97,6 @@ interface FormTemplate {
   createdAt: string;
   // description?: string; // add if needed
 }
-// Forms Page Mock Data //
-//Sample forms for Forms Page//
-export const formTemplatesMock = mockForms;
 
 //Mock Reort Data
 // src/data/mockData.ts
