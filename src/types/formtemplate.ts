@@ -1,4 +1,3 @@
-// src/types/formcategory.ts or in your formtemplate.ts file
 export enum FormCategory {
   Contracts = "Contracts",
   Agreements = "Agreements",
@@ -10,8 +9,9 @@ export enum FormCategory {
 export interface FormTemplate {
   id: string;
   title: string;
-  category: string;         // e.g., 'Contracts', 'Agreements', etc.
-  body: string;             // Template text with {{merge_fields}}
+  category: FormCategory;  // use the enum here for better type safety
+  body: string;
   createdAt: string;
   updatedAt: string;
 }
+
