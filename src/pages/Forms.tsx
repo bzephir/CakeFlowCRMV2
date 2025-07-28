@@ -1,9 +1,10 @@
 // src/pages/Forms.tsx
-import React, { useState } from "react";
-import { FileSignature, Plus } from "lucide-react"; // Icons
-import Header from "../components/Header"; // Adjust path as needed
+import React, { useState, useMemo } from "react";
+import { FileSignature, Plus, Trash2, Copy } from "lucide-react";
+import Header from "../components/Header";
+import { formTemplatesMock, FormTemplate } from "../data/mockData";
+import { useNavigate } from "react-router-dom";
 
-// Enum for form categories
 export enum FormCategory {
   Contracts = "Contracts",
   Agreements = "Agreements",
@@ -12,90 +13,195 @@ export enum FormCategory {
   Inquiry = "Inquiry / Lead Capture",
 }
 
-// Interface defining the shape of a form template
-interface FormTemplate {
-  id: string;
-  title: string;
-  category: FormCategory;
-  status: "Draft" | "Active" | "Archived";
+// Helper to format ISO string dates nicely
+function formatDate(dateString: string) {
+  return new Date(dateString).toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
 }
 
-// Sample static data (replace or fetch from API/backend)
-const sampleTemplates: FormTemplate[] = [
-  { id: "1", title: "Standard Contract", category: FormCategory.Contracts, status: "Active" },
-  { id: "2", title: "Custom Agreement", category: FormCategory.Agreements, status: "Draft" },
-  { id: "3", title: "Customer Questionnaire", category: FormCategory.Questionnaires, status: "Active" },
-  { id: "4", title: "Wedding Proposal", category: FormCategory.Proposals, status: "Active" },
-  { id: "5", title: "Lead Capture Form", category: FormCategory.Inquiry, status: "Active" },
-];
-
 const FormsModule: React.FC = () => {
-  // Group forms by category for populating columns
-  const formsByCategory = Object.values(FormCategory).reduce<Record<FormCategory, FormTemplate[]>>((acc, category) => {
-    acc[category] = sampleTemplates.filter((form) => form.category === category);
-    return acc;
-  }, {} as Record<FormCategory, FormTemplate[]>);
+  const [templates, setTemplates] = useState<FormTemplate[]>(formTemplatesMock);
 
-  // Track which form is currently selected
-  const [selectedFormId, setSelectedFormId] = useState<string | null>(null);
+  const [sortBy, setSortBy] = useState<"title" | "createdAt">("createdAt");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+
+  const navigate = useNavigate();
+
+  // Sort templates once globally
+  const sortedTemplates = useMemo(() => {
+    return [...templates].sort((a, b) => {
+      const compareVal =
+        sortBy === "title"
+          ? a.title.localeCompare(b.title)
+          : a.createdAt.localeCompare(b.createdAt);
+      return sortOrder === "asc" ? compareVal : -compareVal;
+    });
+  }, [templates, sortBy, sortOrder]);
+
+  const categories = Object.values(FormCategory);
+
+  // Group sorted templates by category
+  const templatesByCategory = useMemo(() => {
+    return categories.reduce((acc, category) => {
+      acc[category] = sortedTemplates.filter(t => t.category === category);
+      return acc;
+    }, {} as Record<FormCategory, FormTemplate[]>);
+  }, [sortedTemplates, categories]);
+
+  const handleDelete = (id: string) => {
+    if (window.confirm("Are you sure you want to delete this form?")) {
+      setTemplates(prev => prev.filter(t => t.id !== id));
+    }
+  };
+
+  const handleDuplicate = (id: string) => {
+    const toDuplicate = templates.find(t => t.id === id);
+    if (!toDuplicate) return;
+    const newId = `dup-${Date.now()}`;
+    const duplicatedForm: FormTemplate = {
+      ...toDuplicate,
+      id: newId,
+      title: toDuplicate.title + " (Copy)",
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    setTemplates(prev => [...prev, duplicatedForm]);
+  };
+
+  const handleFormClick = (id: string) => {
+    navigate(`/forms/mock/${id}`);
+  };
+
+  const handleNewForm = () => {
+    // You can decide which category a new form belongs to — here default to first category
+    const newId = `new-${Date.now()}`;
+    const newTemplate: FormTemplate = {
+      id: newId,
+      title: `New Form`,
+      category: categories[0],
+      body: "New form content here...",
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    setTemplates(prev => [...prev, newTemplate]);
+  };
+
+  // Compute maximum forms count among categories to align rows
+  const maxFormsCount = Math.max(...categories.map(cat => templatesByCategory[cat].length));
 
   return (
     <div className="p-6">
-      {/* Page Header - reusing the same Header from reports */}
       <Header title="Forms" icon={FileSignature} />
 
-      {/* Forms Table Box */}
-      <div className="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden mt-6">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+      {/* Sorting Controls and New Form Button */}
+      <div className="flex gap-4 mb-6 items-center flex-wrap">
+        <label>
+          Sort by:{" "}
+          <select
+            value={sortBy}
+            onChange={e => setSortBy(e.target.value as "title" | "createdAt")}
+            className="border px-2 py-1 rounded"
+          >
+            <option value="title">Title</option>
+            <option value="createdAt">Created At</option>
+          </select>
+        </label>
+        <label>
+          Order:{" "}
+          <select
+            value={sortOrder}
+            onChange={e => setSortOrder(e.target.value as "asc" | "desc")}
+            className="border px-2 py-1 rounded"
+          >
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+          </select>
+        </label>
+
+        <button
+          onClick={handleNewForm}
+          className="ml-auto inline-flex items-center px-4 py-2 bg-coral-400 hover:bg-coral-500 text-white rounded shadow-sm transition focus:outline-none"
+          title="Create new form"
+        >
+          <Plus className="mr-2" />
+          New Form
+        </button>
+      </div>
+
+      {/* Multi-column table: category headers with vertical lists underneath */}
+      <div className="overflow-x-auto">
+        <table className="min-w-full border border-gray-200 rounded-md shadow-sm table-fixed">
+          <thead className="bg-gradient-to-r from-coral-400 to-pink-400 text-white sticky top-0 z-10">
             <tr>
-              {Object.values(FormCategory).map((category) => (
+              {categories.map(category => (
                 <th
                   key={category}
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider align-top"
+                  className="px-6 py-4 border border-white text-left align-top font-semibold"
+                  style={{ minWidth: 220 }}
                 >
                   {category}
-                  <button
-                    className="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-coral-400 hover:bg-coral-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all mt-2"
-                    onClick={() => {
-                      // Replace with your Add New Form UI flow
-                      alert(`Add new form to ${category}`);
-                    }}
-                  >
-                    <Plus className="h-3 w-3 mr-1" />
-                    New Form
-                  </button>
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {/* Calculate max rows dynamically */}
-            {Array.from({
-              length: Math.max(
-                ...Object.values(formsByCategory).map((forms) => forms.length)
-              ),
-            }).map((_, rowIndex) => (
-              <tr key={rowIndex}>
-                {Object.values(FormCategory).map((category) => {
-                  const form = formsByCategory[category][rowIndex];
+          <tbody>
+            {/* Each row aligns the forms vertically per category column */}
+            {Array.from({ length: maxFormsCount }).map((_, rowIndex) => (
+              <tr key={rowIndex} className="bg-white">
+                {categories.map((category) => {
+                  const formsInCat = templatesByCategory[category];
+                  const form = formsInCat[rowIndex];
+
                   return (
                     <td
                       key={category}
-                      className={`px-6 py-4 whitespace-nowrap align-top ${
-                        form ? "cursor-pointer" : ""
-                      } ${form && form.id === selectedFormId ? "bg-coral-50" : ""}`}
-                      onClick={() => form && setSelectedFormId(form.id)}
-                      title={form ? `${form.title} (${form.status})` : ""}
+                      className="px-4 py-3 border border-gray-200 align-top vertical-align-top text-sm"
+                      style={{ minWidth: 220, verticalAlign: "top" }}
                     >
                       {form ? (
-                        <>
-                          <strong className="font-medium text-gray-900">{form.title}</strong>
-                          <br />
-                          <small className="text-xs text-gray-500">Status: {form.status}</small>
-                        </>
+                        <div className="flex flex-col space-y-1">
+                          <span
+                            role="link"
+                            tabIndex={0}
+                            onClick={() => handleFormClick(form.id)}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter" || e.key === " ") {
+                                handleFormClick(form.id);
+                              }
+                            }}
+                            className="cursor-pointer text-coral-600 hover:underline select-none font-medium"
+                            title={`Open ${form.title}`}
+                          >
+                            {form.title}
+                          </span>
+                          <div className="text-gray-500 text-xs">
+                            {formatDate(form.createdAt)}
+                          </div>
+                          <div className="flex space-x-3 mt-1">
+                            <button
+                              onClick={() => handleDuplicate(form.id)}
+                              className="text-gray-600 hover:text-coral-600 focus:outline-none"
+                              title={`Duplicate ${form.title}`}
+                              aria-label={`Duplicate ${form.title}`}
+                            >
+                              <Copy size={16} />
+                            </button>
+                            <button
+                              onClick={() => handleDelete(form.id)}
+                              className="text-red-600 hover:text-red-800 focus:outline-none"
+                              title={`Delete ${form.title}`}
+                              aria-label={`Delete ${form.title}`}
+                            >
+                              <Trash2 size={16} />
+                            </button>
+                          </div>
+                        </div>
                       ) : (
-                        <em className="text-gray-400">—</em>
+                        // Empty cell for row alignment if no form at this index
+                        null
                       )}
                     </td>
                   );
@@ -105,32 +211,6 @@ const FormsModule: React.FC = () => {
           </tbody>
         </table>
       </div>
-
-      {/* Selected Form Details / Editor Placeholder */}
-      {selectedFormId && (
-        <div className="mt-6 p-6 border border-gray-200 rounded-lg shadow-sm bg-white">
-          {(() => {
-            const selectedForm = sampleTemplates.find((f) => f.id === selectedFormId);
-            if (!selectedForm) return <p className="text-sm text-gray-600">Form not found.</p>;
-            return (
-              <>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                  Editing: {selectedForm.title}
-                </h3>
-                <p className="text-sm text-gray-600 mb-2">
-                  Category: {selectedForm.category}
-                  <br />
-                  Status: {selectedForm.status}
-                </p>
-                {/* Insert your real form builder or editor here */}
-                <p className="text-sm text-gray-500 italic">
-                  <i>Form builder/edit UI goes here...</i>
-                </p>
-              </>
-            );
-          })()}
-        </div>
-      )}
     </div>
   );
 };
