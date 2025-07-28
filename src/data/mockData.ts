@@ -1,4 +1,7 @@
 import { Inquiry, InquiryAction, CelebrationInquiryDetails, WeddingInquiryDetails, CorporateInquiryDetails } from '../types';
+import { FormCategory } from "../pages/Forms"; // Adjust path if needed
+import { FormTemplate } from "../types/formtemplate";
+
 
 // Customer interface for mock data
 interface MockCustomer {
@@ -87,10 +90,22 @@ interface MockOrderDetail {
   details?: CelebrationInquiryDetails | WeddingInquiryDetails | CorporateInquiryDetails;
   status: 'inquiry' | 'quoted' | 'confirmed' | 'in-production' | 'completed' | 'cancelled';
 }
+interface FormTemplate {
+  id: string;
+  title: string;
+  category: FormCategory;
+  createdAt: string;
+  // description?: string; // add if needed
+}
+// Forms Page Mock Data //
+//Sample forms for Forms Page//
+export const formTemplatesMock = mockForms;
+
 //Mock Reort Data
 // src/data/mockData.ts
 
 // Mock data for sales report (line chart)
+
 export const mockSalesReportData = [
   { label: 'Jan', value: 12000 },
   { label: 'Feb', value: 15000 },
