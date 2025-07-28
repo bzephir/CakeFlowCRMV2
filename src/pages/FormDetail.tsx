@@ -42,21 +42,7 @@ const FormDetail: React.FC = () => {
   }
 const client = clientDataByFormId[form.id] || { firstName: "", lastName: "", fullName: "" };
 const owner = adminInfo;
-  // Extract client from mockCustomersList matching form.clientName or fallback default
-  // Assuming form.clientName exists (adjust as necessary), otherwise fallback
-  const client =
-    mockCustomersList.find((c) => c.name?.toLowerCase() === form.clientName?.toLowerCase()) ?? {
-      firstName: "Jane",
-      lastName: "Smith",
-      name: "Jane Smith",
-    };
-
-  // Use a fixed owner mock (or create ownerMock in your mockData)
-  const owner = {
-    firstName: "John",
-    lastName: "Doe",
-  };
-
+ 
   // Fill placeholders in contract body before rendering markdown
   const clientFullName = `${client.firstName || ""} ${client.lastName || ""}`.trim() || client.name || "";
   const filledBody = fillPlaceholders(form.body, clientFullName);
