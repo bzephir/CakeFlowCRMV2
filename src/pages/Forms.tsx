@@ -5,13 +5,6 @@ import Header from "../components/Header";
 import { formTemplatesMock, FormTemplate } from "../data/mockData";
 import { useNavigate } from "react-router-dom";
 
-export enum FormCategory {
-  Contracts = "Contracts",
-  Agreements = "Agreements",
-  Questionnaires = "Questionnaires",
-  Proposals = "Proposals",
-  Inquiry = "Inquiry / Lead Capture",
-}
 
 // Helper to format ISO string dates nicely
 function formatDate(dateString: string) {
