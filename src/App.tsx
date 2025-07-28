@@ -24,6 +24,8 @@ import Tasks from './pages/Tasks';
 import Settings from './pages/Settings';
 import Reports from './pages/Reports';
 import FormsModule from './pages/Forms';
+import FormDetail from "./pages/FormDetail";
+
 
 // Placeholder components for other routes
 
