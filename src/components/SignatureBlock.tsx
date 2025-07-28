@@ -1,3 +1,4 @@
+// src/components/SignatureBlock.tsx
 import React from "react";
 
 interface SignatureBlockProps {
@@ -37,6 +38,7 @@ const SignatureBlock: React.FC<SignatureBlockProps> = ({
             placeholder="First Name"
             defaultValue={firstName}
             className="border border-gray-300 rounded px-3 py-2"
+            aria-label={`${role} First Name`}
           />
         </label>
         <label className="flex flex-col">
@@ -47,6 +49,7 @@ const SignatureBlock: React.FC<SignatureBlockProps> = ({
             placeholder="Last Name"
             defaultValue={lastName}
             className="border border-gray-300 rounded px-3 py-2"
+            aria-label={`${role} Last Name`}
           />
         </label>
 
@@ -58,6 +61,7 @@ const SignatureBlock: React.FC<SignatureBlockProps> = ({
             name={`${role.toLowerCase()}Signature`}
             placeholder="Sign here"
             className="border border-gray-300 rounded px-3 py-2"
+            aria-label={`${role} Signature Box`}
           />
         </label>
       </div>
