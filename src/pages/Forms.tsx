@@ -123,4 +123,59 @@ const FormsModule: React.FC = () => {
                 ? "bg-coral-400 text-white shadow-md border border-b-transparent rounded-t-lg"
                 : "bg-gray-100 text-gray-600 hover:bg-coral-100 border border-transparent hover:border-coral-300"
             }`}
-            style={{ min
+            style={{ minWidth: 160, letterSpacing: 0.6 }}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+
+      {/* New Form Button */}
+      <div className="flex justify-end mb-4">
+        <button
+          className="inline-flex items-center px-4 py-2 bg-coral-400 hover:bg-coral-500 text-white rounded shadow-sm transition focus:outline-none"
+          title={`Add new form to ${selectedCategory}`}
+          onClick={() => {
+            // Create new form template with temporary id
+            const newId = `new-${Date.now()}`;
+            const newTemplate: FormTemplate = {
+              id: newId,
+              title: `New ${selectedCategory} Form`,
+              category: selectedCategory,
+              body: `New form content here...`,
+              createdAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString(),
+            };
+            setTemplates(prev => [...prev, newTemplate]);
+            setSelectedTemplateId(newId);
+          }}
+        >
+          <Plus className="mr-2" />
+          New {selectedCategory.split(" ")[0]}
+        </button>
+      </div>
+
+      {/* Template Selection Buttons */}
+      <div className="flex gap-3 mb-6 overflow-x-auto">
+        {templatesForCategory.length === 0 && (
+          <div className="italic text-gray-500">No forms in this category</div>
+        )}
+        {templatesForCategory.map(template => (
+          <button
+            key={template.id}
+            className={`px-4 py-2 rounded-lg border transition whitespace-nowrap ${
+              template.id === selectedTemplateId
+                ? "bg-coral-400 text-white border-coral-500"
+                : "bg-white border-gray-300 hover:bg-coral-50"
+            }`}
+            onClick={() => setSelectedTemplateId(template.id)}
+          >
+            {template.title}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default FormsModule;
