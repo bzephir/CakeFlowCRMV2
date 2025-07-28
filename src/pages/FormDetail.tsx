@@ -119,10 +119,10 @@ const FormDetail: React.FC = () => {
             </label>
             <label className="flex flex-col flex-1">
               <span className="mb-1 text-sm">Last Name</span>
-              <input
+              <input className="text-sm"
                 type="text"
                 name="ownerLastName"
-                placeholder="text-sm">Enter last name</input>"
+                placeholder="Enter last name"
                 className="border border-gray-300 rounded px-3 py-2"
               />
             </label>
