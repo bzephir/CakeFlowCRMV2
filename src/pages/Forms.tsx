@@ -124,25 +124,25 @@ const FormsModule: React.FC = () => {
         </button>
       </div>
 
-      {/* Forms tables grouped by category */}
+      {/* Render all categories and their forms */}
       {Object.values(FormCategory).map(category => {
         const forms = templatesByCategory[category];
         return (
-          <section key={category} className="mb-10 last:mb-0">
+          <section key={category} className="mb-10">
             <h3 className="text-xl font-semibold mb-4 text-gray-800">{category}</h3>
             {forms.length === 0 ? (
               <p className="italic text-gray-500">No forms in this category.</p>
             ) : (
-              <table className="w-full border border-gray-200 rounded-t-lg rounded-b-lg shadow-sm">
-                <thead className="bg-gray-50 rounded-t-lg">
+              <table className="min-w-full border border-gray-200 rounded-md shadow-sm">
+                <thead className="bg-gray-50">
                   <tr>
-                    <th className="text-left px-6 py-3 border-b border-gray-200 text-gray-700 font-medium rounded-tl-lg">
+                    <th className="text-left px-4 py-2 border-b border-gray-200 text-gray-700 font-medium">
                       Form Name
                     </th>
-                    <th className="text-left px-6 py-3 border-b border-gray-200 text-gray-700 font-medium w-36">
+                    <th className="text-left px-4 py-2 border-b border-gray-200 text-gray-700 font-medium w-36">
                       Created Date
                     </th>
-                    <th className="text-center px-6 py-3 border-b border-gray-200 text-gray-700 font-medium w-28 rounded-tr-lg">
+                    <th className="text-center px-4 py-2 border-b border-gray-200 text-gray-700 font-medium w-28">
                       Actions
                     </th>
                   </tr>
@@ -150,11 +150,11 @@ const FormsModule: React.FC = () => {
                 <tbody>
                   {forms.map(form => (
                     <tr key={form.id} className="hover:bg-coral-50">
-                      <td className="px-6 py-4 border-b border-gray-200">
+                      <td className="px-4 py-3 border-b border-gray-200">
                         <span
+                          onClick={() => handleFormClick(form.id)}
                           role="link"
                           tabIndex={0}
-                          onClick={() => handleFormClick(form.id)}
                           onKeyDown={e => {
                             if (e.key === "Enter" || e.key === " ") {
                               handleFormClick(form.id);
@@ -166,10 +166,10 @@ const FormsModule: React.FC = () => {
                           {form.title}
                         </span>
                       </td>
-                      <td className="px-6 py-4 border-b border-gray-200 text-gray-600">
+                      <td className="px-4 py-3 border-b border-gray-200 text-gray-600">
                         {formatDate(form.createdAt)}
                       </td>
-                      <td className="px-6 py-4 border-b border-gray-200 text-center space-x-3">
+                      <td className="px-4 py-3 border-b border-gray-200 text-center space-x-3">
                         <button
                           onClick={() => handleDuplicate(form.id)}
                           className="text-gray-600 hover:text-coral-600 focus:outline-none"
@@ -200,3 +200,4 @@ const FormsModule: React.FC = () => {
 };
 
 export default FormsModule;
+
