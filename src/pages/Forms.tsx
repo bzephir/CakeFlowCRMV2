@@ -13,15 +13,6 @@ export enum FormCategory {
   Inquiry = "Inquiry / Lead Capture",
 }
 
-// Helper to format ISO string dates nicely
-function formatDate(dateString: string) {
-  return new Date(dateString).toLocaleDateString(undefined, {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-}
-
 const FormsModule: React.FC = () => {
   const [templates, setTemplates] = useState<FormTemplate[]>(formTemplatesMock);
 
@@ -30,7 +21,9 @@ const FormsModule: React.FC = () => {
 
   const navigate = useNavigate();
 
-  // Sort templates once globally
+  const categories = Object.values(FormCategory);
+
+  // Sort all templates globally by selected sortBy/sortOrder
   const sortedTemplates = useMemo(() => {
     return [...templates].sort((a, b) => {
       const compareVal =
@@ -41,9 +34,7 @@ const FormsModule: React.FC = () => {
     });
   }, [templates, sortBy, sortOrder]);
 
-  const categories = Object.values(FormCategory);
-
-  // Group sorted templates by category
+  // Group templates by category
   const templatesByCategory = useMemo(() => {
     return categories.reduce((acc, category) => {
       acc[category] = sortedTemplates.filter(t => t.category === category);
@@ -76,7 +67,7 @@ const FormsModule: React.FC = () => {
   };
 
   const handleNewForm = () => {
-    // You can decide which category a new form belongs to — here default to first category
+    // By default put new forms in first category
     const newId = `new-${Date.now()}`;
     const newTemplate: FormTemplate = {
       id: newId,
@@ -89,14 +80,14 @@ const FormsModule: React.FC = () => {
     setTemplates(prev => [...prev, newTemplate]);
   };
 
-  // Compute maximum forms count among categories to align rows
+  // Get max forms count in any category for table row alignment
   const maxFormsCount = Math.max(...categories.map(cat => templatesByCategory[cat].length));
 
   return (
     <div className="p-6">
       <Header title="Forms" icon={FileSignature} />
 
-      {/* Sorting Controls and New Form Button */}
+      {/* Sorting Controls + New Form Button */}
       <div className="flex gap-4 mb-6 items-center flex-wrap">
         <label>
           Sort by:{" "}
@@ -131,16 +122,19 @@ const FormsModule: React.FC = () => {
         </button>
       </div>
 
-      {/* Multi-column table: category headers with vertical lists underneath */}
+      {/* Multi-column Table with category headers and vertical lists */}
       <div className="overflow-x-auto">
-        <table className="min-w-full border border-gray-200 rounded-md shadow-sm table-fixed">
-          <thead className="bg-gradient-to-r from-coral-400 to-pink-400 text-white sticky top-0 z-10">
+        <table className="min-w-full border border-gray-200 rounded-lg shadow-sm table-fixed">
+          <thead>
             <tr>
-              {categories.map(category => (
+              {categories.map((category, index) => (
                 <th
                   key={category}
-                  className="px-6 py-4 border border-white text-left align-top font-semibold"
-                  style={{ minWidth: 220 }}
+                  // Rounded top corners only on first and last headers
+                  className={`px-6 py-4 border border-transparent text-left align-top font-semibold text-white whitespace-nowrap bg-gradient-to-r from-coral-400 to-pink-400 ${
+                    index === 0 ? "rounded-tl-lg" : ""
+                  } ${index === categories.length - 1 ? "rounded-tr-lg" : ""}`}
+                  style={{ minWidth: 220, letterSpacing: 0.6 }}
                 >
                   {category}
                 </th>
@@ -148,7 +142,6 @@ const FormsModule: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {/* Each row aligns the forms vertically per category column */}
             {Array.from({ length: maxFormsCount }).map((_, rowIndex) => (
               <tr key={rowIndex} className="bg-white">
                 {categories.map((category) => {
@@ -158,11 +151,11 @@ const FormsModule: React.FC = () => {
                   return (
                     <td
                       key={category}
-                      className="px-4 py-3 border border-gray-200 align-top vertical-align-top text-sm"
+                      className="px-6 py-6 border border-gray-200 align-top text-sm"
                       style={{ minWidth: 220, verticalAlign: "top" }}
                     >
                       {form ? (
-                        <div className="flex flex-col space-y-1">
+                        <div className="flex flex-col space-y-2">
                           <span
                             role="link"
                             tabIndex={0}
@@ -172,14 +165,11 @@ const FormsModule: React.FC = () => {
                                 handleFormClick(form.id);
                               }
                             }}
-                            className="cursor-pointer text-coral-600 hover:underline select-none font-medium"
+                            className="cursor-pointer text-coral-600 hover:underline select-none font-semibold"
                             title={`Open ${form.title}`}
                           >
                             {form.title}
                           </span>
-                          <div className="text-gray-500 text-xs">
-                            {formatDate(form.createdAt)}
-                          </div>
                           <div className="flex space-x-3 mt-1">
                             <button
                               onClick={() => handleDuplicate(form.id)}
@@ -187,7 +177,7 @@ const FormsModule: React.FC = () => {
                               title={`Duplicate ${form.title}`}
                               aria-label={`Duplicate ${form.title}`}
                             >
-                              <Copy size={16} />
+                              <Copy size={18} />
                             </button>
                             <button
                               onClick={() => handleDelete(form.id)}
@@ -195,14 +185,11 @@ const FormsModule: React.FC = () => {
                               title={`Delete ${form.title}`}
                               aria-label={`Delete ${form.title}`}
                             >
-                              <Trash2 size={16} />
+                              <Trash2 size={18} />
                             </button>
                           </div>
                         </div>
-                      ) : (
-                        // Empty cell for row alignment if no form at this index
-                        null
-                      )}
+                      ) : null}
                     </td>
                   );
                 })}
