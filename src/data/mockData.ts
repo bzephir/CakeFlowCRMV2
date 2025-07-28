@@ -101,9 +101,6 @@ interface FormTemplate {
 //Sample forms for Forms Page//
 export const formTemplatesMock = mockForms;
 
-
-
-
 //Mock Reort Data
 // src/data/mockData.ts
 
