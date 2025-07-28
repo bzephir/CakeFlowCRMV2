@@ -64,6 +64,9 @@ const FormsModule: React.FC = () => {
     };
     setTemplates(prev => [...prev, duplicatedForm]);
   };
+const handleFormClick = (id: string) => {
+  navigate(`/forms/mock/${id}`);
+};
 
   const handleFormClick = (id: string) => {
     navigate(`/forms/mock/${id}`);
