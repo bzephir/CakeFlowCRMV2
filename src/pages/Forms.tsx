@@ -68,9 +68,6 @@ const handleFormClick = (id: string) => {
   navigate(`/forms/mock/${id}`);
 };
 
-  const handleFormClick = (id: string) => {
-    navigate(`/forms/mock/${id}`);
-  };
 
   const handleNewForm = () => {
     const newId = `new-${Date.now()}`;
