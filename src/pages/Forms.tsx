@@ -3,15 +3,9 @@ import React, { useState, useMemo } from "react";
 import { FileSignature, Plus, Trash2, Copy } from "lucide-react";
 import Header from "../components/Header";
 import { formTemplatesMock, FormTemplate } from "../data/mockData";
+import { FormCategory } from "../types/formtemplate"; 
 import { useNavigate } from "react-router-dom";
 
-export enum FormCategory {
-  Contracts = "Contracts",
-  Agreements = "Agreements",
-  Questionnaires = "Questionnaires",
-  Proposals = "Proposals",
-  Inquiry = "Inquiry / Lead Capture",
-}
 
 // Helper to format ISO string dates nicely
 function formatDate(dateString: string) {
@@ -32,7 +26,7 @@ const FormsModule: React.FC = () => {
 
   const categories = Object.values(FormCategory);
 
-  // Sort templates once globally
+  // Sort all templates once globally by selected sorting options
   const sortedTemplates = useMemo(() => {
     return [...templates].sort((a, b) => {
       const compareVal =
@@ -46,19 +40,19 @@ const FormsModule: React.FC = () => {
   // Group sorted templates by category
   const templatesByCategory = useMemo(() => {
     return categories.reduce((acc, category) => {
-      acc[category] = sortedTemplates.filter((t) => t.category === category);
+      acc[category] = sortedTemplates.filter(t => t.category === category);
       return acc;
     }, {} as Record<FormCategory, FormTemplate[]>);
   }, [sortedTemplates, categories]);
 
   const handleDelete = (id: string) => {
     if (window.confirm("Are you sure you want to delete this form?")) {
-      setTemplates((prev) => prev.filter((t) => t.id !== id));
+      setTemplates(prev => prev.filter(t => t.id !== id));
     }
   };
 
   const handleDuplicate = (id: string) => {
-    const toDuplicate = templates.find((t) => t.id === id);
+    const toDuplicate = templates.find(t => t.id === id);
     if (!toDuplicate) return;
     const newId = `dup-${Date.now()}`;
     const duplicatedForm: FormTemplate = {
@@ -68,52 +62,51 @@ const FormsModule: React.FC = () => {
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
-    setTemplates((prev) => [...prev, duplicatedForm]);
+    setTemplates(prev => [...prev, duplicatedForm]);
   };
+const handleFormClick = (id: string) => {
+  navigate(`/forms/mock/${id}`);
+};
 
-  const handleFormClick = (id: string) => {
-    navigate(`/forms/mock/${id}`);
-  };
 
   const handleNewForm = () => {
     const newId = `new-${Date.now()}`;
     const newTemplate: FormTemplate = {
       id: newId,
-      title: `New Form`,
+      title: "New Form",
       category: categories[0],
       body: "New form content here...",
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
-    setTemplates((prev) => [...prev, newTemplate]);
+    setTemplates(prev => [...prev, newTemplate]);
   };
 
-  const maxFormsCount = Math.max(
-    ...categories.map((cat) => templatesByCategory[cat].length)
-  );
+  // Compute maximum forms count among categories to align rows
+  const maxFormsCount = Math.max(...categories.map(cat => templatesByCategory[cat].length));
 
   return (
     <div className="p-6">
       <Header title="Forms" icon={FileSignature} />
 
       {/* Sorting Controls and New Form Button */}
-      <div className="flex gap-4 mb-6 items-center flex-wrap">
+      <div className="flex gap-4 mb-6 items-center flex-wrap text-sm">
         <label>
           Sort by:{" "}
           <select
             value={sortBy}
-            onChange={(e) => setSortBy(e.target.value as "title" | "createdAt")}
+            onChange={e => setSortBy(e.target.value as "title" | "createdAt")}
             className="border px-2 py-1 rounded"
           >
-            <option value="title">Title</option>
             <option value="createdAt">Created At</option>
+            <option value="title">Title</option>
           </select>
         </label>
         <label>
           Order:{" "}
           <select
             value={sortOrder}
-            onChange={(e) => setSortOrder(e.target.value as "asc" | "desc")}
+            onChange={e => setSortOrder(e.target.value as "asc" | "desc")}
             className="border px-2 py-1 rounded"
           >
             <option value="asc">Ascending</option>
@@ -131,23 +124,18 @@ const FormsModule: React.FC = () => {
         </button>
       </div>
 
-      {/* Table with rounded top column headers and spacing */}
+      {/* Multi-column table: category headers with vertical lists underneath */}
       <div className="overflow-x-auto">
         <table
-          className="min-w-full border border-gray-200 rounded-md shadow-sm"
-          style={{ borderCollapse: "separate", borderSpacing: "4px 0" }} // ~1/8 inch horizontal spacing between columns
+          className="min-w-full rounded-md shadow-sm table-fixed border-separate border-spacing-x-4"
         >
-          <thead className="sticky top-0 z-10 bg-white">
-            {/* Using flex for <tr> to create space between <th> */}
-            <tr
-              className="flex justify-between px-2"
-              style={{ gap: 4 /* px spacing between headers */ }}
-            >
-              {categories.map((category) => (
+          <thead className="bg-gradient-to-r from-coral-400 to-pink-400 text-white sticky top-0 z-10">
+            <tr>
+              {categories.map(category => (
                 <th
                   key={category}
-                  className="flex-1 rounded-t-lg bg-coral-400 px-6 py-3 text-left font-semibold text-white shadow-md"
-                  style={{ minWidth: 220, cursor: "default" }}
+                  className="px-6 py-4 text-left align-top font-semibold rounded-t-lg select-none"
+                  style={{ minWidth: 220 }}
                 >
                   {category}
                 </th>
@@ -155,26 +143,26 @@ const FormsModule: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {/* Rows align forms vertically per category */}
             {Array.from({ length: maxFormsCount }).map((_, rowIndex) => (
-              <tr key={rowIndex} className="bg-white flex px-2" style={{ gap: 4 }}>
-                {categories.map((category) => {
+              <tr key={rowIndex} className="bg-white">
+                {categories.map(category => {
                   const formsInCat = templatesByCategory[category];
                   const form = formsInCat[rowIndex];
 
                   return (
                     <td
                       key={category}
-                      className="flex-1 border border-gray-200 align-top text-sm rounded-b-md px-4 py-3"
-                      style={{ minWidth: 220 }}
+                      className="px-6 py-3 align-top text-sm border-b border-gray-200 group"
+                      style={{ minWidth: 220, verticalAlign: "top" }}
                     >
                       {form ? (
-                        <div className="flex flex-col space-y-1">
+                        <div className="flex items-center justify-between space-x-3">
+                          {/* Form name clickable span */}
                           <span
                             role="link"
                             tabIndex={0}
                             onClick={() => handleFormClick(form.id)}
-                            onKeyDown={(e) => {
+                            onKeyDown={e => {
                               if (e.key === "Enter" || e.key === " ") {
                                 handleFormClick(form.id);
                               }
@@ -184,8 +172,9 @@ const FormsModule: React.FC = () => {
                           >
                             {form.title}
                           </span>
-                          <div className="text-gray-500 text-xs">{formatDate(form.createdAt)}</div>
-                          <div className="flex space-x-3 mt-1">
+
+                          {/* Action icons - hidden by default, shown on hover of the cell */}
+                          <div className="flex space-x-3 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-200">
                             <button
                               onClick={() => handleDuplicate(form.id)}
                               className="text-gray-600 hover:text-coral-600 focus:outline-none"
