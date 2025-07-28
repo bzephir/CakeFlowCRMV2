@@ -3,6 +3,7 @@ import React, { useState, useMemo } from "react";
 import { FileSignature, Plus, Trash2, Copy } from "lucide-react";
 import Header from "../components/Header";
 import { formTemplatesMock, FormTemplate } from "../data/mockData";
+import { FormCategory } from "../types/formtemplate"; 
 import { useNavigate } from "react-router-dom";
 
 
