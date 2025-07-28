@@ -43,7 +43,7 @@ const SignatureBlock: React.FC<SignatureBlockProps> = ({ role, showAdminNote = f
 
         {/* Signature box spanning both columns */}
         <label className="col-span-2 flex flex-col mt-2">
-          <span className="mb-1 font-medium">Signature Box</span>
+          <span className="mb-1 font-medium">Signature</span>
           <input
             type="text"
             name={`${role.toLowerCase()}Signature`}
