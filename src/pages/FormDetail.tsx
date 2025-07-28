@@ -79,9 +79,7 @@ const FormDetail: React.FC = () => {
   {/* ... other content */}
 
   <h1 className="text-3xl font-bold mb-6">{form.title}</h1>
-  
-  <ReactMarkdown {/* your props */}>{filledBody}</ReactMarkdown>
-  
+   
   {/* Signature blocks */}
   <div className="mt-10">
     <SignatureBlock role="Client" />
