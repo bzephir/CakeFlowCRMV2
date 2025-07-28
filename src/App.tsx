@@ -84,7 +84,8 @@ function App() {
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/reports" element={<Reports />} />
                 <Route path="/forms" element={<FormsModule />} />
-                <Route path="/components" element={<FormDetail />} />
+                <Route path="/forms/mock/:id" element={<FormDetail />} />
+
               </Routes>
             </div>
           </div>
