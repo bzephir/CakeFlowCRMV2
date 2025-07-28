@@ -1,6 +1,7 @@
 import { Inquiry, InquiryAction, CelebrationInquiryDetails, WeddingInquiryDetails, CorporateInquiryDetails } from '../types';
 import { FormCategory } from "../pages/Forms"; // Adjust path if needed
 import { FormTemplate } from "../types/formtemplate";
+import { mockForms } from "./mockForms";
 
 // Customer interface for mock data
 interface MockCustomer {
@@ -96,7 +97,11 @@ interface FormTemplate {
   createdAt: string;
   // description?: string; // add if needed
 }
-// Forms Mock Data //
+
+//Sample forms for Forms Page//
+export const formTemplatesMock = mockForms;
+
+// Forms Page Mock Data //
 export const formTemplatesMock: FormTemplate[] = [
   {
     id: "1",
