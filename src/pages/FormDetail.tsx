@@ -45,7 +45,7 @@ const FormDetail: React.FC = () => {
   // Fill placeholders in contract body before rendering markdown
 const client = clientDataByFormId[form.id] || { firstName: "", lastName: "", fullName: "" };
 const owner = adminInfo;
-  const filledBody = fillPlaceholders(form.body, client.FullName);
+  const filledBody = fillPlaceholders(form.body, client.fullName);
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded shadow-sm">
