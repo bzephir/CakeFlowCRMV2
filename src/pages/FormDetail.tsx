@@ -84,7 +84,7 @@ const FormDetail: React.FC = () => {
           <h2 className="font-semibold mb-3">Client</h2>
           <div className="flex space-x-6 max-w-md">
             <label className="flex flex-col flex-1">
-              <span className="mb-1 font-medium">First Name</span>
+              <span className="mb-1 font-small">First Name</span>
               <input
                 type="text"
                 name="clientFirstName"
@@ -93,7 +93,7 @@ const FormDetail: React.FC = () => {
               />
             </label>
             <label className="flex flex-col flex-1">
-              <span className="mb-1 font-medium">Last Name</span>
+              <span className="mb-1 font-small">Last Name</span>
               <input
                 type="text"
                 name="clientLastName"
