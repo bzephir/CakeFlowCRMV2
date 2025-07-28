@@ -11,7 +11,17 @@ const SignatureBlock: React.FC<SignatureBlockProps> = ({ role, showAdminNote = f
       <h2 className="font-semibold mb-2">{role}:</h2>
       <p className="mb-4 italic">I agree to the terms and conditions of this contract.</p>
 
-      <div className="max-w-md grid grid-cols-[1fr_1fr] gap-x-6 gap-y-1 items-center mb-6">
+      {showAdminNote && (
+        <div
+          className="bg-yellow-100 border border-yellow-300 rounded p-4 text-gray-800 max-w-md mb-4"
+          role="note"
+          aria-label="Administrative note"
+        >
+          <strong>Administrative note:</strong> The field is for you to countersign. Don’t worry your client won’t see this.
+        </div>
+      )}
+
+      <div className="max-w-md grid grid-cols-[1fr_1fr] gap-x-6 gap-y-1 items-center">
         <label className="flex flex-col">
           <span className="mb-1 font-medium">First Name</span>
           <input
@@ -43,20 +53,9 @@ const SignatureBlock: React.FC<SignatureBlockProps> = ({ role, showAdminNote = f
         </label>
       </div>
 
-      <p className="mb-4 italic text-gray-600">
+      <p className="mt-4 italic text-gray-600 max-w-md">
         *The date will be recorded once the form is submitted.*
       </p>
-
-      {showAdminNote && (
-        <div
-          className="bg-yellow-100 border border-yellow-300 rounded p-4 text-gray-800
-            max-w-md"
-          role="note"
-          aria-label="Administrative note"
-        >
-          <strong>Administrative note:</strong> The field is for you to countersign. Don’t worry your client won’t see this.
-        </div>
-      )}
     </section>
   );
 };
