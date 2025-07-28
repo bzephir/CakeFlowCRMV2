@@ -8,9 +8,9 @@ export interface ClientInfo {
 
 export const clientDataByFormId: Record<string, ClientInfo> = {
   "standard-cake-contract-001": {
-    firstName: "Jane",
-    lastName: "Smith",
-    fullName: "Jane Smith",
+    firstName: "Michael",
+    lastName: "Chen",
+    fullName: "Michael Chen",
   },
   // Add other clients keyed by form IDs here
 };
