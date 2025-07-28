@@ -133,7 +133,7 @@ const FormsModule: React.FC = () => {
       {/* Multi-column table: category headers with vertical lists underneath */}
       <div className="overflow-x-auto">
         <table
-          className="min-w-full border border-gray-200 rounded-md shadow-sm table-fixed border-separate border-spacing-x-4"
+          className="min-w-full border  rounded-md shadow-sm table-fixed border-separate border-spacing-x-4"
         >
           <thead className="bg-gradient-to-r from-coral-400 to-pink-400 text-white sticky top-0 z-10">
             <tr>
