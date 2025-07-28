@@ -75,7 +75,7 @@ const FormDetail: React.FC = () => {
   {/* Signature blocks */}
   <div className="mt-10">
     <SignatureBlock role="Client"/>
-    <SignatureBlock role="Owner" />
+    <SignatureBlock role="Owner" showAdminNote/>
   </div>
         </div>
 
