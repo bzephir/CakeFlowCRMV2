@@ -1,9 +1,13 @@
+// src/components/SignatureBlock.tsx
+import React from "react";
+
 interface SignatureBlockProps {
   role: "Client" | "Owner";
   showAdminNote?: boolean;
   firstName?: string;
   lastName?: string;
-  readOnly?: boolean;  // new prop
+  readOnly?: boolean;          // general read-only flag
+  clientCanSignOnly?: boolean; // if true, client can only edit signature box
 }
 
 const SignatureBlock: React.FC<SignatureBlockProps> = ({
@@ -12,7 +16,10 @@ const SignatureBlock: React.FC<SignatureBlockProps> = ({
   firstName = "",
   lastName = "",
   readOnly = false,
+  clientCanSignOnly = false,
 }) => {
+  const isClient = role === "Client";
+
   return (
     <section className="mb-10">
       <h2 className="font-semibold mb-2">{role}:</h2>
@@ -36,8 +43,8 @@ const SignatureBlock: React.FC<SignatureBlockProps> = ({
             name={`${role.toLowerCase()}FirstName`}
             placeholder="First Name"
             defaultValue={firstName}
+            readOnly={true}  // Always readonly for first/last name
             className="border border-gray-300 rounded px-3 py-2"
-            readOnly={readOnly}
             aria-label={`${role} First Name`}
           />
         </label>
@@ -48,8 +55,8 @@ const SignatureBlock: React.FC<SignatureBlockProps> = ({
             name={`${role.toLowerCase()}LastName`}
             placeholder="Last Name"
             defaultValue={lastName}
+            readOnly={true}
             className="border border-gray-300 rounded px-3 py-2"
-            readOnly={readOnly}
             aria-label={`${role} Last Name`}
           />
         </label>
@@ -62,7 +69,8 @@ const SignatureBlock: React.FC<SignatureBlockProps> = ({
             name={`${role.toLowerCase()}Signature`}
             placeholder="Sign here"
             className="border border-gray-300 rounded px-3 py-2"
-            readOnly={readOnly}
+            // Editable if admin view or (clientCanSignOnly and client role)
+            readOnly={readOnly && !(clientCanSignOnly && isClient)}
             aria-label={`${role} Signature Box`}
           />
         </label>
