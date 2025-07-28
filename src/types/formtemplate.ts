@@ -9,9 +9,8 @@ export enum FormCategory {
 export interface FormTemplate {
   id: string;
   title: string;
-  category: FormCategory;  // use the enum here for better type safety
+  category: FormCategory;  // enum type
   body: string;
   createdAt: string;
   updatedAt: string;
 }
-
