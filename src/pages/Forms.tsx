@@ -156,48 +156,52 @@ const FormsModule: React.FC = () => {
                   const form = formsInCat[rowIndex];
 
                   return (
-                    <td
-                      key={category}
-                      className="px-6 py-3 align-top text-sm"
-                      style={{ minWidth: 220, verticalAlign: "top" }}
-                    >
-                      {form ? (
-                        <div className="flex flex-col space-y-1">
-                          <span
-                            role="link"
-                            tabIndex={0}
-                            onClick={() => handleFormClick(form.id)}
-                            onKeyDown={e => {
-                              if (e.key === "Enter" || e.key === " ") {
-                                handleFormClick(form.id);
-                              }
-                            }}
-                            className="cursor-pointer text-coral-600 hover:underline select-none font-medium"
-                            title={`Open ${form.title}`}
-                          >
-                            {form.title}
-                          </span>
-                          <div className="flex space-x-3 mt-1">
-                            <button
-                              onClick={() => handleDuplicate(form.id)}
-                              className="text-gray-600 hover:text-coral-600 focus:outline-none"
-                              title={`Duplicate ${form.title}`}
-                              aria-label={`Duplicate ${form.title}`}
-                            >
-                              <Copy size={16} />
-                            </button>
-                            <button
-                              onClick={() => handleDelete(form.id)}
-                              className="text-red-600 hover:text-red-800 focus:outline-none"
-                              title={`Delete ${form.title}`}
-                              aria-label={`Delete ${form.title}`}
-                            >
-                              <Trash2 size={16} />
-                            </button>
-                          </div>
-                        </div>
-                      ) : null}
-                    </td>
+<td
+  key={category}
+  className="px-6 py-3 align-top text-sm border-b border-gray-200"
+  style={{ minWidth: 220, verticalAlign: "top" }}
+>
+  {form ? (
+    <div className="flex items-center justify-between space-x-3">
+      {/* Form name clickable span */}
+      <span
+        role="link"
+        tabIndex={0}
+        onClick={() => handleFormClick(form.id)}
+        onKeyDown={e => {
+          if (e.key === "Enter" || e.key === " ") {
+            handleFormClick(form.id);
+          }
+        }}
+        className="cursor-pointer text-coral-600 hover:underline select-none font-medium"
+        title={`Open ${form.title}`}
+      >
+        {form.title}
+      </span>
+
+      {/* Action icons in inline flex */}
+      <div className="flex space-x-3">
+        <button
+          onClick={() => handleDuplicate(form.id)}
+          className="text-gray-600 hover:text-coral-600 focus:outline-none"
+          title={`Duplicate ${form.title}`}
+          aria-label={`Duplicate ${form.title}`}
+        >
+          <Copy size={16} />
+        </button>
+        <button
+          onClick={() => handleDelete(form.id)}
+          className="text-red-600 hover:text-red-800 focus:outline-none"
+          title={`Delete ${form.title}`}
+          aria-label={`Delete ${form.title}`}
+        >
+          <Trash2 size={16} />
+        </button>
+      </div>
+    </div>
+  ) : null}
+</td>
+
                   );
                 })}
               </tr>
