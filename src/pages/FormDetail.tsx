@@ -80,7 +80,7 @@ const FormDetail: React.FC = () => {
 
         {/* Client Signature */}
         <section>
-          <h1 className="font-semibold mb-8 text-center text-lg">Signatures</h1>
+          <h1 className="font-semibold mb-8 text-center text-xl">Signatures</h1>
           <h2 className="font-semibold mb-3">Client</h2>
           <div className="flex space-x-6 max-w-md">
             <label className="flex flex-col flex-1">
