@@ -1,11 +1,9 @@
-// src/components/SignatureBlock.tsx
-import React from "react";
-
 interface SignatureBlockProps {
   role: "Client" | "Owner";
   showAdminNote?: boolean;
   firstName?: string;
   lastName?: string;
+  readOnly?: boolean;  // new prop
 }
 
 const SignatureBlock: React.FC<SignatureBlockProps> = ({
@@ -13,6 +11,7 @@ const SignatureBlock: React.FC<SignatureBlockProps> = ({
   showAdminNote = false,
   firstName = "",
   lastName = "",
+  readOnly = false,
 }) => {
   return (
     <section className="mb-10">
@@ -38,6 +37,7 @@ const SignatureBlock: React.FC<SignatureBlockProps> = ({
             placeholder="First Name"
             defaultValue={firstName}
             className="border border-gray-300 rounded px-3 py-2"
+            readOnly={readOnly}
             aria-label={`${role} First Name`}
           />
         </label>
@@ -49,6 +49,7 @@ const SignatureBlock: React.FC<SignatureBlockProps> = ({
             placeholder="Last Name"
             defaultValue={lastName}
             className="border border-gray-300 rounded px-3 py-2"
+            readOnly={readOnly}
             aria-label={`${role} Last Name`}
           />
         </label>
@@ -61,6 +62,7 @@ const SignatureBlock: React.FC<SignatureBlockProps> = ({
             name={`${role.toLowerCase()}Signature`}
             placeholder="Sign here"
             className="border border-gray-300 rounded px-3 py-2"
+            readOnly={readOnly}
             aria-label={`${role} Signature Box`}
           />
         </label>
