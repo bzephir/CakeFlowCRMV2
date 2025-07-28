@@ -97,43 +97,12 @@ interface FormTemplate {
   createdAt: string;
   // description?: string; // add if needed
 }
-
+// Forms Page Mock Data //
 //Sample forms for Forms Page//
 export const formTemplatesMock = mockForms;
 
-// Forms Page Mock Data //
-export const formTemplatesMock: FormTemplate[] = [
-  {
-    id: "1",
-    title: "Standard Contract",
-    category: FormCategory.Contracts,
-    createdAt: "2024-01-01T10:00:00Z",
-  },
-  {
-    id: "2",
-    title: "Custom Agreement",
-    category: FormCategory.Agreements,
-    createdAt: "2024-02-01T09:30:00Z",
-  },
-  {
-    id: "3",
-    title: "Customer Questionnaire",
-    category: FormCategory.Questionnaires,
-    createdAt: "2024-03-01T15:00:00Z",
-  },
-  {
-    id: "4",
-    title: "Wedding Proposal",
-    category: FormCategory.Proposals,
-    createdAt: "2024-03-11T08:45:00Z",
-  },
-  {
-    id: "5",
-    title: "Lead Capture Form",
-    category: FormCategory.Inquiry,
-    createdAt: "2024-03-15T14:00:00Z",
-  },
-];
+
+
 
 //Mock Reort Data
 // src/data/mockData.ts
