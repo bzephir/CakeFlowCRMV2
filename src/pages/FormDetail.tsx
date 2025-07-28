@@ -1,17 +1,20 @@
+// src/components/FormDetail.tsx
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { formTemplatesMock } from "../data/mockData";
 import ReactMarkdown from "react-markdown";
 import { ArrowLeft } from "lucide-react";
- import SignatureBlock from "../components/SignatureBlock"; // Adjust path accordingly
+
+import SignatureBlock from "./SignatureBlock";
+import { formTemplatesMock, mockCustomersList } from "../data/mockData";
 
 interface RouteParams {
   id: string;
 }
 
-function fillPlaceholders(template: string): string {
+// Helper: Replace placeholders in the contract body with actual data
+function fillPlaceholders(template: string, clientName: string): string {
   return template
-    .replace(/{{client.name}}/g, "Jane Smith")
+    .replace(/{{client.name}}/g, clientName)
     .replace(
       /{{curDate \| longDate}}/g,
       new Date().toLocaleDateString(undefined, {
@@ -31,15 +34,34 @@ const FormDetail: React.FC = () => {
   const { id } = useParams<RouteParams>();
   const navigate = useNavigate();
 
+  // Find form by id
   const form = formTemplatesMock.find((f) => f.id === id);
+  if (!form) {
+    return <div className="p-6 text-red-600">Form not found</div>;
+  }
 
-  if (!form) return <div>Form not found</div>;
+  // Extract client from mockCustomersList matching form.clientName or fallback default
+  // Assuming form.clientName exists (adjust as necessary), otherwise fallback
+  const client =
+    mockCustomersList.find((c) => c.name?.toLowerCase() === form.clientName?.toLowerCase()) ?? {
+      firstName: "Jane",
+      lastName: "Smith",
+      name: "Jane Smith",
+    };
 
-  const filledBody = fillPlaceholders(form.body);
+  // Use a fixed owner mock (or create ownerMock in your mockData)
+  const owner = {
+    firstName: "John",
+    lastName: "Doe",
+  };
+
+  // Fill placeholders in contract body before rendering markdown
+  const clientFullName = `${client.firstName || ""} ${client.lastName || ""}`.trim() || client.name || "";
+  const filledBody = fillPlaceholders(form.body, clientFullName);
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded shadow-sm">
-      {/* Back button */}
+      {/* Back Button */}
       <button
         onClick={() => navigate(-1)}
         className="flex items-center space-x-2 text-coral-600 hover:text-coral-800 mb-6 focus:outline-none"
@@ -50,8 +72,10 @@ const FormDetail: React.FC = () => {
         <span className="font-medium">Back</span>
       </button>
 
+      {/* Contract Title */}
       <h1 className="text-3xl font-bold mb-6">{form.title}</h1>
 
+      {/* Contract Body rendered with Markdown */}
       <ReactMarkdown
         components={{
           h1: ({ node, ...props }) => <h1 className="text-2xl font-bold my-4" {...props} />,
@@ -71,14 +95,22 @@ const FormDetail: React.FC = () => {
       >
         {filledBody}
       </ReactMarkdown>
-   
-  {/* Signature blocks */}
-  <div className="mt-10">
-    <SignatureBlock role="Client"/>
-    <SignatureBlock role="Owner" showAdminNote/>
-  </div>
-        </div>
 
+      {/* Signature Section */}
+      <div className="mt-10">
+        <SignatureBlock
+          role="Client"
+          firstName={client.firstName}
+          lastName={client.lastName}
+        />
+        <SignatureBlock
+          role="Owner"
+          showAdminNote
+          firstName={owner.firstName}
+          lastName={owner.lastName}
+        />
+      </div>
+    </div>
   );
 };
 
