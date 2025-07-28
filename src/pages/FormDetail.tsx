@@ -80,7 +80,8 @@ const FormDetail: React.FC = () => {
 
         {/* Client Signature */}
         <section>
-          <h2 className="font-semibold mb-3">Client Signature</h2>
+          <h1 className="font-semibold mb-4 text-center">Signatures</section>
+          <h2 className="font-semibold mb-3">Client</h2>
           <div className="flex space-x-6 max-w-md">
             <label className="flex flex-col flex-1">
               <span className="mb-1 font-medium">First Name</span>
@@ -105,7 +106,7 @@ const FormDetail: React.FC = () => {
 
         {/* Owner Signature */}
         <section>
-          <h2 className="font-semibold mb-3">Owner Signature</h2>
+          <h2 className="font-semibold mb-3">Owner</h2>
           <div className="flex space-x-6 max-w-md">
             <label className="flex flex-col flex-1">
               <span className="mb-1 font-medium">First Name</span>
