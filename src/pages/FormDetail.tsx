@@ -6,7 +6,7 @@ import { ArrowLeft } from "lucide-react";
 import { clientDataByFormId } from "../data/clientInfo";
 import { adminInfo } from "../data/adminInfo";
 import SignatureBlock from "./SignatureBlock";
-import { formTemplatesMock, mockCustomersList } from "../data/mockData";
+import { formTemplatesMock } from "../data/mockData";
 
 interface RouteParams {
   id: string;
