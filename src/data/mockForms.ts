@@ -1,5 +1,15 @@
 import { FormCategory, FormTemplate } from "../types/formtemplate";
 
+interface FormTemplate {
+  id: string;
+  title: string;
+  category: FormCategory;
+  createdAt: string;
+  // description?: string; // add if needed
+}
+// Forms Page Mock Data //
+//Sample forms for Forms Page//
+export const formTemplatesMock = mockForms;
 export const mockForms: FormTemplate[] = [
   {
     id: "standard-cake-contract-001",
