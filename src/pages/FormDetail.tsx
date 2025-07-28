@@ -40,7 +40,8 @@ const FormDetail: React.FC = () => {
   if (!form) {
     return <div className="p-6 text-red-600">Form not found</div>;
   }
-
+const client = clientDataByFormId[form.id] || { firstName: "", lastName: "", fullName: "" };
+const owner = adminInfo;
   // Extract client from mockCustomersList matching form.clientName or fallback default
   // Assuming form.clientName exists (adjust as necessary), otherwise fallback
   const client =
