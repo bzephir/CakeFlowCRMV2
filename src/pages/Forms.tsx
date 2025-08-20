@@ -90,7 +90,7 @@ const handleFormClick = (id: string) => {
       <Header title="Forms" icon={FileSignature} />
 
       {/* Sorting Controls and New Form Button */}
-      <div className="flex gap-4 mb-6 items-center flex-wrap text-sm mt-6 bg-white h-full">
+      <div className="flex gap-4 mb-6 items-center flex-wrap text-sm mt-6 ">
         <label>
           Sort by:{" "}
           <select
