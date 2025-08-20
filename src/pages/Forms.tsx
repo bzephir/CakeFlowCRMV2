@@ -129,7 +129,7 @@ const handleFormClick = (id: string) => {
         <table
           className="min-w-full rounded-md shadow-sm table-fixed border-separate border-spacing-x-4 w-0"
         >
-          <thead className="bg-gradient-to-r from-coral-400 to-pink-400 text-white sticky top-0 z-10 bg-white h-full">
+          <thead className="bg-gradient-to-r from-coral-400 to-pink-400 text-white sticky top-0 z-10">
             <tr>
               {categories.map(category => (
                 <th
