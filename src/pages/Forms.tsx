@@ -134,7 +134,7 @@ const handleFormClick = (id: string) => {
               {categories.map(category => (
                 <th
                   key={category}
-                  className="px-6 py-2 text-left align-top font-semibold rounded-t-lg select-none bg-white h-full"
+                  className="px-6 py-2 text-left align-top font-semibold rounded-t-lg select-none"
                  
                 >
                   {category}
@@ -144,7 +144,7 @@ const handleFormClick = (id: string) => {
           </thead>
           <tbody>
             {Array.from({ length: maxFormsCount }).map((_, rowIndex) => (
-              <tr key={rowIndex} className="bg-white">
+              <tr key={rowIndex} className="bg-white h-full">
                 {categories.map(category => {
                   const formsInCat = templatesByCategory[category];
                   const form = formsInCat[rowIndex];
