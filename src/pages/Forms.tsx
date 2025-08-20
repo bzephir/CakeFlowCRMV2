@@ -89,7 +89,10 @@ const handleFormClick = (id: string) => {
     <div className="p-6">
       <Header title="Forms" icon={FileSignature} />
 
-      {/* Sorting Controls and New Form Button */}
+   
+
+      {/* Multi-column table: category headers with vertical lists underneath */}
+         {/* Sorting Controls and New Form Button */}
       <div className="flex gap-4 mb-6 items-center flex-wrap text-sm mt-6">
         <label>
           Sort by:{" "}
@@ -123,8 +126,6 @@ const handleFormClick = (id: string) => {
           New Form
         </button>
       </div>
-
-      {/* Multi-column table: category headers with vertical lists underneath */}
       <div className="overflow-x-auto">
         <table
           className="min-w-full rounded-md shadow-sm table-fixed border-separate border-spacing-x-4 w-0"
