@@ -1,8 +1,8 @@
 // src/components/FormDetail.tsx
-import React from "react";
+import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Eye, ArrowRight } from "lucide-react";
 import SignatureBlock from "../components/SignatureBlock";
 import { FormCategory } from "../types/formtemplate";
 import {formTemplatesMock} from "../data/mockForms"; // adjust if needed
@@ -38,6 +38,7 @@ interface FormDetailProps {
 const FormDetail: React.FC<FormDetailProps> = ({ isAdminView }) => {
   const { id } = useParams<RouteParams>();
   const navigate = useNavigate();
+  const [isViewingClientPreview, setIsViewingClientPreview] = useState(false);
 
   const form = formTemplatesMock.find((f) => f.id === id);
   if (!form) {
@@ -49,6 +50,9 @@ const FormDetail: React.FC<FormDetailProps> = ({ isAdminView }) => {
   const owner = adminInfo;
 
   const isAttachedToClient = client.firstName !== "" && client.lastName !== "";
+  
+  // Determine effective view mode
+  const effectiveIsAdminView = isAdminView && !isViewingClientPreview;
 
   // Check if this form category should show signatures
   const shouldShowSignatures = form.category === FormCategory.Contracts || form.category === FormCategory.Agreements;
@@ -57,10 +61,13 @@ const FormDetail: React.FC<FormDetailProps> = ({ isAdminView }) => {
   // Admin can always edit
   // Client can only edit their signature box, first/last names read-only
   // When form unassigned (no client attached), admin editing only, client view won't apply
-  const inputsReadOnly = !(isAdminView) && isAttachedToClient; // true if client view with attached form
+  const inputsReadOnly = !effectiveIsAdminView && isAttachedToClient; // true if client view with attached form
 
   // Submit button appears only for client view with attached form
-  const showSubmitButton = !isAdminView && isAttachedToClient;
+  const showClientFacingButton = !effectiveIsAdminView && isAttachedToClient;
+  
+  // Preview button appears only in admin view
+  const showPreviewButton = isAdminView && shouldShowSignatures;
 
   const filledBody = fillPlaceholders(form.body, client.fullName);
 
@@ -69,6 +76,9 @@ const FormDetail: React.FC<FormDetailProps> = ({ isAdminView }) => {
     alert("Form submitted!");
   };
 
+  const handlePreviewToggle = () => {
+    setIsViewingClientPreview(!isViewingClientPreview);
+  };
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded shadow-sm">
       {/* Back Button */}
@@ -84,6 +94,32 @@ const FormDetail: React.FC<FormDetailProps> = ({ isAdminView }) => {
 
       {/* Form Title */}
       <h1 className="text-3xl font-bold mb-6">{form.title}</h1>
+
+      {/* Preview Button for Admin */}
+      {showPreviewButton && (
+        <div className="mb-6 flex justify-end">
+          <button
+            onClick={handlePreviewToggle}
+            className={`inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm transition-all ${
+              isViewingClientPreview
+                ? 'text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500'
+                : 'text-coral-600 bg-coral-50 hover:bg-coral-100'
+            }`}
+          >
+            {isViewingClientPreview ? (
+              <>
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back to Admin View
+              </>
+            ) : (
+              <>
+                <Eye className="h-4 w-4 mr-2" />
+                Preview Document
+              </>
+            )}
+          </button>
+        </div>
+      )}
 
       {/* Contract content rendered with markdown */}
       <ReactMarkdown
@@ -119,6 +155,7 @@ const FormDetail: React.FC<FormDetailProps> = ({ isAdminView }) => {
           <SignatureBlock
             role="Owner"
             showAdminNote
+            showAdminNote={effectiveIsAdminView}
             firstName={owner.firstName}
             lastName={owner.lastName}
             readOnly={inputsReadOnly}
@@ -127,7 +164,7 @@ const FormDetail: React.FC<FormDetailProps> = ({ isAdminView }) => {
       )}
 
       {/* Agree and Submit button for client */}
-      {showSubmitButton && shouldShowSignatures && (
+      {showClientFacingButton && shouldShowSignatures && (
         <div className="mt-6 flex justify-end">
           <button
             type="button"
@@ -140,7 +177,7 @@ const FormDetail: React.FC<FormDetailProps> = ({ isAdminView }) => {
       )}
 
       {/* Internal preparation info message for client view with no client attached */}
-      {!isAdminView && !isAttachedToClient && (
+      {!effectiveIsAdminView && !isAttachedToClient && (
         <p className="mt-6 text-gray-600 italic">
           This form is in internal preparation mode. Client information is not attached yet.
         </p>
