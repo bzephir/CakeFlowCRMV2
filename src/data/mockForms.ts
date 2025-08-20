@@ -276,7 +276,7 @@ Thank you for taking the time to complete this questionnaire! We'll review your 
   },
   {
     id: "lead-capture-001",
-    title: "Quick Inquiry Form",
+    title: "Inquiry Form",
     category: FormCategory.Inquiry,
     body: `
 # Quick Inquiry Form
