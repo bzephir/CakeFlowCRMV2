@@ -130,7 +130,7 @@ const handleFormClick = (id: string) => {
         <table
             className="min-w-full table-fixed"
         >
-          <thead className="text-white sticky top-0 z-10">
+          <thead className="text-white sticky top-0 z-10 bg-gradient-to-r from-coral-400 to-pink-400 rounded-t-lg">
             <tr>
               {categories.map(category => (
                 <th
@@ -186,12 +186,11 @@ const handleFormClick = (id: string) => {
                               className="text-red-600 hover:text-red-800 focus:outline-none"
                               title={`Delete ${form.title}`}
                               aria-label={`Delete ${form.title}`}
-            <thead className="text-white sticky top-0 z-10 bg-gradient-to-r from-coral-400 to-pink-400 rounded-t-lg">
+                            >
                               <Trash2 size={16} />
                             </button>
                           </div>
                         </div>
-                    className="px-6 py-2 text-left align-top font-semibold select-none w-0"
                       ) : null}
                     </td>
                   );
