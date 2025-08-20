@@ -125,7 +125,7 @@ const handleFormClick = (id: string) => {
       </div>
 
       {/* Multi-column table: category headers with vertical lists underneath */}
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto h-full">
         <table
           className="min-w-full rounded-md shadow-sm table-fixed border-separate border-spacing-x-4 w-0"
         >
