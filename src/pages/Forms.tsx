@@ -95,7 +95,7 @@ const handleFormClick = (id: string) => {
   
       <div className="overflow-x-auto">
                {/* Sorting Controls and New Form Button */}
-      <div className="flex gap-4 mb-6 items-center flex-wrap text-sm mt-6">
+      <div className="flex gap-4 mb-6 items-center flex-wrap text-sm mt-6 ml-5">
         <label>
           Sort by:{" "}
           <select
