@@ -134,7 +134,7 @@ const FormDetail: React.FC<FormDetailProps> = ({ isAdminView }) => {
             onClick={handleSubmit}
             className="bg-coral-600 text-white px-6 py-3 rounded hover:bg-coral-700 focus:outline-none focus:ring-2 focus:ring-coral-500"
           >
-            Agree and Submit
+            {form.category === FormCategory.Proposals ? "Approve" : "Agree and Submit"}
           </button>
         </div>
       )}
