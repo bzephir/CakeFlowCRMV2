@@ -55,7 +55,11 @@ const FormDetail: React.FC<FormDetailProps> = ({ isAdminView }) => {
   const effectiveIsAdminView = isAdminView && !isViewingClientPreview;
 
   // Check if this form category should show signatures
-  const shouldShowSignatures = form.category === FormCategory.Contracts || form.category === FormCategory.Agreements || form.category === FormCategory.Proposals;
+  const shouldShowSignatures = form.category === FormCategory.Contracts || 
+                               form.category === FormCategory.Agreements || 
+                               form.category === FormCategory.Proposals ||
+                               form.category === FormCategory.Questionnaires ||
+                               form.category === FormCategory.Inquiry;
 
   // Determine input editability:
   // Admin can always edit

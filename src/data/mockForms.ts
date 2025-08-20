@@ -141,7 +141,7 @@ We look forward to creating something truly magical for your wedding day!
   {
     id: "event-questionnaire-001",
     title: "Event Planning Questionnaire",
-    category: FormCategory.Agreements,
+    category: FormCategory.Questionnaires,
     body: `
 **Client Name:** {{client.name}}  
 **Date Completed:** {{curDate | longDate}}
@@ -271,7 +271,7 @@ Thank you for taking the time to complete this questionnaire! We'll review your 
   {
     id: "lead-capture-001",
     title: "Celebration Inquiry Form",
-    category: FormCategory.Agreements,
+    category: FormCategory.Inquiry,
     body: `
 **Submitted on:** {{curDate | longDate}}
 
@@ -368,7 +368,7 @@ Thank you for your interest in Sweet Delights Bakery! We're excited to help make
     {
     id: "lead-capture-002",
     title: "Wedding Inquiry Form",
-    category: FormCategory.Proposals,
+    category: FormCategory.Inquiry,
     body: `
 **Submitted on:** {{curDate | longDate}}
 
