@@ -124,7 +124,7 @@ const handleFormClick = (id: string) => {
           className="ml-auto inline-flex items-center px-4 py-1 bg-coral-400 hover:bg-coral-500 text-white rounded shadow-sm transition focus:outline-none"
           title="Create new form"
         >
-          <Plus className="mr-1" />
+          <Plus className="mr-8" />
           New Form
         </button>
       </div>
