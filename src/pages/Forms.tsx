@@ -86,7 +86,7 @@ const handleFormClick = (id: string) => {
   const maxFormsCount = Math.max(...categories.map(cat => templatesByCategory[cat].length));
 
   return (
-    <div className="p-6 flex flex-col flex-1">
+    <div className="p-6 flex flex-col flex-1 h-full">
       <Header title="Forms" icon={FileSignature} />
 
       {/* Sorting Controls and New Form Button */}
@@ -125,10 +125,10 @@ const handleFormClick = (id: string) => {
       </div>
 
       {/* Multi-column table: category headers with vertical lists underneath */}
-     <div className="flex-1 bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden">
-      <div className="overflow-x-auto h-full">
+     <div className="flex-1 bg-white shadow-sm rounded-lg border border-gray-200 flex flex-col">
+      <div className="overflow-x-auto flex-1">
         <table
-          className="min-w-full table-fixed border-separate border-spacing-x-4 w-0"
+          className="min-w-full table-fixed border-separate border-spacing-x-4 h-full"
         >
           <thead className="bg-gradient-to-r from-coral-400 to-pink-400 text-white sticky top-0 z-10">
             <tr>
