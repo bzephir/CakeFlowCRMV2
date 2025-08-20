@@ -125,9 +125,10 @@ const handleFormClick = (id: string) => {
       </div>
 
       {/* Multi-column table: category headers with vertical lists underneath */}
+     <div className="flex-1 bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden">
       <div className="overflow-x-auto h-full">
         <table
-          className="min-w-full rounded-md shadow-sm table-fixed border-separate border-spacing-x-4 w-0"
+          className="min-w-full table-fixed border-separate border-spacing-x-4 w-0"
         >
           <thead className="bg-gradient-to-r from-coral-400 to-pink-400 text-white sticky top-0 z-10">
             <tr>
@@ -193,6 +194,7 @@ const handleFormClick = (id: string) => {
                             </button>
                           </div>
                         </div>
+                      
                       ) : null}
                     </td>
                   );
@@ -203,6 +205,7 @@ const handleFormClick = (id: string) => {
         </table>
       </div>
     </div>
+  </div>    
   );
 };
 
