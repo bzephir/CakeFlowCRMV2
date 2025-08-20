@@ -356,6 +356,92 @@ _________________________________________________
 1. **Quick Response:** We'll get back to you within 24 hours
 2. **Initial Consultation:** Brief phone/email discussion about your needs
 3. **Detailed Proposal:** Custom proposal with pricing and options
+4. **Booking:** Secure your date with contract and deposit
+
+Thank you for your interest in Sweet Delights Bakery! We're excited to help make your event delicious and memorable.
+
+**Questions?** Feel free to call us at (555) 987-6543 or email orders@sweetdelights.com
+`,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+    {
+    id: "lead-capture-002",
+    title: "Wedding Inquiry Form",
+    category: FormCategory.Inquiry,
+    body: `
+**Submitted on:** {{curDate | longDate}}
+
+---
+
+## Contact Information
+
+**Name:** {{client.name}}  
+**Email:** _______________  
+**Phone:** _______________  
+**Preferred Contact Method:** 
+- [ ] Email  
+- [ ] Phone  
+- [ ] Text
+
+## Wedding Details
+
+**Wedding Date:** _______________  
+**Guest Count:** _______________  
+**Reception Location/Venue:** _______________
+
+## What You're Looking For
+
+**Services Needed:**
+- [ ] Wedding Cake
+- [ ] Wedding Cupcakes
+- [ ] Custom Cookies
+- [ ] Dessert Table
+- [ ] Delivery/Setup
+- [ ] Other: _______________
+
+**Estimated Budget:** 
+- [ ] Under $100
+- [ ] $100 - $250
+- [ ] $250 - $500
+- [ ] $500 - $1,000
+- [ ] $1,000 - $2,500
+- [ ] $2,500+
+- [ ] Not sure yet
+
+## Additional Details
+
+**Brief description of what you're envisioning:**
+_________________________________________________
+_________________________________________________
+
+**Any specific dietary requirements?**
+- [ ] Gluten-free
+- [ ] Dairy-free  
+- [ ] Vegan
+- [ ] Nut-free
+- [ ] Other: _______________
+
+**How did you hear about us?**
+- [ ] Google Search
+- [ ] Instagram
+- [ ] Facebook
+- [ ] Friend/Family Referral
+- [ ] Wedding Planner
+- [ ] Venue Recommendation
+- [ ] Previous Customer
+- [ ] Other: _______________
+
+**Timeline:**
+**When do you need a response by?** _______________
+
+---
+
+## What Happens Next?
+
+1. **Quick Response:** We'll get back to you within 24 hours
+2. **Initial Consultation:** Brief phone/email discussion about your needs
+3. **Detailed Proposal:** Custom proposal with pricing and options
 4. **Tasting & Design:** Schedule tasting and finalize design details
 5. **Booking:** Secure your date with contract and deposit
 
