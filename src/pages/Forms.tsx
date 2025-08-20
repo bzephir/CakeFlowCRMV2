@@ -144,7 +144,7 @@ const handleFormClick = (id: string) => {
           </thead>
           <tbody>
             {Array.from({ length: maxFormsCount }).map((_, rowIndex) => (
-              <tr key={rowIndex} className="bg-white h-full">
+              <tr key={rowIndex} className="bg-white">
                 {categories.map(category => {
                   const formsInCat = templatesByCategory[category];
                   const form = formsInCat[rowIndex];
