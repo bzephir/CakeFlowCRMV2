@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { ArrowLeft } from "lucide-react";
 import SignatureBlock from "../components/SignatureBlock";
+import { FormCategory } from "../types/formtemplate";
 import {formTemplatesMock} from "../data/mockForms"; // adjust if needed
 import { clientDataByFormId } from "../data/clientInfo"; // update per your data files
 import { adminInfo } from "../data/adminInfo";
@@ -48,6 +49,9 @@ const FormDetail: React.FC<FormDetailProps> = ({ isAdminView }) => {
   const owner = adminInfo;
 
   const isAttachedToClient = client.firstName !== "" && client.lastName !== "";
+
+  // Check if this form category should show signatures
+  const shouldShowSignatures = form.category === FormCategory.Contracts || form.category === FormCategory.Agreements;
 
   // Determine input editability:
   // Admin can always edit
@@ -102,26 +106,28 @@ const FormDetail: React.FC<FormDetailProps> = ({ isAdminView }) => {
         {filledBody}
       </ReactMarkdown>
 
-      {/* Signature blocks */}
-      <div className="mt-10">
-        <SignatureBlock
-          role="Client"
-          firstName={client.firstName}
-          lastName={client.lastName}
-          readOnly={inputsReadOnly}
-          clientCanSignOnly={true} // client can sign only signature box when readOnly
-        />
-        <SignatureBlock
-          role="Owner"
-          showAdminNote
-          firstName={owner.firstName}
-          lastName={owner.lastName}
-          readOnly={inputsReadOnly}
-        />
-      </div>
+      {/* Signature blocks - only show for Contracts and Agreements */}
+      {shouldShowSignatures && (
+        <div className="mt-10">
+          <SignatureBlock
+            role="Client"
+            firstName={client.firstName}
+            lastName={client.lastName}
+            readOnly={inputsReadOnly}
+            clientCanSignOnly={true} // client can sign only signature box when readOnly
+          />
+          <SignatureBlock
+            role="Owner"
+            showAdminNote
+            firstName={owner.firstName}
+            lastName={owner.lastName}
+            readOnly={inputsReadOnly}
+          />
+        </div>
+      )}
 
       {/* Agree and Submit button for client */}
-      {showSubmitButton && (
+      {showSubmitButton && shouldShowSignatures && (
         <div className="mt-6 flex justify-end">
           <button
             type="button"
