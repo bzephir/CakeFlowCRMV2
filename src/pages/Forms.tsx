@@ -64,10 +64,10 @@ const FormsModule: React.FC = () => {
     };
     setTemplates(prev => [...prev, duplicatedForm]);
   };
-const handleFormClick = (id: string) => {
-  navigate(`/forms/mock/${id}`);
-};
 
+  const handleFormClick = (id: string) => {
+    navigate(`/forms/mock/${id}`);
+  };
 
   const handleNewForm = () => {
     const newId = `new-${Date.now()}`;
@@ -125,83 +125,79 @@ const handleFormClick = (id: string) => {
       </div>
 
       {/* Multi-column table: category headers with vertical lists underneath */}
-     <div className="flex-1 bg-white shadow-sm rounded-lg border border-gray-200 flex flex-col">
-      <div className="overflow-x-auto overflow-y-auto flex-1">
-        <table
-            className="min-w-full table-fixed"
-        >
-          <thead className="text-white sticky top-0 z-10 bg-gradient-to-r from-coral-400 to-pink-400 rounded-t-lg">
-            <tr>
-              {categories.map(category => (
-                <th
-                  key={category}
-                  className="px-6 py-2 text-left align-top font-semibold rounded-t-lg select-none w-0"
-                >
-                  {category}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {Array.from({ length: maxFormsCount }).map((_, rowIndex) => (
-              <tr key={rowIndex} className="bg-white">
-                {categories.map(category => {
-                  const formsInCat = templatesByCategory[category];
-                  const form = formsInCat[rowIndex];
-
-                  return (
-                    <td key={category}
-                      className="px-6 py-3 align-top text-sm group"
-                    >
-                      {form ? (
-                        <div className="flex items-center justify-between space-x-3">
-                          {/* Form name clickable span */}
-                          <span
-                            role="link"
-                            tabIndex={0}
-                            onClick={() => handleFormClick(form.id)}
-                            onKeyDown={e => {
-                              if (e.key === "Enter" || e.key === " ") {
-                                handleFormClick(form.id);
-                              }
-                            }}
-                            className="cursor-pointer text-coral-600 hover:underline select-none font-medium"
-                            title={`Open ${form.title}`}
-                          >
-                            {form.title}
-                          </span>
-
-                          {/* Action icons - hidden by default, shown on hover of the cell */}
-                          <div className="flex space-x-3 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-200">
-                            <button
-                              onClick={() => handleDuplicate(form.id)}
-                              className="text-gray-600 hover:text-coral-600 focus:outline-none"
-                              title={`Duplicate ${form.title}`}
-                              aria-label={`Duplicate ${form.title}`}
-                            >
-                              <Copy size={16} />
-                            </button>
-                            <button
-                              onClick={() => handleDelete(form.id)}
-                              className="text-red-600 hover:text-red-800 focus:outline-none"
-                              title={`Delete ${form.title}`}
-                              aria-label={`Delete ${form.title}`}
-                            >
-                              <Trash2 size={16} />
-                            </button>
-                          </div>
-                        </div>
-                      ) : null}
-                    </td>
-                  );
-                })}
+      <div className="flex-1 bg-white shadow-sm rounded-lg border border-gray-200 flex flex-col">
+        <div className="overflow-x-auto overflow-y-auto flex-1">
+          <table className="min-w-full table-fixed">
+            <thead className="text-white sticky top-0 z-10 bg-gradient-to-r from-coral-400 to-pink-400 rounded-t-lg">
+              <tr>
+                {categories.map(category => (
+                  <th
+                    key={category}
+                    className="px-6 py-2 text-left align-top font-semibold select-none w-0"
+                  >
+                    {category}
+                  </th>
+                ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {Array.from({ length: maxFormsCount }).map((_, rowIndex) => (
+                <tr key={rowIndex} className="bg-white">
+                  {categories.map(category => {
+                    const formsInCat = templatesByCategory[category];
+                    const form = formsInCat[rowIndex];
+
+                    return (
+                      <td key={category} className="px-6 py-3 align-top text-sm group">
+                        {form ? (
+                          <div className="flex items-center justify-between space-x-3">
+                            {/* Form name clickable span */}
+                            <span
+                              role="link"
+                              tabIndex={0}
+                              onClick={() => handleFormClick(form.id)}
+                              onKeyDown={e => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                  handleFormClick(form.id);
+                                }
+                              }}
+                              className="cursor-pointer text-coral-600 hover:underline select-none font-medium"
+                              title={`Open ${form.title}`}
+                            >
+                              {form.title}
+                            </span>
+
+                            {/* Action icons - hidden by default, shown on hover of the cell */}
+                            <div className="flex space-x-3 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-200">
+                              <button
+                                onClick={() => handleDuplicate(form.id)}
+                                className="text-gray-600 hover:text-coral-600 focus:outline-none"
+                                title={`Duplicate ${form.title}`}
+                                aria-label={`Duplicate ${form.title}`}
+                              >
+                                <Copy size={16} />
+                              </button>
+                              <button
+                                onClick={() => handleDelete(form.id)}
+                                className="text-red-600 hover:text-red-800 focus:outline-none"
+                                title={`Delete ${form.title}`}
+                                aria-label={`Delete ${form.title}`}
+                              >
+                                <Trash2 size={16} />
+                              </button>
+                            </div>
+                          </div>
+                        ) : null}
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
-  </div>    
+    </div>    
   );
 };
 
