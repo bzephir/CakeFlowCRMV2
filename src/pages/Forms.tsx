@@ -153,7 +153,7 @@ const handleFormClick = (id: string) => {
                     <td
                       key={category}
                       className="px-6 py-3 align-top text-sm border-b border-gray-200 group"
-                      style={{  verticalAlign: "top" }}
+                   //   style={{ minWidth: 220, verticalAlign: "top" }}
                     >
                       {form ? (
                         <div className="flex items-center justify-between space-x-3">
