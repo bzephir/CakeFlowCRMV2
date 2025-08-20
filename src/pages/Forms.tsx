@@ -130,7 +130,7 @@ const handleFormClick = (id: string) => {
         <table
           className="min-w-full table-fixed border-separate border-spacing-x-4"
         >
-          <thead className="bg-gradient-to-r from-coral-400 to-pink-400 text-white sticky top-0 z-10">
+          <thead className="text-white sticky top-0 z-10">
             <tr>
               {categories.map(category => (
                 <th
@@ -150,10 +150,8 @@ const handleFormClick = (id: string) => {
                   const form = formsInCat[rowIndex];
 
                   return (
-                    <td
-                      key={category}
-                      className="px-6 py-3 align-top text-sm border-b border-gray-200 group"
-                   //   style={{ minWidth: 220, verticalAlign: "top" }}
+                    <td key={category}
+                      className="px-6 py-3 align-top text-sm group"
                     >
                       {form ? (
                         <div className="flex items-center justify-between space-x-3">
