@@ -138,6 +138,10 @@ const handleFormClick = (id: string) => {
                   key={category}
                   className="px-6 py-2 text-left align-top font-semibold rounded-t-lg select-none"
                 >
+                  {category}
+                </th>
+              ))}
+            </tr>
           </thead>
           <tbody>
             {Array.from({ length: maxFormsCount }).map((_, rowIndex) => (
