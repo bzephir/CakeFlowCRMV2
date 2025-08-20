@@ -128,7 +128,7 @@ const handleFormClick = (id: string) => {
      <div className="flex-1 bg-white shadow-sm rounded-lg border border-gray-200 flex flex-col">
       <div className="overflow-x-auto overflow-y-auto flex-1">
         <table
-          className="min-w-full table-fixed border-separate border-spacing-x-4"
+            className="min-w-full table-fixed"
         >
           <thead className="text-white sticky top-0 z-10">
             <tr>
@@ -186,12 +186,12 @@ const handleFormClick = (id: string) => {
                               className="text-red-600 hover:text-red-800 focus:outline-none"
                               title={`Delete ${form.title}`}
                               aria-label={`Delete ${form.title}`}
-                            >
+            <thead className="text-white sticky top-0 z-10 bg-gradient-to-r from-coral-400 to-pink-400 rounded-t-lg">
                               <Trash2 size={16} />
                             </button>
                           </div>
                         </div>
-                      
+                    className="px-6 py-2 text-left align-top font-semibold select-none w-0"
                       ) : null}
                     </td>
                   );
