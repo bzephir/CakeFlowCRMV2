@@ -134,7 +134,7 @@ const handleFormClick = (id: string) => {
               {categories.map(category => (
                 <th
                   key={category}
-                  className="px-6 py-4 text-left align-top font-semibold rounded-t-lg select-none"
+                  className="px-6 py-2 text-left align-top font-semibold rounded-t-lg select-none"
                   style={{ minWidth: 220 }}
                 >
                   {category}
