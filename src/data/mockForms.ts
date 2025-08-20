@@ -28,8 +28,6 @@ b.    Setup: The Bakery will be responsible for setting up the wedding cake at t
     title: "Catering Service Agreement",
     category: FormCategory.Agreements,
     body: `
-# Catering Service Agreement
-
 This Service Agreement is entered into between {{client.name}} ("Client") and Sweet Delights Bakery ("Service Provider") on {{curDate | longDate}}.
 
 ## 1. Services to be Provided
@@ -74,8 +72,6 @@ By signing below, both parties agree to the terms and conditions outlined in thi
     title: "Wedding Cake Proposal",
     category: FormCategory.Proposals,
     body: `
-# Wedding Cake Proposal
-
 **Prepared for:** {{client.name}}  
 **Date:** {{curDate | longDate}}  
 **Event Date:** {{job.start | mediumDate}}
@@ -147,8 +143,6 @@ We look forward to creating something truly magical for your wedding day!
     title: "Event Planning Questionnaire",
     category: FormCategory.Questionnaires,
     body: `
-# Event Planning Questionnaire
-
 **Client Name:** {{client.name}}  
 **Date Completed:** {{curDate | longDate}}
 
@@ -276,11 +270,9 @@ Thank you for taking the time to complete this questionnaire! We'll review your 
   },
   {
     id: "lead-capture-001",
-    title: "Inquiry Form",
+    title: "Celebration Inquiry Form",
     category: FormCategory.Inquiry,
     body: `
-# Quick Inquiry Form
-
 **Submitted on:** {{curDate | longDate}}
 
 ---
