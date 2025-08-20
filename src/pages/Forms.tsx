@@ -86,7 +86,7 @@ const handleFormClick = (id: string) => {
   const maxFormsCount = Math.max(...categories.map(cat => templatesByCategory[cat].length));
 
   return (
-    <div className="p-6">
+    <div className="p-6 bg-white h-full">
       <Header title="Forms" icon={FileSignature} />
 
       {/* Sorting Controls and New Form Button */}
