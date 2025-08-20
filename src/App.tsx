@@ -73,6 +73,7 @@ function App() {
                 <Route path="/customers" element={<Customers />} />
                 <Route path="/customers/:id" element={<CustomerDetail />} />
                 <Route path="/forms" element={<FormsModule />} />
+                <Route path="/forms/mock/:id" element={<FormDetail isAdminView={true} />} />
                 <Route path="/venues" element={<Venues />} />
                 <Route path="/communication" element={<Communication />} />
                 <Route path="/tasks" element={<Tasks />} />
