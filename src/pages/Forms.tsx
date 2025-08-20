@@ -126,17 +126,16 @@ const handleFormClick = (id: string) => {
 
       {/* Multi-column table: category headers with vertical lists underneath */}
      <div className="flex-1 bg-white shadow-sm rounded-lg border border-gray-200 flex flex-col">
-      <div className="overflow-x-auto flex-1">
+      <div className="overflow-x-auto overflow-y-auto flex-1">
         <table
-          className="min-w-full table-fixed border-separate border-spacing-x-4 h-full"
+          className="min-w-full table-fixed border-separate border-spacing-x-4"
         >
           <thead className="bg-gradient-to-r from-coral-400 to-pink-400 text-white sticky top-0 z-10">
             <tr>
               {categories.map(category => (
                 <th
                   key={category}
-                  className="px-6 py-2 text-left align-top font-semibold rounded-t-lg select-none"
-                 
+                  className="px-6 py-2 text-left align-top font-semibold rounded-t-lg select-none w-0"
                 >
                   {category}
                 </th>
