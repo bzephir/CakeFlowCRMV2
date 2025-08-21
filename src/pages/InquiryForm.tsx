@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
+import VenueSelector from '../components/VenueSelector';
+import { Venue } from '../types/venue';
 import { 
   Upload, 
   X, 
@@ -27,6 +29,7 @@ const InquiryForm: React.FC = () => {
     guestCount: '',
     theme: '',
     colors: '',
+    selectedVenue: null as Venue | null,
     budget: '',
     cakeTasting: false,
     hearAboutUs: '',
@@ -334,6 +337,15 @@ const InquiryForm: React.FC = () => {
                   />
                   <p className="mt-1 text-xs text-gray-500">Only required if this order is for an event</p>
                 </div>
+                
+                <div>
+                  <VenueSelector
+                    selectedVenue={formData.selectedVenue}
+                    onVenueSelect={(venue) => setFormData(prev => ({ ...prev, selectedVenue: venue }))}
+                    className="relative"
+                  />
+                </div>
+                
                 <div>
                   <label htmlFor="occasion" className="block text-sm font-medium text-gray-700 mb-1">
                     What's the Occasion? *

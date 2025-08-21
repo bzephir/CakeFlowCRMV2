@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import Logo from '../components/Logo';
+import VenueSelector from '../components/VenueSelector';
+import { Venue } from '../types/venue';
 import { mockCustomersList, mockProductsList } from '../data/mockData';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { 
@@ -60,6 +62,7 @@ interface QuoteFormData {
   pickupTime: string;
   deliveryTime: string;
   eventTime: string;
+  selectedVenue: Venue | null;
   poNumber: string;
   lineItems: LineItem[];
   subtotal: number;
@@ -104,6 +107,7 @@ const CreateQuote: React.FC = () => {
     pickupTime: '',
     deliveryTime: '',
     eventTime: '',
+    selectedVenue: null,
     poNumber: '',
     lineItems: [
       {
@@ -570,6 +574,14 @@ const CreateQuote: React.FC = () => {
                       className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
                     />
                     <p className="mt-1 text-xs text-gray-500">Only required if this order is for an event</p>
+                  </div>
+                  
+                  <div>
+                    <VenueSelector
+                      selectedVenue={formData.selectedVenue}
+                      onVenueSelect={(venue) => setFormData(prev => ({ ...prev, selectedVenue: venue }))}
+                      className="relative"
+                    />
                   </div>
                 </div>
               </div>
