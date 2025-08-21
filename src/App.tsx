@@ -25,7 +25,7 @@ import Settings from './pages/Settings';
 import Reports from './pages/Reports';
 import FormsModule from './pages/Forms';
 import FormDetail from './pages/FormDetail';
-import Venues from './page/Venues';
+import Venues from './pages/Venues';
 
 // Placeholder components for other routes
 
