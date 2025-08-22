@@ -81,6 +81,7 @@ function App() {
                 <Route path="/venues/:id" element={<VenueDetail />} />
                 <Route path="/communication" element={<Communication />} />
                 <Route path="/notifications" element={<Notifications />} />
+                <Route path="/notifications" element={<Notifications />} />
                 <Route path="/tasks" element={<Tasks />} />
                 <Route path="/workflows" element={<Workflows />} />
                 <Route path="/import" element={<Import />} />
