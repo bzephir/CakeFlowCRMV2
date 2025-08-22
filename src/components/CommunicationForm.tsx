@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, MessageSquare, User, Calendar, Tag, AlertCircle, Search, ChevronDown } from 'lucide-react';
+import { X, MessageSquare, User, Calendar, AlertCircle, Search, ChevronDown } from 'lucide-react';
 import { CommunicationType, Priority, CommunicationFormData } from '../types/communication';
 
 interface CommunicationFormProps {
@@ -22,11 +22,9 @@ const CommunicationForm: React.FC<CommunicationFormProps> = ({ isOpen, onClose, 
     venueId: '',
     followUpRequired: false,
     followUpDate: '',
-    tags: []
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [tagInput, setTagInput] = useState('');
   const [showCustomerDropdown, setShowCustomerDropdown] = useState(false);
   const [customerSearch, setCustomerSearch] = useState('');
 
@@ -55,11 +53,6 @@ const CommunicationForm: React.FC<CommunicationFormProps> = ({ isOpen, onClose, 
     { id: 'V-001', name: 'Grand Hotel Ballroom' },
     { id: 'V-002', name: 'Riverside Gardens' },
     { id: 'V-003', name: 'Downtown Conference Center' }
-  ];
-
-  const commonTags = [
-    'urgent', 'follow-up', 'wedding', 'corporate', 'birthday', 'consultation',
-    'delivery', 'payment', 'design', 'tasting', 'venue', 'reminder'
   ];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -94,30 +87,6 @@ const CommunicationForm: React.FC<CommunicationFormProps> = ({ isOpen, onClose, 
     }));
     setCustomerSearch(customerName);
     setShowCustomerDropdown(false);
-  };
-
-  const handleTagAdd = (tag: string) => {
-    if (tag && !formData.tags.includes(tag)) {
-      setFormData(prev => ({
-        ...prev,
-        tags: [...prev.tags, tag]
-      }));
-    }
-    setTagInput('');
-  };
-
-  const handleTagRemove = (tagToRemove: string) => {
-    setFormData(prev => ({
-      ...prev,
-      tags: prev.tags.filter(tag => tag !== tagToRemove)
-    }));
-  };
-
-  const handleCustomTagAdd = () => {
-    const customTag = tagInput.trim().toLowerCase();
-    if (customTag && !formData.tags.includes(customTag)) {
-      handleTagAdd(customTag);
-    }
   };
 
   const validateForm = (): boolean => {
@@ -160,10 +129,8 @@ const CommunicationForm: React.FC<CommunicationFormProps> = ({ isOpen, onClose, 
       venueId: '',
       followUpRequired: false,
       followUpDate: '',
-      tags: []
     });
     setErrors({});
-    setTagInput('');
     setCustomerSearch('');
     onClose();
   };
@@ -171,11 +138,6 @@ const CommunicationForm: React.FC<CommunicationFormProps> = ({ isOpen, onClose, 
   const filteredCustomers = customers.filter(customer =>
     customer.name.toLowerCase().includes(customerSearch.toLowerCase()) ||
     customer.email.toLowerCase().includes(customerSearch.toLowerCase())
-  );
-
-  const filteredTags = commonTags.filter(tag => 
-    tag.toLowerCase().includes(tagInput.toLowerCase()) && 
-    !formData.tags.includes(tag)
   );
 
   if (!isOpen) return null;
@@ -470,69 +432,6 @@ const CommunicationForm: React.FC<CommunicationFormProps> = ({ isOpen, onClose, 
                 )}
               </div>
             )}
-          </div>
-
-          {/* Tags */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Tags
-            </label>
-            
-            {/* Selected Tags */}
-            {formData.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-3">
-                {formData.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-coral-100 text-coral-800"
-                  >
-                    {tag}
-                    <button
-                      type="button"
-                      onClick={() => handleTagRemove(tag)}
-                      className="ml-2 text-coral-600 hover:text-coral-800"
-                    >
-                      <X className="h-3 w-3" />
-                    </button>
-                  </span>
-                ))}
-              </div>
-            )}
-            
-            {/* Tag Input */}
-            <div className="relative">
-              <input
-                type="text"
-                value={tagInput}
-                onChange={(e) => setTagInput(e.target.value)}
-                onKeyPress={(e) => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault();
-                    handleCustomTagAdd();
-                  }
-                }}
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
-                placeholder="Type to add tags..."
-              />
-              
-              {tagInput && filteredTags.length > 0 && (
-                <div className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-40 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto">
-                  {filteredTags.map((tag) => (
-                    <div
-                      key={tag}
-                      onClick={() => handleTagAdd(tag)}
-                      className="cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-gray-50"
-                    >
-                      <span className="font-medium text-gray-900">{tag}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-            
-            <p className="mt-1 text-xs text-gray-500">
-              Press Enter to add custom tags, or select from suggested options
-            </p>
           </div>
 
           {/* Form Actions */}

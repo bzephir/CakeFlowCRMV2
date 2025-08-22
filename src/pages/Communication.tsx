@@ -33,8 +33,9 @@ import {
   Clock,
   ExternalLink,
   Building2,
-  Tag,
-  Eye
+  Eye,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
 
 const Communication: React.FC = () => {
@@ -42,6 +43,7 @@ const Communication: React.FC = () => {
   const [communications, setCommunications] = useState<CommunicationEntry[]>(mockCommunications);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [expandedEntryId, setExpandedEntryId] = useState<string | null>(null);
   const [filters, setFilters] = useState<CommunicationFilters>({
     type: 'all',
     module: 'all',
@@ -147,7 +149,6 @@ const Communication: React.FC = () => {
       venueName: data.venueId ? venues.find(v => v.id === data.venueId)?.name : undefined,
       followUpRequired: data.followUpRequired,
       followUpDate: data.followUpDate || undefined,
-      tags: data.tags,
       isRead: false
     };
 
@@ -165,6 +166,15 @@ const Communication: React.FC = () => {
     setCommunications(prev => prev.map(comm => 
       comm.id === id ? { ...comm, isRead: true } : comm
     ));
+  };
+
+  const handleToggleExpand = (id: string) => {
+    setExpandedEntryId(expandedEntryId === id ? null : id);
+    // Mark as read when expanded
+    const entry = communications.find(comm => comm.id === id);
+    if (entry && !entry.isRead) {
+      handleMarkAsRead(id);
+    }
   };
 
   const handleNavigateToLinkedRecord = (entry: CommunicationEntry) => {
@@ -206,8 +216,7 @@ const Communication: React.FC = () => {
     const matchesSearch = comm.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          comm.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          comm.performedBy.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         (comm.customerName && comm.customerName.toLowerCase().includes(searchTerm.toLowerCase())) ||
-                         (comm.tags && comm.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())));
+                         (comm.customerName && comm.customerName.toLowerCase().includes(searchTerm.toLowerCase()));
 
     const matchesType = filters.type === 'all' || comm.type === filters.type;
     const matchesPriority = filters.priority === 'all' || comm.priority === filters.priority;
@@ -388,9 +397,10 @@ const Communication: React.FC = () => {
           {sortedCommunications.map((entry) => (
             <div
               key={entry.id}
-              className={`bg-white shadow-sm rounded-lg border transition-all hover:shadow-md ${
+              className={`bg-white shadow-sm rounded-lg border transition-all hover:shadow-md cursor-pointer ${
                 entry.isPinned ? 'border-coral-300 bg-coral-50' : 'border-gray-200'
               } ${!entry.isRead ? 'ring-2 ring-aqua-200' : ''}`}
+              onClick={() => handleToggleExpand(entry.id)}
             >
               <div className="p-6">
                 <div className="flex items-start justify-between">
@@ -417,10 +427,21 @@ const Communication: React.FC = () => {
                           {entry.priority}
                         </span>
                         
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleToggleExpand(entry.id);
+                          }}
+                          className="text-gray-400 hover:text-gray-600 transition-colors"
+                        >
+                          {expandedEntryId === entry.id ? (
+                            <ChevronUp className="h-4 w-4" />
+                          ) : (
+                            <ChevronDown className="h-4 w-4" />
+                          )}
+                        </button>
+                        
                       </div>
-
-                      {/* Content */}
-                      <p className="text-sm text-gray-700 mb-3 leading-relaxed">{entry.content}</p>
 
                       {/* Metadata */}
                       <div className="flex items-center space-x-4 text-xs text-gray-500">
@@ -449,8 +470,15 @@ const Communication: React.FC = () => {
                         )}
                       </div>
 
+                      {/* Expanded Content */}
+                      {expandedEntryId === entry.id && (
+                        <div className="mt-4 pt-4 border-t border-gray-200">
+                          <p className="text-sm text-gray-700 mb-3 leading-relaxed">{entry.content}</p>
+                        </div>
+                      )}
+
                       {/* Linked Records */}
-                      {(entry.customerName || entry.orderId || entry.quoteId || entry.invoiceId || entry.venueName) && (
+                      {expandedEntryId === entry.id && (entry.customerName || entry.orderId || entry.quoteId || entry.invoiceId || entry.venueName) && (
                         <div className="flex items-center space-x-4 mt-3">
                           {entry.customerName && (
                             <button
@@ -508,23 +536,11 @@ const Communication: React.FC = () => {
                           )}
                         </div>
                       )}
-
-                      {/* Tags */}
-                      {entry.tags && entry.tags.length > 0 && (
-                        <div className="flex flex-wrap gap-1 mt-3">
-                          {entry.tags.map((tag) => (
-                            <span key={tag} className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-700">
-                              <Tag className="h-3 w-3 mr-1" />
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      )}
                     </div>
                   </div>
 
                   {/* Actions */}
-                  <div className="flex flex-col space-y-2 ml-4">
+                  <div className="flex flex-col space-y-2 ml-4" onClick={(e) => e.stopPropagation()}>
                     <button
                       onClick={() => handleTogglePin(entry.id)}
                       className={`p-2 rounded-md transition-colors ${
@@ -536,16 +552,6 @@ const Communication: React.FC = () => {
                     >
                       <Pin className="h-4 w-4" />
                     </button>
-                    
-                    {!entry.isRead && (
-                      <button
-                        onClick={() => handleMarkAsRead(entry.id)}
-                        className="p-2 text-gray-400 hover:text-aqua-600 hover:bg-aqua-50 rounded-md transition-colors"
-                        title="Mark as Read"
-                      >
-                        <Eye className="h-4 w-4" />
-                      </button>
-                    )}
                     
                     {(entry.customerName || entry.orderId || entry.quoteId || entry.invoiceId || entry.venueName) && (
                       <button

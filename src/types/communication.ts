@@ -50,7 +50,6 @@ export interface CommunicationEntry {
   callDuration?: number; // in minutes
   followUpRequired?: boolean;
   followUpDate?: string;
-  tags?: string[];
   
   // Metadata
   readBy?: string[]; // Array of user IDs who have read this entry
@@ -77,7 +76,6 @@ export interface CommunicationFormData {
   venueId: string;
   followUpRequired: boolean;
   followUpDate: string;
-  tags: string[];
 }
 
 export interface CommunicationFilters {

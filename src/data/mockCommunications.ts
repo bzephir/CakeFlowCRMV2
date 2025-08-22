@@ -11,7 +11,6 @@ export const mockCommunications: CommunicationEntry[] = [
     isPinned: true,
     visibility: Visibility.ALL,
     priority: Priority.HIGH,
-    tags: ['menu', 'holiday', 'seasonal'],
     isRead: false
   },
   {
@@ -30,7 +29,6 @@ export const mockCommunications: CommunicationEntry[] = [
     emailSubject: 'Wedding Cake Design Options - Follow Up',
     followUpRequired: true,
     followUpDate: '2025-01-20',
-    tags: ['wedding', 'consultation', 'design'],
     isRead: true
   },
   {
@@ -48,7 +46,6 @@ export const mockCommunications: CommunicationEntry[] = [
     quoteId: 'Q-202501-0003',
     callDuration: 25,
     followUpRequired: false,
-    tags: ['corporate', 'catering', 'planning'],
     isRead: true
   },
   {
@@ -64,7 +61,6 @@ export const mockCommunications: CommunicationEntry[] = [
     customerId: '1',
     customerName: 'Sarah Johnson',
     orderId: 'O-202501-0001',
-    tags: ['production', 'wedding', 'status-update'],
     isRead: false
   },
   {
@@ -80,7 +76,6 @@ export const mockCommunications: CommunicationEntry[] = [
     customerId: '2',
     customerName: 'Mike Chen',
     orderId: 'O-202501-0002',
-    tags: ['pickup', 'reminder', 'automated'],
     isRead: true
   },
   {
@@ -95,7 +90,6 @@ export const mockCommunications: CommunicationEntry[] = [
     priority: Priority.NORMAL,
     customerId: '4',
     customerName: 'James Wilson',
-    tags: ['preferences', 'allergies', 'organic'],
     isRead: true
   },
   {
@@ -108,7 +102,6 @@ export const mockCommunications: CommunicationEntry[] = [
     isPinned: true,
     visibility: Visibility.STAFF_ONLY,
     priority: Priority.HIGH,
-    tags: ['maintenance', 'equipment', 'scheduling'],
     isRead: false
   },
   {
@@ -126,7 +119,6 @@ export const mockCommunications: CommunicationEntry[] = [
     quoteId: 'Q-202501-0002',
     followUpRequired: true,
     followUpDate: '2025-01-17',
-    tags: ['quote', 'accepted', 'conversion'],
     isRead: true
   },
   {
@@ -145,7 +137,6 @@ export const mockCommunications: CommunicationEntry[] = [
     emailSubject: 'Payment Reminder - Invoice I-202412-0046',
     followUpRequired: true,
     followUpDate: '2025-01-21',
-    tags: ['payment', 'reminder', 'overdue'],
     isRead: true
   },
   {
@@ -162,7 +153,6 @@ export const mockCommunications: CommunicationEntry[] = [
     venueName: 'Grand Hotel Ballroom',
     orderId: 'O-202501-0001',
     callDuration: 15,
-    tags: ['venue', 'coordination', 'delivery'],
     isRead: true
   },
   {
@@ -175,7 +165,6 @@ export const mockCommunications: CommunicationEntry[] = [
     isPinned: false,
     visibility: Visibility.STAFF_ONLY,
     priority: Priority.URGENT,
-    tags: ['inventory', 'alert', 'reorder'],
     isRead: false
   },
   {
@@ -188,7 +177,6 @@ export const mockCommunications: CommunicationEntry[] = [
     isPinned: false,
     visibility: Visibility.STAFF_ONLY,
     priority: Priority.NORMAL,
-    tags: ['meeting', 'planning', 'training'],
     isRead: true
   },
   {
@@ -204,7 +192,6 @@ export const mockCommunications: CommunicationEntry[] = [
     customerId: '2',
     customerName: 'Mike Chen',
     orderId: 'O-202501-0002',
-    tags: ['confirmation', 'birthday', 'automated'],
     isRead: true
   },
   {
@@ -217,7 +204,6 @@ export const mockCommunications: CommunicationEntry[] = [
     isPinned: true,
     visibility: Visibility.STAFF_ONLY,
     priority: Priority.NORMAL,
-    tags: ['welcome', 'staff', 'team'],
     isRead: false
   },
   {
@@ -230,7 +216,6 @@ export const mockCommunications: CommunicationEntry[] = [
     isPinned: false,
     priority: Priority.LOW,
     emailSubject: 'We\'d Love Your Feedback - New Red Velvet Recipe',
-    tags: ['feedback', 'recipe', 'marketing'],
     isRead: true
   }
 ];
