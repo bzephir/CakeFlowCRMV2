@@ -13,7 +13,7 @@ const Header: React.FC<HeaderProps> = ({ title, subtitle, icon: IconComponent })
 
   const handleMailboxClick = () => {
     // Navigate to communications/mailbox
-    console.log('Navigate to mailbox');
+    navigate('/communication');
   };
 
   const handleAccountClick = () => {

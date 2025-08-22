@@ -27,6 +27,7 @@ import FormsModule from './pages/Forms';
 import FormDetail from './pages/FormDetail';
 import Venues from './pages/Venues';
 import VenueDetail from './pages/VenueDetail';
+import Communication from './pages/Communication';
 
 // Placeholder components for other routes
 
@@ -34,7 +35,6 @@ const Production = () => <div className="p-6"><h1 className="text-2xl font-bold"
 const Packages = () => <div className="p-6"><h1 className="text-2xl font-bold">Packages</h1><p>Package management coming soon...</p></div>;
 const Inventory = () => <div className="p-6"><h1 className="text-2xl font-bold">Inventory</h1><p>Inventory management coming soon...</p></div>;
 const InventoryTracking = () => <div className="p-6"><h1 className="text-2xl font-bold">Inventory Tracking</h1><p>Inventory tracking coming soon...</p></div>;
-const Communication = () => <div className="p-6"><h1 className="text-2xl font-bold">Communication</h1><p>Customer communication coming soon...</p></div>;
 //const Venues = () => <div className="p-6"><h1 className="text-2xl font-bold">Venues</h1><p>Venue database coming soon...</p></div>;
 const Workflows = () => <div className="p-6"><h1 className="text-2xl font-bold">Workflows</h1><p>Workflow automation coming soon...</p></div>;
 const Import = () => <div className="p-6"><h1 className="text-2xl font-bold">Data Import</h1><p>Data import tools coming soon...</p></div>;
