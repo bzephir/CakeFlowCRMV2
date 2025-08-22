@@ -18,6 +18,12 @@ export enum Priority {
   URGENT = 'urgent'
 }
 
+export enum Visibility {
+  ALL = 'all',
+  STAFF_ONLY = 'staff_only',
+  CUSTOMER_SPECIFIC = 'customer_specific'
+}
+
 export interface CommunicationEntry {
   id: string;
   type: CommunicationType;
@@ -27,6 +33,7 @@ export interface CommunicationEntry {
   performedBy: string;
   isPinned: boolean;
   priority: Priority;
+  visibility: Visibility;
   
   // Linked entities (optional)
   customerId?: string;
