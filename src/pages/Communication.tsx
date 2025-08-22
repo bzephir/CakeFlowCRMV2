@@ -6,7 +6,6 @@ import { mockCommunications } from '../data/mockCommunications';
 import { 
   CommunicationEntry, 
   CommunicationType, 
-  Visibility, 
   Priority,
   CommunicationFormData,
   CommunicationFilters 
@@ -28,7 +27,6 @@ import {
   Settings,
   EyeOff,
   User,
-  Eye,
   Bell,
   Pin,
   Calendar,

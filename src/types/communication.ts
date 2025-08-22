@@ -11,12 +11,6 @@ export enum CommunicationType {
   SYSTEM = 'system'
 }
 
-export enum Visibility {
-  ALL = 'all',
-  STAFF_ONLY = 'staff_only',
-  CUSTOMER_SPECIFIC = 'customer_specific'
-}
-
 export enum Priority {
   LOW = 'low',
   NORMAL = 'normal',
@@ -32,7 +26,6 @@ export interface CommunicationEntry {
   createdAt: string;
   performedBy: string;
   isPinned: boolean;
-  visibility: Visibility;
   priority: Priority;
   
   // Linked entities (optional)
@@ -68,7 +61,6 @@ export interface CommunicationFormData {
   type: CommunicationType;
   title: string;
   content: string;
-  visibility: Visibility;
   priority: Priority;
   isPinned: boolean;
   customerId: string;

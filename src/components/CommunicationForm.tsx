@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { X, MessageSquare, User, Calendar, Tag, AlertCircle, Search, ChevronDown } from 'lucide-react';
-import { CommunicationType, Visibility, Priority, CommunicationFormData } from '../types/communication';
+import { CommunicationType, Priority, CommunicationFormData } from '../types/communication';
 
 interface CommunicationFormProps {
   isOpen: boolean;
@@ -13,7 +13,6 @@ const CommunicationForm: React.FC<CommunicationFormProps> = ({ isOpen, onClose, 
     type: CommunicationType.NOTE,
     title: '',
     content: '',
-    visibility: Visibility.ALL,
     priority: Priority.NORMAL,
     isPinned: false,
     customerId: '',
@@ -152,7 +151,6 @@ const CommunicationForm: React.FC<CommunicationFormProps> = ({ isOpen, onClose, 
       type: CommunicationType.NOTE,
       title: '',
       content: '',
-      visibility: Visibility.ALL,
       priority: Priority.NORMAL,
       isPinned: false,
       customerId: '',
@@ -284,23 +282,7 @@ const CommunicationForm: React.FC<CommunicationFormProps> = ({ isOpen, onClose, 
           </div>
 
           {/* Settings */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label htmlFor="visibility" className="block text-sm font-medium text-gray-700 mb-1">
-                Visibility
-              </label>
-              <select
-                id="visibility"
-                name="visibility"
-                value={formData.visibility}
-                onChange={handleInputChange}
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
-              >
-                <option value={Visibility.ALL}>All Users</option>
-                <option value={Visibility.STAFF_ONLY}>Staff Only</option>
-                <option value={Visibility.CUSTOMER_SPECIFIC}>Customer Specific</option>
-              </select>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
             <div>
               <label htmlFor="priority" className="block text-sm font-medium text-gray-700 mb-1">
