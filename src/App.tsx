@@ -26,6 +26,7 @@ import Reports from './pages/Reports';
 import FormsModule from './pages/Forms';
 import FormDetail from './pages/FormDetail';
 import Venues from './pages/Venues';
+import VenueDetail from './pages/VenueDetail';
 
 // Placeholder components for other routes
 
@@ -76,6 +77,7 @@ function App() {
                 <Route path="/forms" element={<FormsModule />} />
                 <Route path="/forms/mock/:id" element={<FormDetail isAdminView={true} />} />
                 <Route path="/venues" element={<Venues />} />
+                <Route path="/venues/:id" element={<VenueDetail />} />
                 <Route path="/communication" element={<Communication />} />
                 <Route path="/tasks" element={<Tasks />} />
                 <Route path="/workflows" element={<Workflows />} />
