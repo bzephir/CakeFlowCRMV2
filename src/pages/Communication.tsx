@@ -33,7 +33,8 @@ import {
   Clock,
   ExternalLink,
   Building2,
-  Tag
+  Tag,
+  Eye
 } from 'lucide-react';
 
 const Communication: React.FC = () => {
