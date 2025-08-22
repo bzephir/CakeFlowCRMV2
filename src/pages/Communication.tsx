@@ -18,6 +18,26 @@ import {
   MessageSquare,
   Mail,
   Phone,
+  MessageCircle,
+  FileText,
+  Megaphone,
+  Package,
+  Receipt,
+  DollarSign,
+  AlertTriangle,
+  Settings,
+  EyeOff,
+  User,
+  Eye,
+  Bell,
+  Pin,
+  Calendar,
+  Clock,
+  ExternalLink,
+  Building2,
+  Tag
+} from 'lucide-react';
+
 const Communication: React.FC = () => {
   const navigate = useNavigate();
   const [communications, setCommunications] = useState<CommunicationEntry[]>(mockCommunications);
