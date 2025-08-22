@@ -28,6 +28,7 @@ import FormDetail from './pages/FormDetail';
 import Venues from './pages/Venues';
 import VenueDetail from './pages/VenueDetail';
 import Communication from './pages/Communication';
+import Notifications from './pages/Notifications';
 
 // Placeholder components for other routes
 
@@ -79,6 +80,7 @@ function App() {
                 <Route path="/venues" element={<Venues />} />
                 <Route path="/venues/:id" element={<VenueDetail />} />
                 <Route path="/communication" element={<Communication />} />
+                <Route path="/notifications" element={<Notifications />} />
                 <Route path="/tasks" element={<Tasks />} />
                 <Route path="/workflows" element={<Workflows />} />
                 <Route path="/import" element={<Import />} />

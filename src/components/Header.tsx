@@ -16,6 +16,11 @@ const Header: React.FC<HeaderProps> = ({ title, subtitle, icon: IconComponent })
     navigate('/communication');
   };
 
+  const handleNotificationsClick = () => {
+    // Navigate to notifications
+    navigate('/notifications');
+  };
+
   const handleAccountClick = () => {
     // Navigate to account settings
     console.log('Navigate to account settings');
@@ -55,16 +60,16 @@ const Header: React.FC<HeaderProps> = ({ title, subtitle, icon: IconComponent })
           </div>
           
           <button 
-            onClick={handleMailboxClick}
+            onClick={handleNotificationsClick}
             className="relative p-2 text-gray-400 hover:text-gray-500 transition-colors"
-            title="Mailbox"
+            title="Notifications"
           >
-            <Mail className="h-5 w-5" />
+            <Bell className="h-5 w-5" />
             <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-aqua-400 ring-2 ring-white" />
           </button>
           
           <button className="relative p-2 text-gray-400 hover:text-gray-500 transition-colors" title="Notifications">
-            <Bell className="h-5 w-5" />
+            <Mail className="h-5 w-5" />
             <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-coral-400 ring-2 ring-white" />
           </button>
 
