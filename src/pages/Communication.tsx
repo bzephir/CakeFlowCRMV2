@@ -6,7 +6,6 @@ import { mockCommunications } from '../data/mockCommunications';
 import { 
   CommunicationEntry, 
   CommunicationType, 
-  Visibility, 
   Priority,
   CommunicationFormData,
   CommunicationFilters 
@@ -28,7 +27,6 @@ import {
   Settings,
   EyeOff,
   User,
-  Eye,
   Bell,
   Pin,
   Calendar,
@@ -418,13 +416,6 @@ const Communication: React.FC = () => {
                           {entry.priority}
                         </span>
                         
-                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700`}>
-                          {getVisibilityIcon(entry.visibility)}
-                          <span className="ml-1">
-                            {entry.visibility === Visibility.STAFF_ONLY ? 'Staff Only' :
-                             entry.visibility === Visibility.CUSTOMER_SPECIFIC ? 'Customer' : 'All'}
-                          </span>
-                        </span>
                       </div>
 
                       {/* Content */}

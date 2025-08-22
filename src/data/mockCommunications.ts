@@ -228,7 +228,6 @@ export const mockCommunications: CommunicationEntry[] = [
     createdAt: '2025-01-12T08:15:00Z',
     performedBy: 'Marketing',
     isPinned: false,
-    visibility: Visibility.ALL,
     priority: Priority.LOW,
     emailSubject: 'We\'d Love Your Feedback - New Red Velvet Recipe',
     tags: ['feedback', 'recipe', 'marketing'],
