@@ -679,8 +679,8 @@ const EmailBox: React.FC = () => {
                                   <h4 className="text-lg font-medium text-gray-900 mb-2">{email.subject}</h4>
                                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600">
                                     <div>
-                                      <p><strong>From:</strong> {email.fromName} <{email.fromEmail}></p>
-                                      <p><strong>To:</strong> {email.toName} <{email.toEmail}></p>
+                                      <p><strong>From:</strong> {email.fromName} &lt;{email.fromEmail}&gt;</p>
+                                      <p><strong>To:</strong> {email.toName} &lt;{email.toEmail}&gt;</p>
                                       {email.ccEmails && email.ccEmails.length > 0 && (
                                         <p><strong>CC:</strong> {email.ccEmails.join(', ')}</p>
                                       )}
