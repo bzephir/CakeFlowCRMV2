@@ -402,18 +402,18 @@ const Communication: React.FC = () => {
               } ${!entry.isRead ? 'ring-2 ring-aqua-200' : ''}`}
               onClick={() => handleToggleExpand(entry.id)}
             >
-              <div className="p-6">
+              <div className="p-4">
                 <div className="flex items-start justify-between">
-                  <div className="flex items-start space-x-4 flex-1">
+                  <div className="flex items-start space-x-3 flex-1">
                     {/* Communication Type Icon */}
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center border ${getCommunicationColor(entry.type)}`}>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center border ${getCommunicationColor(entry.type)}`}>
                       {getCommunicationIcon(entry.type)}
                     </div>
                     
                     <div className="flex-1 min-w-0">
                       {/* Header */}
-                      <div className="flex items-center space-x-3 mb-2">
-                        <h3 className="text-lg font-medium text-gray-900 truncate">{entry.title}</h3>
+                      <div className="flex items-center space-x-2 mb-1">
+                        <h3 className="text-base font-medium text-gray-900 truncate">{entry.title}</h3>
                         
                         {entry.isPinned && (
                           <Pin className="h-4 w-4 text-coral-500" />
@@ -423,7 +423,7 @@ const Communication: React.FC = () => {
                           <div className="w-2 h-2 bg-aqua-500 rounded-full"></div>
                         )}
                         
-                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${getPriorityColor(entry.priority)}`}>
+                        <span className={`inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ${getPriorityColor(entry.priority)}`}>
                           {entry.priority}
                         </span>
                         
@@ -435,16 +435,16 @@ const Communication: React.FC = () => {
                           className="text-gray-400 hover:text-gray-600 transition-colors"
                         >
                           {expandedEntryId === entry.id ? (
-                            <ChevronUp className="h-4 w-4" />
+                            <ChevronUp className="h-3 w-3" />
                           ) : (
-                            <ChevronDown className="h-4 w-4" />
+                            <ChevronDown className="h-3 w-3" />
                           )}
                         </button>
                         
                       </div>
 
                       {/* Metadata */}
-                      <div className="flex items-center space-x-4 text-xs text-gray-500">
+                      <div className="flex items-center space-x-3 text-xs text-gray-500">
                         <div className="flex items-center">
                           <Clock className="h-3 w-3 mr-1" />
                           {formatDateTime(entry.createdAt)}
@@ -472,14 +472,14 @@ const Communication: React.FC = () => {
 
                       {/* Expanded Content */}
                       {expandedEntryId === entry.id && (
-                        <div className="mt-4 pt-4 border-t border-gray-200">
-                          <p className="text-sm text-gray-700 mb-3 leading-relaxed">{entry.content}</p>
+                        <div className="mt-3 pt-3 border-t border-gray-200">
+                          <p className="text-sm text-gray-700 mb-2 leading-relaxed">{entry.content}</p>
                         </div>
                       )}
 
                       {/* Linked Records */}
                       {expandedEntryId === entry.id && (entry.customerName || entry.orderId || entry.quoteId || entry.invoiceId || entry.venueName) && (
-                        <div className="flex items-center space-x-4 mt-3">
+                        <div className="flex items-center space-x-3 mt-2">
                           {entry.customerName && (
                             <button
                               onClick={() => navigate(`/customers/${entry.customerId}`)}
@@ -540,7 +540,7 @@ const Communication: React.FC = () => {
                   </div>
 
                   {/* Actions */}
-                  <div className="flex flex-col space-y-2 ml-4" onClick={(e) => e.stopPropagation()}>
+                  <div className="flex flex-col space-y-1 ml-3" onClick={(e) => e.stopPropagation()}>
                     <button
                       onClick={() => handleTogglePin(entry.id)}
                       className={`p-2 rounded-md transition-colors ${
@@ -550,7 +550,7 @@ const Communication: React.FC = () => {
                       }`}
                       title={entry.isPinned ? 'Unpin' : 'Pin'}
                     >
-                      <Pin className="h-4 w-4" />
+                      <Pin className="h-3 w-3" />
                     </button>
                     
                     {(entry.customerName || entry.orderId || entry.quoteId || entry.invoiceId || entry.venueName) && (
@@ -559,7 +559,7 @@ const Communication: React.FC = () => {
                         className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded-md transition-colors"
                         title="View Linked Record"
                       >
-                        <ExternalLink className="h-4 w-4" />
+                        <ExternalLink className="h-3 w-3" />
                       </button>
                     )}
                   </div>
