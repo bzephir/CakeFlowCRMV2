@@ -21,7 +21,8 @@ import {
   Building2,
   Trash2,
   Copy,
-  ExternalLink
+  ExternalLink,
+  FileText
 } from 'lucide-react';
 
 const Venues: React.FC = () => {
@@ -149,6 +150,10 @@ const Venues: React.FC = () => {
 
   const handlePreviewToggle = (venueId: string) => {
     setExpandedVenueId(expandedVenueId === venueId ? null : venueId);
+  };
+
+  const handleViewVenue = (venueId: string) => {
+    navigate(`/venues/${venueId}`);
   };
 
   // Filter venues based on search term and filters
@@ -413,8 +418,15 @@ const Venues: React.FC = () => {
                             <Eye className="h-4 w-4" />
                           </button>
                           <button 
-                            onClick={() => handleEditVenue(venue)}
+                            onClick={() => handleViewVenue(venue.id)}
                             className="text-coral-600 hover:text-coral-900 transition-colors"
+                            title="View Full Record"
+                          >
+                            <ExternalLink className="h-4 w-4" />
+                          </button>
+                          <button 
+                            onClick={() => handleEditVenue(venue)}
+                            className="text-mint-600 hover:text-mint-900 transition-colors"
                             title="Edit"
                           >
                             <Edit className="h-4 w-4" />
