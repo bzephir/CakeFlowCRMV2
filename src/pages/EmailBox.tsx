@@ -300,64 +300,55 @@ const EmailBox: React.FC = () => {
   }).length;
 
   return (
-    <div className="flex h-full">
-      {/* Sidebar */}
-      <div className="w-64 bg-white border-r border-gray-200 flex flex-col">
-        {/* Compose Button */}
-        <div className="p-4">
-          <button 
-            onClick={handleComposeEmail}
-            className="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 transition-all"
-          >
-            <Plus className="h-4 w-4 mr-2" />
-            Compose
-          </button>
+    <div className="p-6">
+      <Header title="Email" icon={Mail} />
+      
+      <div className="flex flex-1">
+        {/* Sidebar */}
+        <div className="w-64 bg-white border-r border-gray-200 flex flex-col">
+          {/* Compose Button */}
+          <div className="p-4">
+            <button 
+              onClick={handleComposeEmail}
+              className="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 transition-all"
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              Compose
+            </button>
+          </div>
+
+          {/* Folders */}
+          <nav className="flex-1 px-4 pb-4">
+            <div className="space-y-1">
+              {folders.map((folder) => (
+                <button
+                  key={folder.id}
+                  onClick={() => setCurrentFolder(folder.id)}
+                  className={`w-full flex items-center justify-between px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                    currentFolder === folder.id
+                      ? 'bg-coral-100 text-coral-900'
+                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                  }`}
+                >
+                  <div className="flex items-center">
+                    <folder.icon className={`mr-3 h-4 w-4 ${
+                      currentFolder === folder.id ? 'text-coral-500' : 'text-gray-400'
+                    }`} />
+                    {folder.name}
+                  </div>
+                  {folder.count > 0 && (
+                    <span className="bg-gray-200 text-gray-600 py-0.5 px-2 rounded-full text-xs">
+                      {folder.count}
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+          </nav>
         </div>
 
-        {/* Folders */}
-        <nav className="flex-1 px-4 pb-4">
-          <div className="space-y-1">
-            {folders.map((folder) => (
-              <button
-                key={folder.id}
-                onClick={() => setCurrentFolder(folder.id)}
-                className={`w-full flex items-center justify-between px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                  currentFolder === folder.id
-                    ? 'bg-coral-100 text-coral-900'
-                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                }`}
-              >
-                <div className="flex items-center">
-                  <folder.icon className={`mr-3 h-4 w-4 ${
-                    currentFolder === folder.id ? 'text-coral-500' : 'text-gray-400'
-                  }`} />
-                  {folder.name}
-                </div>
-                {folder.count > 0 && (
-                  <span className="bg-gray-200 text-gray-600 py-0.5 px-2 rounded-full text-xs">
-                    {folder.count}
-                  </span>
-                )}
-              </button>
-            ))}
-          </div>
-        </nav>
-      </div>
-
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col">
-        <Header title="Email" icon={Mail} />
-        
-        <div className="p-6 flex-1">
-          {/* Back Button */}
-          <button
-            onClick={() => navigate(-1)}
-            className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 mb-6 transition-colors"
-          >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back
-          </button>
-
+        {/* Main Content */}
+        <div className="flex-1 p-6">
           {/* Summary Stats */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
             <div className="bg-white p-4 rounded-lg border border-gray-200">
@@ -688,8 +679,8 @@ const EmailBox: React.FC = () => {
                                   <h4 className="text-lg font-medium text-gray-900 mb-2">{email.subject}</h4>
                                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600">
                                     <div>
-                                      <p><strong>From:</strong> {email.fromName} &lt;{email.fromEmail}&gt;</p>
-                                      <p><strong>To:</strong> {email.toName} &lt;{email.toEmail}&gt;</p>
+                                      <p><strong>From:</strong> {email.fromName} <{email.fromEmail}></p>
+                                      <p><strong>To:</strong> {email.toName} <{email.toEmail}></p>
                                       {email.ccEmails && email.ccEmails.length > 0 && (
                                         <p><strong>CC:</strong> {email.ccEmails.join(', ')}</p>
                                       )}
