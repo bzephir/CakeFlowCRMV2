@@ -543,7 +543,7 @@ const Communication: React.FC = () => {
                   <div className="flex flex-col space-y-1 ml-3" onClick={(e) => e.stopPropagation()}>
                     <button
                       onClick={() => handleTogglePin(entry.id)}
-                      className={`p-2 rounded-md transition-colors ${
+                      className={`p-1 rounded-md transition-colors ${
                         entry.isPinned 
                           ? 'text-coral-600 bg-coral-100 hover:bg-coral-200' 
                           : 'text-gray-400 hover:text-coral-600 hover:bg-coral-50'
