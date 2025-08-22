@@ -89,7 +89,7 @@ const Communication: React.FC = () => {
     switch (priority) {
       case Priority.URGENT: return 'bg-red-100 text-red-800';
       case Priority.HIGH: return 'bg-orange-100 text-orange-800';
-      case Priority.NORMAL: return 'bg-gray-100 text-gray-800';
+      case Priority.NORMAL: return 'bg-gray-100 text-aqua-800';
       case Priority.LOW: return 'bg-green-100 text-green-800';
       default: return 'bg-gray-100 text-gray-800';
     }
@@ -257,7 +257,7 @@ const Communication: React.FC = () => {
           <div className="bg-white p-4 rounded-lg border border-gray-200">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-coral-500 rounded-full flex items-center justify-center">
+                <div className="w-6 h-6 bg-gradient-to-r from-coral-400 to-coral-500 rounded-full flex items-center justify-center">
                   <Bell className="h-4 w-4 text-white" />
                 </div>
               </div>
