@@ -18,26 +18,6 @@ import {
   MessageSquare,
   Mail,
   Phone,
-  MessageCircle,
-  FileText,
-  Megaphone,
-  Package,
-  Receipt,
-  DollarSign,
-  AlertTriangle,
-  Settings,
-  Pin,
-  Eye,
-  EyeOff,
-  Clock,
-  User,
-  Building2,
-  Tag,
-  Calendar,
-  ExternalLink,
-  Bell
-} from 'lucide-react';
-
 const Communication: React.FC = () => {
   const navigate = useNavigate();
   const [communications, setCommunications] = useState<CommunicationEntry[]>(mockCommunications);
@@ -45,8 +25,6 @@ const Communication: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState<CommunicationFilters>({
     type: 'all',
-    customer: 'all',
-    staff: 'all',
     module: 'all',
     priority: 'all',
     dateRange: 'all',
@@ -213,8 +191,6 @@ const Communication: React.FC = () => {
                          (comm.tags && comm.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())));
 
     const matchesType = filters.type === 'all' || comm.type === filters.type;
-    const matchesCustomer = filters.customer === 'all' || comm.customerId === filters.customer;
-    const matchesStaff = filters.staff === 'all' || comm.performedBy === filters.staff;
     const matchesPriority = filters.priority === 'all' || comm.priority === filters.priority;
     const matchesPinned = !filters.showPinnedOnly || comm.isPinned;
     const matchesUnread = !filters.showUnreadOnly || !comm.isRead;
@@ -226,8 +202,7 @@ const Communication: React.FC = () => {
                          (filters.module === 'venues' && comm.venueId) ||
                          (filters.module === 'customers' && comm.customerId);
 
-    return matchesSearch && matchesType && matchesCustomer && matchesStaff && 
-           matchesPriority && matchesPinned && matchesUnread && matchesModule;
+    return matchesSearch && matchesType && matchesPriority && matchesPinned && matchesUnread && matchesModule;
   });
 
   // Sort communications: pinned first, then by date
@@ -338,19 +313,6 @@ const Communication: React.FC = () => {
                   <option key={type} value={type}>
                     {type.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
                   </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="relative">
-              <select
-                value={filters.customer}
-                onChange={(e) => setFilters(prev => ({ ...prev, customer: e.target.value }))}
-                className="block w-full sm:w-40 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
-              >
-                <option value="all">All Customers</option>
-                {customers.map(customer => (
-                  <option key={customer.id} value={customer.id}>{customer.name}</option>
                 ))}
               </select>
             </div>

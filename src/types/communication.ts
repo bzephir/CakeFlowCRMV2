@@ -83,8 +83,6 @@ export interface CommunicationFormData {
 
 export interface CommunicationFilters {
   type: string;
-  customer: string;
-  staff: string;
   module: string;
   priority: string;
   dateRange: string;
