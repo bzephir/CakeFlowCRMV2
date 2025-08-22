@@ -556,7 +556,7 @@ const Communication: React.FC = () => {
                     {(entry.customerName || entry.orderId || entry.quoteId || entry.invoiceId || entry.venueName) && (
                       <button
                         onClick={() => handleNavigateToLinkedRecord(entry)}
-                        className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded-md transition-colors"
+                        className="p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded-md transition-colors"
                         title="View Linked Record"
                       >
                         <ExternalLink className="h-3 w-3" />
