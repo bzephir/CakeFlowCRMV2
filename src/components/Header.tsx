@@ -12,8 +12,8 @@ const Header: React.FC<HeaderProps> = ({ title, subtitle, icon: IconComponent })
   const navigate = useNavigate();
 
   const handleMailboxClick = () => {
-    // Navigate to communications/mailbox
-    navigate('/communication');
+    // Navigate to email box
+    navigate('/email');
   };
 
   const handleNotificationsClick = () => {
