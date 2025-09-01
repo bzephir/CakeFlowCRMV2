@@ -326,21 +326,6 @@ const Venues: React.FC = () => {
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Venue
                   </th>
-                  {/*   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Contact
-                  </th>
-                  <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Capacity
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Outside Food
-                  </th>
-                  <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    COI Required
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Tags
-                  </th> */}
                   <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
                   </th>
@@ -366,46 +351,6 @@ const Venues: React.FC = () => {
                               {venue.city}, {venue.state} {venue.zip}
                             </div>
                           </div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="text-sm text-gray-900">{venue.contactName}</div>
-                        <div className="text-sm text-gray-500 flex items-center">
-                          <Mail className="h-3 w-3 mr-1" />
-                          {venue.contactEmail}
-                        </div>
-                        <div className="text-sm text-gray-500 flex items-center">
-                          <Phone className="h-3 w-3 mr-1" />
-                          {venue.contactPhone}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 text-center">
-                        <div className="text-sm font-medium text-gray-900">{venue.capacity}</div>
-                        <div className="text-xs text-gray-500">guests</div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getOutsideFoodRulesColor(venue.outsideFoodRules)}`}>
-                          {getOutsideFoodRulesIcon(venue.outsideFoodRules)}
-                          {getOutsideFoodRulesText(venue.outsideFoodRules)}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-center">
-                        {venue.coiRequired ? (
-                          <CheckCircle2 className="h-5 w-5 text-mint-600 mx-auto" />
-                        ) : (
-                          <XCircle className="h-5 w-5 text-gray-400 mx-auto" />
-                        )}
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="flex flex-wrap gap-1">
-                          {venue.tags.slice(0, 3).map((tag) => (
-                            <span key={tag} className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${getTagColor(tag)}`}>
-                              {tag}
-                            </span>
-                          ))}
-                          {venue.tags.length > 3 && (
-                            <span className="text-xs text-gray-500">+{venue.tags.length - 3}</span>
-                          )}
                         </div>
                       </td>
                       <td className="px-6 py-4 text-right text-sm font-medium">
@@ -452,16 +397,37 @@ const Venues: React.FC = () => {
                     {/* Expanded Details Row */}
                     {expandedVenueId === venue.id && (
                       <tr>
-                        <td colSpan={7} className="px-6 py-0">
+                        <td colSpan={2} className="px-6 py-0">
                           <div className="bg-gray-50 border-l-4 border-coral-400 rounded-lg p-6 my-4">
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                              {/* Venue Details */}
+                              {/* Contact & Venue Details */}
                               <div>
                                 <h4 className="text-sm font-semibold text-gray-900 mb-3 flex items-center">
-                                  <Building2 className="h-4 w-4 mr-2 text-coral-500" />
-                                  Venue Details
+                                  <User className="h-4 w-4 mr-2 text-coral-500" />
+                                  Contact & Venue Details
                                 </h4>
                                 <div className="space-y-3">
+                                  <div>
+                                    <p className="text-xs font-medium text-gray-700">Contact Person</p>
+                                    <p className="text-sm text-gray-600">{venue.contactName}</p>
+                                  </div>
+                                  
+                                  <div>
+                                    <p className="text-xs font-medium text-gray-700">Email</p>
+                                    <p className="text-sm text-gray-600 flex items-center">
+                                      <Mail className="h-3 w-3 mr-1" />
+                                      {venue.contactEmail}
+                                    </p>
+                                  </div>
+                                  
+                                  <div>
+                                    <p className="text-xs font-medium text-gray-700">Phone</p>
+                                    <p className="text-sm text-gray-600 flex items-center">
+                                      <Phone className="h-3 w-3 mr-1" />
+                                      {venue.contactPhone}
+                                    </p>
+                                  </div>
+                                  
                                   <div>
                                     <p className="text-xs font-medium text-gray-700">Full Address</p>
                                     <p className="text-sm text-gray-600">
