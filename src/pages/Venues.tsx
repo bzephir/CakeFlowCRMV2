@@ -327,6 +327,9 @@ const Venues: React.FC = () => {
                     Venue
                   </th>
                   <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Address
+                  </th>
+                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -343,13 +346,13 @@ const Venues: React.FC = () => {
                           </div>
                           <div className="ml-4">
                             <div className="text-sm font-medium text-gray-900">{venue.name}</div>
-                            <div className="text-sm text-gray-500">
+                           <td> <div className="text-sm text-gray-500">
                               {venue.address1}
                               {venue.address2 && `, ${venue.address2}`}
                             </div>
                             <div className="text-sm text-gray-500">
                               {venue.city}, {venue.state} {venue.zip}
-                            </div>
+                            </div></td>
                           </div>
                         </div>
                       </td>
