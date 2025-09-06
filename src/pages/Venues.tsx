@@ -342,10 +342,10 @@ const Venues: React.FC = () => {
                       <td className="px-6 py-4">
                         <div className="flex items-start">
                           <div className="w-10 h-10 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center flex-shrink-0">
-                            <Building2 className="h-4 w-5 text-white" />
+                            <Building2 className="h-4 w-4 text-white" />
                           </div>
                           <div className="ml-4">
-                            <div className="h-6 text-sm font-medium text-gray-900">{venue.name}</div>
+                            <div className="text-sm font-medium text-gray-900">{venue.name}</div>
                           </div>
                         </div>
                       </td>
