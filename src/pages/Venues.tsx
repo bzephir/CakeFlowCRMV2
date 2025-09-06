@@ -345,7 +345,7 @@ const Venues: React.FC = () => {
                             <Building2 className="h-4 w-5 text-white" />
                           </div>
                           <div className="ml-4">
-                            <div className="text-sm font-medium text-gray-900">{venue.name}</div>
+                            <div className="h-4 text-sm font-medium text-gray-900">{venue.name}</div>
                           </div>
                         </div>
                       </td>
