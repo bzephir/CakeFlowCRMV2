@@ -345,11 +345,11 @@ const Venues: React.FC = () => {
                             <Building2 className="h-4 w-4 text-white" />
                           </div>
                           <div className="ml-4">
-                            <div className="text-sm font-medium text-gray-900">{venue.name}</div>
+                            <div className="text-left text-sm font-medium text-gray-900">{venue.name}</div>
                           </div>
                         </div>
                       </td>
-                      <td> <div className="text-sm text-gray-500">
+                      <td> <div className="text-left text-sm text-gray-500">
                               {venue.address1}
                               {venue.address2 && `, ${venue.address2}`}
                             </div>
