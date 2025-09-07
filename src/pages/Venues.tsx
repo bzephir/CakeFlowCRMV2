@@ -349,7 +349,11 @@ const Venues: React.FC = () => {
                           </div>
                         </div>
                       </td>
-                      <td> <div className="text-left text-sm text-gray-500">
+                      <td className="text-left"> {
+                        constructor(params) {
+                          
+                        }
+                      }> <div className="text-left text-sm text-gray-500">
                               {venue.address1}
                               {venue.address2 && `, ${venue.address2}`}
                             </div>
