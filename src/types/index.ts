@@ -30,47 +30,31 @@ export interface Customer {
 
 export interface Order {
   id: string;
-  eventType: 'celebration' | 'wedding' | 'corporate';
-  status: 'draft' | 'confirmed' | 'pending' | 'on hold' | 'in progress' | 'awaiting payment' | 'paid' | 'fulfilled' | 'cancelled' | 'refunded';
-  //Common fields across all order types/stages
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  eventDate: string;
-  eventTime: string;
+  customer?: string;
+  email?: string;
   fulfillmentType: 'pickup' | 'delivery';
   pickupTime?: string;
   deliveryTime?: string;
-  venue?: string;
-  guestCount: number;
-  //Order-specific fields
-  orderItems: OrderItem[];
-  payments: Payment[];
+  customerId: string;
+  customerName: string;
+  eventDate: string;
+  eventType: string;
+  status: 'inquiry' | 'quoted' | 'confirmed' | 'in-production' | 'completed' | 'cancelled';
+  items: string[];
   subtotal: number;
-  taxRate: number;
-  taxAmount: number;
+  tax: number;
   total: number;
-  depositAmount: number;
-  balance: number;
-  specialInstructions: string; // Specific instructions for production/delivery
-  deliveryNotes: string; // Notes specific to delivery logistics
-  // Metadata
-  submittedAt: string; // Date/time when the order was initially created/submitted
-  lastUpdated: string;
-  assignedTo?: string;
-  createdAt: string; // Date/time when the order record was created in the system
-  actions:OrderAction[];
-  // Type-specific details
-  details: CelebrationInquiryDetails | WeddingInquiryDetails | CorporateInquiryDetails;
+  deposited?: number;
+  balance?: number;
+  depositPaid: number;
+  createdAt: string;
 }
 
 export interface OrderItem {
   id: string;
   name: string;
-  description: string;
   quantity: number;
-  unitprice: number;
+  price: number;
   total: number;
 }
 
@@ -84,7 +68,7 @@ export interface Payment {
 
 export interface OrderAction {
   id: string;
-  type: 'status_change' | 'note_added' | 'email-sent' | 'call_made' | 'paymenmt_received' |'qoute_sent';
+  type: 'status_change' | 'note_added' | 'email_sent' | 'call_made' | 'payment_received' | 'quote_sent';
   description:string; 
   performedBy: string;
   performedAt: string;
@@ -103,148 +87,32 @@ export interface OrderAction {
 
 export interface Quote {
   id: string;
-  type: 'celebration' | 'wedding' | 'corporate';
-  status: 'draft' | 'sent' | 'accepted' | 'rejected' | 'expired';
-  
-  // Common fields across all quote types
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  eventDate: string;
-  fulfillmentType: 'pickup' | 'delivery';
-  pickupTime: string;
-  deliveryTime: string;
-  eventTime: string;
-  guestCount?: number;
-  budget?: string;
-  hearAboutUs?: string;
-  additionalNotes?: string;
-  
-  // Type-specific details
-  details: CelebrationInquiryDetails | WeddingInquiryDetails | CorporateInquiryDetails;
-  
-  // Quote-specific fields
-  quoteItems: QuoteItem[];
-  subtotal: number;
-  discountType: 'percentage' | 'fixed';
-  discountValue: number;
-  discountAmount: number;
-  taxRate: number;
-  taxAmount: number;
-  shippingFee: number;
-  total: number;
-  customerNotes: string;
-  internalNotes: string;
-  termsConditions: string;
-  expiryDate: string;
-  
-  // Metadata
-  submittedAt: string;
-  lastUpdated: string;
-  assignedTo?: string;
-  
-  // Action history
-  actions: QuoteAction[];
-}
-
-export interface QuoteItem {
-  id: string;
-  name: string;
-  description?: string;
-  quantity: number;
-  unitPrice: number;
-  total: number;
-}
-
-// Quote action/timeline interface
-export interface QuoteAction {
-  id: string;
-  type: 'status_change' | 'note_added' | 'email_sent' | 'call_made' | 'quote_sent' | 'meeting_scheduled';
-  description: string;
-  performedBy: string;
-  performedAt: string;
-  details?: {
-    previousStatus?: string;
-    newStatus?: string;
-    emailSubject?: string;
-    callDuration?: number;
-    quoteId?: string;
-    meetingDate?: string;
-    notes?: string;
-  };
-}
-
-// ---------------------------
-// COMPREHENSIVE Invoice
-// ---------------------------
-export interface Invoice {
-  id: string;
-  invoiceNumber: string;
-  orderId?: string;
-
-  // Customer info
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone?: string;
-  address1?: string;
-  city?: string;
-  state?: string;
-  zip?: string;
-
-  // Event info
-  eventType?: 'celebration' | 'wedding' | 'corporate';
-  eventName?: string;
-  eventDate?: string;
+  eventType: string;
   eventTime?: string;
   fulfillmentType: 'pickup' | 'delivery';
   pickupTime?: string;
   deliveryTime?: string;
-  venue?: string;
-
-  // Line items
-  items: InvoiceItem[];
-
-  subtotal: number;
-  taxRate: number;
-  taxAmount: number;
-  shippingFee?: number;
-  discountType?: 'percentage' | 'fixed';
-  discountValue?: number;
-  discountAmount?: number;
+  pickupTime: string;
+  deliveryTime: string;
+  eventDate: string;
+  status: 'accepted' | 'sent' | 'draft' | 'rejected' | 'expired';
   total: number;
-
-  // Payments
-  payments: Payment[];
-  amountPaid: number;
-  balance: number; // remaining
-  nextPaymentDueDate?: string;
-
-  // Status
-  status: 'draft' | 'sent' | 'partial' | 'deposit_paid' | 'paid' | 'overdue' | 'void' | 'canceled';
-
-  // Dates
-  issueDate: string;
-  dueDate: string; 
-
-  // Notes
-  notes?: string;
-  internalNotes?: string;
-  termsConditions?: string;
-
   createdAt: string;
-  updatedAt: string;
+  expiryDate: string;
 }
 
-// InvoiceItem reused from quote style
-export interface InvoiceItem {
+export interface Invoice {
   id: string;
-  name: string;
-  description?: string;
-  quantity: number;
-  unitPrice: number;
+  eventDate: string;
+  fulfillmentType: 'pickup' | 'delivery';
+  pickupTime?: string;
+  deliveryTime?: string;
+  eventTime?: string;
+  status: 'paid' | 'deposit-paid' | 'pending' | 'overdue' | 'draft';
   total: number;
+  balance: number;
+  issueDate: string;
+  dueDate: string;
 }
 
 export interface Communication {
@@ -278,6 +146,14 @@ export interface Recipe {
   id: string;
   name: string;
   category: string;
+  servings: number;
+  prepTime: number;
+  difficulty: 'easy' | 'medium' | 'hard';
+  ingredients: Ingredient[];
+  instructions: string[];
+  cost: number;
+  profitMargin: number;
+  sellingPrice: number;
 }
 
 export interface Ingredient {
@@ -327,11 +203,14 @@ export interface Inquiry {
 
 // Type-specific inquiry details
 export interface CelebrationInquiryDetails {
+  eventType: string;
   occasion: string;
+  guestCount: string;
   services: string[];
   theme?: string;
   colors?: string;
   cakeTasting: boolean;
+  Poc: string;
   inspirationPhotos?: string[];
 }
 
@@ -343,32 +222,35 @@ export interface WeddingInquiryDetails {
   cakeStyle?: string;
   flavors?: string[];
   dietaryRestrictions?: string[];
-  deliverySetup?: string;
-  cakeTasting?: boolean;
+  deliverySetup: boolean;
+  tastingRequested: boolean;
+  budgetRange?: string;
   weddingPlanner?: {
     name: string;
-    contact?: string;
+    company: string;
+    contact: string;
   };
-  inspirationPhotos?: string[];
 }
 
 export interface CorporateInquiryDetails {
   companyName: string;
   eventType: string;
+  occasion: string;
+  services: string[];
   recurring: boolean;
-  brandingRequired?: boolean;
+  frequency?: string;
+  brandingRequired: boolean;
   deliveryAddress?: string;
-  contactPerson?: {
+  contactPerson: {
     name: string;
-    title?: string;
-    department?: string;
+    title: string;
+    department: string;
   };
   approvalProcess?: string;
   invoicingRequirements?: string;
-  inspirationPhotos?: string[];
 }
 
-// Action for Inquiry
+// Inquiry action/timeline interface
 export interface InquiryAction {
   id: string;
   type: 'status_change' | 'note_added' | 'email_sent' | 'call_made' | 'quote_sent' | 'meeting_scheduled';
@@ -384,4 +266,27 @@ export interface InquiryAction {
     meetingDate?: string;
     notes?: string;
   };
+}
+
+// Updated InquiryForm interface to align with new Inquiry type
+export interface InquiryForm {
+  id: string;
+  type: 'celebration' | 'wedding' | 'corporate';
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  eventDate: string;
+  eventTime: string;
+  occasion: string;
+  services: string[];
+  guestCount: number;
+  theme: string;
+  colors: string;
+  budget: string;
+  cakeTasting: boolean;
+  hearAboutUs: string;
+  inspirationPhotos: File[];
+  submittedAt: string;
+  status: 'new' | 'contacted' | 'quoted' | 'converted' | 'declined';
 }

@@ -3,6 +3,8 @@ import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { useOrderContext } from '../context/OrderContext';
 import { useQuoteContext } from '../context/QuoteContext';
 import Header from '../components/Header';
+import VenueSelector from '../components/VenueSelector';
+import { Venue } from '../types/venue';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { 
   ArrowLeft,
@@ -56,7 +58,7 @@ interface OrderFormData {
   deliveryTime: string;
   eventTime: string;
   eventType: string;
-  venue: string;
+  selectedVenue: Venue | null;
   guestCount: number;
   orderItems: OrderItem[];
   subtotal: number;
@@ -193,7 +195,7 @@ const CreateOrder: React.FC = () => {
     deliveryTime: '',
     eventTime: '',
     eventType: '',
-    venue: '',
+    selectedVenue: null,
     guestCount: 0,
     orderItems: [
       {
@@ -701,15 +703,10 @@ const CreateOrder: React.FC = () => {
                 </div>
                 
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Venue
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.venue}
-                    onChange={(e) => setFormData(prev => ({ ...prev, venue: e.target.value }))}
-                    placeholder="Event venue or location"
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                  <VenueSelector
+                    selectedVenue={formData.selectedVenue}
+                    onVenueSelect={(venue) => setFormData(prev => ({ ...prev, selectedVenue: venue }))}
+                    className="relative"
                   />
                 </div>
               </div>

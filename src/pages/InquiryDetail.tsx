@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useInquiryContext } from '../context/InquiryContext';
 import { useQuoteContext } from '../context/QuoteContext';
 import Header from '../components/Header';
+import { formatTime } from '../utils/formatters';
 import { 
   ArrowLeft,
   ArrowRight,
@@ -61,14 +62,6 @@ const InquiryDetail: React.FC = () => {
       year: 'numeric', 
       month: 'long', 
       day: 'numeric' 
-    });
-  };
-
-  const formatTime = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleTimeString('en-US', { 
-      hour: '2-digit', 
-      minute: '2-digit'
     });
   };
 
@@ -236,6 +229,13 @@ const InquiryDetail: React.FC = () => {
   const renderWeddingDetails = (details: any) => (
     <div className="space-y-3">
       <div className="flex items-start">
+        <Tag className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+        <div>
+          <p className="text-sm font-medium text-gray-900">Occasion</p>
+          <p className="text-sm text-gray-600 capitalize">{details.occasion || 'Not specified'}</p>
+        </div>
+      </div>
+      <div className="flex items-start">
         <MapPin className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
         <div>
           <p className="text-sm font-medium text-gray-900">Venue</p>
@@ -370,8 +370,8 @@ const InquiryDetail: React.FC = () => {
       <div className="flex items-start">
         <Tag className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
         <div>
-          <p className="text-sm font-medium text-gray-900">Event Type</p>
-          <p className="text-sm text-gray-600">{details.eventType || 'Not specified'}</p>
+          <p className="text-sm font-medium text-gray-900">Occasion</p>
+          <p className="text-sm text-gray-600">{details.occasion || 'Not specified'}</p>
         </div>
       </div>
       

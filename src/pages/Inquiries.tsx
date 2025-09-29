@@ -76,9 +76,8 @@ const Inquiries: React.FC = () => {
   );
 
   return (
-    <div className="flex-1 overflow-hidden">
-      <Header title="Inquiries" />
-      
+     <div className="p-6">
+ <Header title="Inquiries" icon={Mail} />
       <div className="p-6">
         {/* Actions Bar */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
@@ -131,14 +130,6 @@ const Inquiries: React.FC = () => {
               </select>
             </div>
           </div>
-          
-          <button 
-            onClick={handleCreateInquiry}
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all"
-          >
-            <Plus className="h-4 w-4 mr-2" />
-            New Inquiry
-          </button>
         </div>
 
         {/* Stats Summary */}
@@ -218,17 +209,20 @@ const Inquiries: React.FC = () => {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-3 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Inquiry
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Customer
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-1 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Event Type
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                      Event Date
+                  </th>
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                     Event Time
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                      Fulfillment
@@ -237,7 +231,7 @@ const Inquiries: React.FC = () => {
                     Status
                   </th>
                    <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Assigned
+                    Assigned To
                   </th>
                   <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
@@ -255,61 +249,57 @@ const Inquiries: React.FC = () => {
                         <div className="ml-4">
                           <div className="text-sm font-medium text-gray-900">{inquiry.id}</div>
                           <div className="text-xs text-gray-500 flex items-center">
-                          
                           </div>
                         </div>
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="flex items-center">
-                        <div className="flex-shrink-0">
-                          <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center">
-                            <User className="h-4 w-4 text-white" />                          </div>
-                        </div>
-                        <div className="ml-3">
                           <div className="text-sm font-medium text-gray-900">
                             {inquiry.firstName} {inquiry.lastName}
                           </div>
                           <div className="flex flex-col text-xs text-gray-500">
                             <span className="flex items-center">
                             </span>
-                          </div>
-                        </div>
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900 capitalize"> {inquiry.type} </div>
+                      <div className="text-sm text-gray-900 capitalize"> {inquiry.eventType} </div>
                       <div className="text-sm text-gray-500">
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900 capitalize" > {formatDate(inquiry.eventDate)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">
+                      {inquiry.eventTime && <div className="text-sm text-gray-900">{formatTime(inquiry.eventTime)}</div>}
+                    </td>
+                    <td className="px-2 py-1 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">
                         {inquiry.fulfillmentType === 'pickup' 
                           ? `Pickup: ${inquiry.pickupTime ? formatTime(inquiry.pickupTime) : 'TBD'}`
                           : `Delivery: ${inquiry.deliveryTime ? formatTime(inquiry.deliveryTime) : 'TBD'}`
                         }
-                       
+                        
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(inquiry.status)}`}>
+                      <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(inquiry.status)}`}>
                         {inquiry.status}
-                      </span>
-                       </td>
-                     <td> <div className="text-sm text-gray-900 mt-1">
-                        {inquiry.assignedTo ? `${inquiry.assignedTo}` : 'Unassigned'}
-                      </div></td>
+                      </div>
+                    </td>
+                      <td className="px-2 py-1 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">
+                        {inquiry.assignedTo ? ` ${inquiry.assignedTo}` : 'Unassigned'}
+                      </div>
+                      </td>
+                  
                     <td className="px-2 py-1 whitespace-nowrap text-right text-sm font-medium">
                       <button 
                         onClick={() => handleViewInquiry(inquiry.id)}
                         className="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded-md text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 transition-all"
                       >
                         <Eye className="h-3 w-3 mr-1" />
-                   
-                      View
+                        View
                       </button>
                     </td>
                   </tr>

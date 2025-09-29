@@ -609,9 +609,8 @@ const Recipes: React.FC = () => {
   };
 
   return (
-    <div className="flex-1 overflow-hidden">
-      <Header title="Recipes" />
-      
+    <div className="p-6">
+      <Header title="Recipes" icon={ChefHat} /> 
       <div className="p-6">
         {/* Actions Bar */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">

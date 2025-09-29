@@ -1,111 +1,62 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useOrderContext } from '../context/OrderContext';
 import Header from '../components/Header';
-import Logo from '../components/Logo';
+import { mockSampleOrder, mockSampleOrdersDetail } from '../data/mockData';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { 
   ArrowLeft,
-  Printer, 
-  Download, 
-  Mail, 
-  Calendar, 
-  Clock, 
-  DollarSign, 
-  CheckCircle2, 
   Edit,
   Copy,
+  Mail,
+  Download,
   Trash2,
-  User,
-  Phone,
-  MapPin,
+  CheckCircle2, 
+  Clock, 
+  AlertCircle,
+  FileText,
+  DollarSign,
+  Send,
   Package,
   Truck,
-  FileText,
+  MapPin,
+  Users,
+  User,
   MessageSquare,
-  AlertCircle,
-  CreditCard,
-  Hourglass,
-  ShoppingBag
+  Calculator,
+  Calendar,
+  Tag,
+  Utensils,
+  Briefcase,
+  FileCheck,
+  Palette,
+  Cake,
+  Building2
 } from 'lucide-react';
-
-interface Customer {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  address: string;
-  city: string;
-  state: string;
-  zip: string;
-}
-
-interface OrderItem {
-  id: string;
-  name: string;
-  description: string;
-  quantity: number;
-  unitPrice: number;
-  total: number;
-}
-
-interface Payment {
-  id: string;
-  date: string;
-  amount: number;
-  method: string;
-  reference?: string;
-}
-
-interface OrderData {
-  id: string;
-  customer: Customer;
-  orderDate: string;
-  fulfillmentType: 'pickup' | 'delivery';
-  pickupTime: string;
-  deliveryTime: string;
-  eventTime: string;
-  eventDate: string;
-  eventType: string;
-  venue?: string;
-  guestCount?: number;
-  orderItems: OrderItem[];
-  payments: Payment[];
-  subtotal: number;
-  taxRate: number;
-  taxAmount: number;
-  total: number;
-  depositAmount: number;
-  balance: number;
-  specialInstructions: string;
-  deliveryNotes: string;
-  status: 'inquiry' | 'quoted' | 'confirmed' | 'in-production' | 'completed' | 'cancelled';
-  createdBy: string;
-  createdAt: string;
-  lastUpdated: string;
-}
+import {
+  CelebrationInquiryDetails,
+  WeddingInquiryDetails,
+  CorporateInquiryDetails
+} from '../types';
 
 const OrderDetail: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams();
   const navigate = useNavigate();
-  const { getOrderById, updateOrder, addAction } = useOrderContext();
-  const [order, setOrder] = useState<Order | null>(null);
+  const [order, setOrder] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate API call to fetch order data
-    setLoading(true);
-    
-    // Find the order with the matching ID
-    const foundOrder = getOrderById(id);
-    
+    // In a real application, you would fetch the order data from an API
+    // using the 'id' from useParams. For now, we use mock data.
+    const foundOrder = mockSampleOrdersDetail.find(order => order.id === id);
     if (foundOrder) {
       setOrder(foundOrder);
+    } else {
+      // Simulate a "not found" scenario for other IDs
+      setOrder(null);
     }
-    
     setLoading(false);
-  }, [id, getOrderById]);
+  }, [id]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -114,7 +65,7 @@ const OrderDetail: React.FC = () => {
       case 'confirmed': return 'bg-coral-100 text-coral-800';
       case 'quoted': return 'bg-pink-100 text-pink-800';
       case 'inquiry': return 'bg-gray-100 text-gray-800';
-      case 'cancelled': return 'bg-gray-100 text-gray-800';
+      case 'cancelled': return 'bg-red-100 text-red-800';
       default: return 'bg-gray-100 text-gray-800';
     }
   };
@@ -122,82 +73,285 @@ const OrderDetail: React.FC = () => {
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'completed': return <CheckCircle2 className="h-4 w-4 mr-1" />;
-      case 'in-production': return <ShoppingBag className="h-4 w-4 mr-1" />;
+      case 'in-production': return <Clock className="h-4 w-4 mr-1" />;
       case 'confirmed': return <CheckCircle2 className="h-4 w-4 mr-1" />;
-      case 'quoted': return <FileText className="h-4 w-4 mr-1" />;
+      case 'quoted': return <AlertCircle className="h-4 w-4 mr-1" />;
       case 'inquiry': return <AlertCircle className="h-4 w-4 mr-1" />;
-      case 'cancelled': return <AlertCircle className="h-4 w-4 mr-1" />;
+      case 'cancelled': return <Trash2 className="h-4 w-4 mr-1" />;
       default: return <AlertCircle className="h-4 w-4 mr-1" />;
     }
   };
 
-  const handlePrint = () => {
-    window.print();
-  };
+  const renderWeddingDetails = (details: WeddingInquiryDetails) => (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Wedding Details Column */}
+      <div>
+        <h4 className="text-sm font-semibold text-gray-900 mb-3">Wedding Details</h4>
+        <div className="space-y-3">
+          <div className="flex items-start">
+            <MapPin className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Venue</p>
+              <p className="text-sm text-gray-600">{details.venue || 'Not specified'}</p>
+            </div>
+          </div>
 
-  const handleDownload = () => {
-    // In a real app, this would generate a PDF
-    alert('Download functionality would be implemented here');
-  };
+          <div className="flex items-start">
+            <Users className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Wedding Size</p>
+              <p className="text-sm text-gray-600 capitalize">{details.weddingSize || 'Not specified'}</p>
+            </div>
+          </div>
 
-  const handleEmail = () => {
-    // In a real app, this would send an email
-    alert(`Email would be sent to ${order?.customer.email}`);
-  };
+          <div className="flex items-start">
+            <Truck className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Delivery & Setup</p>
+              <p className="text-sm text-gray-600">{details.deliverySetup ? 'Required' : 'Not required'}</p>
+            </div>
+          </div>
 
-  const handleEdit = () => {
-    navigate(`/orders/${id}/edit`);
-  };
+          <div className="flex items-start">
+            <Utensils className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Tasting</p>
+              <p className="text-sm text-gray-600">{details.tastingRequested ? 'Requested' : 'Not requested'}</p>
+            </div>
+          </div>
 
-  const handleCreateInvoice = () => {
-    // Generate new invoice number
-    const invoiceNumber = generateDocumentNumber('invoice');
+          {details.weddingPlanner && (
+            <div className="flex items-start">
+              <User className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Wedding Planner</p>
+                <p className="text-sm text-gray-600">{details.weddingPlanner.name}</p>
+                <p className="text-sm text-gray-600">{details.weddingPlanner.company}</p>
+                <p className="text-sm text-gray-600">{details.weddingPlanner.contact}</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
 
-    // Add action for invoice creation
+      {/* Cake Details Column */}
+      <div>
+        <h4 className="text-sm font-semibold text-gray-900 mb-3">Cake Details</h4>
+        <div className="space-y-3">
+          <div className="flex items-start">
+            <Cake className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Cake Style</p>
+              <p className="text-sm text-gray-600">{details.cakeStyle || 'Not specified'}</p>
+            </div>
+          </div>
+
+          {details.flavors && details.flavors.length > 0 && (
+            <div className="flex items-start">
+              <Utensils className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Flavors</p>
+                <ul className="text-sm text-gray-600 list-disc list-inside">
+                  {details.flavors.map((flavor: string, index: number) => (
+                    <li key={index}>{flavor}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
+
+          {details.dietaryRestrictions && details.dietaryRestrictions.length > 0 && (
+            <div className="flex items-start">
+              <AlertCircle className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Dietary Restrictions</p>
+                <ul className="text-sm text-gray-600 list-disc list-inside">
+                  {details.dietaryRestrictions.map((restriction: string, index: number) => (
+                    <li key={index}>{restriction}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderCelebrationDetails = (details: CelebrationInquiryDetails) => (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Event Details Column */}
+      <div>
+        <h4 className="text-sm font-semibold text-gray-900 mb-3">Celebration Details</h4>
+        <div className="space-y-3">
+          <div className="flex items-start">
+            <Tag className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Occasion</p>
+              <p className="text-sm text-gray-600">{details.occasion || 'Not specified'}</p>
+            </div>
+          </div>
+
+          {details.theme && (
+            <div className="flex items-start">
+              <Palette className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Theme</p>
+                <p className="text-sm text-gray-600">{details.theme}</p>
+              </div>
+            </div>
+          )}
+
+          {details.colors && (
+            <div className="flex items-start">
+              <Palette className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Colors</p>
+                <p className="text-sm text-gray-600">{details.colors}</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Cake Details Column */}
+      <div>
+        <h4 className="text-sm font-semibold text-gray-900 mb-3">Cake Details</h4>
+        <div className="space-y-3">
+          <div className="flex items-start">
+            <Utensils className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Cake Tasting</p>
+              <p className="text-sm text-gray-600">{details.cakeTasting ? 'Requested' : 'Not requested'}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderCorporateDetails = (details: CorporateInquiryDetails) => (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Company & Event Details Column */}
+      <div>
+        <h4 className="text-sm font-semibold text-gray-900 mb-3">Company & Event Details</h4>
+        <div className="space-y-3">
+          <div className="flex items-start">
+            <Building2 className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Company</p>
+              <p className="text-sm text-gray-600">{details.companyName || 'Not specified'}</p>
+            </div>
+          </div>
+
+          <div className="flex items-start">
+            <Tag className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Occasion</p>
+              <p className="text-sm text-gray-600">{details.occasion || 'Not specified'}</p>
+            </div>
+          </div>
+
+          <div className="flex items-start">
+            <Calendar className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Recurring</p>
+              <p className="text-sm text-gray-600">
+                {details.recurring ? `Yes (${details.frequency})` : 'No'}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-start">
+            <FileCheck className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+            <div>
+              <p className="text-sm font-medium text-gray-900">Branding Required</p>
+              <p className="text-sm text-gray-600">{details.brandingRequired ? 'Yes' : 'No'}</p>
+            </div>
+          </div>
+
+          {details.deliveryAddress && (
+            <div className="flex items-start">
+              <MapPin className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Delivery Address</p>
+                <p className="text-sm text-gray-600">{details.deliveryAddress}</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Contact & Process Column */}
+      <div>
+        <h4 className="text-sm font-semibold text-gray-900 mb-3">Contact & Process</h4>
+        <div className="space-y-3">
+          {details.contactPerson && (
+            <div className="flex items-start">
+              <User className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Contact Person</p>
+                <p className="text-sm text-gray-600">{details.contactPerson.name}</p>
+                <p className="text-sm text-gray-600">{details.contactPerson.title}, {details.contactPerson.department}</p>
+              </div>
+            </div>
+          )}
+
+          {details.approvalProcess && (
+            <div className="flex items-start">
+              <Briefcase className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Approval Process</p>
+                <p className="text-sm text-gray-600">{details.approvalProcess}</p>
+              </div>
+            </div>
+          )}
+
+          {details.invoicingRequirements && (
+            <div className="flex items-start">
+              <FileText className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Invoicing Requirements</p>
+                <p className="text-sm text-gray-600">{details.invoicingRequirements}</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+
+  const handleEditOrder = () => {
     if (order) {
-      addAction(order.id, {
-        type: 'status_change',
-        description: 'Invoice created from order',
-        performedBy: 'admin',
-        details: {
-          previousStatus: order.status,
-          newStatus: 'completed'
-        }
-      });
-      
-      // Update order status if not already completed
-      if (order.status !== 'completed') {
-        updateOrder(order.id, { status: 'completed' });
-      }
+      console.log('Edit order:', order.id);
+      // navigate(`/orders/${order.id}/edit`); // Placeholder for edit page
+      alert(`Editing order ${order.id}`);
     }
-    
-    // Navigate to create invoice page with order data
-    navigate('/invoice/new', { 
-      state: { 
-        invoiceNumber,
-        orderId: id
-      } 
-    });
   };
 
-  const handleDuplicate = () => {
-    // Generate new order number
-    const orderNumber = generateDocumentNumber('order');
-    
-    // Navigate to create order page with duplicated data
-    navigate('/orders/new', { 
-      state: { 
-        orderNumber,
-        duplicateFrom: id
-      } 
-    });
+  const handleSendInvoice = () => {
+    if (order) {
+      const newInvoiceNumber = generateDocumentNumber('invoice');
+      console.log('Send invoice for order:', order.id);
+      alert(`Creating and sending invoice ${newInvoiceNumber} for order ${order.id}`);
+      // navigate('/invoice/new', { state: { convertedFromOrder: order.id, invoiceNumber: newInvoiceNumber } });
+    }
   };
 
-  const handleDelete = () => {
-    // In a real app, this would delete the order
-    if (confirm('Are you sure you want to delete this order?')) {
-      alert(`Order ${id} deleted successfully`);
-      navigate('/orders');
+  const handleDuplicateOrder = () => {
+    if (order) {
+      const newOrderNumber = generateDocumentNumber('order');
+      console.log('Duplicate order:', order.id);
+      alert(`Duplicating order ${order.id} as ${newOrderNumber}`);
+      // navigate('/orders/new', { state: { duplicateFrom: order.id, orderNumber: newOrderNumber } });
+    }
+  };
+
+  const handleDeleteOrder = () => {
+    if (order && window.confirm(`Are you sure you want to delete order ${order.id}?`)) {
+      console.log('Delete order:', order.id);
+      alert(`Order ${order.id} deleted.`);
+      navigate('/orders'); // Go back to orders list after deletion
     }
   };
 
@@ -213,6 +367,7 @@ const OrderDetail: React.FC = () => {
     return (
       <div className="flex-1 flex items-center justify-center">
         <div className="text-center">
+          <AlertCircle className="h-12 w-12 text-coral-500 mx-auto mb-4" />
           <h2 className="text-2xl font-semibold text-gray-900 mb-2">Order Not Found</h2>
           <p className="text-gray-600 mb-4">The order you're looking for doesn't exist or has been removed.</p>
           <button
@@ -228,358 +383,240 @@ const OrderDetail: React.FC = () => {
   }
 
   return (
-    <div className="flex-1 overflow-hidden print:block">
-      <div className="hidden print:block p-6">
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center space-x-3">
-            <Logo className="text-coral-500" size="md" />
-            <span className="text-xl font-semibold text-gray-900 tracking-tight">CakeFlow CRM</span>
-          </div>
-        </div>
-      </div>
+    <div className="flex-1 overflow-hidden">
+      <Header title={`Order ${order.id}`} />
       
-      <Header title="Order Details" />
-      
-      <div className="p-6 print:p-0">
-        {/* Back Button - hide when printing */}
+      <div className="p-6">
+        {/* Back Button */}
         <button
           onClick={() => navigate('/orders')}
-          className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 mb-6 transition-colors print:hidden"
+          className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 mb-6 transition-colors"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Orders
         </button>
 
-        {/* Order Actions - hide when printing */}
-        <div className="flex justify-end mb-6 print:hidden">
-          <button 
-            onClick={handlePrint}
-            className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 mr-3"
-          >
-            <Printer className="h-4 w-4 mr-2" />
-            Print
-          </button>
-          <button 
-            onClick={handleDownload}
-            className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 mr-3"
-          >
-            <Download className="h-4 w-4 mr-2" />
-            Download PDF
-          </button>
-          <button 
-            onClick={handleEmail}
-            className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 mr-3"
-          >
-            <Mail className="h-4 w-4 mr-2" />
-            Email Order
-          </button>
-          <button 
-            onClick={handleEdit}
-            className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 mr-3"
-          >
-            <Edit className="h-4 w-4 mr-2" />
-            Edit
-          </button>
-          <button 
-            onClick={handleCreateInvoice}
-            className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500"
-          >
-            <DollarSign className="h-4 w-4 mr-2" />
-            Create Invoice
-          </button>
-        </div>
-
-        {/* Order Document */}
-        <div className="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden print:shadow-none print:border-0">
-          {/* Order Header */}
-          <div className="px-6 py-4 border-b border-gray-200 print:py-2">
-            <div className="flex flex-col md:flex-row justify-between">
-              <div className="mb-4 md:mb-0">
-                <div className="flex items-center">
-                  <div className="hidden print:flex items-center space-x-3 mb-4">
-                    <Logo className="text-coral-500" size="md" />
-                    <span className="text-xl font-semibold text-gray-900 tracking-tight">CakeFlow CRM</span>
-                  </div>
-                </div>
-                <h1 className="text-2xl font-bold text-gray-900 mb-1">ORDER</h1>
-                <p className="text-sm text-gray-600">
-                  <span className="font-medium">Order #:</span> {order.id}
-                </p>
-                <p className="text-sm text-gray-600">
-                  <span className="font-medium">Date:</span> {formatDate(order.orderDate)}
-                </p>
-                <p className="text-sm text-gray-600">
-                  <span className="font-medium">Event Date:</span> {formatDate(order.eventDate)}
-                </p>
-              </div>
-              <div className="text-right">
-                <div className="flex items-center justify-end mb-2">
-                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(order.status)}`}>
-                    {getStatusIcon(order.status)}
-                    <span className="capitalize">{order.status.replace('-', ' ')}</span>
-                  </span>
-                </div>
-                <div className="text-sm text-gray-600 mb-4">
-                  <p className="font-medium text-gray-900">Sweet Delights Bakery</p>
-                  <p>123 Frosting Lane</p>
-                  <p>Sugarville, CA 90210</p>
-                  <p>Phone: (555) 987-6543</p>
-                  <p>Email: orders@sweetdelights.com</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Customer & Event Details */}
-          <div className="px-6 py-4 border-b border-gray-200 print:py-2">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <h2 className="text-lg font-medium text-gray-900 mb-3">Customer Information</h2>
-                <div className="space-y-2">
-                  <div className="flex items-center text-sm text-gray-600">
-                    <User className="h-4 w-4 mr-2 text-gray-400" />
-                    <span className="font-medium">{order.customer.name}</span>
-                  </div>
-                  <div className="flex items-center text-sm text-gray-600">
-                    <Mail className="h-4 w-4 mr-2 text-gray-400" />
-                    <a href={`mailto:${order.customer.email}`} className="hover:text-coral-600 transition-colors">
-                      {order.customer.email}
-                    </a>
-                  </div>
-                  <div className="flex items-center text-sm text-gray-600">
-                    <Phone className="h-4 w-4 mr-2 text-gray-400" />
-                    <a href={`tel:${order.customer.phone}`} className="hover:text-coral-600 transition-colors">
-                      {order.customer.phone}
-                    </a>
-                  </div>
-                  <div className="flex items-start text-sm text-gray-600">
-                    <MapPin className="h-4 w-4 mr-2 text-gray-400 mt-0.5" />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Main Content */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Order Header */}
+            <div className="bg-white shadow-sm rounded-lg border border-gray-200">
+              <div className="p-6">
+                <div className="flex items-start justify-between">
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-coral-400 to-pink-400 rounded-full flex items-center justify-center">
+                      <FileText className="h-6 w-6 text-white" />
+                    </div>
                     <div>
-                      {order.customer.address}<br />
+                      <h2 className="text-xl font-semibold text-gray-900 mb-1">
+                        Order #{order.id}
+                      </h2>
+                      <div className="flex items-center space-x-3 mb-2">
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(order.status)}`}>
+                          {getStatusIcon(order.status)}
+                          {order.status.charAt(0).toUpperCase() + order.status.slice(1).replace('-', ' ')}
+                        </span>
+{/*{order.poNumber && (
+      } <span className="text-sm text-gray-500">PO: {order.poNumber}</span>                        )} */}                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                        <div className="flex items-center text-gray-600">
+                          <Calendar className="h-4 w-4 mr-2 text-gray-400" />
+                          Created: {formatDate(order.issueDate)}
+                        </div>
+                        {/*  <div className="flex items-center text-gray-600">
+                          <Clock className="h-4 w-4 mr-2 text-gray-400" />
+                          Event Date: {formatDate(order.eventDate)}
+                        </div>*/}
+                      </div>
+                    </div>
+                  </div>
+         
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={handleEditOrder}
+                      className="inline-flex items-center px-3 py-1 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+                    >
+                      <Edit className="h-4 w-4 mr-1" />
+                      Edit
+                    </button>
+                    <button
+                      onClick={handleSendInvoice}
+                      className="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-aqua-400 to-aqua-500 hover:from-aqua-500 hover:to-aqua-600 transition-all"
+                    >
+                      <Send className="h-4 w-4 mr-1" />
+                      Send Invoice
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Customer & Event Details */}
+            <div className="bg-white shadow-sm rounded-lg border border-gray-200">
+              <div className="p-6">
+                <h3 className="text-lg font-medium text-gray-900 mb-4">Customer & Event Details</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Customer Info */}
+                  <div>
+                    <h4 className="text-sm font-semibold text-gray-900 mb-2 flex items-center">
+                      <Users className="h-4 w-4 mr-2 text-coral-500" />
+                      Customer
+                    </h4>
+                    <p className="font-medium">{order.customer.name}</p>
+                    <p className="text-sm text-gray-600">{order.customer.email}</p>
+                    <p className="text-sm text-gray-600">{order.customer.phone}</p>
+                    <p className="text-sm text-gray-600 mt-2">
+                      {order.customer.address}<br/>
                       {order.customer.city}, {order.customer.state} {order.customer.zip}
+                    </p>
+                  </div>
+                  {/* Event Info */}
+                  <div>
+                    <h4 className="text-sm font-semibold text-gray-900 mb-2 flex items-center">
+                      <Calendar className="h-4 w-4 mr-2 text-mint-500" />
+                      Event Details
+                    </h4>
+                    <div className="space-y-2">
+                      <div className="flex items-center text-sm text-gray-600">
+                        <Calendar className="h-4 w-4 mr-2 text-gray-400" />
+                        Event Type:&nbsp;<div className="flex items-center text-sm text-gray-600 capitalize">{order.eventType}</div>
+                      </div>
+
+ <div className="flex items-center text-sm text-gray-600">
+                        <Calendar className="h-4 w-4 mr-2 text-gray-400" />
+                        Event Date: {formatDate(order.eventDate)} {/* Using issueDate as placeholder for eventDate */}
+                      </div>   
+                                            {order.eventTime && (
+                        <div className="flex items-center text-sm text-gray-600">
+                          <Clock className="h-4 w-4 mr-2 text-gray-400" />
+                          Event Time: {formatTime(order.eventTime)}
+                        </div>
+                      )}
+                      <div className="flex items-center text-sm text-gray-600">
+                        {order.fulfillmentType === 'pickup' ? (
+                          <Package className="h-4 w-4 mr-2 text-gray-400" />
+                        ) : (
+                          <Truck className="h-4 w-4 mr-2 text-gray-400" />
+                        )}
+                        Fulfillment: {order.fulfillmentType === 'pickup' ? `Pickup at ${formatTime(order.pickupTime || '')}` : `Delivery at ${formatTime(order.deliveryTime || '')}`}
+                      </div>
+                      
                     </div>
                   </div>
                 </div>
               </div>
-              <div>
-                <h2 className="text-lg font-medium text-gray-900 mb-3">Event Details</h2>
-                <div className="space-y-2">
-                  <div className="flex items-center text-sm text-gray-600">
-                    <Calendar className="h-4 w-4 mr-2 text-gray-400" />
-                    <span>
-                      <span className="font-medium">Event Date:</span> {formatDate(order.eventDate)}
-                    </span>
+            </div>
+
+            {/* Order Details */}  
+            {order.details && (
+              <div className="bg-white shadow-sm rounded-lg border border-gray-200">  
+                <div className="p-6">
+                  <h3 className="text-lg font-medium text-gray-900 mb-4">Event Details</h3>
+                  <div>
+                    {(order.eventType === 'wedding' ) && renderWeddingDetails(order.details as WeddingInquiryDetails)}
+                    {(order.eventType === 'celebration') && renderCelebrationDetails(order.details as CelebrationInquiryDetails)}
+                    {(order.eventType === 'corporate') && renderCorporateDetails(order.details as CorporateInquiryDetails)}
                   </div>
-                  <div className="flex items-center text-sm text-gray-600">
-                    <Clock className="h-4 w-4 mr-2 text-gray-400" />
-                    <span>
-                      <span className="font-medium">Event Time:</span> {order.eventTime ? formatTime(order.eventTime) : 'Not specified'}
-                    </span>
-                  </div>
-                  <div className="flex items-center text-sm text-gray-600">
-                    {order.fulfillmentType === 'pickup' ? (
-                      <>
-                        <Package className="h-4 w-4 mr-2 text-gray-400" />
-                        <span>
-                          <span className="font-medium">Pickup Time:</span> {order.pickupTime ? formatTime(order.pickupTime) : 'Not specified'}
-                        </span>
-                      </>
-                    ) : (
-                      <>
-                        <Truck className="h-4 w-4 mr-2 text-gray-400" />
-                        <span>
-                          <span className="font-medium">Delivery Time:</span> {order.deliveryTime ? formatTime(order.deliveryTime) : 'Not specified'}
-                        </span>
-                      </>
-                    )}
-                  </div>
-                  <div className="flex items-center text-sm text-gray-600">
-                    <FileText className="h-4 w-4 mr-2 text-gray-400" />
-                    <span>
-                      <span className="font-medium">Event Type:</span> {order.eventType}
-                    </span>
-                  </div>
-                  {order.venue && (
-                    <div className="flex items-center text-sm text-gray-600">
-                      <MapPin className="h-4 w-4 mr-2 text-gray-400" />
-                      <span>
-                        <span className="font-medium">Venue:</span> {order.venue}
-                      </span>
-                    </div>
-                  )}
-                  {order.guestCount && (
-                    <div className="flex items-center text-sm text-gray-600">
-                      <User className="h-4 w-4 mr-2 text-gray-400" />
-                      <span>
-                        <span className="font-medium">Guest Count:</span> {order.guestCount}
-                      </span>
-                    </div>
-                  )}
                 </div>
               </div>
-            </div>
-          </div>
-
-          {/* Order Items */}
-          <div className="px-6 py-4 border-b border-gray-200 print:py-2">
-            <h2 className="text-lg font-medium text-gray-900 mb-3">Order Items</h2>
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead>
-                  <tr>
-                    <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-                    <th scope="col" className="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
-                    <th scope="col" className="px-3 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Unit Price</th>
-                    <th scope="col" className="px-3 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {order.orderItems.map((item) => (
-                    <tr key={item.id}>
-                      <td className="px-3 py-4 text-sm text-gray-900">
-                        <div className="font-medium">{item.name}</div>
-                        {item.description && <div className="text-gray-500">{item.description}</div>}
-                      </td>
-                      <td className="px-3 py-4 text-sm text-gray-900 text-center">
-                        {item.quantity}
-                      </td>
-                      <td className="px-3 py-4 text-sm text-gray-900 text-right">
-                        {formatCurrency(item.unitPrice)}
-                      </td>
-                      <td className="px-3 py-4 text-sm text-gray-900 text-right">
-                        {formatCurrency(item.total)}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          {/* Order Summary */}
-          <div className="px-6 py-4 border-b border-gray-200 print:py-2">
-            <div className="flex justify-end">
-              <div className="w-full md:w-64">
-                <div className="flex justify-between py-2">
-                  <span className="text-sm text-gray-600">Subtotal:</span>
-                  <span className="text-sm font-medium text-gray-900">{formatCurrency(order.subtotal)}</span>
-                </div>
-                
-                <div className="flex justify-between py-2">
-                  <span className="text-sm text-gray-600">Tax ({order.taxRate}%):</span>
-                  <span className="text-sm font-medium text-gray-900">{formatCurrency(order.taxAmount)}</span>
-                </div>
-                
-                <div className="flex justify-between py-2 border-t border-gray-200">
-                  <span className="text-base font-medium text-gray-900">Total:</span>
-                  <span className="text-base font-medium text-coral-600">{formatCurrency(order.total)}</span>
-                </div>
-                
-                <div className="flex justify-between py-2">
-                  <span className="text-sm text-gray-600">Deposit Paid:</span>
-                  <span className="text-sm font-medium text-gray-900">{formatCurrency(order.depositAmount)}</span>
-                </div>
-                
-                <div className="flex justify-between py-2 border-t border-gray-200">
-                  <span className="text-base font-medium text-gray-900">Balance Due:</span>
-                  <span className="text-base font-medium text-aqua-600">{formatCurrency(order.balance)}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Payment History */}
-          <div className="px-6 py-4 border-b border-gray-200 print:py-2">
-            <h2 className="text-lg font-medium text-gray-900 mb-3">Payment History</h2>
-            {order.payments && order.payments.length > 0 ? (
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead>
-                  <tr>
-                    <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                    <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Method</th>
-                    <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reference</th>
-                    <th scope="col" className="px-3 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {order.payments.map((payment) => (
-                    <tr key={payment.id}>
-                      <td className="px-3 py-4 text-sm text-gray-900">{formatDate(payment.date)}</td>
-                      <td className="px-3 py-4 text-sm text-gray-900">{payment.method}</td>
-                      <td className="px-3 py-4 text-sm text-gray-900">{payment.reference || '-'}</td>
-                      <td className="px-3 py-4 text-sm text-gray-900 text-right">{formatCurrency(payment.amount)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            ) : (
-              <p className="text-sm text-gray-600">No payments recorded yet.</p>
             )}
-          </div>
 
-          {/* Notes */}
-          <div className="px-6 py-4 border-b border-gray-200 print:py-2">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <h2 className="text-lg font-medium text-gray-900 mb-2 flex items-center">
-                  <MessageSquare className="h-5 w-5 mr-2 text-gray-400" />
-                  Special Instructions
-                </h2>
-                <div className="bg-gray-50 p-3 rounded-md">
-                  <p className="text-sm text-gray-600 whitespace-pre-line">{order.specialInstructions || 'No special instructions provided.'}</p>
+            {!order.details && (
+              <div className="bg-white shadow-sm rounded-lg border border-gray-200">
+                <div className="p-6">
+                  <h3 className="text-lg font-medium text-gray-900 mb-4">Event Details</h3>
+                  <p className="text-sm text-gray-500 italic">No additional event details available.</p>
                 </div>
               </div>
-              <div>
-                <h2 className="text-lg font-medium text-gray-900 mb-2 flex items-center">
-                  <Truck className="h-5 w-5 mr-2 text-gray-400" />
-                  Delivery Notes
-                </h2>
-                <div className="bg-gray-50 p-3 rounded-md">
-                  <p className="text-sm text-gray-600 whitespace-pre-line">{order.deliveryNotes || 'No delivery notes provided.'}</p>
+            )}
+  
+            {/* Line Items */}
+            <div className="bg-white shadow-sm rounded-lg border border-gray-200">
+              <div className="p-6">
+                <h3 className="text-lg font-medium text-gray-900 mb-4">Order Items</h3>
+                <div className="overflow-x-auto">
+                  <table className="min-w-full divide-y divide-gray-200">
+                    <thead>
+                      <tr>
+                        <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                        <th className="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Qty</th>
+                        <th className="px-3 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Unit Price</th>
+                        <th className="px-3 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      {order.lineItems.map((item) => (
+                        <tr key={item.id}>
+                          <td className="px-3 py-4 text-sm font-medium text-gray-900">
+                            {item.name}
+                            {item.description && <p className="text-xs text-gray-500">{item.description}</p>}
+                          </td>
+                          <td className="px-3 py-4 text-sm text-gray-900 text-center">{item.quantity}</td>
+                          <td className="px-3 py-4 text-sm text-gray-900 text-right">{formatCurrency(item.unitPrice)}</td>
+                          <td className="px-3 py-4 text-sm font-medium text-gray-900 text-right">{formatCurrency(item.total)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Footer */}
-          <div className="px-6 py-4 bg-gray-50 border-t border-gray-200 print:bg-white print:py-2">
-            <div className="text-center">
-              <p className="text-sm text-gray-600">Thank you for your business!</p>
-              <p className="text-sm text-gray-500">
-                If you have any questions about this order, please contact us at
-                <span className="text-coral-600"> orders@sweetdelights.com</span> or
-                <span className="text-coral-600"> (555) 987-6543</span>
-              </p>
+            {/* Totals */}
+            <div className="bg-white shadow-sm rounded-lg border border-gray-200">
+              <div className="p-6">
+                <h3 className="text-lg font-medium text-gray-900 mb-4">Summary</h3>
+                <div className="flex justify-end">
+                  <div className="w-full md:w-1/2 space-y-2">
+                    <div className="flex justify-between text-sm text-gray-600">
+                      <span>Subtotal:</span>
+                      <span>{formatCurrency(order.subtotal)}</span>
+                    </div>
+                    {order.shippingFee > 0 && (
+                      <div className="flex justify-between text-sm text-gray-600">
+                        <span>Shipping:</span>
+                        <span>{formatCurrency(order.shippingFee)}</span>
+                      </div>
+                    )}
+                    <div className="flex justify-between text-sm text-gray-600">
+                      <span>Tax ({order.taxRate}%):</span>
+                      <span>{formatCurrency(order.taxAmount)}</span>
+                    </div>
+                    <div className="flex justify-between pt-2 border-t border-gray-200">
+                      <span className="text-lg font-semibold text-gray-900">Total:</span>
+                      <span className="text-xl font-bold text-coral-600">{formatCurrency(order.total)}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-        {/* Additional Actions - hide when printing */}
-        <div className="mt-6 flex justify-between print:hidden">
-          <div>
-            <button 
-              onClick={handleDelete}
-              className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-red-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-            >
-              <Trash2 className="h-4 w-4 mr-2" />
-              Delete Order
-            </button>
-          </div>
-          <div className="space-x-3">
-            <button 
-              onClick={handleDuplicate}
-              className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500"
-            >
-              <Copy className="h-4 w-4 mr-2" />
-              Duplicate
-            </button>
-            <button 
-              onClick={handleCreateInvoice}
-              className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500"
-            >
-              <DollarSign className="h-4 w-4 mr-2" />
-              Create Invoice
-            </button>
+            {/* Additional Information */}
+            <div className="bg-white shadow-sm rounded-lg border border-gray-200">
+              <div className="p-6">
+                <h3 className="text-lg font-medium text-gray-900 mb-4">Additional Information</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <h4 className="text-sm font-semibold text-gray-900 mb-2">Customer Notes</h4>
+                    <p className="text-sm text-gray-600 whitespace-pre-line">
+                      {order.customerNotes || 'No customer notes.'}
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold text-gray-900 mb-2">Internal Notes</h4>
+                    <p className="text-sm text-gray-600 whitespace-pre-line">
+                      {order.internalNotes || 'No internal notes.'}
+                    </p>
+                  </div>
+                  <div className="md:col-span-2">
+                    <h4 className="text-sm font-semibold text-gray-900 mb-2">Terms & Conditions</h4>
+                    <p className="text-sm text-gray-600 whitespace-pre-line">
+                      Payment terms: 50% deposit required to confirm order. Final payment due 14 days before event date. Cancellations within 30 days of event are subject to 50% fee.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

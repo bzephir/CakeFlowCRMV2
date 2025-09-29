@@ -17,6 +17,7 @@ import {
   MessageSquare,
   MapPin,
   FileSignature,
+  FilePen,
   Settings,
   UserCheck,
   Calendar,
@@ -57,6 +58,7 @@ const Sidebar: React.FC = () => {
         { name: 'Orders', href: '/orders', icon: FileText },
         { name: 'Invoices', href: '/invoices', icon: DollarSign },
         { name: 'Reports', href: '/reports', icon: BarChart3 },
+ 
       ]
     },
     {
@@ -73,7 +75,7 @@ const Sidebar: React.FC = () => {
       name: 'Customers',
       children: [
         { name: 'Customers', href: '/customers', icon: Users },
-        { name: 'Contracts', href: '/contracts', icon: FileSignature },
+        { name: 'Forms', href: '/forms', icon: FileSignature },
         { name: 'Venues', href: '/venues', icon: MapPin },
         { name: 'Communication', href: '/communication', icon: MessageSquare },
       ]

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useQuoteContext } from '../context/QuoteContext';
 import Header from '../components/Header';
+import { mockSampleQuoteDetail, mockSampleQuotesDetail, mockQuotesList } from '../data/mockData';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
 import { 
@@ -15,7 +15,8 @@ import {
   Calendar,
   Copy,
   FileText,
-  Clock, 
+  Clock,
+  Receipt,
   CheckCircle2, 
   XCircle,
   AlertCircle,
@@ -26,14 +27,14 @@ import {
 
 const Quotes: React.FC = () => {
   const navigate = useNavigate();
-  const { quotes, markAsOpened } = useQuoteContext();
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [selectedQuotes, setSelectedQuotes] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  // Mock quote data with new numbering format
+  // Use centralized mock data
+  const quotes = mockQuotesList;
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -59,8 +60,7 @@ const Quotes: React.FC = () => {
 
   const handleViewQuote = (quoteId: string) => {
     // Navigate to quote details page
-    markAsOpened(quoteId);
-    navigate(`/quotes/${quoteId}`); // This will now route to the QuoteDetail component
+    navigate(`/quotes/${quoteId}`);
   };
 
   const handleCreateQuote = () => {
@@ -130,8 +130,7 @@ const Quotes: React.FC = () => {
 
   // Filter quotes based on search term and status filter
   const filteredQuotes = quotes.filter(quote => {
-    const fullName = `${quote.firstName} ${quote.lastName}`.toLowerCase();
-    const matchesSearch = fullName.includes(searchTerm.toLowerCase()) ||
+    const matchesSearch = quote.customer.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          quote.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          quote.id.includes(searchTerm);
     const matchesStatus = statusFilter === 'all' || quote.status === statusFilter;
@@ -141,19 +140,14 @@ const Quotes: React.FC = () => {
   // Pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  // Sort quotes by submission date (newest first)
-  const sortedQuotes = [...filteredQuotes].sort((a, b) => 
-    new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime()
-  );
-  const currentQuotes = sortedQuotes.slice(indexOfFirstItem, indexOfLastItem);
+  const currentQuotes = filteredQuotes.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredQuotes.length / itemsPerPage);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <div className="flex-1 overflow-hidden">
-      <Header title="Quotes" />
-      
+      <div className="p-6">
+ <Header title="Quotes" icon={Receipt} /> 
       <div className="p-6">
         {/* Actions Bar */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
@@ -238,35 +232,34 @@ const Quotes: React.FC = () => {
                       />
                     </div>
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
                     Quote #
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Date Issued
-                  </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
                     Customer
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Event Date
+                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
+                    Date Issued
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                   <th className="px-2 py-1 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
                     Event Type
                   </th>
-                  
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
+                    Event Date
+                  </th>
+                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
                     Fulfillment
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Quote Expires
+                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
+                    Expiry Date
                   </th>
-                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-right text-xs font-bold text-gray-900 uppercase tracking-wider">
                     Amount
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-right text-xs font-bold text-gray-900 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -285,38 +278,35 @@ const Quotes: React.FC = () => {
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900 cursor-pointer hover:text-coral-600" onClick={() => handleViewQuote(quote.id)}>
+                      <div className="text-sm font-medium text-gray-700 cursor-pointer hover:text-coral-600" onClick={() => handleViewQuote(quote.id)}>
                         {quote.id}
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{formatDate(quote.issueDate)}</div>
+                      <div className="text-sm font-medium text-gray-700">{quote.customer}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
-                        {quote.firstName} {quote.lastName}
-                      </div>
+                      <div className="text-sm text-gray-700">{formatDate(quote.issueDate)}</div>
+                    </td>
+                     <td className="px-2 py-1 whitespace-nowrap">
+                      <div className="text-sm text-gray-700">{quote.eventType}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{formatDate(quote.eventDate)}</div>
+                      <div className="text-sm text-gray-700">{formatDate(quote.eventDate)}</div>
                     </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900 capitalize">{quote.eventType}</div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">
+                     <td className="px-2 py-1 whitespace-nowrap">
+                      <div className="text-sm text-gray-700">
                         {quote.fulfillmentType === 'pickup' 
-                          ? `Pickup: ${quote.pickupTime ? formatTime(quote.pickupTime) : 'TBD'}`
-                          : `Delivery: ${quote.deliveryTime ? formatTime(quote.deliveryTime) : 'TBD'}`
+                          ? <span className="flex items-center"><Package className="h-3 w-3 mr-1" /> Pickup: {quote.pickupTime ? formatTime(quote.pickupTime) : 'TBD'}</span>
+                          : <span className="flex items-center"><Truck className="h-3 w-3 mr-1" /> Delivery: {quote.deliveryTime ? formatTime(quote.deliveryTime) : 'TBD'}</span>
                         }
-                      
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{formatDate(quote.expirationDate)}</div>
+                      <div className="text-sm text-gray-700">{formatDate(quote.expiryDate)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right">
-                      <div className="text-sm font-medium text-gray-900">{formatCurrency(quote.total)}</div>
+                      <div className="text-sm font-medium text-gray-700">{formatCurrency(quote.amount)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(quote.status)}`}>

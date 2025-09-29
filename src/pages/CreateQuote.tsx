@@ -4,6 +4,9 @@ import { useQuoteContext } from '../context/QuoteContext';
 import { useInquiryContext } from '../context/InquiryContext';
 import Header from '../components/Header';
 import Logo from '../components/Logo';
+import VenueSelector from '../components/VenueSelector';
+import { Venue } from '../types/venue';
+import { mockCustomersList, mockProductsList } from '../data/mockData';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { 
   ArrowLeft,
@@ -61,6 +64,7 @@ interface QuoteFormData {
   pickupTime: string;
   deliveryTime: string;
   eventTime: string;
+  selectedVenue: Venue | null;
   poNumber: string;
   lineItems: LineItem[];
   subtotal: number;
@@ -85,48 +89,19 @@ const CreateQuote: React.FC = () => {
   const quoteNumber = location.state?.quoteNumber || generateDocumentNumber('quote');
   const inquiryId = location.state?.inquiryId;
 
-  // Mock customers data
-  const customers: Customer[] = [
-    {
-      id: '1',
-      name: 'Sarah Johnson',
-      email: 'sarah@email.com',
-      phone: '(555) 123-4567',
-      address: '123 Main Street',
-      city: 'Springfield',
-      state: 'IL',
-      zip: '62701'
-    },
-    {
-      id: '2',
-      name: 'Mike Chen',
-      email: 'mike@email.com',
-      phone: '(555) 234-5678',
-      address: '456 Oak Avenue',
-      city: 'Springfield',
-      state: 'IL',
-      zip: '62702'
-    },
-    {
-      id: '3',
-      name: 'Emma Davis',
-      email: 'emma@email.com',
-      phone: '(555) 345-6789',
-      address: '789 Pine Road',
-      city: 'Springfield',
-      state: 'IL',
-      zip: '62703'
-    }
-  ];
+  // Use centralized mock data
+  const customers: Customer[] = mockCustomersList.map(customer => ({
+    id: customer.id,
+    name: customer.name,
+    email: customer.email,
+    phone: customer.phone,
+    address: customer.address,
+    city: customer.city,
+    state: customer.state,
+    zip: customer.zip
+  }));
 
-  // Mock products/services
-  const products = [
-    { id: '1', name: 'Wedding Cake - 3 Tier', price: 450.00 },
-    { id: '2', name: 'Birthday Cake - Custom', price: 85.00 },
-    { id: '3', name: 'Cupcakes (dozen)', price: 36.00 },
-    { id: '4', name: 'Cake Delivery', price: 25.00 },
-    { id: '5', name: 'Setup Service', price: 50.00 }
-  ];
+  const products = mockProductsList;
 
   const [formData, setFormData] = useState<QuoteFormData>({
     quoteNumber,
@@ -138,6 +113,7 @@ const CreateQuote: React.FC = () => {
     pickupTime: '',
     deliveryTime: '',
     eventTime: '',
+    selectedVenue: null,
     poNumber: '',
     lineItems: [
       {
@@ -726,6 +702,14 @@ const CreateQuote: React.FC = () => {
                       className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
                     />
                     <p className="mt-1 text-xs text-gray-500">Only required if this order is for an event</p>
+                  </div>
+                  
+                  <div>
+                    <VenueSelector
+                      selectedVenue={formData.selectedVenue}
+                      onVenueSelect={(venue) => setFormData(prev => ({ ...prev, selectedVenue: venue }))}
+                      className="relative"
+                    />
                   </div>
                 </div>
               </div>

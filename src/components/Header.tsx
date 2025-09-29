@@ -5,14 +5,20 @@ import { Bell, Search, User, Mail, LogOut, Settings } from 'lucide-react';
 interface HeaderProps {
   title: string;
   subtitle?: string;
+  icon?: React.ElementType; // Change type from 'string' to 'React.ElementType' and make it optional
 }
 
-const Header: React.FC<HeaderProps> = ({ title, subtitle }) => {
+const Header: React.FC<HeaderProps> = ({ title, subtitle, icon: IconComponent }) => { // Destructure icon as IconComponent
   const navigate = useNavigate();
 
   const handleMailboxClick = () => {
-    // Navigate to communications/mailbox
-    console.log('Navigate to mailbox');
+    // Navigate to email box
+    navigate('/email');
+  };
+
+  const handleNotificationsClick = () => {
+    // Navigate to notifications
+    navigate('/notifications');
   };
 
   const handleAccountClick = () => {
@@ -34,7 +40,10 @@ const Header: React.FC<HeaderProps> = ({ title, subtitle }) => {
     <div className="bg-white shadow-sm border-b border-gray-200">
       <div className="flex items-center justify-between px-6 py-4">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900 tracking-tight">{title}</h1>
+          <h1 className="text-2xl font-semibold text-gray-900 tracking-tight flex items-center gap-2">
+            {IconComponent && <IconComponent className="w-6 h-6 text-coral-500" />} {/* Conditionally render the icon */}
+            {title}
+          </h1>
           {subtitle && <p className="text-sm text-gray-600 mt-1">{subtitle}</p>}
         </div>
         
@@ -51,16 +60,20 @@ const Header: React.FC<HeaderProps> = ({ title, subtitle }) => {
           </div>
           
           <button 
-            onClick={handleMailboxClick}
+            onClick={handleNotificationsClick}
             className="relative p-2 text-gray-400 hover:text-gray-500 transition-colors"
-            title="Mailbox"
+            title="Notifications"
           >
-            <Mail className="h-5 w-5" />
+            <Bell className="h-5 w-5" />
             <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-aqua-400 ring-2 ring-white" />
           </button>
           
-          <button className="relative p-2 text-gray-400 hover:text-gray-500 transition-colors" title="Notifications">
-            <Bell className="h-5 w-5" />
+          <button 
+            onClick={handleMailboxClick}
+            className="relative p-2 text-gray-400 hover:text-gray-500 transition-colors" 
+            title="Communication Center"
+          >
+            <Mail className="h-5 w-5" />
             <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-coral-400 ring-2 ring-white" />
           </button>
 

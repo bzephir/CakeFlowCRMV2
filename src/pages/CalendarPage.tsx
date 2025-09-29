@@ -60,9 +60,8 @@ const CalendarPage: React.FC = () => {
   };
 
   return (
-    <div className="flex-1 overflow-hidden">
-      <Header title="Calendar" />
-      
+    <div className="p-6">
+ <Header title="Calendar" icon={CalendarIcon} /> 
       <div className="p-6">
         {/* Calendar Controls */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">

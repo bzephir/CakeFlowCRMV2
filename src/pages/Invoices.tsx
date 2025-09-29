@@ -14,6 +14,7 @@ import {
   Download,
   Trash2,
   CheckCircle2, 
+  DollarSign,
   Clock, 
   CreditCard,
   AlertCircle,
@@ -154,9 +155,8 @@ const Invoices: React.FC = () => {
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <div className="flex-1 overflow-hidden">
-      <Header title="Invoices" />
-      
+    <div className="p-6">
+      <Header title="Invoice"icon={DollarSign} />
       <div className="p-6">
         {/* Actions Bar */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
