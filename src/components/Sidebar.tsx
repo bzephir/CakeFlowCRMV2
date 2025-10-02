@@ -126,7 +126,7 @@ const Sidebar: React.FC = () => {
                   <>
                     <span className="flex-1">{item.name}</span>
                     {item.badge && (
-                      <span className="ml-2 inline-flex items-center justify-center px-2 py-1 text-xs font-medium leading-none text-white bg-coral-500 rounded-full">
+                      <span className="ml-2 inline-flex items-center justify-center px-2 py-1 text-sm font-medium leading-none text-white bg-coral-500 rounded-full">
                         {item.badge}
                       </span>
                     )}
@@ -145,7 +145,7 @@ const Sidebar: React.FC = () => {
                     key={child.name}
                     to={child.href}
                     title={isCollapsed ? child.name : ''}
-                    className={`group flex items-center ${isCollapsed ? 'justify-center px-2' : 'px-2 pl-6'} py-1 text-sm font-medium rounded-md transition-colors ${
+                    className={`group flex items-center ${isCollapsed ? 'justify-center px-2' : 'px-2 pl-6'} py-1 text-xs font-medium rounded-md transition-colors ${
                       location.pathname === child.href
                         ? 'bg-coral-100 text-coral-900'
                         : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
