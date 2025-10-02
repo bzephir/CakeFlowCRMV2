@@ -21,7 +21,7 @@ const Sidebar: React.FC = () => {
   };
 
   const navigation = [
-    {
+    {ƒ
       name: 'Dashboard',
       href: '/',
       icon: Home,
