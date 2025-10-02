@@ -136,7 +136,7 @@ const Sidebar: React.FC = () => {
             ) : (
               <div>
                 {!isCollapsed && (
-                  <div className="px-2 py-1 text-xs font-bold text-gray-500 tracking-wide">
+                  <div className="px-2 py-1 text-sm font-bold text-gray-500 tracking-wide">
                     {item.name}
                   </div>
                 )}
