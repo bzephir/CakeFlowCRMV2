@@ -36,7 +36,6 @@ import EmailBox from './pages/EmailBox';
 
 const Production = () => <div className="p-6"><h1 className="text-2xl font-bold">Production</h1><p>Production management coming soon...</p></div>;
 const Packages = () => <div className="p-6"><h1 className="text-2xl font-bold">Packages</h1><p>Package management coming soon...</p></div>;
-const Inventory = () => <div className="p-6"><h1 className="text-2xl font-bold">Inventory</h1><p>Inventory management coming soon...</p></div>;
 const InventoryTracking = () => <div className="p-6"><h1 className="text-2xl font-bold">Inventory Tracking</h1><p>Inventory tracking coming soon...</p></div>;
 //const Venues = () => <div className="p-6"><h1 className="text-2xl font-bold">Venues</h1><p>Venue database coming soon...</p></div>;
 const Workflows = () => <div className="p-6"><h1 className="text-2xl font-bold">Workflows</h1><p>Workflow automation coming soon...</p></div>;
