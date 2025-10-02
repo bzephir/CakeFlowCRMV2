@@ -10,7 +10,7 @@ import Customers from './pages/Customers';
 import Recipes from './pages/Recipes';
 import RecipeDetail from './pages/RecipeDetail';
 import RecipeMarginReport from './pages/RecipeMarginReport';
-import Ingredients from '/pages/Ingredients';
+import Ingredients from './pages/Ingredients';
 import {InquiryProvider} from './context/InquiryContext';
 import InquiryForm from './pages/InquiryForm';
 import Inquiries from './pages/Inquiries';
