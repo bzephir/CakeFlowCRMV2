@@ -56,7 +56,8 @@ const Sidebar: React.FC = () => {
         { name: 'Production', href: '/production', icon: Factory },
         { name: 'Recipes', href: '/recipes', icon: ChefHat },
         { name: 'Packages', href: '/packages', icon: Package },
-        { name: 'Ingredients & Materials', href: '/inventory', icon: ShoppingCart },
+        { name: 'Ingredients', href: '/inventory', icon: ShoppingCart },
+        { name: 'Materials', href: '/materials', icon: OpenBox },
         { name: 'Inventory', href: '/inventory-tracking', icon: Archive },
       ]
     },
