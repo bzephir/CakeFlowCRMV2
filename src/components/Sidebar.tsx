@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useInquiryContext } from '../context/InquiryContext';
 import Logo from './Logo';
-import { Home, DollarSign, FileText, Receipt, BarChart3, Factory, ChefHat, Package, ShoppingCart, Archive, Users, MessageSquare, MapPin, ClipboardList, FilePen, Settings, UserCheck, Calendar, Upload, Truck, Cog, Mail, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Home, DollarSign, FileText, Receipt, BarChart3, Factory, ChefHat, Package, ShoppingCart, Archive, Users, MessageSquare, MapPin, Ligature as FileSignature, FilePen, Settings, UserCheck, Calendar, Upload, Truck, Cog, Mail, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const Sidebar: React.FC = () => {
   const location = useLocation();
@@ -21,7 +21,7 @@ const Sidebar: React.FC = () => {
   };
 
   const navigation = [
-    {ƒ
+    {
       name: 'Dashboard',
       href: '/',
       icon: Home,
@@ -64,7 +64,7 @@ const Sidebar: React.FC = () => {
       name: 'Customers',
       children: [
         { name: 'Customers', href: '/customers', icon: Users },
-        { name: 'Forms', href: '/forms', icon: ClipboardList },
+        { name: 'Forms', href: '/forms', icon: FileSignature },
         { name: 'Venues', href: '/venues', icon: MapPin },
         { name: 'Communication', href: '/communication', icon: MessageSquare },
       ]
@@ -106,7 +106,7 @@ const Sidebar: React.FC = () => {
               <Link
                 to={item.href}
                 title={isCollapsed ? item.name : ''}
-                className={`group flex items-center ${isCollapsed ? 'justify-center px-2' : 'px-2'} py-1.5 text-sm font-medium rounded-md transition-colors tracking-wide font-sans ${
+                className={`group flex items-center ${isCollapsed ? 'justify-center px-2' : 'px-2'} py-1.5 text-sm font-medium rounded-md transition-colors uppercase ${
                   item.current
                     ? 'bg-coral-100 text-coral-900'
                     : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
@@ -136,7 +136,7 @@ const Sidebar: React.FC = () => {
             ) : (
               <div>
                 {!isCollapsed && (
-                  <div className="px-2 py-1 text-xs font-semibold text-gray-500 uppercase tracking-wide font-sans">
+                  <div className="px-2 py-1 text-xs font-semibold text-gray-500 uppercase tracking-wide">
                     {item.name}
                   </div>
                 )}
@@ -145,7 +145,7 @@ const Sidebar: React.FC = () => {
                     key={child.name}
                     to={child.href}
                     title={isCollapsed ? child.name : ''}
-                    className={`group flex items-center ${isCollapsed ? 'justify-center px-2' : 'px-2 pl-6'} py-1 text-xs font-medium rounded-md transition-colors tracking-wide font-sans ${
+                    className={`group flex items-center ${isCollapsed ? 'justify-center px-2' : 'px-2 pl-6'} py-1 text-xs font-medium rounded-md transition-colors ${
                       location.pathname === child.href
                         ? 'bg-coral-100 text-coral-900'
                         : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
