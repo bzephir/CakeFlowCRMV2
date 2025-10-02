@@ -154,7 +154,6 @@ const FormDetail: React.FC<FormDetailProps> = ({ isAdminView }) => {
           />
           <SignatureBlock
             role="Owner"
-            showAdminNote
             showAdminNote={effectiveIsAdminView}
             firstName={owner.firstName}
             lastName={owner.lastName}
