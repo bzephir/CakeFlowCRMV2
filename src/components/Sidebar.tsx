@@ -106,7 +106,7 @@ const Sidebar: React.FC = () => {
               <Link
                 to={item.href}
                 title={isCollapsed ? item.name : ''}
-                className={`group flex items-center ${isCollapsed ? 'justify-center px-2' : 'px-2'} py-1.5 text-sm font-medium rounded-md transition-colors bold ${
+                className={`group flex items-center ${isCollapsed ? 'justify-center px-2' : 'px-2'} py-1.5 text-sm font-medium rounded-md transition-colors ${
                   item.current
                     ? 'bg-coral-100 text-coral-900'
                     : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'
