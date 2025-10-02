@@ -88,25 +88,25 @@ const Sidebar: React.FC = () => {
 
   return (
     <div className={`flex flex-col bg-white shadow-lg h-screen transition-all duration-300 ${isCollapsed ? 'w-16' : 'w-64'}`}>
-      <div className="flex items-center justify-center h-16 bg-gradient-to-r from-coral-400 to-pink-400 relative">
+      <div className="flex items-center justify-center h-12 bg-gradient-to-r from-coral-400 to-pink-400 relative">
         {isCollapsed ? (
           <Logo className="text-white" size="sm" />
         ) : (
-          <div className="flex items-center space-x-3">
-            <Logo className="text-white" size="md" />
-            <span className="text-xl font-semibold text-white tracking-tight">CakeFlow CRM</span>
+          <div className="flex items-center space-x-2">
+            <Logo className="text-white" size="sm" />
+            <span className="text-lg font-semibold text-white tracking-tight">CakeFlow CRM</span>
           </div>
         )}
       </div>
       
-      <nav className="mt-5 flex-1 px-2 pb-4 space-y-1 overflow-y-auto">
+      <nav className="mt-2 flex-1 px-2 pb-2 space-y-0.5 overflow-y-auto">
         {navigation.map((item) => (
           <div key={item.name}>
             {item.href ? (
               <Link
                 to={item.href}
                 title={isCollapsed ? item.name : ''}
-                className={`group flex items-center ${isCollapsed ? 'justify-center px-2' : 'px-2'} py-2 text-sm font-medium rounded-md transition-colors ${
+                className={`group flex items-center ${isCollapsed ? 'justify-center px-2' : 'px-2'} py-1.5 text-sm font-medium rounded-md transition-colors ${
                   item.current
                     ? 'bg-coral-100 text-coral-900'
                     : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
@@ -114,7 +114,7 @@ const Sidebar: React.FC = () => {
               >
                 <div className="relative">
                   <item.icon
-                    className={`${isCollapsed ? '' : 'mr-3'} h-5 w-5 transition-colors ${
+                    className={`${isCollapsed ? '' : 'mr-2.5'} h-4 w-4 transition-colors ${
                       item.current ? 'text-coral-500' : 'text-gray-400 group-hover:text-gray-500'
                     }`}
                   />
@@ -136,7 +136,7 @@ const Sidebar: React.FC = () => {
             ) : (
               <div>
                 {!isCollapsed && (
-                  <div className="px-2 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                  <div className="px-2 py-1 text-xs font-semibold text-gray-500 uppercase tracking-wide">
                     {item.name}
                   </div>
                 )}
@@ -145,14 +145,14 @@ const Sidebar: React.FC = () => {
                     key={child.name}
                     to={child.href}
                     title={isCollapsed ? child.name : ''}
-                    className={`group flex items-center ${isCollapsed ? 'justify-center px-2' : 'px-2 pl-8'} py-2 text-sm font-medium rounded-md transition-colors ${
+                    className={`group flex items-center ${isCollapsed ? 'justify-center px-2' : 'px-2 pl-6'} py-1 text-xs font-medium rounded-md transition-colors ${
                       location.pathname === child.href
                         ? 'bg-coral-100 text-coral-900'
                         : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                     }`}
                   >
                     <child.icon
-                      className={`${isCollapsed ? '' : 'mr-3'} h-4 w-4 transition-colors ${
+                      className={`${isCollapsed ? '' : 'mr-2'} h-3.5 w-3.5 transition-colors ${
                         location.pathname === child.href ? 'text-coral-500' : 'text-gray-400 group-hover:text-gray-500'
                       }`}
                     />
@@ -165,18 +165,18 @@ const Sidebar: React.FC = () => {
         ))}
       </nav>
 
-      <div className="p-2 border-t border-gray-200">
+      <div className="p-1.5 border-t border-gray-200">
         <button
           onClick={toggleSidebar}
-          className="w-full flex items-center justify-center p-2 text-gray-600 hover:bg-gray-50 rounded-md transition-colors"
+          className="w-full flex items-center justify-center p-1.5 text-gray-600 hover:bg-gray-50 rounded-md transition-colors"
           title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
         >
           {isCollapsed ? (
-            <ChevronRight className="h-5 w-5" />
+            <ChevronRight className="h-4 w-4" />
           ) : (
             <>
-              <ChevronLeft className="h-5 w-5 mr-2" />
-              <span className="text-sm font-medium">Collapse</span>
+              <ChevronLeft className="h-4 w-4 mr-1.5" />
+              <span className="text-xs font-medium">Collapse</span>
             </>
           )}
         </button>
