@@ -73,7 +73,7 @@ function App() {
                 <Route path="/recipes/:id" element={<RecipeDetail />} />
                 <Route path="/recipes/margin-report" element={<RecipeMarginReport />} />
                 <Route path="/packages" element={<Packages />} />
-                <Route path="/inventory" element={<Inventory />} />
+                <Route path="/ingredients" element={<Ingredients />} />
                 <Route path="/inventory-tracking" element={<InventoryTracking/>} />
                 <Route path="/customers" element={<Customers />} />
                 <Route path="/customers/:id" element={<CustomerDetail />} />
