@@ -16,6 +16,8 @@ const Ingredients: React.FC = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isVendorModalOpen, setIsVendorModalOpen] = useState(false);
   const [editingIngredient, setEditingIngredient] = useState<MasterIngredient | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   const categories = getIngredientCategories();
   const lowStockItems = getLowStockIngredients();
@@ -35,6 +37,26 @@ const Ingredients: React.FC = () => {
 
       return matchesSearch && matchesCategory && matchesStock;
     });
+  }, [searchTerm, categoryFilter, stockFilter]);
+
+  const totalPages = Math.ceil(filteredIngredients.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedIngredients = filteredIngredients.slice(startIndex, endIndex);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    setExpandedId(null);
+  };
+
+  const handleItemsPerPageChange = (value: number) => {
+    setItemsPerPage(value);
+    setCurrentPage(1);
+    setExpandedId(null);
+  };
+
+  useMemo(() => {
+    setCurrentPage(1);
   }, [searchTerm, categoryFilter, stockFilter]);
 
   const getVendorName = (vendorId?: string) => {
@@ -249,8 +271,8 @@ const Ingredients: React.FC = () => {
           </div>
         </div>
 
-        <div className="space-y-0 mb-6">
-          {filteredIngredients.map((ingredient) => {
+        <div className="space-y-0">
+          {paginatedIngredients.map((ingredient) => {
             const status = getStockStatus(ingredient);
             const isExpanded = expandedId === ingredient.id;
             const recipesUsing = mockRecipesUsingIngredient(ingredient.id);
@@ -414,6 +436,75 @@ const Ingredients: React.FC = () => {
             </div>
           )}
         </div>
+
+        {filteredIngredients.length > 0 && (
+          <div className="bg-white border border-gray-200 rounded-lg p-4 mt-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <span className="text-sm text-gray-700">
+                  Showing {startIndex + 1} to {Math.min(endIndex, filteredIngredients.length)} of {filteredIngredients.length} ingredients
+                </span>
+                <div className="flex items-center space-x-2">
+                  <label htmlFor="itemsPerPage" className="text-sm text-gray-700">
+                    Show:
+                  </label>
+                  <select
+                    id="itemsPerPage"
+                    value={itemsPerPage}
+                    onChange={(e) => handleItemsPerPageChange(Number(e.target.value))}
+                    className="block w-20 px-2 py-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                  >
+                    <option value={5}>5</option>
+                    <option value={10}>10</option>
+                    <option value={20}>20</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className={`px-3 py-1 rounded-md text-sm font-medium ${
+                    currentPage === 1
+                      ? 'text-gray-400 cursor-not-allowed'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  Previous
+                </button>
+
+                <div className="flex space-x-1">
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                    <button
+                      key={page}
+                      onClick={() => handlePageChange(page)}
+                      className={`px-3 py-1 rounded-md text-sm font-medium ${
+                        currentPage === page
+                          ? 'bg-coral-500 text-white'
+                          : 'text-gray-700 hover:bg-gray-100'
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  ))}
+                </div>
+
+                <button
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  className={`px-3 py-1 rounded-md text-sm font-medium ${
+                    currentPage === totalPages
+                      ? 'text-gray-400 cursor-not-allowed'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         <MeasurementConverter ingredients={mockIngredients} />
       </div>
