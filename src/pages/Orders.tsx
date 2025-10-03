@@ -231,22 +231,22 @@ const Orders: React.FC = () => {
                   <th className="px-2 py-1 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
                     Event Type
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
                     Event Date
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
                     Fulfillment
                   </th>
-                  <th className="px-2 py-1 text-right text-xs font-bold text-gray-900 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-right text-xs font-bold text-gray-500 uppercase tracking-wider">
                     Total
                   </th>
-                  <th className="px-2 py-1 text-right text-xs font-bold text-gray-900 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-right text-xs font-bold text-gray-500 uppercase tracking-wider">
                     Balance
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-2 py-1 text-right text-xs font-bold text-gray-900 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-right text-xs font-bold text-gray-500 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>

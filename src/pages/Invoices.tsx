@@ -288,31 +288,30 @@ const Invoices: React.FC = () => {
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900 cursor-pointer hover:text-aqua-600" onClick={() => handleViewInvoice(invoice.id)}>
+                      <div className="text-sm font-medium text-gray-700 cursor-pointer hover:text-aqua-600" onClick={() => handleViewInvoice(invoice.id)}>
                         {invoice.id}
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{formatDate(invoice.issueDate)}</div>
+                      <div className="text-sm text-gray-700">{formatDate(invoice.issueDate)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
-                        {invoice.firstName} {invoice.lastName}
-                      </div>
+                      <div className="text-sm font-medium text-gray-700">{invoice.customer}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900 capitalize">{invoice.eventType}</div>
+                      <div className="text-sm text-gray-700">{invoice.eventType}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right">
-                      <div className="text-sm font-medium text-gray-900">{formatCurrency(invoice.total)}</div>
+                      <div className="text-sm font-medium text-gray-700">{formatCurrency(invoice.amount)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right">
-                      <div className="text-sm font-medium text-gray-900">{formatCurrency(invoice.amountPaid)}</div>
+                      <div className="text-sm font-medium text-gray-700">{formatCurrency(invoice.paid)}</div>
                     </td>
                       <td className="px-2 py-1 whitespace-nowrap text-right">
-                        <div className="text-sm font-medium text-gray-900">{formatCurrency(invoice.balance)}</div>
+                        <div className="text-sm font-medium text-gray-700">{formatCurrency(invoice.balance)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
+                      <div className="text-sm text-gray-700">{formatDate(invoice.dueDate)}</div>
                       <div className="text-sm text-gray-900">
                         {invoice.nextPaymentDueDate ? formatDate(invoice.nextPaymentDueDate) : formatDate(invoice.dueDate)}
                       </div>

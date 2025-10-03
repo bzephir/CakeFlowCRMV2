@@ -143,7 +143,7 @@ const Inquiries: React.FC = () => {
               </div>
               <div className="ml-3">
                 <p className="text-sm font-medium text-gray-500">New Inquiries</p>
-                <p className="text-lg font-semibold text-gray-900">
+                <p className="text-lg font-semibold text-gray-700">
                   {inquiries.filter(i => i.status === 'new').length}
                 </p>
               </div>
@@ -159,7 +159,7 @@ const Inquiries: React.FC = () => {
               </div>
               <div className="ml-3">
                 <p className="text-sm font-medium text-gray-500">In Progress</p>
-                <p className="text-lg font-semibold text-gray-900">
+                <p className="text-lg font-semibold text-gray-700">
                   {inquiries.filter(i => i.status === 'opened' || i.status === 'contacted').length}
                 </p>
               </div>
@@ -175,7 +175,7 @@ const Inquiries: React.FC = () => {
               </div>
               <div className="ml-3">
                 <p className="text-sm font-medium text-gray-500">Converted</p>
-                <p className="text-lg font-semibold text-gray-900">
+                <p className="text-lg font-semibold text-gray-700">
                   {inquiries.filter(i => i.status === 'converted').length}
                 </p>
               </div>
@@ -191,7 +191,7 @@ const Inquiries: React.FC = () => {
               </div>
               <div className="ml-3">
                 <p className="text-sm font-medium text-gray-500">This Month</p>
-                <p className="text-lg font-semibold text-gray-900">
+                <p className="text-lg font-semibold text-gray-700">
                   {inquiries.filter(i => {
                     const date = new Date(i.submittedAt);
                     const now = new Date();
@@ -247,14 +247,14 @@ const Inquiries: React.FC = () => {
                           {getTypeIcon(inquiry.type)}
                         </div>
                         <div className="ml-4">
-                          <div className="text-sm font-medium text-gray-900">{inquiry.id}</div>
+                          <div className="text-sm font-medium text-gray-700">{inquiry.id}</div>
                           <div className="text-xs text-gray-500 flex items-center">
                           </div>
                         </div>
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                          <div className="text-sm font-medium text-gray-900">
+                          <div className="text-sm font-medium text-gray-700">
                             {inquiry.firstName} {inquiry.lastName}
                           </div>
                           <div className="flex flex-col text-xs text-gray-500">
@@ -263,18 +263,18 @@ const Inquiries: React.FC = () => {
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900 capitalize"> {inquiry.eventType} </div>
+                      <div className="text-sm text-gray-700 capitalize"> {inquiry.eventType} </div>
                       <div className="text-sm text-gray-500">
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900 capitalize" > {formatDate(inquiry.eventDate)}</div>
+                      <div className="text-sm text-gray-700 capitalize" > {formatDate(inquiry.eventDate)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      {inquiry.eventTime && <div className="text-sm text-gray-900">{formatTime(inquiry.eventTime)}</div>}
+                      {inquiry.eventTime && <div className="text-sm text-gray-700">{formatTime(inquiry.eventTime)}</div>}
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">
+                      <div className="text-sm text-gray-700">
                         {inquiry.fulfillmentType === 'pickup' 
                           ? `Pickup: ${inquiry.pickupTime ? formatTime(inquiry.pickupTime) : 'TBD'}`
                           : `Delivery: ${inquiry.deliveryTime ? formatTime(inquiry.deliveryTime) : 'TBD'}`
@@ -288,7 +288,7 @@ const Inquiries: React.FC = () => {
                       </div>
                     </td>
                       <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">
+                      <div className="text-sm text-gray-700">
                         {inquiry.assignedTo ? ` ${inquiry.assignedTo}` : 'Unassigned'}
                       </div>
                       </td>
