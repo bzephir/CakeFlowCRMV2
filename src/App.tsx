@@ -75,7 +75,7 @@ function App() {
                 <Route path="/recipes/margin-report" element={<RecipeMarginReport />} />
                 <Route path="/packages" element={<Packages />} />
                 <Route path="/ingredients" element={<Ingredients />} />
-                <Route path="/materials" element={<Materialss />} />
+                <Route path="/materials" element={<Materials />} />
                 <Route path="/inventory" element={<Inventory />} />
                 <Route path="/inventory-tracking" element={<InventoryTracking/>} />
                 <Route path="/customers" element={<Customers />} />
