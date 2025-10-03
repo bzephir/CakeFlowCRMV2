@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useInquiryContext } from '../context/InquiryContext';
 import Logo from './Logo';
-import { Home, DollarSign, FileText, Receipt, BarChart3, Factory, ChefHat, Package, ShoppingCart, Archive, Users, MessageSquare, MapPin, Ligature as FileSignature, FilePen, Settings, UserCheck, Calendar, Upload, Truck, Cog, Mail, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Home, DollarSign, FileText, Receipt, BarChart3, Factory, ChefHat, Package, ShoppingCart, Archive, Users, MessageSquare, MapPin, Ligature as FileSignature, FilePen, Settings, UserCheck, Calendar, Upload, Truck, Cog, Mail, ChevronLeft, ChevronRight, ToolCase } from 'lucide-react';
 
 const Sidebar: React.FC = () => {
   const location = useLocation();
@@ -57,7 +57,7 @@ const Sidebar: React.FC = () => {
         { name: 'Recipes', href: '/recipes', icon: ChefHat },
         { name: 'Packages', href: '/packages', icon: Package },
         { name: 'Ingredients', href: '/ingredients', icon: ShoppingCart },
-        { name: 'Materials', href: '/materials', icon: Package },
+        { name: 'Materials', href: '/materials', icon: ToolCase },
         { name: 'Inventory', href: '/inventory-tracking', icon: Archive },
       ]
     },
