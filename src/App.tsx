@@ -12,7 +12,10 @@ import RecipeDetail from './pages/RecipeDetail';
 import RecipeMarginReport from './pages/RecipeMarginReport';
 import Ingredients from './pages/Ingredients';
 import Materials from'./pages/Materials';
-import {InquiryProvider} from './context/InquiryContext';
+import { InquiryProvider } from './context/InquiryContext';
+import { InvoiceProvider } from './context/InvoiceContext';
+import { OrderProvider } from './context/OrderContext';
+import { QuoteProvider } from './context/QuoteContext';
 import InquiryForm from './pages/InquiryForm';
 import Inquiries from './pages/Inquiries';
 import InquiryDetail from './pages/InquiryDetail';
@@ -48,12 +51,15 @@ const Users = () => <div className="p-6"><h1 className="text-2xl font-bold">User
 function App() {
   return (
     <InquiryProvider>
-      <Router>
-        <div className="flex h-screen bg-gray-50">
-          <Sidebar />
-          <div className="flex-1 flex flex-col min-h-0 overflow-hidden transition-all duration-300">
-            <div className="flex-1 overflow-y-auto">
-              <Routes>
+      <OrderProvider>
+        <QuoteProvider>
+          <InvoiceProvider>
+            <Router>
+              <div className="flex h-screen bg-gray-50">
+                <Sidebar />
+                <div className="flex-1 flex flex-col min-h-0 overflow-hidden transition-all duration-300">
+                  <div className="flex-1 overflow-y-auto">
+                    <Routes>
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/schedule" element={<CalendarPage />} />
                 <Route path="/inquiries" element={<Inquiries />} />
@@ -94,11 +100,14 @@ function App() {
                 <Route path="/users" element={<Users />} />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/reports" element={<Reports />} />
-              </Routes>
-            </div>
-          </div>
-        </div>
-      </Router>
+                    </Routes>
+                  </div>
+                </div>
+              </div>
+            </Router>
+          </InvoiceProvider>
+        </QuoteProvider>
+      </OrderProvider>
     </InquiryProvider>
   );
 }
