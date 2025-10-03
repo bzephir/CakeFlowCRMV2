@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Quote, QuoteAction } from '../types';
-import { mockQuotes, getNewQuotesCount } from '../data/quotes';
+import { mockQuotesList, getNewQuotesCount } from '../data/mockData';
 
 interface QuoteContextType {
   quotes: Quote[];
@@ -43,7 +43,7 @@ export const QuoteProvider: React.FC<QuoteProviderProps> = ({ children }) => {
   // Initialize with mock data
   useEffect(() => {
     try {
-      setQuotes(mockQuotes);
+      setQuotes(mockQuotesList as any);
       setLoading(false);
     } catch (err) {
       setError('Failed to load quotes');

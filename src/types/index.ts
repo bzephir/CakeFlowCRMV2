@@ -101,18 +101,62 @@ export interface Quote {
   expiryDate: string;
 }
 
+export interface InvoiceItem {
+  id: string;
+  name: string;
+  description: string;
+  quantity: number;
+  unitPrice: number;
+  total: number;
+}
+
+export interface Payment {
+  id: string;
+  date: string;
+  amount: number;
+  method: string;
+  reference?: string;
+}
+
 export interface Invoice {
   id: string;
+  invoiceNumber: string;
+  orderId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  address1?: string;
+  address2?: string;
+  city?: string;
+  state?: string;
+  zip?: string;
+  eventType: string;
+  eventName?: string;
   eventDate: string;
+  eventTime?: string;
+  guestCount?: number;
   fulfillmentType: 'pickup' | 'delivery';
   pickupTime?: string;
   deliveryTime?: string;
-  eventTime?: string;
-  status: 'paid' | 'deposit-paid' | 'pending' | 'overdue' | 'draft';
+  venue?: string;
+  items: InvoiceItem[];
+  subtotal: number;
+  taxRate: number;
+  taxAmount: number;
   total: number;
+  payments: Payment[];
+  amountPaid: number;
   balance: number;
+  nextPaymentDueDate?: string;
+  status: 'paid' | 'deposit_paid' | 'partial' | 'pending' | 'overdue' | 'draft';
   issueDate: string;
   dueDate: string;
+  notes?: string;
+  internalNotes?: string;
+  termsConditions?: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface Communication {
