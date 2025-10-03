@@ -506,7 +506,9 @@ const Ingredients: React.FC = () => {
           </div>
         )}
 
-        <MeasurementConverter ingredients={mockIngredients} />
+        <div className="mt-8">
+          <MeasurementConverter ingredients={mockIngredients} />
+        </div>
       </div>
 
       <IngredientForm
