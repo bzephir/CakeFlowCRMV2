@@ -296,16 +296,16 @@ const Invoices: React.FC = () => {
                       <div className="text-sm text-gray-700">{formatDate(invoice.issueDate)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-700">{invoice.customer}</div>
+                      <div className="text-sm font-medium text-gray-700">{invoice.firstName} {invoice.lastName}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-700">{invoice.eventType}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right">
-                      <div className="text-sm font-medium text-gray-700">{formatCurrency(invoice.amount)}</div>
+                      <div className="text-sm font-medium text-gray-700">{formatCurrency(invoice.total)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right">
-                      <div className="text-sm font-medium text-gray-700">{formatCurrency(invoice.paid)}</div>
+                      <div className="text-sm font-medium text-gray-700">{formatCurrency(invoice.amountPaid)}</div>
                     </td>
                       <td className="px-2 py-1 whitespace-nowrap text-right">
                         <div className="text-sm font-medium text-gray-700">{formatCurrency(invoice.balance)}</div>
