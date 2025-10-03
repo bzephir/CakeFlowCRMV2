@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import Header from '../components/Header';
-import { Plus, Search, Filter, Package, DollarSign, AlertTriangle, TrendingUp, ChevronDown, ChevronUp, Edit } from 'lucide-react';
+import { Plus, Search, Filter, Package, DollarSign, AlertTriangle, TrendingUp, ChevronDown, ChevronUp, CreditCard as Edit } from 'lucide-react';
 import {
   mockMaterials,
   getMaterialCategories,
