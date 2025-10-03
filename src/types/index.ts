@@ -290,3 +290,35 @@ export interface InquiryForm {
   submittedAt: string;
   status: 'new' | 'contacted' | 'quoted' | 'converted' | 'declined';
 }
+
+export type MaterialCategory =
+  | 'Cake Boards'
+  | 'Cake Boxes'
+  | 'Cake Drums'
+  | 'Cupcake Containers'
+  | 'Decorations'
+  | 'Toppers'
+  | 'Wrapping Materials'
+  | 'Straws'
+  | 'Bags'
+  | 'Miscellaneous';
+
+export interface Material {
+  id: string;
+  name: string;
+  category: MaterialCategory;
+  unitQuantity: number;
+  packageCost: number;
+  costPerItem: number;
+  pricePerItem: number;
+  profitMargin: number;
+  inventoryQuantity: number;
+  totalItemsAvailable: number;
+  reorderLevel: number;
+  vendorId?: string;
+  vendorName?: string;
+  canLinkToRecipe: boolean;
+  notes?: string;
+  createdAt: string;
+  updatedAt: string;
+}
