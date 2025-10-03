@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { useOrderContext } from '../context/OrderContext';
+import { useQuoteContext } from '../context/QuoteContext';
 import Header from '../components/Header';
 import VenueSelector from '../components/VenueSelector';
 import { Venue } from '../types/venue';
@@ -72,8 +74,12 @@ interface OrderFormData {
 
 const CreateOrder: React.FC = () => {
   const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
   const location = useLocation();
+  const { addOrder } = useOrderContext();
+  const { getQuoteById } = useQuoteContext();
   const orderNumber = location.state?.orderNumber || generateDocumentNumber('order');
+  const quoteId = location.state?.quoteId;
 
   // Mock customers data
   const customers: Customer[] = [
@@ -122,6 +128,62 @@ const CreateOrder: React.FC = () => {
     'Wedding', 'Birthday', 'Anniversary', 'Corporate Event', 'Baby Shower',
     'Graduation', 'Holiday Party', 'Bridal Shower', 'Engagement', 'Other'
   ];
+
+  // If we have a quote ID, pre-populate the form with quote data
+  useEffect(() => {
+    if (quoteId) {
+      const quote = getQuoteById(quoteId);
+      if (quote) {
+        // Find customer in mock data or create new one
+        const existingCustomer = customers.find(c => 
+          c.email.toLowerCase() === quote.email.toLowerCase()
+        );
+        
+        const customerInfo = existingCustomer || {
+          id: 'new',
+          name: `${quote.firstName} ${quote.lastName}`,
+          email: quote.email,
+          phone: quote.phone,
+          address: '',
+          city: '',
+          state: '',
+          zip: ''
+        };
+        
+        // Map quote items to order items
+        const orderItems = quote.quoteItems.map(item => ({
+          id: item.id,
+          name: item.name,
+          description: item.description || '',
+          quantity: item.quantity,
+          unitPrice: item.unitPrice,
+          total: item.total
+        }));
+        
+        setFormData(prev => ({
+          ...prev,
+          customerId: customerInfo.id,
+          customerInfo,
+          eventDate: quote.eventDate,
+          fulfillmentType: quote.fulfillmentType,
+          pickupTime: quote.pickupTime || '',
+          deliveryTime: quote.deliveryTime || '',
+          eventTime: quote.eventTime || '',
+          eventType: quote.type === 'wedding' ? 'Wedding' : 
+                     quote.type === 'corporate' ? 'Corporate Event' : 
+                     'Birthday', // Default to Birthday for celebration
+          guestCount: quote.guestCount || 0,
+          orderItems,
+          subtotal: quote.subtotal,
+          taxRate: quote.taxRate,
+          taxAmount: quote.taxAmount,
+          total: quote.total,
+          specialInstructions: quote.customerNotes,
+          status: 'confirmed'
+        }));
+      }
+    }
+  }, [quoteId, getQuoteById]);
 
   const [formData, setFormData] = useState<OrderFormData>({
     orderNumber,
@@ -274,7 +336,41 @@ const CreateOrder: React.FC = () => {
 
   const handleSaveOrder = () => {
     if (validateForm()) {
-      console.log('Saving order:', formData);
+      // Prepare order data for context
+      const orderData = {
+        type: formData.eventType.toLowerCase().includes('wedding') ? 'wedding' : 
+              formData.eventType.toLowerCase().includes('corporate') ? 'corporate' : 
+              'celebration',
+        status: formData.status,
+        firstName: formData.customerInfo?.name.split(' ')[0] || '',
+        lastName: formData.customerInfo?.name.split(' ')[1] || '',
+        email: formData.customerInfo?.email || '',
+        phone: formData.customerInfo?.phone || '',
+        eventDate: formData.eventDate,
+        fulfillmentType: formData.fulfillmentType,
+        pickupTime: formData.pickupTime,
+        deliveryTime: formData.deliveryTime,
+        eventTime: formData.eventTime,
+        guestCount: formData.guestCount,
+        budget: '', // Would come from form
+        hearAboutUs: '', // Would come from form
+        additionalNotes: formData.specialInstructions,
+        details: {}, // Would need to be populated based on type
+        orderItems: formData.orderItems,
+        payments: [], // Would be populated from payment history
+        subtotal: formData.subtotal,
+        taxRate: formData.taxRate,
+        taxAmount: formData.taxAmount,
+        total: formData.total,
+        depositAmount: formData.depositAmount,
+        balance: formData.balance,
+        specialInstructions: formData.specialInstructions,
+        deliveryNotes: formData.deliveryNotes
+      };
+      
+      // Add order to context
+      addOrder(orderData);
+      
       alert(`Order ${formData.orderNumber} saved successfully!`);
       navigate('/orders');
     }

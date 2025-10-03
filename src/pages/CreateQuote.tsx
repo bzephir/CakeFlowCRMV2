@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { useQuoteContext } from '../context/QuoteContext';
+import { useInquiryContext } from '../context/InquiryContext';
 import Header from '../components/Header';
 import Logo from '../components/Logo';
 import VenueSelector from '../components/VenueSelector';
@@ -80,8 +82,12 @@ interface QuoteFormData {
 
 const CreateQuote: React.FC = () => {
   const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
   const location = useLocation();
+  const { addQuote } = useQuoteContext();
+  const { getInquiryById } = useInquiryContext();
   const quoteNumber = location.state?.quoteNumber || generateDocumentNumber('quote');
+  const inquiryId = location.state?.inquiryId;
 
   // Use centralized mock data
   const customers: Customer[] = mockCustomersList.map(customer => ({
@@ -137,6 +143,44 @@ const CreateQuote: React.FC = () => {
   const [showProductDropdown, setShowProductDropdown] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showPreview, setShowPreview] = useState(false);
+
+  // If we have an inquiry ID, pre-populate the form with inquiry data
+  useEffect(() => {
+    if (inquiryId) {
+      const inquiry = getInquiryById(inquiryId);
+      if (inquiry) {
+        // Find customer in mock data or create new one
+        const existingCustomer = customers.find(c => 
+          c.email.toLowerCase() === inquiry.email.toLowerCase()
+        );
+        
+        const customerInfo = existingCustomer || {
+          id: 'new',
+          name: `${inquiry.firstName} ${inquiry.lastName}`,
+          email: inquiry.email,
+          phone: inquiry.phone,
+          address: '',
+          city: '',
+          state: '',
+          zip: ''
+        };
+        
+        setFormData(prev => ({
+          ...prev,
+          customerId: customerInfo.id,
+          customerInfo,
+          eventDate: inquiry.eventDate,
+          fulfillmentType: inquiry.fulfillmentType,
+          pickupTime: inquiry.pickupTime || '',
+          deliveryTime: inquiry.deliveryTime || '',
+          eventTime: inquiry.eventTime || '',
+          customerNotes: inquiry.additionalNotes || ''
+        }));
+        
+        setCustomerSearch(customerInfo.name);
+      }
+    }
+  }, [inquiryId, getInquiryById]);
 
   // Calculate totals whenever line items, discount, or shipping changes
   useEffect(() => {
@@ -261,7 +305,49 @@ const CreateQuote: React.FC = () => {
 
   const handleSaveDraft = () => {
     if (validateForm()) {
-      console.log('Saving quote as draft:', formData);
+      // Prepare quote data for context
+      const quoteData = {
+        type: formData.customerInfo?.type || 'celebration',
+        status: 'draft',
+        firstName: formData.customerInfo?.name.split(' ')[0] || '',
+        lastName: formData.customerInfo?.name.split(' ')[1] || '',
+        email: formData.customerInfo?.email || '',
+        phone: formData.customerInfo?.phone || '',
+        eventDate: formData.eventDate,
+        fulfillmentType: formData.fulfillmentType,
+        pickupTime: formData.pickupTime,
+        deliveryTime: formData.deliveryTime,
+        eventTime: formData.eventTime,
+        guestCount: 0, // Would come from form
+        budget: '', // Would come from form
+        hearAboutUs: '', // Would come from form
+        additionalNotes: formData.customerNotes,
+        details: {}, // Would need to be populated based on type
+        quoteItems: formData.lineItems.map(item => ({
+          id: item.id,
+          name: item.name,
+          description: item.description,
+          quantity: item.quantity,
+          unitPrice: item.unitPrice,
+          total: item.total
+        })),
+        subtotal: formData.subtotal,
+        discountType: formData.discountType,
+        discountValue: formData.discountValue,
+        discountAmount: formData.discountAmount,
+        taxRate: formData.taxRate,
+        taxAmount: formData.taxAmount,
+        shippingFee: formData.shippingFee,
+        total: formData.total,
+        customerNotes: formData.customerNotes,
+        internalNotes: formData.internalNotes,
+        termsConditions: formData.termsConditions,
+        expiryDate: formData.expirationDate
+      };
+      
+      // Add quote to context
+      addQuote(quoteData);
+      
       alert('Quote saved as draft successfully!');
       navigate('/quotes');
     }
@@ -269,7 +355,49 @@ const CreateQuote: React.FC = () => {
 
   const handleSendQuote = () => {
     if (validateForm()) {
-      console.log('Sending quote to customer:', formData);
+      // Prepare quote data for context
+      const quoteData = {
+        type: formData.customerInfo?.type || 'celebration',
+        status: 'sent',
+        firstName: formData.customerInfo?.name.split(' ')[0] || '',
+        lastName: formData.customerInfo?.name.split(' ')[1] || '',
+        email: formData.customerInfo?.email || '',
+        phone: formData.customerInfo?.phone || '',
+        eventDate: formData.eventDate,
+        fulfillmentType: formData.fulfillmentType,
+        pickupTime: formData.pickupTime,
+        deliveryTime: formData.deliveryTime,
+        eventTime: formData.eventTime,
+        guestCount: 0, // Would come from form
+        budget: '', // Would come from form
+        hearAboutUs: '', // Would come from form
+        additionalNotes: formData.customerNotes,
+        details: {}, // Would need to be populated based on type
+        quoteItems: formData.lineItems.map(item => ({
+          id: item.id,
+          name: item.name,
+          description: item.description,
+          quantity: item.quantity,
+          unitPrice: item.unitPrice,
+          total: item.total
+        })),
+        subtotal: formData.subtotal,
+        discountType: formData.discountType,
+        discountValue: formData.discountValue,
+        discountAmount: formData.discountAmount,
+        taxRate: formData.taxRate,
+        taxAmount: formData.taxAmount,
+        shippingFee: formData.shippingFee,
+        total: formData.total,
+        customerNotes: formData.customerNotes,
+        internalNotes: formData.internalNotes,
+        termsConditions: formData.termsConditions,
+        expiryDate: formData.expirationDate
+      };
+      
+      // Add quote to context
+      addQuote(quoteData);
+      
       alert(`Quote ${formData.quoteNumber} sent to ${formData.customerInfo?.email} successfully!`);
       navigate('/quotes');
     }
