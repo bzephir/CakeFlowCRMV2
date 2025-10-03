@@ -16,6 +16,8 @@ const Materials: React.FC = () => {
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [stockFilter, setStockFilter] = useState('all');
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   const categories = getMaterialCategories();
   const lowStockItems = getLowStockMaterials();
@@ -37,6 +39,26 @@ const Materials: React.FC = () => {
 
       return matchesSearch && matchesCategory && matchesStock;
     });
+  }, [searchTerm, categoryFilter, stockFilter]);
+
+  const totalPages = Math.ceil(filteredMaterials.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedMaterials = filteredMaterials.slice(startIndex, endIndex);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    setExpandedId(null);
+  };
+
+  const handleItemsPerPageChange = (value: number) => {
+    setItemsPerPage(value);
+    setCurrentPage(1);
+    setExpandedId(null);
+  };
+
+  useMemo(() => {
+    setCurrentPage(1);
   }, [searchTerm, categoryFilter, stockFilter]);
 
   const getStockStatus = (material: Material) => {
@@ -241,8 +263,8 @@ const Materials: React.FC = () => {
           </div>
         </div>
 
-        <div className="space-y-0 mb-6">
-          {filteredMaterials.map((material) => {
+        <div className="space-y-0">
+          {paginatedMaterials.map((material) => {
             const status = getStockStatus(material);
             const isExpanded = expandedId === material.id;
 
@@ -431,6 +453,75 @@ const Materials: React.FC = () => {
             </div>
           )}
         </div>
+
+        {filteredMaterials.length > 0 && (
+          <div className="bg-white border border-gray-200 rounded-lg p-4 mt-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <span className="text-sm text-gray-700">
+                  Showing {startIndex + 1} to {Math.min(endIndex, filteredMaterials.length)} of {filteredMaterials.length} materials
+                </span>
+                <div className="flex items-center space-x-2">
+                  <label htmlFor="itemsPerPage" className="text-sm text-gray-700">
+                    Show:
+                  </label>
+                  <select
+                    id="itemsPerPage"
+                    value={itemsPerPage}
+                    onChange={(e) => handleItemsPerPageChange(Number(e.target.value))}
+                    className="block w-20 px-2 py-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                  >
+                    <option value={5}>5</option>
+                    <option value={10}>10</option>
+                    <option value={20}>20</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className={`px-3 py-1 rounded-md text-sm font-medium ${
+                    currentPage === 1
+                      ? 'text-gray-400 cursor-not-allowed'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  Previous
+                </button>
+
+                <div className="flex space-x-1">
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                    <button
+                      key={page}
+                      onClick={() => handlePageChange(page)}
+                      className={`px-3 py-1 rounded-md text-sm font-medium ${
+                        currentPage === page
+                          ? 'bg-coral-500 text-white'
+                          : 'text-gray-700 hover:bg-gray-100'
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  ))}
+                </div>
+
+                <button
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  className={`px-3 py-1 rounded-md text-sm font-medium ${
+                    currentPage === totalPages
+                      ? 'text-gray-400 cursor-not-allowed'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
