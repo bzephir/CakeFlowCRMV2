@@ -1,50 +1,50 @@
 import React, { useState, useMemo } from 'react';
 import Header from '../components/Header';
-import IngredientForm from '../components/IngredientForm';
-import MeasurementConverter from '../components/MeasurementConverter';
+import MaterialForm from '../components/MaterialForm';
 import VendorModal from '../components/VendorModal';
-import { Plus, Search, Filter, Package, DollarSign, AlertTriangle, CreditCard as Edit, TrendingUp, Calculator, ChevronDown, ChevronUp, RefreshCw, ChevronLeft, ChevronRight } from 'lucide-react';
-import { mockIngredients, getIngredientCategories, getLowStockIngredients } from '../data/mockIngredients';
+import { Plus, Search, Filter, Package, DollarSign, AlertTriangle, TrendingUp, ChevronDown, ChevronUp, ChevronLeft, ChevronRight } from 'lucide-react';
+import { mockMaterials, getMaterialCategories, getLowStockMaterials } from '../data/mockMaterials';
 import { mockVendors } from '../data/mockVendors';
-import type { MasterIngredient } from '../types/ingredient';
+import { Material, calculateInventoryValue, calculatePotentialRevenue, calculateAverageMargin } from '../types/material';
 
-const Ingredients: React.FC = () => {
+const Materials: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [stockFilter, setStockFilter] = useState('all');
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isVendorModalOpen, setIsVendorModalOpen] = useState(false);
-  const [editingIngredient, setEditingIngredient] = useState<MasterIngredient | null>(null);
+  const [editingMaterial, setEditingMaterial] = useState<Material | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  const categories = getIngredientCategories();
-  const lowStockItems = getLowStockIngredients();
+  const categories = getMaterialCategories();
+  const lowStockItems = getLowStockMaterials();
 
-  const filteredIngredients = useMemo(() => {
-    return mockIngredients.filter(ing => {
+  const filteredMaterials = useMemo(() => {
+    return mockMaterials.filter(mat => {
       const matchesSearch =
-        ing.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        ing.category.toLowerCase().includes(searchTerm.toLowerCase());
+        mat.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        mat.category.toLowerCase().includes(searchTerm.toLowerCase());
 
-      const matchesCategory = categoryFilter === 'all' || ing.category === categoryFilter;
+      const matchesCategory = categoryFilter === 'all' || mat.category === categoryFilter;
 
       const matchesStock =
         stockFilter === 'all' ||
-        (stockFilter === 'low' && ing.inventoryQuantity <= (ing.reorderLevel || 0)) ||
-        (stockFilter === 'in-stock' && ing.inventoryQuantity > (ing.reorderLevel || 0));
+        (stockFilter === 'low' && mat.inventoryQuantity <= mat.reorderLevel) ||
+        (stockFilter === 'in-stock' && mat.inventoryQuantity > mat.reorderLevel) ||
+        (stockFilter === 'out' && mat.inventoryQuantity === 0);
 
       return matchesSearch && matchesCategory && matchesStock;
     });
   }, [searchTerm, categoryFilter, stockFilter]);
 
-  const totalPages = Math.ceil(filteredIngredients.length / itemsPerPage);
-  const paginatedIngredients = useMemo(() => {
+  const totalPages = Math.ceil(filteredMaterials.length / itemsPerPage);
+  const paginatedMaterials = useMemo(() => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    return filteredIngredients.slice(startIndex, endIndex);
-  }, [filteredIngredients, currentPage]);
+    return filteredMaterials.slice(startIndex, endIndex);
+  }, [filteredMaterials, currentPage]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -61,42 +61,41 @@ const Ingredients: React.FC = () => {
     return vendor?.name || 'Unknown';
   };
 
-  const getStockStatus = (ing: MasterIngredient) => {
-    if (ing.inventoryQuantity === 0) {
+  const getStockStatus = (mat: Material) => {
+    if (mat.inventoryQuantity === 0) {
       return { text: 'Out of Stock', color: 'bg-red-100 text-red-800' };
     }
-    if (ing.inventoryQuantity <= (ing.reorderLevel || 0)) {
+    if (mat.inventoryQuantity <= mat.reorderLevel) {
       return { text: 'Low Stock', color: 'bg-yellow-100 text-yellow-800' };
     }
     return { text: 'In Stock', color: 'bg-mint-100 text-mint-800' };
+  };
+
+  const getMarginColor = (margin: number) => {
+    if (margin < 0) return 'text-red-600';
+    if (margin < 20) return 'text-yellow-600';
+    if (margin < 50) return 'text-mint-600';
+    return 'text-green-600';
   };
 
   const toggleExpand = (id: string) => {
     setExpandedId(expandedId === id ? null : id);
   };
 
-  const handleEdit = (ingredient: MasterIngredient) => {
-    setEditingIngredient(ingredient);
+  const handleEdit = (material: Material) => {
+    setEditingMaterial(material);
     setIsFormOpen(true);
   };
 
-  const handleUpdatePrice = (ingredient: MasterIngredient) => {
-    alert(`Updating price for ${ingredient.name} from external source...`);
-  };
-
-  const handleUpdateAllPrices = () => {
-    alert('Updating all ingredient prices from external market data source...');
-  };
-
-  const handleFormSubmit = (ingredientData: Partial<MasterIngredient>) => {
-    console.log('Ingredient saved:', ingredientData);
-    alert(`Ingredient "${ingredientData.name}" saved successfully!`);
-    setEditingIngredient(null);
+  const handleFormSubmit = (materialData: Partial<Material>) => {
+    console.log('Material saved:', materialData);
+    alert(`Material "${materialData.name}" saved successfully!`);
+    setEditingMaterial(null);
   };
 
   const handleFormClose = () => {
     setIsFormOpen(false);
-    setEditingIngredient(null);
+    setEditingMaterial(null);
   };
 
   const handleVendorSubmit = (vendorData: any) => {
@@ -104,21 +103,13 @@ const Ingredients: React.FC = () => {
     alert(`Vendor "${vendorData.name}" added successfully!`);
   };
 
-  const totalValue = filteredIngredients.reduce(
-    (sum, ing) => sum + ing.purchasePrice * ing.inventoryQuantity,
-    0
-  );
-
-  const mockRecipesUsingIngredient = (ingredientId: string) => {
-    return [
-      { id: '1', name: 'Classic Vanilla Wedding Cake', quantityUsed: 6, unit: 'cups' },
-      { id: '2', name: 'Chocolate Fudge Birthday Cake', quantityUsed: 2, unit: 'cups' },
-    ];
-  };
+  const inventoryValue = calculateInventoryValue(filteredMaterials);
+  const potentialRevenue = calculatePotentialRevenue(filteredMaterials);
+  const averageMargin = calculateAverageMargin(filteredMaterials);
 
   return (
     <div className="p-6">
-      <Header title="Master Ingredients" icon={Package} />
+      <Header title="Materials Inventory" icon={Package} />
 
       <div className="p-6">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
@@ -129,7 +120,7 @@ const Ingredients: React.FC = () => {
               </div>
               <input
                 type="text"
-                placeholder="Search ingredients..."
+                placeholder="Search materials..."
                 value={searchTerm}
                 onChange={(e) => { setSearchTerm(e.target.value); handleFilterChange(); }}
                 className="block w-full sm:w-64 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
@@ -161,29 +152,21 @@ const Ingredients: React.FC = () => {
                 <option value="all">All Stock Levels</option>
                 <option value="in-stock">In Stock</option>
                 <option value="low">Low Stock</option>
+                <option value="out">Out of Stock</option>
               </select>
             </div>
           </div>
 
-          <div className="flex space-x-3">
-            <button
-              onClick={handleUpdateAllPrices}
-              className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 transition-colors"
-            >
-              <RefreshCw className="h-4 w-4 mr-2" />
-              Update All Prices
-            </button>
-            <button
-              onClick={() => setIsFormOpen(true)}
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all"
-            >
-              <Plus className="h-4 w-4 mr-2" />
-              Add Ingredient
-            </button>
-          </div>
+          <button
+            onClick={() => setIsFormOpen(true)}
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all"
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            Add Material
+          </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
           <div className="bg-white p-4 rounded-lg border border-gray-200">
             <div className="flex items-center">
               <div className="flex-shrink-0">
@@ -192,8 +175,8 @@ const Ingredients: React.FC = () => {
                 </div>
               </div>
               <div className="ml-3">
-                <p className="text-sm font-medium text-gray-500">Total Ingredients</p>
-                <p className="text-lg font-semibold text-gray-900">{mockIngredients.length}</p>
+                <p className="text-sm font-medium text-gray-500">Total Materials</p>
+                <p className="text-lg font-semibold text-gray-900">{mockMaterials.length}</p>
               </div>
             </div>
           </div>
@@ -207,7 +190,21 @@ const Ingredients: React.FC = () => {
               </div>
               <div className="ml-3">
                 <p className="text-sm font-medium text-gray-500">Inventory Value</p>
-                <p className="text-lg font-semibold text-gray-900">${totalValue.toFixed(2)}</p>
+                <p className="text-lg font-semibold text-gray-900">${inventoryValue.toFixed(2)}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-gradient-to-r from-aqua-400 to-aqua-500 rounded-full flex items-center justify-center">
+                  <TrendingUp className="h-4 w-4 text-white" />
+                </div>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-500">Potential Revenue</p>
+                <p className="text-lg font-semibold text-gray-900">${potentialRevenue.toFixed(2)}</p>
               </div>
             </div>
           </div>
@@ -229,36 +226,38 @@ const Ingredients: React.FC = () => {
           <div className="bg-white p-4 rounded-lg border border-gray-200">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-gradient-to-r from-aqua-400 to-aqua-500 rounded-full flex items-center justify-center">
-                  <Filter className="h-4 w-4 text-white" />
+                <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center">
+                  <TrendingUp className="h-4 w-4 text-white" />
                 </div>
               </div>
               <div className="ml-3">
-                <p className="text-sm font-medium text-gray-500">Categories</p>
-                <p className="text-lg font-semibold text-gray-900">{categories.length}</p>
+                <p className="text-sm font-medium text-gray-500">Avg Margin</p>
+                <p className="text-lg font-semibold text-gray-900">{averageMargin.toFixed(1)}%</p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Column Headers */}
         <div className="bg-gray-50 rounded-t-lg border border-gray-200 border-b-0">
           <div className="flex items-center justify-between px-4 py-2">
             <div className="flex items-center space-x-4 flex-1">
               <div className="flex-1">
-                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Ingredient Name</span>
-              </div>
-              <div className="w-32 text-center">
-                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Package Size</span>
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Material Name</span>
               </div>
               <div className="w-24 text-center">
-                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Price</span>
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Unit Qty</span>
               </div>
               <div className="w-28 text-center">
-                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</span>
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Package Cost</span>
+              </div>
+              <div className="w-24 text-center">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Cost Per</span>
+              </div>
+              <div className="w-24 text-center">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Price Per</span>
               </div>
               <div className="w-28 text-center">
-                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Status</span>
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Inventory</span>
               </div>
             </div>
             <div className="w-10">
@@ -268,32 +267,36 @@ const Ingredients: React.FC = () => {
         </div>
 
         <div className="space-y-0">
-          {paginatedIngredients.map((ingredient) => {
-            const status = getStockStatus(ingredient);
-            const isExpanded = expandedId === ingredient.id;
-            const recipesUsing = mockRecipesUsingIngredient(ingredient.id);
+          {paginatedMaterials.map((material) => {
+            const status = getStockStatus(material);
+            const isExpanded = expandedId === material.id;
 
             return (
-              <div key={ingredient.id} className="bg-white border-l border-r border-b border-gray-200 shadow-sm overflow-hidden hover:bg-gray-50 transition-colors">
+              <div key={material.id} className="bg-white border-l border-r border-b border-gray-200 shadow-sm overflow-hidden hover:bg-gray-50 transition-colors">
                 <div
                   className="flex items-center justify-between px-4 py-2 cursor-pointer"
-                  onClick={() => toggleExpand(ingredient.id)}
+                  onClick={() => toggleExpand(material.id)}
                 >
                   <div className="flex items-center space-x-4 flex-1">
                     <div className="flex-1">
-                      <h3 className="text-sm font-medium text-gray-900">{ingredient.name}</h3>
-                    </div>
-                    <div className="w-32 text-center">
-                      <span className="text-sm text-gray-700">{ingredient.packageSize} {ingredient.packageUnit}</span>
+                      <h3 className="text-sm font-medium text-gray-900">{material.name}</h3>
+                      <p className="text-xs text-gray-500">{material.category}</p>
                     </div>
                     <div className="w-24 text-center">
-                      <span className="text-sm font-medium text-gray-900">${ingredient.purchasePrice.toFixed(2)}</span>
+                      <span className="text-sm text-gray-700">{material.unitQuantity}</span>
                     </div>
                     <div className="w-28 text-center">
-                      <span className="text-sm text-gray-700">{ingredient.inventoryQuantity}</span>
+                      <span className="text-sm font-medium text-gray-900">${material.packageCost.toFixed(2)}</span>
                     </div>
-                    <div className="w-28 flex justify-center">
-                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${status.color}`}>
+                    <div className="w-24 text-center">
+                      <span className="text-sm text-gray-700">${material.costPerItem.toFixed(4)}</span>
+                    </div>
+                    <div className="w-24 text-center">
+                      <span className="text-sm font-medium text-gray-900">${material.pricePerItem.toFixed(2)}</span>
+                    </div>
+                    <div className="w-28 flex flex-col items-center">
+                      <span className="text-sm text-gray-700">{material.inventoryQuantity} pkg</span>
+                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${status.color} mt-1`}>
                         {status.text}
                       </span>
                     </div>
@@ -311,38 +314,52 @@ const Ingredients: React.FC = () => {
                   <div className="px-4 py-3 border-t border-gray-200 bg-gray-50">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       <div>
-                        <h4 className="text-sm font-medium text-gray-900 mb-2">Ingredient Details</h4>
+                        <h4 className="text-sm font-medium text-gray-900 mb-2">Material Details</h4>
                         <dl className="space-y-1.5">
                           <div>
                             <dt className="text-xs text-gray-500">Category</dt>
-                            <dd className="text-sm text-gray-900">{ingredient.category}</dd>
+                            <dd className="text-sm text-gray-900">{material.category}</dd>
                           </div>
                           <div>
-                            <dt className="text-xs text-gray-500">Package Description</dt>
-                            <dd className="text-sm text-gray-900">{ingredient.packageDescription}</dd>
+                            <dt className="text-xs text-gray-500">Unit Quantity</dt>
+                            <dd className="text-sm text-gray-900">{material.unitQuantity} items per package</dd>
                           </div>
                           <div>
-                            <dt className="text-xs text-gray-500">Base Unit</dt>
-                            <dd className="text-sm text-gray-900">{ingredient.baseUnit}</dd>
+                            <dt className="text-xs text-gray-500">Total Items Available</dt>
+                            <dd className="text-sm text-gray-900">{material.totalItemsAvailable} items</dd>
+                          </div>
+                          <div>
+                            <dt className="text-xs text-gray-500">Recipe Linkable</dt>
+                            <dd className="text-sm text-gray-900">{material.canLinkToRecipe ? 'Yes' : 'No'}</dd>
                           </div>
                         </dl>
                       </div>
 
                       <div>
-                        <h4 className="text-sm font-medium text-gray-900 mb-2">Pricing & Cost</h4>
+                        <h4 className="text-sm font-medium text-gray-900 mb-2">Pricing & Margins</h4>
                         <dl className="space-y-1.5">
                           <div>
-                            <dt className="text-xs text-gray-500">Purchase Price</dt>
-                            <dd className="text-sm text-gray-900">${ingredient.purchasePrice.toFixed(2)}</dd>
+                            <dt className="text-xs text-gray-500">Package Cost</dt>
+                            <dd className="text-sm text-gray-900">${material.packageCost.toFixed(2)}</dd>
                           </div>
                           <div>
-                            <dt className="text-xs text-gray-500">Cost Per Unit</dt>
-                            <dd className="text-sm text-gray-900">${ingredient.costPerUnit.toFixed(4)} per {ingredient.baseUnit}</dd>
+                            <dt className="text-xs text-gray-500">Cost Per Item</dt>
+                            <dd className="text-sm text-gray-900">${material.costPerItem.toFixed(4)}</dd>
+                          </div>
+                          <div>
+                            <dt className="text-xs text-gray-500">Price Per Item</dt>
+                            <dd className="text-sm text-gray-900">${material.pricePerItem.toFixed(2)}</dd>
+                          </div>
+                          <div>
+                            <dt className="text-xs text-gray-500">Profit Margin</dt>
+                            <dd className={`text-sm font-semibold ${getMarginColor(material.profitMargin)}`}>
+                              {material.profitMargin.toFixed(2)}%
+                            </dd>
                           </div>
                           <div>
                             <dt className="text-xs text-gray-500">Last Price Update</dt>
                             <dd className="text-sm text-gray-900">
-                              {ingredient.lastPriceUpdate ? new Date(ingredient.lastPriceUpdate).toLocaleDateString() : 'Never'}
+                              {material.lastPriceUpdate ? new Date(material.lastPriceUpdate).toLocaleDateString() : 'Never'}
                             </dd>
                           </div>
                         </dl>
@@ -352,42 +369,32 @@ const Ingredients: React.FC = () => {
                         <h4 className="text-sm font-medium text-gray-900 mb-2">Inventory & Vendor</h4>
                         <dl className="space-y-1.5">
                           <div>
-                            <dt className="text-xs text-gray-500">Inventory Quantity</dt>
-                            <dd className="text-sm text-gray-900">{ingredient.inventoryQuantity} units</dd>
+                            <dt className="text-xs text-gray-500">Packages in Stock</dt>
+                            <dd className="text-sm text-gray-900">{material.inventoryQuantity}</dd>
                           </div>
                           <div>
                             <dt className="text-xs text-gray-500">Reorder Level</dt>
-                            <dd className="text-sm text-gray-900">{ingredient.reorderLevel} units</dd>
+                            <dd className="text-sm text-gray-900">{material.reorderLevel} packages</dd>
+                          </div>
+                          <div>
+                            <dt className="text-xs text-gray-500">Total Inventory Cost</dt>
+                            <dd className="text-sm text-gray-900">${(material.packageCost * material.inventoryQuantity).toFixed(2)}</dd>
+                          </div>
+                          <div>
+                            <dt className="text-xs text-gray-500">Potential Revenue</dt>
+                            <dd className="text-sm text-gray-900">${(material.pricePerItem * material.totalItemsAvailable).toFixed(2)}</dd>
                           </div>
                           <div>
                             <dt className="text-xs text-gray-500">Vendor</dt>
-                            <dd className="text-sm text-gray-900">{getVendorName(ingredient.vendorId)}</dd>
+                            <dd className="text-sm text-gray-900">{getVendorName(material.vendorId)}</dd>
                           </div>
                         </dl>
                       </div>
 
-                      <div className="md:col-span-2 lg:col-span-3">
-                        <h4 className="text-sm font-medium text-gray-900 mb-2">Recipes Using This Ingredient</h4>
-                        {recipesUsing.length > 0 ? (
-                          <div className="flex flex-wrap gap-2">
-                            {recipesUsing.map(recipe => (
-                              <div
-                                key={recipe.id}
-                                className="inline-flex items-center px-3 py-1 rounded-full text-xs bg-aqua-100 text-aqua-800"
-                              >
-                                {recipe.name} ({recipe.quantityUsed} {recipe.unit})
-                              </div>
-                            ))}
-                          </div>
-                        ) : (
-                          <p className="text-sm text-gray-500">No recipes using this ingredient yet</p>
-                        )}
-                      </div>
-
-                      {ingredient.notes && (
+                      {material.notes && (
                         <div className="md:col-span-2 lg:col-span-3">
                           <h4 className="text-sm font-medium text-gray-900 mb-2">Notes</h4>
-                          <p className="text-sm text-gray-700">{ingredient.notes}</p>
+                          <p className="text-sm text-gray-700">{material.notes}</p>
                         </div>
                       )}
                     </div>
@@ -396,22 +403,11 @@ const Ingredients: React.FC = () => {
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleEdit(ingredient);
+                          handleEdit(material);
                         }}
                         className="inline-flex items-center px-3 py-1.5 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors"
                       >
-                        <Edit className="h-4 w-4 mr-1.5" />
-                        Edit Ingredient
-                      </button>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleUpdatePrice(ingredient);
-                        }}
-                        className="inline-flex items-center px-3 py-1.5 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors"
-                      >
-                        <TrendingUp className="h-4 w-4 mr-1.5" />
-                        Update Price
+                        Edit Material
                       </button>
                     </div>
                   </div>
@@ -420,21 +416,20 @@ const Ingredients: React.FC = () => {
             );
           })}
 
-          {filteredIngredients.length === 0 && (
+          {filteredMaterials.length === 0 && (
             <div className="text-center py-12 bg-white rounded-lg border border-gray-200">
               <Package className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-              <div className="text-gray-500 text-lg">No ingredients found</div>
+              <div className="text-gray-500 text-lg">No materials found</div>
               <div className="text-gray-400 text-sm mt-2">
                 {searchTerm || categoryFilter !== 'all' || stockFilter !== 'all'
                   ? 'Try adjusting your search or filter criteria'
-                  : 'Get started by adding your first ingredient'}
+                  : 'Get started by adding your first material'}
               </div>
             </div>
           )}
         </div>
 
-        {/* Pagination */}
-        {filteredIngredients.length > 0 && totalPages > 1 && (
+        {filteredMaterials.length > 0 && totalPages > 1 && (
           <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 rounded-b-lg border border-gray-200 mt-0">
             <div className="flex flex-1 justify-between sm:hidden">
               <button
@@ -457,9 +452,9 @@ const Ingredients: React.FC = () => {
                 <p className="text-sm text-gray-700">
                   Showing <span className="font-medium">{((currentPage - 1) * itemsPerPage) + 1}</span> to{' '}
                   <span className="font-medium">
-                    {Math.min(currentPage * itemsPerPage, filteredIngredients.length)}
+                    {Math.min(currentPage * itemsPerPage, filteredMaterials.length)}
                   </span> of{' '}
-                  <span className="font-medium">{filteredIngredients.length}</span> ingredients
+                  <span className="font-medium">{filteredMaterials.length}</span> materials
                 </p>
               </div>
               <div>
@@ -498,15 +493,13 @@ const Ingredients: React.FC = () => {
             </div>
           </div>
         )}
-
-        <MeasurementConverter ingredients={mockIngredients} />
       </div>
 
-      <IngredientForm
+      <MaterialForm
         isOpen={isFormOpen}
         onClose={handleFormClose}
         onSubmit={handleFormSubmit}
-        ingredient={editingIngredient}
+        material={editingMaterial}
         onAddVendor={() => setIsVendorModalOpen(true)}
       />
 
@@ -519,4 +512,4 @@ const Ingredients: React.FC = () => {
   );
 };
 
-export default Ingredients;
+export default Materials;
