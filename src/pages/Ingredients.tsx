@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import IngredientForm from '../components/IngredientForm';
 import MeasurementConverter from '../components/MeasurementConverter';
 import VendorModal from '../components/VendorModal';
-import { Plus, Search, Filter, Package, DollarSign, AlertTriangle, CreditCard as Edit, TrendingUp, Calculator, ChevronDown, ChevronUp, RefreshCw, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Plus, Search, Filter, Package, DollarSign, AlertTriangle, CreditCard as Edit, TrendingUp, Calculator, ChevronDown, ChevronUp, RefreshCw } from 'lucide-react';
 import { mockIngredients, getIngredientCategories, getLowStockIngredients } from '../data/mockIngredients';
 import { mockVendors } from '../data/mockVendors';
 import type { MasterIngredient } from '../types/ingredient';
@@ -16,8 +16,6 @@ const Ingredients: React.FC = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isVendorModalOpen, setIsVendorModalOpen] = useState(false);
   const [editingIngredient, setEditingIngredient] = useState<MasterIngredient | null>(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
 
   const categories = getIngredientCategories();
   const lowStockItems = getLowStockIngredients();
@@ -38,22 +36,6 @@ const Ingredients: React.FC = () => {
       return matchesSearch && matchesCategory && matchesStock;
     });
   }, [searchTerm, categoryFilter, stockFilter]);
-
-  const totalPages = Math.ceil(filteredIngredients.length / itemsPerPage);
-  const paginatedIngredients = useMemo(() => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    return filteredIngredients.slice(startIndex, endIndex);
-  }, [filteredIngredients, currentPage]);
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    setExpandedId(null);
-  };
-
-  const handleFilterChange = () => {
-    setCurrentPage(1);
-  };
 
   const getVendorName = (vendorId?: string) => {
     if (!vendorId) return 'No Vendor';
@@ -131,7 +113,7 @@ const Ingredients: React.FC = () => {
                 type="text"
                 placeholder="Search ingredients..."
                 value={searchTerm}
-                onChange={(e) => { setSearchTerm(e.target.value); handleFilterChange(); }}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 className="block w-full sm:w-64 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
               />
             </div>
@@ -142,7 +124,7 @@ const Ingredients: React.FC = () => {
               </div>
               <select
                 value={categoryFilter}
-                onChange={(e) => { setCategoryFilter(e.target.value); handleFilterChange(); }}
+                onChange={(e) => setCategoryFilter(e.target.value)}
                 className="block w-full sm:w-48 pl-10 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
               >
                 <option value="all">All Categories</option>
@@ -155,7 +137,7 @@ const Ingredients: React.FC = () => {
             <div className="relative">
               <select
                 value={stockFilter}
-                onChange={(e) => { setStockFilter(e.target.value); handleFilterChange(); }}
+                onChange={(e) => setStockFilter(e.target.value)}
                 className="block w-full sm:w-40 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
               >
                 <option value="all">All Stock Levels</option>
@@ -267,8 +249,8 @@ const Ingredients: React.FC = () => {
           </div>
         </div>
 
-        <div className="space-y-0">
-          {paginatedIngredients.map((ingredient) => {
+        <div className="space-y-0 mb-6">
+          {filteredIngredients.map((ingredient) => {
             const status = getStockStatus(ingredient);
             const isExpanded = expandedId === ingredient.id;
             const recipesUsing = mockRecipesUsingIngredient(ingredient.id);
@@ -432,72 +414,6 @@ const Ingredients: React.FC = () => {
             </div>
           )}
         </div>
-
-        {/* Pagination */}
-        {filteredIngredients.length > 0 && totalPages > 1 && (
-          <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 rounded-b-lg border border-gray-200 mt-0">
-            <div className="flex flex-1 justify-between sm:hidden">
-              <button
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1}
-                className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                Previous
-              </button>
-              <button
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
-                className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                Next
-              </button>
-            </div>
-            <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
-              <div>
-                <p className="text-sm text-gray-700">
-                  Showing <span className="font-medium">{((currentPage - 1) * itemsPerPage) + 1}</span> to{' '}
-                  <span className="font-medium">
-                    {Math.min(currentPage * itemsPerPage, filteredIngredients.length)}
-                  </span> of{' '}
-                  <span className="font-medium">{filteredIngredients.length}</span> ingredients
-                </p>
-              </div>
-              <div>
-                <nav className="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
-                  <button
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    disabled={currentPage === 1}
-                    className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    <span className="sr-only">Previous</span>
-                    <ChevronLeft className="h-5 w-5" aria-hidden="true" />
-                  </button>
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                    <button
-                      key={page}
-                      onClick={() => handlePageChange(page)}
-                      className={`relative inline-flex items-center px-4 py-2 text-sm font-semibold ${
-                        page === currentPage
-                          ? 'z-10 bg-coral-500 text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral-500'
-                          : 'text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0'
-                      }`}
-                    >
-                      {page}
-                    </button>
-                  ))}
-                  <button
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                    className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    <span className="sr-only">Next</span>
-                    <ChevronRight className="h-5 w-5" aria-hidden="true" />
-                  </button>
-                </nav>
-              </div>
-            </div>
-          </div>
-        )}
 
         <MeasurementConverter ingredients={mockIngredients} />
       </div>
