@@ -4,24 +4,7 @@ import { useInvoiceContext } from '../context/InvoiceContext';
 import Header from '../components/Header';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
 import { generateDocumentNumber } from '../utils/documentNumbering';
-import { 
-  Plus, 
-  Search, 
-  Filter, 
-  Eye, 
-  Edit, 
-  Mail,
-  Download,
-  Trash2,
-  CheckCircle2, 
-  DollarSign,
-  Clock, 
-  CreditCard,
-  AlertCircle,
-  FileText,
-  Hourglass,
-  Ban, 
-} from 'lucide-react';
+import { Plus, Search, Filter, Eye, CreditCard as Edit, Mail, Download, Trash2, CheckCircle2, DollarSign, Clock, CreditCard, AlertCircle, FileText, Hourglass, Ban } from 'lucide-react';
 
 const Invoices: React.FC = () => {
   const navigate = useNavigate();
