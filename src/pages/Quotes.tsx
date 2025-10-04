@@ -4,26 +4,7 @@ import Header from '../components/Header';
 import { mockSampleQuoteDetail, mockSampleQuotesDetail, mockQuotesList } from '../data/mockData';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
-import { 
-  Plus, 
-  Search, 
-  Filter, 
-  Eye, 
-  Edit, 
-  Mail,
-  Trash2,
-  Calendar,
-  Copy,
-  FileText,
-  Clock,
-  Receipt,
-  CheckCircle2, 
-  XCircle,
-  AlertCircle,
-  ArrowRightCircle,
-  Package,
-  Truck
-} from 'lucide-react';
+import { Plus, Search, Filter, Eye, CreditCard as Edit, Mail, Trash2, Calendar, Copy, FileText, Clock, Receipt, CheckCircle2, XCircle, AlertCircle, ArrowRightCircle, Package, Truck } from 'lucide-react';
 
 const Quotes: React.FC = () => {
   const navigate = useNavigate();
@@ -232,34 +213,34 @@ const Quotes: React.FC = () => {
                       />
                     </div>
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Quote #
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Customer
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Date Issued
                   </th>
-                   <th className="px-2 py-1 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Event Type
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Event Date
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Fulfillment
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Expiry Date
                   </th>
-                  <th className="px-2 py-1 text-right text-xs font-bold text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Amount
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-2 py-1 text-right text-xs font-bold text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -278,7 +259,7 @@ const Quotes: React.FC = () => {
                       </div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-700 cursor-pointer hover:text-coral-600" onClick={() => handleViewQuote(quote.id)}>
+                      <div className="text-sm font-medium text-gray-700 cursor-pointer hover:text-aqua-600" onClick={() => handleViewQuote(quote.id)}>
                         {quote.id}
                       </div>
                     </td>
