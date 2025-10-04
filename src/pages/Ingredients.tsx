@@ -252,6 +252,9 @@ const Ingredients: React.FC = () => {
               <div className="flex-1">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Ingredient Name</span>
               </div>
+              <div className="w-32 text-left">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Category</span>
+              </div>
               <div className="w-32 text-center">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Package Size</span>
               </div>
@@ -287,6 +290,9 @@ const Ingredients: React.FC = () => {
                     <div className="flex-1">
                       <h3 className="text-sm font-medium text-gray-900">{ingredient.name}</h3>
                     </div>
+                    <div className="w-32 text-left">
+                      <span className="text-sm text-gray-700">{ingredient.category}</span>
+                    </div>
                     <div className="w-32 text-center">
                       <span className="text-sm text-gray-700">{ingredient.packageSize} {ingredient.packageUnit}</span>
                     </div>
@@ -317,10 +323,6 @@ const Ingredients: React.FC = () => {
                       <div>
                         <h4 className="text-sm font-medium text-gray-900 mb-2">Ingredient Details</h4>
                         <dl className="space-y-1.5">
-                          <div>
-                            <dt className="text-xs text-gray-500">Category</dt>
-                            <dd className="text-sm text-gray-900">{ingredient.category}</dd>
-                          </div>
                           <div>
                             <dt className="text-xs text-gray-500">Package Description</dt>
                             <dd className="text-sm text-gray-900">{ingredient.packageDescription}</dd>
