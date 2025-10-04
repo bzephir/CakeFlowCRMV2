@@ -1701,7 +1701,7 @@ export const mockRecipes: Recipe[] = [
     createdBy: 'admin',
     timesUsed: 25
   },
-  
+  {
     id: 'recipe-087',
     name: 'Chocolate Bavarian Cream Filling',
     description: 'Chocolate Bavarian cream',
