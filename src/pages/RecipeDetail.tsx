@@ -152,7 +152,7 @@ const RecipeDetail: React.FC = () => {
       }
     ],
     preparationTime: 35,
-  /* packaging: [
+  packaging: [
       {
         id: '1',
         itemId: 'box-001',
@@ -171,11 +171,11 @@ const RecipeDetail: React.FC = () => {
         costPerUnit: 1.25,
         totalCost: 2.50
       } 
-    ],*/
-    /*sellingPrice: 450.00,*/
+    ],
+    sellingPrice: 450.00,
     totalCost: 21.20,
     costPerUnit: 0.42,
-   /* marginPercentage: 95.3,
+   marginPercentage: 95.3,
     profitPerUnit: 8.58,*/
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
