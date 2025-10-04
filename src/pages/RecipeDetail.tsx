@@ -36,7 +36,7 @@ const RecipeDetail: React.FC = () => {
     yield: {
       quantity: 50,
       unit: 'servings',
-      description: '3-tier cake (6", 8", 10")'
+      description: 'vanilla cake'
     },
     ingredients: [
       {
