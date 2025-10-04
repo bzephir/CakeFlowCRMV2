@@ -4,25 +4,7 @@ import Header from '../components/Header';
 import { mockOrdersList } from '../data/mockData';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
 import { generateDocumentNumber } from '../utils/documentNumbering';
-import { 
-  Plus, 
-  Search, 
-  Filter, 
-  Eye, 
-  Edit, 
-  Mail,
-  Trash2,
-  Calendar,
-  Copy,
-  FileText,
-  Clock, 
-  CheckCircle2, 
-  XCircle,
-  AlertCircle,
-  ArrowRightCircle,
-  Package,
-  Truck
-} from 'lucide-react';
+import { Plus, Search, Filter, Eye, CreditCard as Edit, Mail, Trash2, Calendar, Copy, FileText, Clock, CheckCircle2, XCircle, AlertCircle, ArrowRightCircle, Package, Truck } from 'lucide-react';
 
 const Orders: React.FC = () => {
   const navigate = useNavigate();
