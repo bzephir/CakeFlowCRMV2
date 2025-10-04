@@ -176,7 +176,7 @@ const RecipeDetail: React.FC = () => {
     totalCost: 21.20,
     costPerUnit: 0.42,
    marginPercentage: 95.3,
-    profitPerUnit: 8.58,*/
+    profitPerUnit: 8.58,
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
