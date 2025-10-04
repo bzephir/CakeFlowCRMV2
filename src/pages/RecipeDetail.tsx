@@ -28,10 +28,10 @@ const RecipeDetail: React.FC = () => {
   // Mock recipe data - in a real app, fetch based on ID
   const recipe: Recipe = {
     id: '1',
-    name: 'Classic Vanilla Wedding Cake',
+    name: 'Classic Vanilla Cake',
     description: 'Three-layer vanilla sponge with buttercream frosting, perfect for weddings and special occasions',
     category: 'Wedding Cakes',
-    image: 'https://images.pexels.com/photos/1702373/pexels-photo-1702373.jpeg?auto=compress&cs=tinysrgb&w=600',
+    image: 'https://www.pexels.com/photo/a-person-making-a-cake-8478047/',
     status: 'active',
     yield: {
       quantity: 50,
