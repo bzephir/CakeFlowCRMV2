@@ -186,31 +186,6 @@ export interface Event {
   status: string;
 }
 
-export interface Recipe {
-  id: string;
-  name: string;
-  category: string;
-  servings: number;
-  prepTime: number;
-  difficulty: 'easy' | 'medium' | 'hard';
-  ingredients: Ingredient[];
-  instructions: string[];
-  cost: number;
-  profitMargin: number;
-  sellingPrice: number;
-}
-
-export interface Ingredient {
-  id: string;
-  name: string;
-  category: string;
-  unit: string;
-  costPerUnit: number;
-  quantity: number;
-  supplier?: string;
-  inStock: number;
-  reorderLevel: number;
-}
 
 // Comprehensive Inquiry Interface
 export interface Inquiry {

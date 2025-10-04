@@ -15,7 +15,7 @@ import {
   Eye,
   Copy
 } from 'lucide-react';
-import { mockRecipes, getRecipeCategories, calculateAverageMargin } from '../data/mockRecipes';
+import { mockRecipes, getRecipeCategories, calculateAverageCost } from '../data/mockRecipes';
 import type { Recipe } from '../types/recipe';
 
 const Recipes: React.FC = () => {
@@ -48,12 +48,10 @@ const Recipes: React.FC = () => {
       switch (sortBy) {
         case 'name':
           return a.name.localeCompare(b.name);
-        case 'margin':
-          return b.marginPercentage - a.marginPercentage;
         case 'cost':
           return a.totalCost - b.totalCost;
-        case 'price':
-          return b.sellingPrice - a.sellingPrice;
+        case 'costPerUnit':
+          return a.costPerUnit - b.costPerUnit;
         case 'popularity':
           return b.timesUsed - a.timesUsed;
         default:
@@ -91,12 +89,6 @@ const Recipes: React.FC = () => {
     }
   };
 
-  const getMarginColor = (margin: number) => {
-    if (margin < 0) return 'text-red-600';
-    if (margin < 10) return 'text-yellow-600';
-    if (margin < 50) return 'text-mint-600';
-    return 'text-green-600';
-  };
 
   const getCategoryDisplay = (category: string) => {
     return category.charAt(0).toUpperCase() + category.slice(1);
@@ -140,8 +132,8 @@ const Recipes: React.FC = () => {
     setEditingRecipe(null);
   };
 
-  const averageMargin = calculateAverageMargin();
-  const lowMarginRecipes = mockRecipes.filter(r => r.marginPercentage < 10).length;
+  const averageCost = calculateAverageCost();
+  const activeRecipes = mockRecipes.filter(r => r.status === 'active').length;
   const mostPopularRecipe = [...mockRecipes].sort((a, b) => b.timesUsed - a.timesUsed)[0];
 
   return (
@@ -200,22 +192,14 @@ const Recipes: React.FC = () => {
                 className="block w-full sm:w-40 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
               >
                 <option value="name">Sort by Name</option>
-                <option value="margin">Sort by Margin</option>
                 <option value="cost">Sort by Cost</option>
-                <option value="price">Sort by Price</option>
+                <option value="costPerUnit">Sort by Cost Per Unit</option>
                 <option value="popularity">Sort by Popularity</option>
               </select>
             </div>
           </div>
 
           <div className="flex space-x-3">
-            <button
-              onClick={() => navigate('/recipes/margin-report')}
-              className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 transition-colors"
-            >
-              <TrendingUp className="h-4 w-4 mr-2" />
-              Margin Report
-            </button>
             <button
               onClick={() => setIsFormOpen(true)}
               className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all"
@@ -249,9 +233,9 @@ const Recipes: React.FC = () => {
                 </div>
               </div>
               <div className="ml-3">
-                <p className="text-sm font-medium text-gray-500">Avg Margin</p>
+                <p className="text-sm font-medium text-gray-500">Avg Cost</p>
                 <p className="text-lg font-semibold text-gray-900">
-                  {averageMargin.toFixed(1)}%
+                  ${averageCost.toFixed(2)}
                 </p>
               </div>
             </div>
@@ -265,9 +249,9 @@ const Recipes: React.FC = () => {
                 </div>
               </div>
               <div className="ml-3">
-                <p className="text-sm font-medium text-gray-500">Low Margin</p>
+                <p className="text-sm font-medium text-gray-500">Active Recipes</p>
                 <p className="text-lg font-semibold text-gray-900">
-                  {lowMarginRecipes}
+                  {activeRecipes}
                 </p>
               </div>
             </div>
@@ -306,10 +290,7 @@ const Recipes: React.FC = () => {
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Cost</span>
               </div>
               <div className="w-24 text-center">
-                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Margin</span>
-              </div>
-              <div className="w-24 text-center">
-                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Price</span>
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Per Unit</span>
               </div>
               <div className="w-28 text-center">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Status</span>
@@ -345,12 +326,7 @@ const Recipes: React.FC = () => {
                       <span className="text-sm font-medium text-gray-900">${recipe.totalCost.toFixed(2)}</span>
                     </div>
                     <div className="w-24 text-center">
-                      <span className={`text-sm font-semibold ${getMarginColor(recipe.marginPercentage)}`}>
-                        {recipe.marginPercentage.toFixed(1)}%
-                      </span>
-                    </div>
-                    <div className="w-24 text-center">
-                      <span className="text-sm font-medium text-gray-900">${recipe.sellingPrice.toFixed(2)}</span>
+                      <span className="text-sm font-medium text-gray-900">${recipe.costPerUnit.toFixed(2)}</span>
                     </div>
                     <div className="w-28 flex justify-center">
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(recipe.status)}`}>
@@ -392,7 +368,7 @@ const Recipes: React.FC = () => {
                       </div>
 
                       <div>
-                        <h4 className="text-sm font-medium text-gray-900 mb-2">Financial Summary</h4>
+                        <h4 className="text-sm font-medium text-gray-900 mb-2">Cost Summary</h4>
                         <dl className="space-y-1.5">
                           <div>
                             <dt className="text-xs text-gray-500">Total Cost</dt>
@@ -403,18 +379,12 @@ const Recipes: React.FC = () => {
                             <dd className="text-sm text-gray-900">${recipe.costPerUnit.toFixed(2)}</dd>
                           </div>
                           <div>
-                            <dt className="text-xs text-gray-500">Selling Price</dt>
-                            <dd className="text-sm text-gray-900">${recipe.sellingPrice.toFixed(2)}</dd>
+                            <dt className="text-xs text-gray-500">Ingredients</dt>
+                            <dd className="text-sm text-gray-900">{recipe.ingredients.length} items</dd>
                           </div>
                           <div>
-                            <dt className="text-xs text-gray-500">Profit Per Unit</dt>
-                            <dd className="text-sm text-gray-900">${recipe.profitPerUnit.toFixed(2)}</dd>
-                          </div>
-                          <div>
-                            <dt className="text-xs text-gray-500">Profit Margin</dt>
-                            <dd className={`text-sm font-semibold ${getMarginColor(recipe.marginPercentage)}`}>
-                              {recipe.marginPercentage.toFixed(1)}%
-                            </dd>
+                            <dt className="text-xs text-gray-500">Preparation Steps</dt>
+                            <dd className="text-sm text-gray-900">{recipe.preparationSteps.length} steps</dd>
                           </div>
                         </dl>
                       </div>

@@ -18,11 +18,8 @@
   - `yield_unit` (text) - Unit of measurement (servings, pieces, cups, etc.)
   - `yield_description` (text) - Description of yield (e.g., "9-inch round cake")
   - `preparation_time` (integer) - Total preparation time in minutes
-  - `selling_price` (numeric) - Price to sell recipe output
   - `total_cost` (numeric) - Total cost of ingredients and materials
   - `cost_per_unit` (numeric) - Cost per serving/piece
-  - `margin_percentage` (numeric) - Profit margin percentage
-  - `profit_per_unit` (numeric) - Profit per serving/piece
   - `created_by` (text) - User who created the recipe
   - `last_used` (timestamptz) - Last time recipe was used
   - `times_used` (integer) - Number of times recipe has been used
@@ -76,11 +73,11 @@
   - Foreign key indexes for performance
 
   ## 4. Important Notes
-  - All costs and prices use numeric type for precision
-  - Margin percentage can be negative (indicating loss)
+  - All costs use numeric type for precision
   - Times used defaults to 0 for new recipes
   - Status defaults to 'draft'
   - Categories are stored as lowercase text for consistency
+  - Selling prices and margins are reserved for packages, not recipes
 */
 
 -- Create recipes table
@@ -94,11 +91,8 @@ CREATE TABLE IF NOT EXISTS recipes (
   yield_unit text NOT NULL DEFAULT 'servings',
   yield_description text,
   preparation_time integer DEFAULT 0,
-  selling_price numeric NOT NULL DEFAULT 0,
   total_cost numeric NOT NULL DEFAULT 0,
   cost_per_unit numeric NOT NULL DEFAULT 0,
-  margin_percentage numeric NOT NULL DEFAULT 0,
-  profit_per_unit numeric NOT NULL DEFAULT 0,
   created_by text DEFAULT 'system',
   last_used timestamptz,
   times_used integer DEFAULT 0,

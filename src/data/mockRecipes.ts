@@ -11,11 +11,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 60,
-    sellingPrice: 9.89,
+    
     totalCost: 10.00,
     costPerUnit: 0.40,
-    marginPercentage: -1.1,
-    profitPerUnit: -0.01,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -31,11 +31,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 60,
-    sellingPrice: 10.04,
+    
     totalCost: 10.00,
     costPerUnit: 0.40,
-    marginPercentage: 0.4,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -51,11 +51,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 15,
-    sellingPrice: 7.47,
+    
     totalCost: 7.44,
     costPerUnit: 0.31,
-    marginPercentage: 0.4,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -71,11 +71,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 45,
-    sellingPrice: 4.66,
+    
     totalCost: 4.68,
     costPerUnit: 0.26,
-    marginPercentage: -0.4,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -91,11 +91,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 10,
-    sellingPrice: 0.42,
+    
     totalCost: 0.50,
     costPerUnit: 0.02,
-    marginPercentage: -19.0,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -111,11 +111,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 90,
-    sellingPrice: 3.28,
+    
     totalCost: 3.24,
     costPerUnit: 0.09,
-    marginPercentage: 1.2,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -131,11 +131,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 20,
-    sellingPrice: 0.53,
+    
     totalCost: 0.36,
     costPerUnit: 0.01,
-    marginPercentage: 47.2,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -151,11 +151,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 15,
-    sellingPrice: 0.28,
+    
     totalCost: 3.36,
     costPerUnit: 0.14,
-    marginPercentage: -91.7,
-    profitPerUnit: -0.13,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -171,11 +171,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 30,
-    sellingPrice: 1.99,
+    
     totalCost: 1.92,
     costPerUnit: 0.08,
-    marginPercentage: 3.6,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -191,11 +191,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 15,
-    sellingPrice: 4.35,
+    
     totalCost: 4.25,
     costPerUnit: 0.17,
-    marginPercentage: 2.4,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -211,11 +211,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 75,
-    sellingPrice: 10.44,
+    
     totalCost: 10.56,
     costPerUnit: 0.44,
-    marginPercentage: -1.1,
-    profitPerUnit: -0.01,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -231,11 +231,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 30,
-    sellingPrice: 1.99,
+    
     totalCost: 1.92,
     costPerUnit: 0.08,
-    marginPercentage: 3.6,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -251,11 +251,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 50,
-    sellingPrice: 5.24,
+    
     totalCost: 5.28,
     costPerUnit: 0.22,
-    marginPercentage: -0.8,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -271,11 +271,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 60,
-    sellingPrice: 4.62,
+    
     totalCost: 4.56,
     costPerUnit: 0.19,
-    marginPercentage: 1.3,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -291,11 +291,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 55,
-    sellingPrice: 7.94,
+    
     totalCost: 7.92,
     costPerUnit: 0.22,
-    marginPercentage: 0.3,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -311,11 +311,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 15,
-    sellingPrice: 4.04,
+    
     totalCost: 4.00,
     costPerUnit: 0.16,
-    marginPercentage: 1.0,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -331,11 +331,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 45,
-    sellingPrice: 3.48,
+    
     totalCost: 3.50,
     costPerUnit: 0.25,
-    marginPercentage: -0.6,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -351,11 +351,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 30,
-    sellingPrice: 16.11,
+    
     totalCost: 16.00,
     costPerUnit: 0.16,
-    marginPercentage: 0.7,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -371,11 +371,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 20,
-    sellingPrice: 8.31,
+    
     totalCost: 8.25,
     costPerUnit: 0.33,
-    marginPercentage: 0.7,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -391,11 +391,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 25,
-    sellingPrice: 5.90,
+    
     totalCost: 6.00,
     costPerUnit: 0.25,
-    marginPercentage: -1.7,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -411,11 +411,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 25,
-    sellingPrice: 1.53,
+    
     totalCost: 1.44,
     costPerUnit: 0.06,
-    marginPercentage: 6.3,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -431,11 +431,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 10,
-    sellingPrice: 1.59,
+    
     totalCost: 1.60,
     costPerUnit: 0.05,
-    marginPercentage: -0.6,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -451,11 +451,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 50,
-    sellingPrice: 5.86,
+    
     totalCost: 5.88,
     costPerUnit: 0.49,
-    marginPercentage: -0.3,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -471,11 +471,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 55,
-    sellingPrice: 5.19,
+    
     totalCost: 5.22,
     costPerUnit: 0.29,
-    marginPercentage: -0.6,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -491,11 +491,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 15,
-    sellingPrice: 3.08,
+    
     totalCost: 3.12,
     costPerUnit: 0.13,
-    marginPercentage: -1.3,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -511,11 +511,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 15,
-    sellingPrice: 6.10,
+    
     totalCost: 6.00,
     costPerUnit: 0.24,
-    marginPercentage: 1.7,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -531,11 +531,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 20,
-    sellingPrice: 3.99,
+    
     totalCost: 4.08,
     costPerUnit: 0.17,
-    marginPercentage: -2.2,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -551,11 +551,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 65,
-    sellingPrice: 8.67,
+    
     totalCost: 8.75,
     costPerUnit: 0.35,
-    marginPercentage: -0.9,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -571,11 +571,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 15,
-    sellingPrice: 3.48,
+    
     totalCost: 3.75,
     costPerUnit: 0.15,
-    marginPercentage: -7.2,
-    profitPerUnit: -0.01,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -591,11 +591,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 50,
-    sellingPrice: 6.76,
+    
     totalCost: 6.72,
     costPerUnit: 0.28,
-    marginPercentage: 0.6,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -611,11 +611,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 30,
-    sellingPrice: 4.94,
+    
     totalCost: 5.00,
     costPerUnit: 0.20,
-    marginPercentage: -1.2,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -631,11 +631,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 45,
-    sellingPrice: 4.27,
+    
     totalCost: 4.32,
     costPerUnit: 0.18,
-    marginPercentage: -1.2,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -651,11 +651,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 90,
-    sellingPrice: 7.28,
+    
     totalCost: 7.20,
     costPerUnit: 0.30,
-    marginPercentage: 1.1,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -671,11 +671,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 60,
-    sellingPrice: 6.75,
+    
     totalCost: 6.72,
     costPerUnit: 0.56,
-    marginPercentage: 0.4,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -691,11 +691,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 60,
-    sellingPrice: 11.51,
+    
     totalCost: 11.52,
     costPerUnit: 0.32,
-    marginPercentage: -0.1,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -711,11 +711,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 55,
-    sellingPrice: 9.70,
+    
     totalCost: 9.60,
     costPerUnit: 0.40,
-    marginPercentage: 1.0,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -731,11 +731,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 50,
-    sellingPrice: 9.91,
+    
     totalCost: 3.92,
     costPerUnit: 0.28,
-    marginPercentage: 152.8,
-    profitPerUnit: 0.43,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -751,11 +751,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 45,
-    sellingPrice: 6.59,
+    
     totalCost: 6.60,
     costPerUnit: 0.55,
-    marginPercentage: -0.2,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -771,11 +771,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 120,
-    sellingPrice: 2.05,
+    
     totalCost: 2.16,
     costPerUnit: 0.09,
-    marginPercentage: -5.1,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -791,11 +791,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 30,
-    sellingPrice: 3.82,
+    
     totalCost: 3.84,
     costPerUnit: 0.16,
-    marginPercentage: -0.5,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -811,11 +811,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 20,
-    sellingPrice: 6.70,
+    
     totalCost: 6.75,
     costPerUnit: 0.27,
-    marginPercentage: -0.7,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -831,11 +831,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 10,
-    sellingPrice: 1.70,
+    
     totalCost: 1.68,
     costPerUnit: 0.07,
-    marginPercentage: 1.2,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -851,11 +851,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 70,
-    sellingPrice: 6.34,
+    
     totalCost: 6.25,
     costPerUnit: 0.25,
-    marginPercentage: 1.4,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -871,11 +871,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 15,
-    sellingPrice: 4.78,
+    
     totalCost: 4.80,
     costPerUnit: 0.24,
-    marginPercentage: -0.4,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -891,11 +891,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 30,
-    sellingPrice: 4.12,
+    
     totalCost: 4.08,
     costPerUnit: 0.17,
-    marginPercentage: 1.0,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -911,11 +911,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 60,
-    sellingPrice: 4.81,
+    
     totalCost: 4.80,
     costPerUnit: 0.16,
-    marginPercentage: 0.2,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -931,11 +931,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 40,
-    sellingPrice: 7.98,
+    
     totalCost: 7.44,
     costPerUnit: 0.62,
-    marginPercentage: 7.3,
-    profitPerUnit: 0.05,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -951,11 +951,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 75,
-    sellingPrice: 8.47,
+    
     totalCost: 8.40,
     costPerUnit: 0.42,
-    marginPercentage: 0.8,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -971,11 +971,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 70,
-    sellingPrice: 4.33,
+    
     totalCost: 4.32,
     costPerUnit: 0.18,
-    marginPercentage: 0.2,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -991,11 +991,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 50,
-    sellingPrice: 4.75,
+    
     totalCost: 4.80,
     costPerUnit: 0.20,
-    marginPercentage: -1.0,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1011,11 +1011,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 10,
-    sellingPrice: 3.19,
+    
     totalCost: 3.12,
     costPerUnit: 0.13,
-    marginPercentage: 2.2,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1031,11 +1031,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 10,
-    sellingPrice: 4.61,
+    
     totalCost: 4.62,
     costPerUnit: 0.77,
-    marginPercentage: -0.2,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1051,11 +1051,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 15,
-    sellingPrice: 2.19,
+    
     totalCost: 2.16,
     costPerUnit: 0.09,
-    marginPercentage: 1.4,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1071,11 +1071,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 65,
-    sellingPrice: 5.94,
+    
     totalCost: 6.00,
     costPerUnit: 0.24,
-    marginPercentage: -1.0,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1091,11 +1091,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 70,
-    sellingPrice: 9.12,
+    
     totalCost: 9.00,
     costPerUnit: 0.36,
-    marginPercentage: 1.3,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1111,11 +1111,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 20,
-    sellingPrice: 6.11,
+    
     totalCost: 6.00,
     costPerUnit: 0.25,
-    marginPercentage: 1.8,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1131,11 +1131,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 25,
-    sellingPrice: 4.50,
+    
     totalCost: 4.00,
     costPerUnit: 0.16,
-    marginPercentage: 12.5,
-    profitPerUnit: 0.02,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1151,11 +1151,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 5,
-    sellingPrice: 3.99,
+    
     totalCost: 4.00,
     costPerUnit: 1.00,
-    marginPercentage: -0.3,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1171,11 +1171,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 180,
-    sellingPrice: 1.09,
+    
     totalCost: 1.08,
     costPerUnit: 0.09,
-    marginPercentage: 0.9,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1191,11 +1191,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 5,
-    sellingPrice: 5.00,
+    
     totalCost: 5.00,
     costPerUnit: 0.83,
-    marginPercentage: 0.0,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1211,11 +1211,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 15,
-    sellingPrice: 7.98,
+    
     totalCost: 8.00,
     costPerUnit: 0.32,
-    marginPercentage: -0.3,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1231,11 +1231,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 5,
-    sellingPrice: 4.49,
+    
     totalCost: 4.56,
     costPerUnit: 0.19,
-    marginPercentage: -1.5,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1251,11 +1251,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 25,
-    sellingPrice: 2.71,
+    
     totalCost: 2.64,
     costPerUnit: 0.11,
-    marginPercentage: 2.7,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1271,11 +1271,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 70,
-    sellingPrice: 16.83,
+    
     totalCost: 16.80,
     costPerUnit: 0.70,
-    marginPercentage: 0.2,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1291,11 +1291,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 20,
-    sellingPrice: 8.12,
+    
     totalCost: 8.00,
     costPerUnit: 0.32,
-    marginPercentage: 1.5,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1311,11 +1311,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 45,
-    sellingPrice: 3.99,
+    
     totalCost: 4.25,
     costPerUnit: 0.17,
-    marginPercentage: -6.1,
-    profitPerUnit: -0.01,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1331,11 +1331,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 60,
-    sellingPrice: 3.08,
+    
     totalCost: 3.12,
     costPerUnit: 0.13,
-    marginPercentage: -1.3,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1351,11 +1351,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 90,
-    sellingPrice: 11.31,
+    
     totalCost: 11.28,
     costPerUnit: 0.94,
-    marginPercentage: 0.3,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1371,11 +1371,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 75,
-    sellingPrice: 6.68,
+    
     totalCost: 6.72,
     costPerUnit: 0.56,
-    marginPercentage: -0.6,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1391,11 +1391,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 15,
-    sellingPrice: 9.48,
+    
     totalCost: 8.40,
     costPerUnit: 0.35,
-    marginPercentage: 12.9,
-    profitPerUnit: 0.04,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1411,11 +1411,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 20,
-    sellingPrice: 14.02,
+    
     totalCost: 14.04,
     costPerUnit: 1.17,
-    marginPercentage: -0.1,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1431,11 +1431,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 40,
-    sellingPrice: 7.20,
+    
     totalCost: 7.20,
     costPerUnit: 1.20,
-    marginPercentage: 0.0,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1451,11 +1451,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 30,
-    sellingPrice: 4.50,
+    
     totalCost: 4.50,
     costPerUnit: 0.18,
-    marginPercentage: 0.0,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1471,11 +1471,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 30,
-    sellingPrice: 7.09,
+    
     totalCost: 2.64,
     costPerUnit: 0.22,
-    marginPercentage: 168.6,
-    profitPerUnit: 0.37,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1491,11 +1491,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 25,
-    sellingPrice: 2.62,
+    
     totalCost: 2.64,
     costPerUnit: 0.22,
-    marginPercentage: -0.8,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1511,11 +1511,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 70,
-    sellingPrice: 6.25,
+    
     totalCost: 5.25,
     costPerUnit: 0.21,
-    marginPercentage: 19.0,
-    profitPerUnit: 0.04,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1531,11 +1531,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 75,
-    sellingPrice: 10.16,
+    
     totalCost: 10.50,
     costPerUnit: 0.42,
-    marginPercentage: -3.2,
-    profitPerUnit: -0.01,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1551,11 +1551,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 70,
-    sellingPrice: 6.54,
+    
     totalCost: 4.83,
     costPerUnit: 0.21,
-    marginPercentage: 35.4,
-    profitPerUnit: 0.07,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1571,11 +1571,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 30,
-    sellingPrice: 9.65,
+    
     totalCost: 9.84,
     costPerUnit: 0.82,
-    marginPercentage: -1.9,
-    profitPerUnit: -0.02,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1591,11 +1591,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 20,
-    sellingPrice: 6.59,
+    
     totalCost: 6.60,
     costPerUnit: 0.55,
-    marginPercentage: -0.2,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1611,11 +1611,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 65,
-    sellingPrice: 7.63,
+    
     totalCost: 7.68,
     costPerUnit: 0.32,
-    marginPercentage: -0.7,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1631,11 +1631,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 80,
-    sellingPrice: 6.47,
+    
     totalCost: 6.48,
     costPerUnit: 0.27,
-    marginPercentage: -0.2,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1651,11 +1651,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 15,
-    sellingPrice: 2.09,
+    
     totalCost: 2.16,
     costPerUnit: 0.09,
-    marginPercentage: -3.2,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1671,11 +1671,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 20,
-    sellingPrice: 7.58,
+    
     totalCost: 7.68,
     costPerUnit: 0.32,
-    marginPercentage: -1.3,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1691,11 +1691,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 45,
-    sellingPrice: 5.03,
+    
     totalCost: 5.04,
     costPerUnit: 0.21,
-    marginPercentage: -0.2,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1711,11 +1711,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 25,
-    sellingPrice: 26.30,
+    
     totalCost: 22.32,
     costPerUnit: 0.31,
-    marginPercentage: 17.8,
-    profitPerUnit: 0.06,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1731,11 +1731,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 50,
-    sellingPrice: 3.00,
+    
     totalCost: 2.88,
     costPerUnit: 0.12,
-    marginPercentage: 4.2,
-    profitPerUnit: 0.01,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1751,11 +1751,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 15,
-    sellingPrice: 4.50,
+    
     totalCost: 4.56,
     costPerUnit: 0.19,
-    marginPercentage: -1.3,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1771,11 +1771,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 20,
-    sellingPrice: 2.77,
+    
     totalCost: 2.88,
     costPerUnit: 0.12,
-    marginPercentage: -3.8,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1791,11 +1791,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 15,
-    sellingPrice: 2.61,
+    
     totalCost: 2.64,
     costPerUnit: 0.11,
-    marginPercentage: -1.1,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1811,11 +1811,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 40,
-    sellingPrice: 5.19,
+    
     totalCost: 5.16,
     costPerUnit: 0.43,
-    marginPercentage: 0.6,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1831,11 +1831,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 50,
-    sellingPrice: 1.39,
+    
     totalCost: 1.44,
     costPerUnit: 0.12,
-    marginPercentage: -3.5,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1851,11 +1851,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 20,
-    sellingPrice: 4.21,
+    
     totalCost: 4.32,
     costPerUnit: 0.18,
-    marginPercentage: -2.5,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1871,11 +1871,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 60,
-    sellingPrice: 0.00,
+    
     totalCost: 0.00,
     costPerUnit: 0.00,
-    marginPercentage: 0.0,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1891,11 +1891,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 45,
-    sellingPrice: 4.00,
+    
     totalCost: 4.08,
     costPerUnit: 0.17,
-    marginPercentage: -2.0,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1911,11 +1911,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 60,
-    sellingPrice: 5.49,
+    
     totalCost: 5.52,
     costPerUnit: 0.46,
-    marginPercentage: -0.5,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1931,11 +1931,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 120,
-    sellingPrice: 8.66,
+    
     totalCost: 8.64,
     costPerUnit: 0.72,
-    marginPercentage: 0.2,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1951,11 +1951,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 40,
-    sellingPrice: 11.86,
+    
     totalCost: 11.76,
     costPerUnit: 0.49,
-    marginPercentage: 0.8,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1971,11 +1971,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 120,
-    sellingPrice: 3.59,
+    
     totalCost: 3.60,
     costPerUnit: 0.18,
-    marginPercentage: -0.3,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -1991,11 +1991,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 30,
-    sellingPrice: 7.38,
+    
     totalCost: 7.44,
     costPerUnit: 0.62,
-    marginPercentage: -0.8,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -2011,11 +2011,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 75,
-    sellingPrice: 4.47,
+    
     totalCost: 4.32,
     costPerUnit: 0.12,
-    marginPercentage: 3.5,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -2031,11 +2031,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 60,
-    sellingPrice: 5.36,
+    
     totalCost: 5.28,
     costPerUnit: 0.22,
-    marginPercentage: 1.5,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -2051,11 +2051,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 10,
-    sellingPrice: 5.88,
+    
     totalCost: 6.00,
     costPerUnit: 0.25,
-    marginPercentage: -2.0,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -2071,11 +2071,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 90,
-    sellingPrice: 8.47,
+    
     totalCost: 8.64,
     costPerUnit: 0.24,
-    marginPercentage: -2.0,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -2091,11 +2091,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 90,
-    sellingPrice: 14.30,
+    
     totalCost: 14.40,
     costPerUnit: 0.40,
-    marginPercentage: -0.7,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -2111,11 +2111,11 @@ export const mockRecipes: Recipe[] = [
     ingredients: [],
     preparationSteps: [],
     preparationTime: 85,
-    sellingPrice: 4.65,
+    
     totalCost: 4.68,
     costPerUnit: 0.19,
-    marginPercentage: -0.6,
-    profitPerUnit: 0.00,
+    
+    
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
@@ -2160,20 +2160,16 @@ export function getRecipeCategories(): string[] {
   ];
 }
 
-export function getLowMarginRecipes(threshold: number = 10): Recipe[] {
-  return mockRecipes.filter(recipe => recipe.marginPercentage < threshold);
-}
-
-export function getHighMarginRecipes(threshold: number = 50): Recipe[] {
-  return mockRecipes.filter(recipe => recipe.marginPercentage >= threshold);
-}
-
-export function calculateAverageMargin(): number {
+export function calculateAverageCost(): number {
   if (mockRecipes.length === 0) return 0;
-  const totalMargin = mockRecipes.reduce((sum, recipe) => sum + recipe.marginPercentage, 0);
-  return totalMargin / mockRecipes.length;
+  const totalCost = mockRecipes.reduce((sum, recipe) => sum + recipe.totalCost, 0);
+  return totalCost / mockRecipes.length;
 }
 
-export function calculateTotalRevenue(): number {
-  return mockRecipes.reduce((sum, recipe) => sum + (recipe.sellingPrice * recipe.timesUsed), 0);
+export function calculateTotalCost(): number {
+  return mockRecipes.reduce((sum, recipe) => sum + recipe.totalCost, 0);
+}
+
+export function getHighCostRecipes(threshold: number = 10): Recipe[] {
+  return mockRecipes.filter(recipe => recipe.totalCost >= threshold);
 }
