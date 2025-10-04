@@ -29,7 +29,6 @@ const RecipeDetail: React.FC = () => {
   const recipe: Recipe = {
     id: '1',
     name: 'Classic Vanilla Cake',
-    description: 'Three-layer vanilla sponge with buttercream frosting, perfect for weddings and special occasions',
     category: 'Wedding Cakes',
     image: 'https://www.pexels.com/photo/a-person-making-a-cake-8478047/',
     status: 'active',
