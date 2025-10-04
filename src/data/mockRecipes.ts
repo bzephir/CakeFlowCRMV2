@@ -1701,27 +1701,7 @@ export const mockRecipes: Recipe[] = [
     createdBy: 'admin',
     timesUsed: 25
   },
-  {
-    id: 'recipe-086',
-    name: 'Basic Buttercream x3',
-    description: 'Triple batch buttercream',
-    category: 'frosting',
-    status: 'active',
-    yield: { quantity: 72, unit: 'servings', description: 'Triple batch' },
-    ingredients: [],
-    preparationSteps: [],
-    preparationTime: 25,
-    
-    totalCost: 22.32,
-    costPerUnit: 0.31,
-    
-    
-    createdAt: '2024-01-01',
-    updatedAt: '2024-01-15',
-    createdBy: 'admin',
-    timesUsed: 8
-  },
-  {
+  
     id: 'recipe-087',
     name: 'Chocolate Bavarian Cream Filling',
     description: 'Chocolate Bavarian cream',
