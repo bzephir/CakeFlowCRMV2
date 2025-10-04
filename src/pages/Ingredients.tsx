@@ -32,7 +32,8 @@ const Ingredients: React.FC = () => {
 
       const matchesStock =
         stockFilter === 'all' ||
-        (stockFilter === 'low' && ing.inventoryQuantity <= (ing.reorderLevel || 0)) ||
+        (stockFilter === 'out-of-stock' && ing.inventoryQuantity === 0) ||
+        (stockFilter === 'low' && ing.inventoryQuantity > 0 && ing.inventoryQuantity <= (ing.reorderLevel || 0)) ||
         (stockFilter === 'in-stock' && ing.inventoryQuantity > (ing.reorderLevel || 0));
 
       return matchesSearch && matchesCategory && matchesStock;
@@ -165,6 +166,7 @@ const Ingredients: React.FC = () => {
                 <option value="all">All Stock Levels</option>
                 <option value="in-stock">In Stock</option>
                 <option value="low">Low Stock</option>
+                <option value="out-of-stock">Out of Stock</option>
               </select>
             </div>
           </div>
