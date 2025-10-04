@@ -4,6 +4,7 @@ import { useInvoiceContext } from '../context/InvoiceContext';
 import Header from '../components/Header';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
 import { generateDocumentNumber } from '../utils/documentNumbering';
+import { getInvoiceStatusColor, getInvoiceStatusText } from '../data/mockData';
 import { Plus, Search, Filter, Eye, CreditCard as Edit, Mail, Download, Trash2, CheckCircle2, DollarSign, Clock, CreditCard, AlertCircle, FileText, Hourglass, Ban } from 'lucide-react';
 
 const Invoices: React.FC = () => {
@@ -15,40 +16,15 @@ const Invoices: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  // Mock invoice data with new numbering format
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'pending': return 'bg-orange-100 text-orange-800';
-      case 'deposit-paid': return 'bg-aqua-100 text-aqua-800';
-      case 'partial': return 'bg-yellow-100 text-yellow-800';
-      case 'paid': return 'bg-mint-100 text-mint-800';
-      case 'overdue': return 'bg-red-200 text-red-900';
-      case 'cancelled': return 'bg-black-100 text-black-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
-  };
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'pending': return <Hourglass className="h-4 w-4 mr-1" />;
-      case 'deposit-paid': return <CreditCard className="h-4 w-4 mr-1" />;
+      case 'deposit_paid': return <CreditCard className="h-4 w-4 mr-1" />;
       case 'partial': return <Clock className="h-4 w-4 mr-1" />;
       case 'paid': return <CheckCircle2 className="h-4 w-4 mr-1" />;
       case 'overdue': return <AlertCircle className="h-4 w-4 mr-1" />;
       case 'cancelled': return <Ban className="h-4 w-4 mr-1" />;
       default: return <Clock className="h-4 w-4 mr-1" />;
-    }
-  };
-
-  const getStatusText = (status: string) => {
-    switch (status) {
-      case 'pending;': return 'Pending';
-      case 'deposit-paid': return 'Deposit Paid';
-      case 'partial;': return 'Partial';
-      case 'paid': return 'Paid';
-      case 'overdue': return 'Overdue';
-      case 'cancelled;': return 'Cancelled';
-      default: return status;
     }
   };
 
@@ -168,7 +144,7 @@ const Invoices: React.FC = () => {
               >
                 <option value="all">All Statuses</option>
                 <option value="pending">Pending</option>
-                <option value="deposit-paid">Deposit Paid</option>
+                <option value="deposit_paid">Deposit Paid</option>
                 <option value="partial">Partial</option>
                 <option value="paid">Paid</option>
                 <option value="overdue">Overdue</option>
@@ -297,9 +273,9 @@ const Invoices: React.FC = () => {
                       <div className="text-sm text-gray-700">{formatDate(invoice.dueDate)}</div>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap">
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(invoice.status)}`}>
+                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getInvoiceStatusColor(invoice.status)}`}>
                         {getStatusIcon(invoice.status)}
-                        {getStatusText(invoice.status)}
+                        {getInvoiceStatusText(invoice.status)}
                       </span>
                     </td>
                     <td className="px-2 py-1 whitespace-nowrap text-right text-sm font-medium">

@@ -1914,6 +1914,300 @@ export const mockInvoicesList: Invoice[] = [
     termsConditions: 'Final payment due at pickup.',
     createdAt: '2024-12-15T13:45:00Z',
     updatedAt: '2024-12-20T10:20:00Z'
+  },
+  {
+    id: 'I-202501-0004',
+    invoiceNumber: 'I-202501-0004',
+    orderId: 'O-202501-0004',
+    firstName: 'Jennifer',
+    lastName: 'Martinez',
+    email: 'jennifer.martinez@email.com',
+    phone: '(555) 678-9012',
+    address1: '890 Willow Lane',
+    city: 'Springfield',
+    state: 'IL',
+    zip: '62706',
+    eventType: 'wedding',
+    eventName: 'Martinez-Thompson Wedding',
+    eventDate: '2025-08-20',
+    eventTime: '18:00',
+    guestCount: 150,
+    fulfillmentType: 'delivery',
+    deliveryTime: '15:00',
+    venue: 'Lakeside Country Club',
+    items: [
+      { id: '1', name: '4-Tier Wedding Cake', description: 'Red velvet and vanilla layers with cream cheese frosting', quantity: 1, unitPrice: 650.00, total: 650.00 },
+      { id: '2', name: 'Groom\'s Cake', description: 'Chocolate cake with sports theme', quantity: 1, unitPrice: 120.00, total: 120.00 },
+      { id: '3', name: 'Cake Cutting Service', description: 'Professional cake cutting and plating', quantity: 1, unitPrice: 75.00, total: 75.00 }
+    ],
+    subtotal: 845.00,
+    taxRate: 7.0,
+    taxAmount: 59.15,
+    total: 904.15,
+    payments: [
+      { id: '1', date: '2025-01-18', amount: 450.00, method: 'Credit Card', reference: 'TXID-45678' }
+    ],
+    amountPaid: 450.00,
+    balance: 454.15,
+    nextPaymentDueDate: '2025-08-06',
+    status: 'deposit_paid',
+    issueDate: '2025-01-18',
+    dueDate: '2025-08-06',
+    notes: 'Bride requested burgundy and gold color scheme. Groom wants football team logo on groom\'s cake.',
+    internalNotes: 'Customer very responsive. Already confirmed all details.',
+    termsConditions: 'Final payment due 14 days before event date. Cancellations within 30 days of event are subject to 50% fee.',
+    createdAt: '2025-01-18T09:30:00Z',
+    updatedAt: '2025-01-18T09:30:00Z'
+  },
+  {
+    id: 'I-202501-0005',
+    invoiceNumber: 'I-202501-0005',
+    orderId: 'O-202501-0005',
+    firstName: 'Robert',
+    lastName: 'Anderson',
+    email: 'robert.anderson@email.com',
+    phone: '(555) 789-0123',
+    address1: '234 Cedar Court',
+    city: 'Springfield',
+    state: 'IL',
+    zip: '62707',
+    eventType: 'celebration',
+    eventName: 'Robert\'s 50th Birthday',
+    eventDate: '2025-02-15',
+    eventTime: '19:00',
+    guestCount: 60,
+    fulfillmentType: 'delivery',
+    deliveryTime: '17:00',
+    venue: 'Downtown Event Space',
+    items: [
+      { id: '1', name: 'Custom Birthday Cake', description: '2-tier chocolate and vanilla cake', quantity: 1, unitPrice: 180.00, total: 180.00 },
+      { id: '2', name: 'Cupcakes (3 dozen)', description: 'Assorted flavors with elegant decorations', quantity: 1, unitPrice: 108.00, total: 108.00 },
+      { id: '3', name: 'Delivery & Setup', description: 'Includes delivery and professional setup', quantity: 1, unitPrice: 40.00, total: 40.00 }
+    ],
+    subtotal: 328.00,
+    taxRate: 7.0,
+    taxAmount: 22.96,
+    total: 350.96,
+    payments: [],
+    amountPaid: 0.00,
+    balance: 350.96,
+    nextPaymentDueDate: '2025-02-08',
+    status: 'pending',
+    issueDate: '2025-01-20',
+    dueDate: '2025-02-08',
+    notes: 'Customer wants elegant black and gold theme. Milestone birthday celebration.',
+    termsConditions: 'Payment due 7 days before event date. Cancellations within 48 hours are subject to 25% fee.',
+    createdAt: '2025-01-20T11:15:00Z',
+    updatedAt: '2025-01-20T11:15:00Z'
+  },
+  {
+    id: 'I-202501-0006',
+    invoiceNumber: 'I-202501-0006',
+    orderId: 'O-202501-0006',
+    firstName: 'Linda',
+    lastName: 'Thompson',
+    email: 'linda.thompson@techstart.com',
+    phone: '(555) 890-1234',
+    address1: '567 Innovation Drive',
+    city: 'Springfield',
+    state: 'IL',
+    zip: '62708',
+    eventType: 'corporate',
+    eventName: 'TechStart Annual Meeting',
+    eventDate: '2025-02-28',
+    eventTime: '14:00',
+    guestCount: 100,
+    fulfillmentType: 'delivery',
+    deliveryTime: '12:30',
+    venue: 'TechStart Headquarters',
+    items: [
+      { id: '1', name: 'Corporate Cupcakes (60)', description: 'Branded with company logo', quantity: 1, unitPrice: 180.00, total: 180.00 },
+      { id: '2', name: 'Branded Cookies (48)', description: 'Custom cookies with corporate colors', quantity: 1, unitPrice: 96.00, total: 96.00 },
+      { id: '3', name: 'Professional Setup', description: 'White-glove delivery and arrangement', quantity: 1, unitPrice: 60.00, total: 60.00 }
+    ],
+    subtotal: 336.00,
+    taxRate: 7.0,
+    taxAmount: 23.52,
+    total: 359.52,
+    payments: [
+      { id: '1', date: '2025-01-22', amount: 179.76, method: 'Check', reference: 'CHK-TS-2025-001' }
+    ],
+    amountPaid: 179.76,
+    balance: 179.76,
+    nextPaymentDueDate: '2025-02-21',
+    status: 'partial',
+    issueDate: '2025-01-22',
+    dueDate: '2025-02-21',
+    notes: 'Annual company meeting. Need everything set up by 12:30 PM. Contact Linda for building access.',
+    internalNotes: 'Regular corporate client. Net 30 payment terms approved.',
+    termsConditions: 'Net 30 payment terms. PO number required for all orders.',
+    createdAt: '2025-01-22T10:00:00Z',
+    updatedAt: '2025-01-22T14:30:00Z'
+  },
+  {
+    id: 'I-202412-0047',
+    invoiceNumber: 'I-202412-0047',
+    orderId: 'O-202412-0047',
+    firstName: 'Patricia',
+    lastName: 'Lewis',
+    email: 'patricia.lewis@email.com',
+    phone: '(555) 901-2345',
+    address1: '678 Birch Boulevard',
+    city: 'Springfield',
+    state: 'IL',
+    zip: '62709',
+    eventType: 'celebration',
+    eventName: 'Baby Shower',
+    eventDate: '2025-01-25',
+    eventTime: '14:00',
+    guestCount: 30,
+    fulfillmentType: 'pickup',
+    pickupTime: '11:00',
+    venue: 'Private Residence',
+    items: [
+      { id: '1', name: 'Baby Shower Cake', description: 'Pastel colors with teddy bear theme', quantity: 1, unitPrice: 95.00, total: 95.00 },
+      { id: '2', name: 'Mini Cupcakes (2 dozen)', description: 'Pink and blue themed', quantity: 1, unitPrice: 48.00, total: 48.00 }
+    ],
+    subtotal: 143.00,
+    taxRate: 7.0,
+    taxAmount: 10.01,
+    total: 153.01,
+    payments: [
+      { id: '1', date: '2024-12-28', amount: 153.01, method: 'Credit Card', reference: 'TXID-98765' }
+    ],
+    amountPaid: 153.01,
+    balance: 0.00,
+    status: 'paid',
+    issueDate: '2024-12-28',
+    dueDate: '2025-01-18',
+    notes: 'Gender reveal party. Pink and blue decorations requested.',
+    termsConditions: 'All sales are final. No refunds for picked-up items.',
+    createdAt: '2024-12-28T15:20:00Z',
+    updatedAt: '2025-01-05T09:00:00Z'
+  },
+  {
+    id: 'I-202412-0048',
+    invoiceNumber: 'I-202412-0048',
+    orderId: 'O-202412-0048',
+    firstName: 'Michael',
+    lastName: 'Rodriguez',
+    email: 'michael.rodriguez@email.com',
+    phone: '(555) 012-3456',
+    address1: '789 Spruce Street',
+    city: 'Springfield',
+    state: 'IL',
+    zip: '62710',
+    eventType: 'celebration',
+    eventName: 'Graduation Party',
+    eventDate: '2025-05-18',
+    eventTime: '15:00',
+    guestCount: 45,
+    fulfillmentType: 'pickup',
+    pickupTime: '13:00',
+    venue: 'Family Home',
+    items: [
+      { id: '1', name: 'Graduation Cake', description: 'School colors with diploma design', quantity: 1, unitPrice: 110.00, total: 110.00 },
+      { id: '2', name: 'Graduation Cookies (36)', description: 'Cap and diploma shaped cookies', quantity: 1, unitPrice: 72.00, total: 72.00 }
+    ],
+    subtotal: 182.00,
+    taxRate: 7.0,
+    taxAmount: 12.74,
+    total: 194.74,
+    payments: [],
+    amountPaid: 0.00,
+    balance: 194.74,
+    nextPaymentDueDate: '2025-05-11',
+    status: 'pending',
+    issueDate: '2024-12-30',
+    dueDate: '2025-05-11',
+    notes: 'High school graduation. School colors are blue and white.',
+    termsConditions: 'Payment due 7 days before pickup date. Cancellations within 48 hours are subject to 25% fee.',
+    createdAt: '2024-12-30T16:45:00Z',
+    updatedAt: '2024-12-30T16:45:00Z'
+  },
+  {
+    id: 'I-202411-0030',
+    invoiceNumber: 'I-202411-0030',
+    orderId: 'O-202411-0030',
+    firstName: 'Susan',
+    lastName: 'White',
+    email: 'susan.white@email.com',
+    phone: '(555) 123-7890',
+    address1: '890 Chestnut Avenue',
+    city: 'Springfield',
+    state: 'IL',
+    zip: '62711',
+    eventType: 'celebration',
+    eventName: 'Retirement Party',
+    eventDate: '2024-12-15',
+    eventTime: '16:00',
+    guestCount: 50,
+    fulfillmentType: 'delivery',
+    deliveryTime: '14:00',
+    venue: 'Office Conference Room',
+    items: [
+      { id: '1', name: 'Retirement Cake', description: '2-tier cake with career milestone theme', quantity: 1, unitPrice: 160.00, total: 160.00 },
+      { id: '2', name: 'Assorted Cookies (48)', description: 'Professional decorated cookies', quantity: 1, unitPrice: 96.00, total: 96.00 },
+      { id: '3', name: 'Delivery', description: 'Delivery to office location', quantity: 1, unitPrice: 30.00, total: 30.00 }
+    ],
+    subtotal: 286.00,
+    taxRate: 7.0,
+    taxAmount: 20.02,
+    total: 306.02,
+    payments: [
+      { id: '1', date: '2024-11-20', amount: 306.02, method: 'Credit Card', reference: 'TXID-11223' }
+    ],
+    amountPaid: 306.02,
+    balance: 0.00,
+    status: 'paid',
+    issueDate: '2024-11-20',
+    dueDate: '2024-12-08',
+    notes: '30 years of service celebration. Professional and elegant design requested.',
+    termsConditions: 'Payment due 7 days before event date.',
+    createdAt: '2024-11-20T10:30:00Z',
+    updatedAt: '2024-12-15T15:00:00Z'
+  },
+  {
+    id: 'I-202411-0031',
+    invoiceNumber: 'I-202411-0031',
+    orderId: 'O-202411-0031',
+    firstName: 'Daniel',
+    lastName: 'Brown',
+    email: 'daniel.brown@email.com',
+    phone: '(555) 234-8901',
+    address1: '345 Hickory Drive',
+    city: 'Springfield',
+    state: 'IL',
+    zip: '62712',
+    eventType: 'wedding',
+    eventName: 'Brown-Davis Wedding',
+    eventDate: '2024-11-30',
+    eventTime: '17:30',
+    guestCount: 80,
+    fulfillmentType: 'delivery',
+    deliveryTime: '15:30',
+    venue: 'Garden Pavilion',
+    items: [
+      { id: '1', name: '3-Tier Wedding Cake', description: 'Lemon cake with raspberry filling', quantity: 1, unitPrice: 480.00, total: 480.00 },
+      { id: '2', name: 'Dessert Table', description: 'Assorted mini desserts for 80 guests', quantity: 1, unitPrice: 240.00, total: 240.00 }
+    ],
+    subtotal: 720.00,
+    taxRate: 7.0,
+    taxAmount: 50.40,
+    total: 770.40,
+    payments: [
+      { id: '1', date: '2024-10-15', amount: 385.20, method: 'Credit Card', reference: 'TXID-33445' },
+      { id: '2', date: '2024-11-20', amount: 385.20, method: 'Credit Card', reference: 'TXID-55667' }
+    ],
+    amountPaid: 770.40,
+    balance: 0.00,
+    status: 'paid',
+    issueDate: '2024-10-15',
+    dueDate: '2024-11-16',
+    notes: 'Outdoor wedding. Requested light and fresh flavors. Garden theme with fresh flowers.',
+    termsConditions: 'Final payment due 14 days before event date. Cancellations within 30 days of event are subject to 50% fee.',
+    createdAt: '2024-10-15T14:00:00Z',
+    updatedAt: '2024-11-30T18:00:00Z'
   }
 ];
 
@@ -1996,4 +2290,29 @@ export const getRecentQuotes = (limit: number = 5): MockQuote[] => {
   return mockQuotesList
     .sort((a, b) => new Date(b.issueDate).getTime() - new Date(a.issueDate).getTime())
     .slice(0, limit);
+};
+
+// Invoice utility functions
+export const getInvoiceStatusColor = (status: string): string => {
+  switch (status) {
+    case 'pending': return 'bg-orange-100 text-orange-800';
+    case 'deposit_paid': return 'bg-aqua-100 text-aqua-800';
+    case 'partial': return 'bg-yellow-100 text-yellow-800';
+    case 'paid': return 'bg-mint-100 text-mint-800';
+    case 'overdue': return 'bg-red-200 text-red-900';
+    case 'cancelled': return 'bg-gray-100 text-gray-800';
+    default: return 'bg-gray-100 text-gray-800';
+  }
+};
+
+export const getInvoiceStatusText = (status: string): string => {
+  switch (status) {
+    case 'pending': return 'Pending';
+    case 'deposit_paid': return 'Deposit Paid';
+    case 'partial': return 'Partial';
+    case 'paid': return 'Paid';
+    case 'overdue': return 'Overdue';
+    case 'cancelled': return 'Cancelled';
+    default: return status;
+  }
 };
