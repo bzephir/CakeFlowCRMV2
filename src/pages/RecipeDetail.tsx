@@ -29,11 +29,11 @@ const RecipeDetail: React.FC = () => {
   const recipe: Recipe = {
     id: '1',
     name: 'Classic Vanilla Cake',
-    category: 'Wedding Cakes',
+    category: 'Cake',
     image: 'https://www.pexels.com/photo/baker-putting-icing-on-a-cake-8477755/',
     status: 'active',
     yield: {
-      quantity: 50,
+      quantity: 25,
       unit: 'servings',
       description: 'vanilla cake'
     },
