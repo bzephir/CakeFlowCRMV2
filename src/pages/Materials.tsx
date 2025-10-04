@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import Header from '../components/Header';
-import { Plus, Search, Filter, Package, DollarSign, ToolCase, AlertTriangle, TrendingUp, ChevronDown, ChevronUp, CreditCard as Edit } from 'lucide-react';
+import { Plus, Search, Filter, Package, DollarSign, PcCase as ToolCase, AlertTriangle, TrendingUp, ChevronDown, ChevronUp, CreditCard as Edit } from 'lucide-react';
 import {
   mockMaterials,
   getMaterialCategories,
@@ -241,6 +241,9 @@ const Materials: React.FC = () => {
               <div className="flex-1">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Material Name</span>
               </div>
+              <div className="w-32 text-left">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Category</span>
+              </div>
               <div className="w-28 text-center">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Unit Qty</span>
               </div>
@@ -277,7 +280,9 @@ const Materials: React.FC = () => {
                   <div className="flex items-center space-x-4 flex-1">
                     <div className="flex-1">
                       <h3 className="text-sm font-medium text-gray-900">{material.name}</h3>
-                      <p className="text-xs text-gray-500">{material.category}</p>
+                    </div>
+                    <div className="w-32 text-left">
+                      <span className="text-sm text-gray-700">{material.category}</span>
                     </div>
                     <div className="w-28 text-center">
                       <span className="text-sm text-gray-700">{material.unitQuantity}</span>
@@ -310,10 +315,6 @@ const Materials: React.FC = () => {
                       <div>
                         <h4 className="text-sm font-medium text-gray-900 mb-2">Material Details</h4>
                         <dl className="space-y-1.5">
-                          <div>
-                            <dt className="text-xs text-gray-500">Category</dt>
-                            <dd className="text-sm text-gray-900">{material.category}</dd>
-                          </div>
                           <div>
                             <dt className="text-xs text-gray-500">Unit Quantity</dt>
                             <dd className="text-sm text-gray-900">{material.unitQuantity} items per package</dd>
