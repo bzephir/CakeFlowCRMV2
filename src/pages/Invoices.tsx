@@ -201,7 +201,7 @@ const Invoices: React.FC = () => {
                       />
                     </div>
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-3 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Invoice #
                   </th>
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -210,7 +210,7 @@ const Invoices: React.FC = () => {
                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Customer
                   </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-1 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Event Type
                   </th>
                   <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
