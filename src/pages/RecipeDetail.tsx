@@ -170,8 +170,8 @@ const RecipeDetail: React.FC = () => {
         unit: 'yards',
         costPerUnit: 1.25,
         totalCost: 2.50
-      } */
-    ],
+      } 
+    ],*/
     /*sellingPrice: 450.00,*/
     totalCost: 21.20,
     costPerUnit: 0.42,
