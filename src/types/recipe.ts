@@ -27,17 +27,10 @@ export interface Recipe {
   totalCost: number;
   costPerUnit: number;
   
-  // Pricing fields
-  sellingPrice?: number;
-  marginPercentage?: number;
-  profitPerUnit?: number;
-  laborRate?: number;
-
   // Metadata
   createdAt: string;
   updatedAt: string;
   createdBy: string;
-  updatedBy?: string;
   lastUsed?: string;
   timesUsed: number;
 }
