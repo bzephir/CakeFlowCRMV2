@@ -12,6 +12,7 @@ import RecipeDetail from './pages/RecipeDetail';
 import RecipeMarginReport from './pages/RecipeMarginReport';
 import Ingredients from './pages/Ingredients';
 import Materials from'./pages/Materials';
+import Packages from'./pages/Packages';
 import { InquiryProvider } from './context/InquiryContext';
 import { InvoiceProvider } from './context/InvoiceContext';
 import { OrderProvider } from './context/OrderContext';
@@ -82,6 +83,7 @@ function App() {
                 <Route path="/packages" element={<Packages />} />
                 <Route path="/ingredients" element={<Ingredients />} />
                 <Route path="/materials" element={<Materials />} />
+                <Route path="/packages" element={<Packages />} />
                 <Route path="/inventory" element={<Inventory />} />
                 <Route path="/inventory-tracking" element={<InventoryTracking/>} />
                 <Route path="/customers" element={<Customers />} />
