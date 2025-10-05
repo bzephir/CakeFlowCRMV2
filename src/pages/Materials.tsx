@@ -252,9 +252,6 @@ const Materials: React.FC = () => {
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Category</span>
               </div>
               <div className="w-24 text-center">
-                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Unit Qty</span>
-              </div>
-              <div className="w-24 text-center">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Pkg Cost</span>
               </div>
               <div className="w-24 text-center">
@@ -262,6 +259,9 @@ const Materials: React.FC = () => {
               </div>
               <div className="w-24 text-center">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Price Per</span>
+              </div>
+              <div className="w-24 text-center">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Qty on Hand</span>
               </div>
               <div className="w-28 text-center">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Status</span>
@@ -292,9 +292,6 @@ const Materials: React.FC = () => {
                       <span className="text-sm text-gray-700">{material.category}</span>
                     </div>
                     <div className="w-24 text-center">
-                      <span className="text-sm text-gray-700">{material.unitQuantity}</span>
-                    </div>
-                    <div className="w-24 text-center">
                       <span className="text-sm font-medium text-gray-900">${material.packageCost.toFixed(2)}</span>
                     </div>
                     <div className="w-24 text-center">
@@ -302,6 +299,9 @@ const Materials: React.FC = () => {
                     </div>
                     <div className="w-24 text-center">
                       <span className="text-sm text-gray-700">${material.pricePerItem.toFixed(2)}</span>
+                    </div>
+                    <div className="w-24 text-center">
+                      <span className="text-sm text-gray-700">{material.unitQuantity}</span>
                     </div>
                     <div className="w-28 flex justify-center">
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${status.color}`}>
