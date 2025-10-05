@@ -13,8 +13,7 @@ import {
   ChevronUp,
   CreditCard as Edit,
   Eye,
-  Copy,
-  Trash2
+  Copy
 } from 'lucide-react';
 import { mockRecipes, getRecipeCategories, calculateAverageCost } from '../data/mockRecipes';
 import type { Recipe } from '../types/recipe';
@@ -120,13 +119,6 @@ const Recipes: React.FC = () => {
     };
     setEditingRecipe(duplicatedRecipe);
     setIsFormOpen(true);
-  };
-
-  const handleDeleteRecipe = (recipe: Recipe) => {
-    if (window.confirm(`Are you sure you want to delete "${recipe.name}"? This action cannot be undone.`)) {
-      console.log('Delete recipe:', recipe.id);
-      alert(`Recipe "${recipe.name}" has been deleted.`);
-    }
   };
 
   const handleFormSubmit = (recipeData: any) => {
@@ -456,16 +448,6 @@ const Recipes: React.FC = () => {
                       >
                         <Copy className="h-4 w-4 mr-1.5" />
                         Duplicate
-                      </button>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleDeleteRecipe(recipe);
-                        }}
-                        className="inline-flex items-center px-3 py-1.5 border border-red-300 text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50 transition-colors"
-                      >
-                        <Trash2 className="h-4 w-4 mr-1.5" />
-                        Delete
                       </button>
                     </div>
                   </div>
