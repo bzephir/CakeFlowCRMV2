@@ -321,9 +321,9 @@ const RecipeDetail: React.FC = () => {
           }`}>
             {activeTab === 'overview' && (
               <div className="space-y-6">
-                <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-                  <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-3">Description</h3>
-                  <p className="text-base text-gray-900 leading-relaxed">{recipe.description}</p>
+                <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
+                  <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">Description</h3>
+                  <p className="text-sm text-gray-900 leading-relaxed">{recipe.description}</p>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
