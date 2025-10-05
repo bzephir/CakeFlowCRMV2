@@ -261,22 +261,22 @@ const Ingredients: React.FC = () => {
               <div className="flex-1">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Ingredient Name</span>
               </div>
-              <div className="w-32 text-left">
+              <div className="w-44 text-left">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Category</span>
               </div>
-              <div className="w-24 text-center">
+              <div className="w-32 text-center">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Purchase Qty</span>
               </div>
-              <div className="w-24 text-center">
+              <div className="w-36 text-center">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Purchase Unit</span>
               </div>
-              <div className="w-24 text-center">
+              <div className="w-32 text-center">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Price</span>
               </div>
-              <div className="w-28 text-center">
+              <div className="w-36 text-center">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Qty on Hand</span>
               </div>
-              <div className="w-28 text-center">
+              <div className="w-36 text-center">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Status</span>
               </div>
             </div>
@@ -302,22 +302,22 @@ const Ingredients: React.FC = () => {
                     <div className="flex-1">
                       <h3 className="text-sm font-medium text-gray-900">{ingredient.name}</h3>
                     </div>
-                    <div className="w-32 text-left">
+                    <div className="w-44 text-left">
                       <span className="text-sm text-gray-700">{ingredient.category}</span>
                     </div>
-                    <div className="w-24 text-center">
+                    <div className="w-32 text-center">
                       <span className="text-sm text-gray-700">{ingredient.packageSize}</span>
                     </div>
-                    <div className="w-24 text-center">
+                    <div className="w-36 text-center">
                       <span className="text-sm text-gray-700">{ingredient.packageUnit}</span>
                     </div>
-                    <div className="w-24 text-center">
+                    <div className="w-32 text-center">
                       <span className="text-sm font-medium text-gray-900">${ingredient.purchasePrice.toFixed(2)}</span>
                     </div>
-                    <div className="w-28 text-center">
+                    <div className="w-36 text-center">
                       <span className="text-sm text-gray-700">{ingredient.inventoryQuantity}</span>
                     </div>
-                    <div className="w-28 flex justify-center">
+                    <div className="w-36 flex justify-center">
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${status.color}`}>
                         {status.text}
                       </span>
