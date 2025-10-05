@@ -2,33 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Customer,Order, Quote, Invoice, Communication, File, Event } from '../types';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import { 
-  ArrowLeft,
-  Edit,
-  Mail,
-  Phone,
-  MapPin,
-  Calendar,
-  DollarSign,
-  User,
-  Plus,
-  Eye,
-  Clock,
-  Package,
-  ShoppingBag,
-  FileText,
-  MessageSquare,
-  Paperclip,
-  Star,
-  CheckCircle2,
-  AlertCircle,
-  Download,
-  Send,
-  Archive,
-  MoreHorizontal,
-  Filter,
-  Search
-} from 'lucide-react';
+import { ArrowLeft, CreditCard as Edit, Mail, Phone, MapPin, Calendar, DollarSign, User, Plus, Eye, Clock, Package, ShoppingBag, FileText, MessageSquare, Paperclip, Star, CheckCircle2, AlertCircle, Download, Send, Archive, MoreHorizontal, Filter, Search } from 'lucide-react';
 
 const CustomerDetail: React.FC = () => {
   const { id } = useParams();
@@ -519,9 +493,9 @@ return (
         </div>
 
         {/* Tabs */}
-        <div className="mb-6">
+        <div className="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden">
           <div className="border-b border-gray-200">
-            <nav className="-mb-px flex space-x-8">
+            <nav className="flex">
               {[
                 { id: 'overview', name: 'Overview', icon: Eye },
                 { id: 'orders', name: 'Orders', icon: Package, count: orders.length },
@@ -533,16 +507,20 @@ return (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as any)}
-                  className={`flex items-center py-2 px-1 border-b-2 font-medium text-sm transition-colors ${
+                  className={`flex items-center py-3 px-4 font-medium text-sm transition-all border-b-2 ${
                     activeTab === tab.id
-                      ? 'border-coral-500 text-coral-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                      ? 'border-coral-500 text-coral-600 bg-coral-50'
+                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50'
                   }`}
                 >
                   <tab.icon className="h-4 w-4 mr-2" />
                   {tab.name}
                   {tab.count !== undefined && (
-                    <span className="ml-2 bg-gray-100 text-gray-600 py-0.5 px-2 rounded-full text-xs">
+                    <span className={`ml-2 py-0.5 px-2 rounded-full text-xs ${
+                      activeTab === tab.id
+                        ? 'bg-coral-100 text-coral-700'
+                        : 'bg-gray-100 text-gray-600'
+                    }`}>
                       {tab.count}
                     </span>
                   )}
@@ -550,73 +528,80 @@ return (
               ))}
             </nav>
           </div>
-        </div>
 
-        {/* Tab Content */}
-        {activeTab === 'overview' && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Upcoming Events */}
-            <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-              <div className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Upcoming Events</h3>
-                <div className="space-y-4">
-                  {upcomingEvents.map((event) => (
-                    <div key={event.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                      <div className="flex items-center space-x-3">
-                        <Calendar className="h-5 w-5 text-coral-500" />
-                        <div>
-                          <div className="text-sm font-medium text-gray-900">{event.title}</div>
-                          <div className="text-sm text-gray-500">
-                            {formatDate(event.date)} at {event.time}
+          {/* Tab Content */}
+          <div className={`p-6 transition-colors ${
+            activeTab === 'overview' ? 'bg-coral-50/30' :
+            activeTab === 'orders' ? 'bg-coral-50/30' :
+            activeTab === 'quotes' ? 'bg-coral-50/30' :
+            activeTab === 'invoices' ? 'bg-coral-50/30' :
+            activeTab === 'communications' ? 'bg-coral-50/30' :
+            activeTab === 'files' ? 'bg-coral-50/30' : ''
+          }`}>
+            {activeTab === 'overview' && (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Upcoming Events */}
+                <div className="bg-white shadow-sm rounded-lg border border-gray-200">
+                  <div className="p-6">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Upcoming Events</h3>
+                    <div className="space-y-4">
+                      {upcomingEvents.map((event) => (
+                        <div key={event.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                          <div className="flex items-center space-x-3">
+                            <Calendar className="h-5 w-5 text-coral-500" />
+                            <div>
+                              <div className="text-sm font-medium text-gray-900">{event.title}</div>
+                              <div className="text-sm text-gray-500">
+                                {formatDate(event.date)} at {event.time}
+                              </div>
+                            </div>
                           </div>
+                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(event.status)}`}>
+                            {event.status}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Recent Activity */}
+                <div className="bg-white shadow-sm rounded-lg border border-gray-200">
+                  <div className="p-6">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Activity</h3>
+                    <div className="space-y-4">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-2 h-2 bg-mint-400 rounded-full mt-2"></div>
+                        <div>
+                          <div className="text-sm font-medium text-gray-900">Invoice #1396 payment received</div>
+                          <div className="text-sm text-gray-500">2 days ago</div>
                         </div>
                       </div>
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(event.status)}`}>
-                        {event.status}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Recent Activity */}
-            <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-              <div className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Activity</h3>
-                <div className="space-y-4">
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-mint-400 rounded-full mt-2"></div>
-                    <div>
-                      <div className="text-sm font-medium text-gray-900">Invoice #1396 payment received</div>
-                      <div className="text-sm text-gray-500">2 days ago</div>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-aqua-400 rounded-full mt-2"></div>
-                    <div>
-                      <div className="text-sm font-medium text-gray-900">Quote #2024-002 sent to customer</div>
-                      <div className="text-sm text-gray-500">5 days ago</div>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-coral-400 rounded-full mt-2"></div>
-                    <div>
-                      <div className="text-sm font-medium text-gray-900">New order #1001 created</div>
-                      <div className="text-sm text-gray-500">1 week ago</div>
+                      <div className="flex items-start space-x-3">
+                        <div className="w-2 h-2 bg-aqua-400 rounded-full mt-2"></div>
+                        <div>
+                          <div className="text-sm font-medium text-gray-900">Quote #2024-002 sent to customer</div>
+                          <div className="text-sm text-gray-500">5 days ago</div>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-3">
+                        <div className="w-2 h-2 bg-coral-400 rounded-full mt-2"></div>
+                        <div>
+                          <div className="text-sm font-medium text-gray-900">New order #1001 created</div>
+                          <div className="text-sm text-gray-500">1 week ago</div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            {/* New Special Dates Section */}
-            <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-              <div className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Special Dates</h3>
-                <div className="space-y-4">
-                  {/* Birthday */}
-                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                {/* New Special Dates Section */}
+                <div className="bg-white shadow-sm rounded-lg border border-gray-200">
+                  <div className="p-6">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Special Dates</h3>
+                    <div className="space-y-4">
+                      {/* Birthday */}
+                      <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                     <div className="flex items-center space-x-3">
                       <Calendar className="h-5 w-5 text-aqua-500" />
                       <div>
@@ -713,12 +698,11 @@ return (
                 </div>
               </div>
             </div>
-          </div>
-        )}
+              </div>
+            )}
 
-        {activeTab === 'orders' && (
-          <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-            <div className="p-6">
+            {activeTab === 'orders' && (
+              <div>
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-semibold text-gray-900">Orders</h3>
                 <button 
@@ -771,12 +755,10 @@ return (
                 ))}
               </div>
             </div>
-          </div>
-        )}
+            )}
 
-        {activeTab === 'quotes' && (
-          <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-            <div className="p-6">
+            {activeTab === 'quotes' && (
+              <div>
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-semibold text-gray-900">Quotes</h3>
                 <button 
@@ -832,12 +814,10 @@ return (
                 ))}
               </div>
             </div>
-          </div>
-        )}
+            )}
 
-        {activeTab === 'invoices' && (
-          <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-            <div className="p-6">
+            {activeTab === 'invoices' && (
+              <div>
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-semibold text-gray-900">Invoices</h3>
                 <button 
@@ -894,12 +874,10 @@ return (
                 ))}
               </div>
             </div>
-          </div>
-        )}
+            )}
 
-        {activeTab === 'communications' && (
-          <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-            <div className="p-6">
+            {activeTab === 'communications' && (
+              <div>
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-semibold text-gray-900">Communications</h3>
                 <button className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 transition-all">
@@ -932,12 +910,10 @@ return (
                 ))}
               </div>
             </div>
-          </div>
-        )}
+            )}
 
-        {activeTab === 'files' && (
-          <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-            <div className="p-6">
+            {activeTab === 'files' && (
+              <div>
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-semibold text-gray-900">Files</h3>
                 <button className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 transition-all">
@@ -971,8 +947,9 @@ return (
                 ))}
               </div>
             </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

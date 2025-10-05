@@ -278,9 +278,9 @@ const RecipeDetail: React.FC = () => {
         </div>
 
         {/* Tabs */}
-        <div className="mb-6">
+        <div className="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden">
           <div className="border-b border-gray-200">
-            <nav className="-mb-px flex space-x-8">
+            <nav className="flex">
               {[
                 { id: 'overview', name: 'Overview', icon: ChefHat },
                 { id: 'ingredients', name: 'Ingredients', icon: Package, count: recipe.ingredients.length },
@@ -290,16 +290,20 @@ const RecipeDetail: React.FC = () => {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as any)}
-                  className={`flex items-center py-2 px-1 border-b-2 font-medium text-sm transition-colors ${
+                  className={`flex items-center py-3 px-4 font-medium text-sm transition-all border-b-2 ${
                     activeTab === tab.id
-                      ? 'border-coral-500 text-coral-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                      ? 'border-coral-500 text-coral-600 bg-coral-50'
+                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50'
                   }`}
                 >
                   <tab.icon className="h-4 w-4 mr-2" />
                   {tab.name}
                   {tab.count !== undefined && (
-                    <span className="ml-2 bg-gray-100 text-gray-600 py-0.5 px-2 rounded-full text-xs">
+                    <span className={`ml-2 py-0.5 px-2 rounded-full text-xs ${
+                      activeTab === tab.id
+                        ? 'bg-coral-100 text-coral-700'
+                        : 'bg-gray-100 text-gray-600'
+                    }`}>
                       {tab.count}
                     </span>
                   )}
@@ -307,12 +311,16 @@ const RecipeDetail: React.FC = () => {
               ))}
             </nav>
           </div>
-        </div>
 
-        {/* Tab Content */}
-        {activeTab === 'overview' && (
-          <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-            <div className="p-6">
+          {/* Tab Content */}
+          <div className={`p-6 transition-colors ${
+            activeTab === 'overview' ? 'bg-coral-50/30' :
+            activeTab === 'ingredients' ? 'bg-coral-50/30' :
+            activeTab === 'preparation' ? 'bg-coral-50/30' :
+            activeTab === 'costing' ? 'bg-coral-50/30' : ''
+          }`}>
+            {activeTab === 'overview' && (
+              <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Recipe Information</h3>
               <div className="space-y-4">
                 <div>
@@ -359,13 +367,11 @@ const RecipeDetail: React.FC = () => {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        )}
+              </div>
+            )}
 
-        {activeTab === 'ingredients' && (
-          <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-            <div className="p-6">
+            {activeTab === 'ingredients' && (
+              <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Ingredients</h3>
               <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
@@ -437,13 +443,11 @@ const RecipeDetail: React.FC = () => {
                   </tfoot>
                 </table>
               </div>
-            </div>
-          </div>
-        )}
+              </div>
+            )}
 
-        {activeTab === 'preparation' && (
-          <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-            <div className="p-6">
+            {activeTab === 'preparation' && (
+              <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Preparation Steps</h3>
               <div className="space-y-2">
                 {recipe.preparationSteps.map((step) => (
@@ -476,13 +480,11 @@ const RecipeDetail: React.FC = () => {
                   </div>
                 ))}
               </div>
-            </div>
-          </div>
-        )}
+              </div>
+            )}
 
-        {activeTab === 'costing' && (
-          <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-            <div className="p-6">
+            {activeTab === 'costing' && (
+              <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Cost Analysis</h3>
               <div className="space-y-4">
                 <div className="flex justify-between items-center py-2 border-b border-gray-100">
@@ -515,10 +517,10 @@ const RecipeDetail: React.FC = () => {
                   </span>
                 </div>
               </div>
-            </div>
+              </div>
+            )}
           </div>
-        )}
-
+        </div>
       </div>
     </div>
   );
