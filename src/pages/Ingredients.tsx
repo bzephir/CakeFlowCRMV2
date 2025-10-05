@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import IngredientForm from '../components/IngredientForm';
 import MeasurementConverter from '../components/MeasurementConverter';
 import VendorModal from '../components/VendorModal';
-import { Plus, Search, Filter, Package, DollarSign, AlertTriangle, CreditCard as Edit, TrendingUp, Calculator, ChevronDown, ChevronUp, RefreshCw } from 'lucide-react';
+import { Plus, Search, Filter, Package, DollarSign, AlertTriangle, CreditCard as Edit, TrendingUp, Calculator, ChevronDown, ChevronUp, RefreshCw, Trash2 } from 'lucide-react';
 import { mockIngredients, getIngredientCategories, getLowStockIngredients } from '../data/mockIngredients';
 import { mockVendors } from '../data/mockVendors';
 import type { MasterIngredient } from '../types/ingredient';
@@ -102,6 +102,13 @@ const Ingredients: React.FC = () => {
   const handleFormClose = () => {
     setIsFormOpen(false);
     setEditingIngredient(null);
+  };
+
+  const handleDelete = (ingredient: MasterIngredient) => {
+    if (window.confirm(`Are you sure you want to delete "${ingredient.name}"? This action cannot be undone.`)) {
+      console.log('Delete ingredient:', ingredient.id);
+      alert(`Ingredient "${ingredient.name}" has been deleted.`);
+    }
   };
 
   const handleVendorSubmit = (vendorData: any) => {
@@ -420,6 +427,16 @@ const Ingredients: React.FC = () => {
                       >
                         <TrendingUp className="h-4 w-4 mr-1.5" />
                         Update Price
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDelete(ingredient);
+                        }}
+                        className="inline-flex items-center px-3 py-1.5 border border-red-300 text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50 transition-colors"
+                      >
+                        <Trash2 className="h-4 w-4 mr-1.5" />
+                        Delete
                       </button>
                     </div>
                   </div>

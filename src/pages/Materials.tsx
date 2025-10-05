@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import Header from '../components/Header';
-import { Plus, Search, Filter, Package, DollarSign, PcCase as ToolCase, AlertTriangle, TrendingUp, ChevronDown, ChevronUp, CreditCard as Edit } from 'lucide-react';
+import { Plus, Search, Filter, Package, DollarSign, PcCase as ToolCase, AlertTriangle, TrendingUp, ChevronDown, ChevronUp, CreditCard as Edit, Trash2 } from 'lucide-react';
 import {
   mockMaterials,
   getMaterialCategories,
@@ -96,6 +96,13 @@ const Materials: React.FC = () => {
 
   const handleAdjustInventory = (material: Material) => {
     alert(`Adjust inventory for: ${material.name}`);
+  };
+
+  const handleDelete = (material: Material) => {
+    if (window.confirm(`Are you sure you want to delete "${material.name}"? This action cannot be undone.`)) {
+      console.log('Delete material:', material.id);
+      alert(`Material "${material.name}" has been deleted.`);
+    }
   };
 
   const totalInventoryValue = calculateTotalInventoryValue();
@@ -434,6 +441,16 @@ const Materials: React.FC = () => {
                       >
                         <Package className="h-4 w-4 mr-1.5" />
                         Adjust Inventory
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDelete(material);
+                        }}
+                        className="inline-flex items-center px-3 py-1.5 border border-red-300 text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50 transition-colors"
+                      >
+                        <Trash2 className="h-4 w-4 mr-1.5" />
+                        Delete
                       </button>
                     </div>
                   </div>

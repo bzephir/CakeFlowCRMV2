@@ -1,42 +1,26 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import { 
-  ArrowLeft,
-  Edit,
-  Copy,
-  Archive,
-  Clock,
-  Users,
-  DollarSign,
-  Package,
-  ChefHat,
-  AlertTriangle,
-  CheckCircle2,
-  Star,
-  TrendingUp,
-  Calendar,
-  MoreHorizontal
-} from 'lucide-react';
+import { ArrowLeft, CreditCard as Edit, Clock, DollarSign, Package, ChefHat, AlertTriangle, CheckCircle2, Printer } from 'lucide-react';
 import type { Recipe } from '../types/recipe';
 
 const RecipeDetail: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<'overview' | 'ingredients' | 'preparation' | 'costing' | 'usage'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'ingredients' | 'preparation' | 'costing'>('overview');
 
   // Mock recipe data - in a real app, fetch based on ID
   const recipe: Recipe = {
     id: '1',
-    name: 'Classic Vanilla Wedding Cake',
-    description: 'Three-layer vanilla sponge with buttercream frosting, perfect for weddings and special occasions',
-    category: 'Wedding Cakes',
-    image: 'https://images.pexels.com/photos/1702373/pexels-photo-1702373.jpeg?auto=compress&cs=tinysrgb&w=600',
+    name: 'Classic Vanilla Cake',
+    category: 'Cake',
+    image: 'https://www.pexels.com/photo/baker-putting-icing-on-a-cake-8477755/',
+    description: 'A timeless classic featuring moist, fluffy layers of vanilla cake. Perfect for weddings, birthdays, and special celebrations. This recipe produces a tender crumb with a delicate vanilla flavor that pairs beautifully with buttercream frosting.',
     status: 'active',
     yield: {
-      quantity: 50,
+      quantity: 25,
       unit: 'servings',
-      description: '3-tier cake (6", 8", 10")'
+      description: 'vanilla cake'
     },
     ingredients: [
       {
@@ -152,8 +136,8 @@ const RecipeDetail: React.FC = () => {
         duration: 45
       }
     ],
-    preparationTime: 180,
-    packaging: [
+    preparationTime: 35,
+  packaging: [
       {
         id: '1',
         itemId: 'box-001',
@@ -171,53 +155,22 @@ const RecipeDetail: React.FC = () => {
         unit: 'yards',
         costPerUnit: 1.25,
         totalCost: 2.50
-      }
+      } 
     ],
     sellingPrice: 450.00,
     totalCost: 21.20,
     costPerUnit: 0.42,
-    marginPercentage: 95.3,
+   marginPercentage: 95.3,
     profitPerUnit: 8.58,
     createdAt: '2024-01-01',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
+    updatedBy: 'Sarah Mitchell',
     lastUsed: '2024-01-10',
-    timesUsed: 15
+    timesUsed: 15,
+    laborRate: 25.00
   };
 
-  // Mock usage history
-  const usageHistory = [
-    {
-      id: '1',
-      orderId: 'O-202501-0001',
-      customerName: 'Sarah Johnson',
-      eventDate: '2025-01-15',
-      quantity: 1,
-      revenue: 450.00,
-      profit: 428.80,
-      usedAt: '2025-01-10'
-    },
-    {
-      id: '2',
-      orderId: 'O-202412-0025',
-      customerName: 'Michael & Lisa',
-      eventDate: '2024-12-20',
-      quantity: 1,
-      revenue: 450.00,
-      profit: 428.80,
-      usedAt: '2024-12-15'
-    },
-    {
-      id: '3',
-      orderId: 'O-202412-0018',
-      customerName: 'Corporate Event Co.',
-      eventDate: '2024-12-10',
-      quantity: 2,
-      revenue: 900.00,
-      profit: 857.60,
-      usedAt: '2024-12-05'
-    }
-  ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -273,10 +226,9 @@ const RecipeDetail: React.FC = () => {
     navigate('/orders/new', { state: { selectedRecipe: recipe } });
   };
 
-  const totalRevenue = usageHistory.reduce((sum, usage) => sum + usage.revenue, 0);
-  const totalProfit = usageHistory.reduce((sum, usage) => sum + usage.profit, 0);
   const ingredientsCost = recipe.ingredients.reduce((sum, ing) => sum + ing.totalCost, 0);
-  const packagingCost = (recipe.packaging || []).reduce((sum, pkg) => sum + pkg.totalCost, 0);
+  const laborCost = (recipe.preparationTime / 60) * (recipe.laborRate || 25.00);
+  const totalCostWithLabor = ingredientsCost + laborCost;
 
   return (
     <div className="flex-1 overflow-hidden">
@@ -293,109 +245,34 @@ const RecipeDetail: React.FC = () => {
         </button>
 
         {/* Recipe Header */}
-        <div className="bg-white shadow-sm rounded-lg border border-gray-200 mb-6 overflow-hidden">
-          <div className="md:flex">
-            <div className="md:w-1/3">
-              <img 
-                src={recipe.image} 
-                alt={recipe.name}
-                className="w-full h-64 md:h-full object-cover"
-              />
+        <div className="bg-white shadow-sm rounded-lg border border-gray-200 mb-6 p-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <h1 className="text-2xl font-semibold text-gray-900">{recipe.name}</h1>
+              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getDifficultyColor(recipe.preparationTime)}`}>
+                {getDifficultyLabel(recipe.preparationTime)}
+              </span>
+              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(recipe.status)}`}>
+                {recipe.status}
+              </span>
             </div>
-            <div className="md:w-2/3 p-6">
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex-1">
-                  <div className="flex items-center space-x-3 mb-2">
-                    <h1 className="text-2xl font-semibold text-gray-900">{recipe.name}</h1>
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(recipe.status)}`}>
-                      {recipe.status}
-                    </span>
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getDifficultyColor(recipe.preparationTime)}`}>
-                      {getDifficultyLabel(recipe.preparationTime)}
-                    </span>
-                  </div>
-                  <p className="text-gray-600 mb-4">{recipe.description}</p>
-                  
-                  {/* Quick Stats */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                    <div className="flex items-center text-sm text-gray-600">
-                      <Users className="h-4 w-4 mr-2 text-gray-400" />
-                      <div>
-                        <div className="font-medium">{recipe.yield.quantity} {recipe.yield.unit}</div>
-                        <div className="text-xs text-gray-500">{recipe.yield.description}</div>
-                      </div>
-                    </div>
-                    <div className="flex items-center text-sm text-gray-600">
-                      <Clock className="h-4 w-4 mr-2 text-gray-400" />
-                      <div>
-                        <div className="font-medium">{recipe.preparationTime} min</div>
-                        <div className="text-xs text-gray-500">Prep time</div>
-                      </div>
-                    </div>
-                    <div className="flex items-center text-sm text-gray-600">
-                      <Star className="h-4 w-4 mr-2 text-yellow-400 fill-current" />
-                      <div>
-                        <div className="font-medium">{recipe.timesUsed} times</div>
-                        <div className="text-xs text-gray-500">Used</div>
-                      </div>
-                    </div>
-                    <div className="flex items-center text-sm text-gray-600">
-                      <Calendar className="h-4 w-4 mr-2 text-gray-400" />
-                      <div>
-                        <div className="font-medium">{formatDate(recipe.lastUsed || recipe.createdAt)}</div>
-                        <div className="text-xs text-gray-500">Last used</div>
-                      </div>
-                    </div>
-                  </div>
 
-                  {/* Financial Summary */}
-                  <div className="bg-gray-50 rounded-lg p-4">
-                    <div className="grid grid-cols-4 gap-4 text-center">
-                      <div>
-                        <div className="text-lg font-semibold text-gray-900">{formatCurrency(recipe.totalCost)}</div>
-                        <div className="text-xs text-gray-500">Total Cost</div>
-                      </div>
-                      <div>
-                        <div className="text-lg font-semibold text-coral-600">{formatCurrency(recipe.sellingPrice)}</div>
-                        <div className="text-xs text-gray-500">Selling Price</div>
-                      </div>
-                      <div>
-                        <div className="text-lg font-semibold text-mint-600">{recipe.marginPercentage.toFixed(1)}%</div>
-                        <div className="text-xs text-gray-500">Margin</div>
-                      </div>
-                      <div>
-                        <div className="text-lg font-semibold text-aqua-600">{formatCurrency(recipe.profitPerUnit * recipe.yield.quantity)}</div>
-                        <div className="text-xs text-gray-500">Profit</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex flex-col space-y-2 ml-4">
-                  <button 
-                    onClick={handleUseInOrder}
-                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 transition-all"
-                  >
-                    <Package className="h-4 w-4 mr-2" />
-                    Use in Order
-                  </button>
-                  <button 
-                    onClick={handleEdit}
-                    className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 transition-colors"
-                  >
-                    <Edit className="h-4 w-4 mr-2" />
-                    Edit Recipe
-                  </button>
-                  <div className="relative">
-                    <button className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 transition-colors">
-                      <MoreHorizontal className="h-4 w-4 mr-2" />
-                      More
-                    </button>
-                    {/* Dropdown menu would go here */}
-                  </div>
-                </div>
-              </div>
+            {/* Action Buttons */}
+            <div className="flex space-x-2">
+              <button
+                onClick={handleEdit}
+                className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+              >
+                <Edit className="h-4 w-4 mr-2" />
+                Edit Recipe
+              </button>
+              <button
+                onClick={() => window.print()}
+                className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+              >
+                <Printer className="h-4 w-4 mr-2" />
+                Print
+              </button>
             </div>
           </div>
         </div>
@@ -408,8 +285,7 @@ const RecipeDetail: React.FC = () => {
                 { id: 'overview', name: 'Overview', icon: ChefHat },
                 { id: 'ingredients', name: 'Ingredients', icon: Package, count: recipe.ingredients.length },
                 { id: 'preparation', name: 'Preparation', icon: Clock, count: recipe.preparationSteps.length },
-                { id: 'costing', name: 'Cost Analysis', icon: DollarSign },
-                { id: 'usage', name: 'Usage History', icon: TrendingUp, count: usageHistory.length }
+                { id: 'costing', name: 'Cost Analysis', icon: DollarSign }
               ].map((tab) => (
                 <button
                   key={tab.id}
@@ -435,19 +311,22 @@ const RecipeDetail: React.FC = () => {
 
         {/* Tab Content */}
         {activeTab === 'overview' && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Recipe Information */}
-            <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-              <div className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Recipe Information</h3>
-                <div className="space-y-4">
+          <div className="bg-white shadow-sm rounded-lg border border-gray-200">
+            <div className="p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Recipe Information</h3>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Description</label>
+                  <p className="text-sm text-gray-900 mt-1">{recipe.description}</p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700">Category</label>
-                    <p className="text-sm text-gray-900">{recipe.category}</p>
+                    <p className="text-sm text-gray-900 mt-1">{recipe.category}</p>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700">Yield</label>
-                    <p className="text-sm text-gray-900">
+                    <p className="text-sm text-gray-900 mt-1">
                       {recipe.yield.quantity} {recipe.yield.unit}
                       {recipe.yield.description && (
                         <span className="text-gray-500"> ({recipe.yield.description})</span>
@@ -456,58 +335,28 @@ const RecipeDetail: React.FC = () => {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700">Preparation Time</label>
-                    <p className="text-sm text-gray-900">{recipe.preparationTime} minutes</p>
+                    <p className="text-sm text-gray-900 mt-1">{recipe.preparationTime} minutes</p>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Total Cost</label>
+                    <p className="text-sm text-gray-900 mt-1">{formatCurrency(recipe.totalCost)}</p>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Cost Per Serving</label>
+                    <p className="text-sm text-gray-900 mt-1">{formatCurrency(recipe.costPerUnit)}</p>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700">Created</label>
-                    <p className="text-sm text-gray-900">
+                    <p className="text-sm text-gray-900 mt-1">
                       {formatDate(recipe.createdAt)} by {recipe.createdBy}
                     </p>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700">Last Updated</label>
-                    <p className="text-sm text-gray-900">{formatDate(recipe.updatedAt)}</p>
+                    <p className="text-sm text-gray-900 mt-1">
+                      {formatDate(recipe.updatedAt)} by {recipe.updatedBy}
+                    </p>
                   </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Inventory Status */}
-            <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-              <div className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Inventory Status</h3>
-                <div className="space-y-3">
-                  {recipe.ingredients.map((ingredient) => (
-                    <div key={ingredient.id} className="flex items-center justify-between">
-                      <div className="flex-1">
-                        <p className="text-sm font-medium text-gray-900">{ingredient.name}</p>
-                        <p className="text-xs text-gray-500">
-                          Need: {ingredient.quantity} {ingredient.unit}
-                        </p>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-sm text-gray-600">
-                          {ingredient.inStock} {ingredient.unit}
-                        </span>
-                        {ingredient.isOutOfStock ? (
-                          <div className="flex items-center text-red-600">
-                            <AlertTriangle className="h-4 w-4 mr-1" />
-                            <span className="text-xs">Out of Stock</span>
-                          </div>
-                        ) : ingredient.isLowStock ? (
-                          <div className="flex items-center text-yellow-600">
-                            <AlertTriangle className="h-4 w-4 mr-1" />
-                            <span className="text-xs">Low Stock</span>
-                          </div>
-                        ) : (
-                          <div className="flex items-center text-mint-600">
-                            <CheckCircle2 className="h-4 w-4 mr-1" />
-                            <span className="text-xs">Available</span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  ))}
                 </div>
               </div>
             </div>
@@ -522,20 +371,17 @@ const RecipeDetail: React.FC = () => {
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead>
                     <tr>
-                      <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Ingredient
-                      </th>
                       <th className="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Quantity
                       </th>
                       <th className="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Unit
                       </th>
-                      <th className="px-3 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Cost/Unit
+                      <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Ingredient
                       </th>
                       <th className="px-3 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Total Cost
+                        Price
                       </th>
                       <th className="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Stock Status
@@ -545,17 +391,14 @@ const RecipeDetail: React.FC = () => {
                   <tbody className="bg-white divide-y divide-gray-200">
                     {recipe.ingredients.map((ingredient) => (
                       <tr key={ingredient.id}>
-                        <td className="px-3 py-4 text-sm font-medium text-gray-900">
-                          {ingredient.name}
-                        </td>
                         <td className="px-3 py-4 text-sm text-gray-900 text-center">
                           {ingredient.quantity}
                         </td>
                         <td className="px-3 py-4 text-sm text-gray-900 text-center">
                           {ingredient.unit}
                         </td>
-                        <td className="px-3 py-4 text-sm text-gray-900 text-right">
-                          {formatCurrency(ingredient.costPerUnit)}
+                        <td className="px-3 py-4 text-sm font-medium text-gray-900">
+                          {ingredient.name}
                         </td>
                         <td className="px-3 py-4 text-sm font-medium text-gray-900 text-right">
                           {formatCurrency(ingredient.totalCost)}
@@ -583,7 +426,7 @@ const RecipeDetail: React.FC = () => {
                   </tbody>
                   <tfoot>
                     <tr className="bg-gray-50">
-                      <td colSpan={4} className="px-3 py-3 text-sm font-medium text-gray-900 text-right">
+                      <td colSpan={3} className="px-3 py-3 text-sm font-medium text-gray-900 text-right">
                         Total Ingredients Cost:
                       </td>
                       <td className="px-3 py-3 text-sm font-semibold text-gray-900 text-right">
@@ -602,35 +445,33 @@ const RecipeDetail: React.FC = () => {
           <div className="bg-white shadow-sm rounded-lg border border-gray-200">
             <div className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Preparation Steps</h3>
-              <div className="space-y-4">
+              <div className="space-y-2">
                 {recipe.preparationSteps.map((step) => (
-                  <div key={step.id} className="border border-gray-200 rounded-lg p-4">
-                    <div className="flex items-start space-x-4">
-                      <div className="flex-shrink-0">
-                        <div className="w-8 h-8 bg-coral-100 text-coral-600 rounded-full flex items-center justify-center text-sm font-medium">
-                          {step.stepNumber}
-                        </div>
+                  <div key={step.id} className="flex items-start space-x-3 py-2">
+                    <div className="flex-shrink-0">
+                      <div className="w-6 h-6 bg-coral-100 text-coral-600 rounded-full flex items-center justify-center text-xs font-bold">
+                        {step.stepNumber}
                       </div>
-                      <div className="flex-1">
-                        <p className="text-sm text-gray-900 mb-2">{step.instruction}</p>
-                        <div className="flex items-center space-x-4 text-xs text-gray-500">
-                          {step.duration && (
-                            <div className="flex items-center">
-                              <Clock className="h-3 w-3 mr-1" />
-                              {step.duration} minutes
-                            </div>
-                          )}
-                          {step.temperature && (
-                            <div className="flex items-center">
-                              <span className="mr-1">🌡️</span>
-                              {step.temperature}
-                            </div>
-                          )}
-                        </div>
-                        {step.notes && (
-                          <p className="text-xs text-gray-600 mt-2 italic">{step.notes}</p>
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm text-gray-900">{step.instruction}</p>
+                      <div className="flex items-center space-x-4 text-xs text-gray-500 mt-1">
+                        {step.duration && (
+                          <div className="flex items-center">
+                            <Clock className="h-3 w-3 mr-1" />
+                            {step.duration} minutes
+                          </div>
+                        )}
+                        {step.temperature && (
+                          <div className="flex items-center">
+                            <span className="mr-1">🌡️</span>
+                            {step.temperature}
+                          </div>
                         )}
                       </div>
+                      {step.notes && (
+                        <p className="text-xs text-gray-600 mt-1 italic">{step.notes}</p>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -640,234 +481,44 @@ const RecipeDetail: React.FC = () => {
         )}
 
         {activeTab === 'costing' && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Cost Breakdown */}
-            <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-              <div className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Cost Breakdown</h3>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                    <span className="text-sm text-gray-600">Ingredients</span>
-                    <span className="text-sm font-medium text-gray-900">
-                      {formatCurrency(ingredientsCost)}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                    <span className="text-sm text-gray-600">Packaging & Materials</span>
-                    <span className="text-sm font-medium text-gray-900">
-                      {formatCurrency(packagingCost)}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                    <span className="text-base font-medium text-gray-900">Total Cost</span>
-                    <span className="text-base font-semibold text-gray-900">
-                      {formatCurrency(recipe.totalCost)}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center py-2">
-                    <span className="text-sm text-gray-600">Cost per {recipe.yield.unit.slice(0, -1)}</span>
-                    <span className="text-sm font-medium text-gray-900">
-                      {formatCurrency(recipe.costPerUnit)}
-                    </span>
-                  </div>
+          <div className="bg-white shadow-sm rounded-lg border border-gray-200">
+            <div className="p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Cost Analysis</h3>
+              <div className="space-y-4">
+                <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                  <span className="text-sm text-gray-600">Ingredients Cost</span>
+                  <span className="text-sm font-medium text-gray-900">
+                    {formatCurrency(ingredientsCost)}
+                  </span>
                 </div>
-              </div>
-            </div>
-
-            {/* Profitability Analysis */}
-            <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-              <div className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Profitability Analysis</h3>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                    <span className="text-sm text-gray-600">Selling Price</span>
-                    <span className="text-sm font-medium text-gray-900">
-                      {formatCurrency(recipe.sellingPrice)}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                    <span className="text-sm text-gray-600">Total Cost</span>
-                    <span className="text-sm font-medium text-gray-900">
-                      {formatCurrency(recipe.totalCost)}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                    <span className="text-base font-medium text-gray-900">Gross Profit</span>
-                    <span className="text-base font-semibold text-mint-600">
-                      {formatCurrency(recipe.sellingPrice - recipe.totalCost)}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                    <span className="text-sm text-gray-600">Profit Margin</span>
-                    <span className={`text-sm font-medium ${
-                      recipe.marginPercentage >= 50 ? 'text-mint-600' : 
-                      recipe.marginPercentage >= 30 ? 'text-yellow-600' : 'text-red-600'
-                    }`}>
-                      {recipe.marginPercentage.toFixed(1)}%
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center py-2">
-                    <span className="text-sm text-gray-600">Profit per {recipe.yield.unit.slice(0, -1)}</span>
-                    <span className="text-sm font-medium text-mint-600">
-                      {formatCurrency(recipe.profitPerUnit)}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Margin Health Indicator */}
-                <div className="mt-6 p-4 rounded-lg bg-gray-50">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-gray-900">Margin Health</span>
-                    <span className={`text-sm font-medium ${
-                      recipe.marginPercentage >= 50 ? 'text-mint-600' : 
-                      recipe.marginPercentage >= 30 ? 'text-yellow-600' : 'text-red-600'
-                    }`}>
-                      {recipe.marginPercentage >= 50 ? 'Excellent' : 
-                       recipe.marginPercentage >= 30 ? 'Good' : 'Needs Improvement'}
-                    </span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div 
-                      className={`h-2 rounded-full ${
-                        recipe.marginPercentage >= 50 ? 'bg-mint-500' : 
-                        recipe.marginPercentage >= 30 ? 'bg-yellow-500' : 'bg-red-500'
-                      }`}
-                      style={{ width: `${Math.min(recipe.marginPercentage, 100)}%` }}
-                    ></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {activeTab === 'usage' && (
-          <div className="space-y-6">
-            {/* Usage Summary */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="bg-white p-4 rounded-lg border border-gray-200">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0">
-                    <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-coral-500 rounded-full flex items-center justify-center">
-                      <Package className="h-4 w-4 text-white" />
-                    </div>
-                  </div>
-                  <div className="ml-3">
-                    <p className="text-sm font-medium text-gray-500">Times Used</p>
-                    <p className="text-lg font-semibold text-gray-900">{recipe.timesUsed}</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-white p-4 rounded-lg border border-gray-200">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0">
-                    <div className="w-8 h-8 bg-gradient-to-r from-mint-400 to-mint-500 rounded-full flex items-center justify-center">
-                      <DollarSign className="h-4 w-4 text-white" />
-                    </div>
-                  </div>
-                  <div className="ml-3">
-                    <p className="text-sm font-medium text-gray-500">Total Revenue</p>
-                    <p className="text-lg font-semibold text-gray-900">{formatCurrency(totalRevenue)}</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-white p-4 rounded-lg border border-gray-200">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0">
-                    <div className="w-8 h-8 bg-gradient-to-r from-aqua-400 to-aqua-500 rounded-full flex items-center justify-center">
-                      <TrendingUp className="h-4 w-4 text-white" />
-                    </div>
-                  </div>
-                  <div className="ml-3">
-                    <p className="text-sm font-medium text-gray-500">Total Profit</p>
-                    <p className="text-lg font-semibold text-gray-900">{formatCurrency(totalProfit)}</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-white p-4 rounded-lg border border-gray-200">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0">
-                    <div className="w-8 h-8 bg-gradient-to-r from-pink-400 to-pink-500 rounded-full flex items-center justify-center">
-                      <Calendar className="h-4 w-4 text-white" />
-                    </div>
-                  </div>
-                  <div className="ml-3">
-                    <p className="text-sm font-medium text-gray-500">Last Used</p>
-                    <p className="text-lg font-semibold text-gray-900">
-                      {formatDate(recipe.lastUsed || recipe.createdAt)}
+                <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                  <div>
+                    <span className="text-sm text-gray-600">Labor Cost</span>
+                    <p className="text-xs text-gray-500">
+                      {recipe.preparationTime} min @ {formatCurrency(recipe.laborRate || 25.00)}/hr
                     </p>
                   </div>
+                  <span className="text-sm font-medium text-gray-900">
+                    {formatCurrency(laborCost)}
+                  </span>
                 </div>
-              </div>
-            </div>
-
-            {/* Usage History Table */}
-            <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-              <div className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Usage History</h3>
-                <div className="overflow-x-auto">
-                  <table className="min-w-full divide-y divide-gray-200">
-                    <thead>
-                      <tr>
-                        <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Order
-                        </th>
-                        <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Customer
-                        </th>
-                        <th className="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Quantity
-                        </th>
-                        <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Event Date
-                        </th>
-                        <th className="px-3 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Revenue
-                        </th>
-                        <th className="px-3 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Profit
-                        </th>
-                        <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Used Date
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
-                      {usageHistory.map((usage) => (
-                        <tr key={usage.id} className="hover:bg-gray-50">
-                          <td className="px-3 py-4 text-sm font-medium text-coral-600 hover:text-coral-700 cursor-pointer">
-                            {usage.orderId}
-                          </td>
-                          <td className="px-3 py-4 text-sm text-gray-900">
-                            {usage.customerName}
-                          </td>
-                          <td className="px-3 py-4 text-sm text-gray-900 text-center">
-                            {usage.quantity}
-                          </td>
-                          <td className="px-3 py-4 text-sm text-gray-900">
-                            {formatDate(usage.eventDate)}
-                          </td>
-                          <td className="px-3 py-4 text-sm font-medium text-gray-900 text-right">
-                            {formatCurrency(usage.revenue)}
-                          </td>
-                          <td className="px-3 py-4 text-sm font-medium text-mint-600 text-right">
-                            {formatCurrency(usage.profit)}
-                          </td>
-                          <td className="px-3 py-4 text-sm text-gray-900">
-                            {formatDate(usage.usedAt)}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                <div className="flex justify-between items-center py-3 border-b border-gray-200">
+                  <span className="text-base font-medium text-gray-900">Total Cost</span>
+                  <span className="text-base font-semibold text-gray-900">
+                    {formatCurrency(totalCostWithLabor)}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center py-2">
+                  <span className="text-sm text-gray-600">Cost per {recipe.yield.unit.slice(0, -1)}</span>
+                  <span className="text-sm font-medium text-gray-900">
+                    {formatCurrency(totalCostWithLabor / recipe.yield.quantity)}
+                  </span>
                 </div>
               </div>
             </div>
           </div>
         )}
+
       </div>
     </div>
   );
