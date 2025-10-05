@@ -4,6 +4,7 @@ export interface Package {
   description?: string;
   category: PackageCategory;
   status: PackageStatus;
+  servings?: number;
   totalCost: number;
   basePrice?: number;
   sellingPrice?: number;
