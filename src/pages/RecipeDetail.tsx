@@ -320,53 +320,88 @@ const RecipeDetail: React.FC = () => {
             activeTab === 'costing' ? 'bg-coral-50/30' : ''
           }`}>
             {activeTab === 'overview' && (
-              <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Recipe Information</h3>
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">Description</label>
-                  <p className="text-sm text-gray-900 mt-1">{recipe.description}</p>
+              <div className="space-y-6">
+                <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+                  <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-3">Description</h3>
+                  <p className="text-base text-gray-900 leading-relaxed">{recipe.description}</p>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Category</label>
-                    <p className="text-sm text-gray-900 mt-1">{recipe.category}</p>
+
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                  <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+                    <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">Quick Stats</h3>
+                    <div className="space-y-4">
+                      <div className="flex items-start">
+                        <ChefHat className="h-5 w-5 text-coral-500 mt-0.5 mr-3 flex-shrink-0" />
+                        <div>
+                          <p className="text-xs text-gray-500">Yield</p>
+                          <p className="text-sm font-medium text-gray-900">
+                            {recipe.yield.quantity} {recipe.yield.unit}
+                            {recipe.yield.description && (
+                              <span className="text-gray-500 font-normal"> ({recipe.yield.description})</span>
+                            )}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-start">
+                        <Clock className="h-5 w-5 text-coral-500 mt-0.5 mr-3 flex-shrink-0" />
+                        <div>
+                          <p className="text-xs text-gray-500">Preparation Time</p>
+                          <p className="text-sm font-medium text-gray-900">{recipe.preparationTime} minutes</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start">
+                        <Package className="h-5 w-5 text-coral-500 mt-0.5 mr-3 flex-shrink-0" />
+                        <div>
+                          <p className="text-xs text-gray-500">Category</p>
+                          <p className="text-sm font-medium text-gray-900">{recipe.category}</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Yield</label>
-                    <p className="text-sm text-gray-900 mt-1">
-                      {recipe.yield.quantity} {recipe.yield.unit}
-                      {recipe.yield.description && (
-                        <span className="text-gray-500"> ({recipe.yield.description})</span>
-                      )}
-                    </p>
+
+                  <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+                    <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">Cost Breakdown</h3>
+                    <div className="space-y-4">
+                      <div className="flex items-start">
+                        <DollarSign className="h-5 w-5 text-mint-600 mt-0.5 mr-3 flex-shrink-0" />
+                        <div>
+                          <p className="text-xs text-gray-500">Total Cost</p>
+                          <p className="text-sm font-medium text-gray-900">{formatCurrency(recipe.totalCost)}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start">
+                        <DollarSign className="h-5 w-5 text-mint-600 mt-0.5 mr-3 flex-shrink-0" />
+                        <div>
+                          <p className="text-xs text-gray-500">Cost Per Serving</p>
+                          <p className="text-sm font-medium text-gray-900">{formatCurrency(recipe.costPerUnit)}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start">
+                        <DollarSign className="h-5 w-5 text-mint-600 mt-0.5 mr-3 flex-shrink-0" />
+                        <div>
+                          <p className="text-xs text-gray-500">Selling Price</p>
+                          <p className="text-sm font-medium text-gray-900">{formatCurrency(recipe.sellingPrice)}</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Preparation Time</label>
-                    <p className="text-sm text-gray-900 mt-1">{recipe.preparationTime} minutes</p>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Total Cost</label>
-                    <p className="text-sm text-gray-900 mt-1">{formatCurrency(recipe.totalCost)}</p>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Cost Per Serving</label>
-                    <p className="text-sm text-gray-900 mt-1">{formatCurrency(recipe.costPerUnit)}</p>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Created</label>
-                    <p className="text-sm text-gray-900 mt-1">
-                      {formatDate(recipe.createdAt)} by {recipe.createdBy}
-                    </p>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Last Updated</label>
-                    <p className="text-sm text-gray-900 mt-1">
-                      {formatDate(recipe.updatedAt)} by {recipe.updatedBy}
-                    </p>
+
+                  <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+                    <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">History & Usage</h3>
+                    <div className="space-y-4">
+                      <div>
+                        <p className="text-xs text-gray-500">Created</p>
+                        <p className="text-sm font-medium text-gray-900">{formatDate(recipe.createdAt)}</p>
+                        <p className="text-xs text-gray-500 mt-0.5">by {recipe.createdBy}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-500">Last Updated</p>
+                        <p className="text-sm font-medium text-gray-900">{formatDate(recipe.updatedAt)}</p>
+                        <p className="text-xs text-gray-500 mt-0.5">by {recipe.updatedBy}</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
               </div>
             )}
 
