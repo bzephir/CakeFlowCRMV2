@@ -371,10 +371,10 @@ const RecipeDetail: React.FC = () => {
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead>
                     <tr>
-                      <th className="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Quantity
                       </th>
-                      <th className="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Unit
                       </th>
                       <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -383,7 +383,7 @@ const RecipeDetail: React.FC = () => {
                       <th className="px-3 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Price
                       </th>
-                      <th className="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Stock Status
                       </th>
                     </tr>
@@ -391,10 +391,10 @@ const RecipeDetail: React.FC = () => {
                   <tbody className="bg-white divide-y divide-gray-200">
                     {recipe.ingredients.map((ingredient) => (
                       <tr key={ingredient.id}>
-                        <td className="px-3 py-4 text-sm text-gray-900 text-center">
+                        <td className="px-3 py-4 text-sm text-gray-900">
                           {ingredient.quantity}
                         </td>
-                        <td className="px-3 py-4 text-sm text-gray-900 text-center">
+                        <td className="px-3 py-4 text-sm text-gray-900">
                           {ingredient.unit}
                         </td>
                         <td className="px-3 py-4 text-sm font-medium text-gray-900">
@@ -403,7 +403,7 @@ const RecipeDetail: React.FC = () => {
                         <td className="px-3 py-4 text-sm font-medium text-gray-900 text-right">
                           {formatCurrency(ingredient.totalCost)}
                         </td>
-                        <td className="px-3 py-4 text-center">
+                        <td className="px-3 py-4">
                           {ingredient.isOutOfStock ? (
                             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
                               <AlertTriangle className="h-3 w-3 mr-1" />
