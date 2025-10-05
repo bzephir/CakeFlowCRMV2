@@ -137,26 +137,6 @@ const RecipeDetail: React.FC = () => {
       }
     ],
     preparationTime: 35,
-  packaging: [
-      {
-        id: '1',
-        itemId: 'box-001',
-        name: 'Cake Box (Large)',
-        quantity: 1,
-        unit: 'piece',
-        costPerUnit: 2.50,
-        totalCost: 2.50
-      },
-      {
-        id: '2',
-        itemId: 'ribbon-001',
-        name: 'Decorative Ribbon',
-        quantity: 2,
-        unit: 'yards',
-        costPerUnit: 1.25,
-        totalCost: 2.50
-      } 
-    ],
     sellingPrice: 450.00,
     totalCost: 21.20,
     costPerUnit: 0.42,
@@ -277,96 +257,145 @@ const RecipeDetail: React.FC = () => {
           </div>
         </div>
 
-        {/* Tabs */}
-        <div className="mb-6">
+        {/* Tabs with seamless content integration */}
+        <div className="bg-white shadow-sm rounded-lg border border-gray-200">
+          {/* Tab Navigation */}
           <div className="border-b border-gray-200">
-            <nav className="-mb-px flex space-x-8">
+            <nav className="flex">
               {[
                 { id: 'overview', name: 'Overview', icon: ChefHat },
                 { id: 'ingredients', name: 'Ingredients', icon: Package, count: recipe.ingredients.length },
                 { id: 'preparation', name: 'Preparation', icon: Clock, count: recipe.preparationSteps.length },
                 { id: 'costing', name: 'Cost Analysis', icon: DollarSign }
-              ].map((tab) => (
+              ].map((tab, index) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as any)}
-                  className={`flex items-center py-2 px-1 border-b-2 font-medium text-sm transition-colors ${
+                  className={`flex items-center px-6 py-4 font-medium text-sm transition-all relative ${
                     activeTab === tab.id
-                      ? 'border-coral-500 text-coral-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                  }`}
+                      ? 'text-coral-600 bg-gradient-to-b from-coral-50 to-white'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                  } ${index === 0 ? 'rounded-tl-lg' : ''}`}
                 >
                   <tab.icon className="h-4 w-4 mr-2" />
                   {tab.name}
                   {tab.count !== undefined && (
-                    <span className="ml-2 bg-gray-100 text-gray-600 py-0.5 px-2 rounded-full text-xs">
+                    <span className={`ml-2 py-0.5 px-2 rounded-full text-xs font-medium ${
+                      activeTab === tab.id
+                        ? 'bg-coral-100 text-coral-700'
+                        : 'bg-gray-100 text-gray-600'
+                    }`}>
                       {tab.count}
                     </span>
+                  )}
+                  {activeTab === tab.id && (
+                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-coral-500"></div>
                   )}
                 </button>
               ))}
             </nav>
           </div>
-        </div>
 
-        {/* Tab Content */}
-        {activeTab === 'overview' && (
-          <div className="bg-white shadow-sm rounded-lg border border-gray-200">
+          {/* Tab Content - Overview */}
+          {activeTab === 'overview' && (
             <div className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Recipe Information</h3>
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">Description</label>
-                  <p className="text-sm text-gray-900 mt-1">{recipe.description}</p>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Category</label>
-                    <p className="text-sm text-gray-900 mt-1">{recipe.category}</p>
+              {/* Description Section */}
+              <div className="mb-6 bg-gray-50 rounded-lg p-5 border border-gray-200">
+                <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2">Description</h4>
+                <p className="text-gray-900 leading-relaxed">{recipe.description}</p>
+              </div>
+
+              {/* Two Column Layout for Details */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Left Column - Recipe Details */}
+                <div className="space-y-4">
+                  <div className="bg-white rounded-lg border border-gray-200 p-4">
+                    <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-4 pb-2 border-b border-gray-200">Recipe Details</h4>
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-start">
+                        <span className="text-sm font-medium text-gray-600">Category</span>
+                        <span className="text-sm text-gray-900 font-medium">{recipe.category}</span>
+                      </div>
+                      <div className="flex justify-between items-start">
+                        <span className="text-sm font-medium text-gray-600">Yield</span>
+                        <span className="text-sm text-gray-900 font-medium">
+                          {recipe.yield.quantity} {recipe.yield.unit}
+                          {recipe.yield.description && (
+                            <span className="text-gray-500 ml-1">({recipe.yield.description})</span>
+                          )}
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-start">
+                        <span className="text-sm font-medium text-gray-600">Times Used</span>
+                        <span className="text-sm text-gray-900 font-medium">{recipe.timesUsed} orders</span>
+                      </div>
+                      <div className="flex justify-between items-start">
+                        <span className="text-sm font-medium text-gray-600">Last Used</span>
+                        <span className="text-sm text-gray-900 font-medium">{formatDate(recipe.lastUsed || recipe.updatedAt)}</span>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Yield</label>
-                    <p className="text-sm text-gray-900 mt-1">
-                      {recipe.yield.quantity} {recipe.yield.unit}
-                      {recipe.yield.description && (
-                        <span className="text-gray-500"> ({recipe.yield.description})</span>
+
+                  <div className="bg-white rounded-lg border border-gray-200 p-4">
+                    <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-4 pb-2 border-b border-gray-200">Cost Breakdown</h4>
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm font-medium text-gray-600">Ingredients</span>
+                        <span className="text-sm text-gray-900 font-medium">{formatCurrency(ingredientsCost)}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm font-medium text-gray-600">Labor Cost</span>
+                        <span className="text-sm text-gray-900 font-medium">{formatCurrency(laborCost)}</span>
+                      </div>
+                      <div className="flex justify-between items-center pt-2 border-t border-gray-200">
+                        <span className="text-sm font-semibold text-gray-900">Total Cost</span>
+                        <span className="text-sm font-bold text-gray-900">{formatCurrency(totalCostWithLabor)}</span>
+                      </div>
+                      {recipe.sellingPrice && (
+                        <>
+                          <div className="flex justify-between items-center">
+                            <span className="text-sm font-medium text-gray-600">Selling Price</span>
+                            <span className="text-sm text-gray-900 font-medium">{formatCurrency(recipe.sellingPrice)}</span>
+                          </div>
+                          <div className="flex justify-between items-center pt-2 border-t border-gray-200">
+                            <span className="text-sm font-semibold text-mint-700">Profit Margin</span>
+                            <span className="text-sm font-bold text-mint-700">{recipe.marginPercentage?.toFixed(1)}%</span>
+                          </div>
+                        </>
                       )}
-                    </p>
+                    </div>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Preparation Time</label>
-                    <p className="text-sm text-gray-900 mt-1">{recipe.preparationTime} minutes</p>
+                </div>
+
+                {/* Right Column - Metadata & History */}
+                <div className="space-y-4">
+                  <div className="bg-white rounded-lg border border-gray-200 p-4">
+                    <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-4 pb-2 border-b border-gray-200">History</h4>
+                    <div className="space-y-3">
+                      <div>
+                        <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Created</span>
+                        <p className="text-sm text-gray-900 mt-1">
+                          {formatDate(recipe.createdAt)}
+                        </p>
+                        <p className="text-xs text-gray-600 mt-0.5">by {recipe.createdBy}</p>
+                      </div>
+                      <div className="pt-2 border-t border-gray-100">
+                        <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Last Updated</span>
+                        <p className="text-sm text-gray-900 mt-1">
+                          {formatDate(recipe.updatedAt)}
+                        </p>
+                        <p className="text-xs text-gray-600 mt-0.5">by {recipe.updatedBy}</p>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Total Cost</label>
-                    <p className="text-sm text-gray-900 mt-1">{formatCurrency(recipe.totalCost)}</p>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Cost Per Serving</label>
-                    <p className="text-sm text-gray-900 mt-1">{formatCurrency(recipe.costPerUnit)}</p>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Created</label>
-                    <p className="text-sm text-gray-900 mt-1">
-                      {formatDate(recipe.createdAt)} by {recipe.createdBy}
-                    </p>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Last Updated</label>
-                    <p className="text-sm text-gray-900 mt-1">
-                      {formatDate(recipe.updatedAt)} by {recipe.updatedBy}
-                    </p>
-                  </div>
+
                 </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {activeTab === 'ingredients' && (
-          <div className="bg-white shadow-sm rounded-lg border border-gray-200">
+          {activeTab === 'ingredients' && (
             <div className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Ingredients</h3>
               <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead>
@@ -390,7 +419,7 @@ const RecipeDetail: React.FC = () => {
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {recipe.ingredients.map((ingredient) => (
-                      <tr key={ingredient.id}>
+                      <tr key={ingredient.id} className="hover:bg-gray-50 transition-colors">
                         <td className="px-3 py-4 text-sm text-gray-900 text-center">
                           {ingredient.quantity}
                         </td>
@@ -438,86 +467,119 @@ const RecipeDetail: React.FC = () => {
                 </table>
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {activeTab === 'preparation' && (
-          <div className="bg-white shadow-sm rounded-lg border border-gray-200">
+          {activeTab === 'preparation' && (
             <div className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Preparation Steps</h3>
-              <div className="space-y-2">
-                {recipe.preparationSteps.map((step) => (
-                  <div key={step.id} className="flex items-start space-x-3 py-2">
+              <div className="space-y-3">
+                {recipe.preparationSteps.map((step, index) => (
+                  <div key={step.id} className="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg border border-gray-200 hover:border-coral-300 transition-colors">
                     <div className="flex-shrink-0">
-                      <div className="w-6 h-6 bg-coral-100 text-coral-600 rounded-full flex items-center justify-center text-xs font-bold">
+                      <div className="w-8 h-8 bg-gradient-to-br from-coral-400 to-coral-500 text-white rounded-full flex items-center justify-center text-sm font-bold shadow-sm">
                         {step.stepNumber}
                       </div>
                     </div>
-                    <div className="flex-1">
-                      <p className="text-sm text-gray-900">{step.instruction}</p>
-                      <div className="flex items-center space-x-4 text-xs text-gray-500 mt-1">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm text-gray-900 leading-relaxed">{step.instruction}</p>
+                      <div className="flex items-center space-x-4 text-xs text-gray-500 mt-2">
                         {step.duration && (
-                          <div className="flex items-center">
-                            <Clock className="h-3 w-3 mr-1" />
-                            {step.duration} minutes
+                          <div className="flex items-center bg-white px-2 py-1 rounded border border-gray-200">
+                            <Clock className="h-3 w-3 mr-1 text-aqua-600" />
+                            <span className="font-medium">{step.duration} min</span>
                           </div>
                         )}
                         {step.temperature && (
-                          <div className="flex items-center">
+                          <div className="flex items-center bg-white px-2 py-1 rounded border border-gray-200">
                             <span className="mr-1">🌡️</span>
-                            {step.temperature}
+                            <span className="font-medium">{step.temperature}</span>
                           </div>
                         )}
                       </div>
                       {step.notes && (
-                        <p className="text-xs text-gray-600 mt-1 italic">{step.notes}</p>
+                        <p className="text-xs text-gray-600 mt-2 italic bg-yellow-50 p-2 rounded border border-yellow-200">{step.notes}</p>
                       )}
                     </div>
                   </div>
                 ))}
               </div>
-            </div>
-          </div>
-        )}
 
-        {activeTab === 'costing' && (
-          <div className="bg-white shadow-sm rounded-lg border border-gray-200">
-            <div className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Cost Analysis</h3>
-              <div className="space-y-4">
-                <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                  <span className="text-sm text-gray-600">Ingredients Cost</span>
-                  <span className="text-sm font-medium text-gray-900">
-                    {formatCurrency(ingredientsCost)}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                  <div>
-                    <span className="text-sm text-gray-600">Labor Cost</span>
-                    <p className="text-xs text-gray-500">
-                      {recipe.preparationTime} min @ {formatCurrency(recipe.laborRate || 25.00)}/hr
-                    </p>
+              {/* Total time summary */}
+              <div className="mt-6 p-4 bg-gradient-to-r from-aqua-50 to-mint-50 rounded-lg border border-aqua-200">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <Clock className="h-5 w-5 text-aqua-600 mr-2" />
+                    <span className="text-sm font-semibold text-gray-700">Total Preparation Time</span>
                   </div>
-                  <span className="text-sm font-medium text-gray-900">
-                    {formatCurrency(laborCost)}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center py-3 border-b border-gray-200">
-                  <span className="text-base font-medium text-gray-900">Total Cost</span>
-                  <span className="text-base font-semibold text-gray-900">
-                    {formatCurrency(totalCostWithLabor)}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center py-2">
-                  <span className="text-sm text-gray-600">Cost per {recipe.yield.unit.slice(0, -1)}</span>
-                  <span className="text-sm font-medium text-gray-900">
-                    {formatCurrency(totalCostWithLabor / recipe.yield.quantity)}
+                  <span className="text-lg font-bold text-aqua-900">
+                    {recipe.preparationSteps.reduce((sum, step) => sum + (step.duration || 0), 0)} minutes
                   </span>
                 </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
+
+          {activeTab === 'costing' && (
+            <div className="p-6">
+              {/* Detailed Cost Analysis */}
+              <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                <div className="bg-gray-50 px-6 py-3 border-b border-gray-200">
+                  <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">Cost Summary</h4>
+                </div>
+                <div className="p-6 space-y-3">
+                  <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-600">Total Production Cost</span>
+                    <span className="text-lg font-bold text-gray-900">{formatCurrency(totalCostWithLabor)}</span>
+                  </div>
+
+                  <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-600">Cost per {recipe.yield.unit.slice(0, -1)}</span>
+                    <span className="text-lg font-bold text-gray-900">
+                      {formatCurrency(totalCostWithLabor / recipe.yield.quantity)}
+                    </span>
+                  </div>
+
+                  {recipe.sellingPrice && (
+                    <>
+                      <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                        <span className="text-sm font-medium text-gray-600">Selling Price</span>
+                        <span className="text-lg font-bold text-gray-900">{formatCurrency(recipe.sellingPrice)}</span>
+                      </div>
+
+                      <div className="flex justify-between items-center py-3 bg-mint-50 rounded-lg px-4 border border-mint-200">
+                        <div>
+                          <span className="text-sm font-semibold text-mint-700">Profit Margin</span>
+                          <p className="text-xs text-mint-600 mt-0.5">
+                            {formatCurrency(recipe.sellingPrice - totalCostWithLabor)} profit
+                          </p>
+                        </div>
+                        <span className="text-2xl font-bold text-mint-700">{recipe.marginPercentage?.toFixed(1)}%</span>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              {/* Pricing Recommendations */}
+              <div className="mt-6 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg p-5 border border-gray-200">
+                <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">Pricing Guide</h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="bg-white rounded p-3 border border-gray-200">
+                    <p className="text-xs text-gray-500 mb-1">2x Markup (50% margin)</p>
+                    <p className="text-lg font-bold text-gray-900">{formatCurrency(totalCostWithLabor * 2)}</p>
+                  </div>
+                  <div className="bg-white rounded p-3 border border-gray-200">
+                    <p className="text-xs text-gray-500 mb-1">3x Markup (66% margin)</p>
+                    <p className="text-lg font-bold text-gray-900">{formatCurrency(totalCostWithLabor * 3)}</p>
+                  </div>
+                  <div className="bg-white rounded p-3 border border-gray-200">
+                    <p className="text-xs text-gray-500 mb-1">4x Markup (75% margin)</p>
+                    <p className="text-lg font-bold text-gray-900">{formatCurrency(totalCostWithLabor * 4)}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
 
       </div>
     </div>
