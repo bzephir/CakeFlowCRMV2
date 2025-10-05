@@ -341,3 +341,5 @@ export interface Material {
   createdAt: string;
   updatedAt: string;
 }
+
+export * from './package';
