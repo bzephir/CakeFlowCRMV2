@@ -137,6 +137,26 @@ const RecipeDetail: React.FC = () => {
       }
     ],
     preparationTime: 35,
+  packaging: [
+      {
+        id: '1',
+        itemId: 'box-001',
+        name: 'Cake Box (Large)',
+        quantity: 1,
+        unit: 'piece',
+        costPerUnit: 2.50,
+        totalCost: 2.50
+      },
+      {
+        id: '2',
+        itemId: 'ribbon-001',
+        name: 'Decorative Ribbon',
+        quantity: 2,
+        unit: 'yards',
+        costPerUnit: 1.25,
+        totalCost: 2.50
+      } 
+    ],
     sellingPrice: 450.00,
     totalCost: 21.20,
     costPerUnit: 0.42,
@@ -299,6 +319,49 @@ const RecipeDetail: React.FC = () => {
           {/* Tab Content - Overview */}
           {activeTab === 'overview' && (
             <div className="p-6">
+              {/* Key Metrics Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                <div className="bg-gradient-to-br from-coral-50 to-coral-100 rounded-lg p-4 border border-coral-200">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-xs font-medium text-coral-600 uppercase tracking-wide">Total Cost</p>
+                      <p className="text-2xl font-bold text-coral-900 mt-1">{formatCurrency(recipe.totalCost)}</p>
+                    </div>
+                    <DollarSign className="h-8 w-8 text-coral-400" />
+                  </div>
+                </div>
+
+                <div className="bg-gradient-to-br from-mint-50 to-mint-100 rounded-lg p-4 border border-mint-200">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-xs font-medium text-mint-600 uppercase tracking-wide">Yield</p>
+                      <p className="text-2xl font-bold text-mint-900 mt-1">{recipe.yield.quantity} <span className="text-sm font-normal">{recipe.yield.unit}</span></p>
+                    </div>
+                    <Package className="h-8 w-8 text-mint-400" />
+                  </div>
+                </div>
+
+                <div className="bg-gradient-to-br from-aqua-50 to-aqua-100 rounded-lg p-4 border border-aqua-200">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-xs font-medium text-aqua-600 uppercase tracking-wide">Prep Time</p>
+                      <p className="text-2xl font-bold text-aqua-900 mt-1">{recipe.preparationTime} <span className="text-sm font-normal">min</span></p>
+                    </div>
+                    <Clock className="h-8 w-8 text-aqua-400" />
+                  </div>
+                </div>
+
+                <div className="bg-gradient-to-br from-pink-50 to-pink-100 rounded-lg p-4 border border-pink-200">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-xs font-medium text-pink-600 uppercase tracking-wide">Per Serving</p>
+                      <p className="text-2xl font-bold text-pink-900 mt-1">{formatCurrency(recipe.costPerUnit)}</p>
+                    </div>
+                    <ChefHat className="h-8 w-8 text-pink-400" />
+                  </div>
+                </div>
+              </div>
+
               {/* Description Section */}
               <div className="mb-6 bg-gray-50 rounded-lg p-5 border border-gray-200">
                 <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2">Description</h4>
@@ -389,6 +452,26 @@ const RecipeDetail: React.FC = () => {
                     </div>
                   </div>
 
+                  {recipe.packaging && recipe.packaging.length > 0 && (
+                    <div className="bg-white rounded-lg border border-gray-200 p-4">
+                      <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-4 pb-2 border-b border-gray-200">Packaging</h4>
+                      <div className="space-y-2">
+                        {recipe.packaging.map((item) => (
+                          <div key={item.id} className="flex justify-between items-center text-sm">
+                            <div>
+                              <span className="text-gray-900">{item.name}</span>
+                              <span className="text-gray-500 ml-2">×{item.quantity}</span>
+                            </div>
+                            <span className="text-gray-900 font-medium">{formatCurrency(item.totalCost)}</span>
+                          </div>
+                        ))}
+                        <div className="flex justify-between items-center pt-2 border-t border-gray-200 text-sm font-medium">
+                          <span className="text-gray-700">Packaging Total</span>
+                          <span className="text-gray-900">{formatCurrency(recipe.packaging.reduce((sum, item) => sum + item.totalCost, 0))}</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -520,6 +603,46 @@ const RecipeDetail: React.FC = () => {
 
           {activeTab === 'costing' && (
             <div className="p-6">
+              {/* Cost Breakdown Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div className="bg-gradient-to-br from-coral-50 to-coral-100 rounded-lg p-5 border border-coral-200">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <p className="text-xs font-semibold text-coral-600 uppercase tracking-wide mb-1">Ingredients</p>
+                      <p className="text-3xl font-bold text-coral-900">{formatCurrency(ingredientsCost)}</p>
+                      <p className="text-xs text-coral-700 mt-1">{recipe.ingredients.length} items</p>
+                    </div>
+                    <Package className="h-8 w-8 text-coral-400" />
+                  </div>
+                </div>
+
+                <div className="bg-gradient-to-br from-aqua-50 to-aqua-100 rounded-lg p-5 border border-aqua-200">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <p className="text-xs font-semibold text-aqua-600 uppercase tracking-wide mb-1">Labor</p>
+                      <p className="text-3xl font-bold text-aqua-900">{formatCurrency(laborCost)}</p>
+                      <p className="text-xs text-aqua-700 mt-1">{recipe.preparationTime} min @ {formatCurrency(recipe.laborRate || 25.00)}/hr</p>
+                    </div>
+                    <Clock className="h-8 w-8 text-aqua-400" />
+                  </div>
+                </div>
+
+                {recipe.packaging && recipe.packaging.length > 0 && (
+                  <div className="bg-gradient-to-br from-pink-50 to-pink-100 rounded-lg p-5 border border-pink-200">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <p className="text-xs font-semibold text-pink-600 uppercase tracking-wide mb-1">Packaging</p>
+                        <p className="text-3xl font-bold text-pink-900">
+                          {formatCurrency(recipe.packaging.reduce((sum, item) => sum + item.totalCost, 0))}
+                        </p>
+                        <p className="text-xs text-pink-700 mt-1">{recipe.packaging.length} items</p>
+                      </div>
+                      <Package className="h-8 w-8 text-pink-400" />
+                    </div>
+                  </div>
+                )}
+              </div>
+
               {/* Detailed Cost Analysis */}
               <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
                 <div className="bg-gray-50 px-6 py-3 border-b border-gray-200">
