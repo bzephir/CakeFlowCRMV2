@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import { ArrowLeft, CreditCard as Edit, Clock, DollarSign, Package, ChefHat, AlertTriangle, CheckCircle2, Printer } from 'lucide-react';
+import { ArrowLeft, CreditCard as Edit, Clock, DollarSign, Package, ChefHat, AlertTriangle, CheckCircle2, Printer, Download } from 'lucide-react';
 import type { Recipe } from '../types/recipe';
 
 const RecipeDetail: React.FC = () => {
@@ -226,6 +226,37 @@ const RecipeDetail: React.FC = () => {
     navigate('/orders/new', { state: { selectedRecipe: recipe } });
   };
 
+  const handleExport = () => {
+    const lines: string[] = [];
+
+    lines.push(recipe.name);
+    lines.push(`Yield: ${recipe.yield.quantity} ${recipe.yield.unit}${recipe.yield.description ? ` (${recipe.yield.description})` : ''}`);
+    lines.push('');
+
+    lines.push('INGREDIENTS');
+    recipe.ingredients.forEach((ingredient) => {
+      lines.push(`${ingredient.quantity} ${ingredient.unit} ${ingredient.name}`);
+    });
+    lines.push('');
+
+    lines.push('PREPARATION');
+    recipe.preparationSteps.forEach((step) => {
+      lines.push(`${step.stepNumber}. ${step.instruction}`);
+    });
+
+    const content = lines.join('\n');
+
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${recipe.name.replace(/\s+/g, '-')}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   const ingredientsCost = recipe.ingredients.reduce((sum, ing) => sum + ing.totalCost, 0);
   const laborCost = (recipe.preparationTime / 60) * (recipe.laborRate || 25.00);
   const totalCostWithLabor = ingredientsCost + laborCost;
@@ -265,6 +296,13 @@ const RecipeDetail: React.FC = () => {
               >
                 <Edit className="h-4 w-4 mr-2" />
                 Edit Recipe
+              </button>
+              <button
+                onClick={handleExport}
+                className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+              >
+                <Download className="h-4 w-4 mr-2" />
+                Export
               </button>
               <button
                 onClick={() => window.print()}
