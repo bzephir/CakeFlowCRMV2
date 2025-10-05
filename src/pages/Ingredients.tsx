@@ -264,14 +264,17 @@ const Ingredients: React.FC = () => {
               <div className="w-32 text-left">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Category</span>
               </div>
-              <div className="w-32 text-center">
-                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Package Size</span>
+              <div className="w-24 text-center">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Purchase Qty</span>
+              </div>
+              <div className="w-24 text-center">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Purchase Unit</span>
               </div>
               <div className="w-24 text-center">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Price</span>
               </div>
               <div className="w-28 text-center">
-                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</span>
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Qty on Hand</span>
               </div>
               <div className="w-28 text-center">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Status</span>
@@ -302,8 +305,11 @@ const Ingredients: React.FC = () => {
                     <div className="w-32 text-left">
                       <span className="text-sm text-gray-700">{ingredient.category}</span>
                     </div>
-                    <div className="w-32 text-center">
-                      <span className="text-sm text-gray-700">{ingredient.packageSize} {ingredient.packageUnit}</span>
+                    <div className="w-24 text-center">
+                      <span className="text-sm text-gray-700">{ingredient.packageSize}</span>
+                    </div>
+                    <div className="w-24 text-center">
+                      <span className="text-sm text-gray-700">{ingredient.packageUnit}</span>
                     </div>
                     <div className="w-24 text-center">
                       <span className="text-sm font-medium text-gray-900">${ingredient.purchasePrice.toFixed(2)}</span>
