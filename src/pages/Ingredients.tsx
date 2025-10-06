@@ -270,14 +270,14 @@ const Ingredients: React.FC = () => {
               <div className="w-36 text-center">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Purchase Unit</span>
               </div>
-              <div className="w-32 text-center">
-                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Price</span>
-              </div>
               <div className="w-36 text-center">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Qty on Hand</span>
               </div>
               <div className="w-36 text-center">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Status</span>
+              </div>
+              <div className="w-32 text-center">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Location</span>
               </div>
             </div>
             <div className="w-10">
@@ -311,9 +311,6 @@ const Ingredients: React.FC = () => {
                     <div className="w-36 text-center">
                       <span className="text-sm text-gray-700">{ingredient.packageUnit}</span>
                     </div>
-                    <div className="w-32 text-center">
-                      <span className="text-sm font-medium text-gray-900">${ingredient.purchasePrice.toFixed(2)}</span>
-                    </div>
                     <div className="w-36 text-center">
                       <span className="text-sm text-gray-700">{ingredient.inventoryQuantity}</span>
                     </div>
@@ -321,6 +318,9 @@ const Ingredients: React.FC = () => {
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${status.color}`}>
                         {status.text}
                       </span>
+                    </div>
+                    <div className="w-32 text-center">
+                      <span className="text-sm text-gray-700 capitalize">{ingredient.location}</span>
                     </div>
                   </div>
                   <div className="w-10 flex justify-center">

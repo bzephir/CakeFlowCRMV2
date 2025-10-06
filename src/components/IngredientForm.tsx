@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { X, Plus } from 'lucide-react';
-import type { MasterIngredient, IngredientCategory, MeasurementUnit } from '../types/ingredient';
+import type { MasterIngredient, IngredientCategory, MeasurementUnit, StorageLocation } from '../types/ingredient';
 import { calculateCostPerUnit } from '../types/ingredient';
 import { mockVendors } from '../data/mockVendors';
 
@@ -22,6 +22,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
   const [formData, setFormData] = useState({
     name: ingredient?.name || '',
     category: ingredient?.category || ('Flour' as IngredientCategory),
+    location: ingredient?.location || ('' as StorageLocation | ''),
     packageSize: ingredient?.packageSize || 0,
     packageUnit: ingredient?.packageUnit || ('lb' as MeasurementUnit),
     packageDescription: ingredient?.packageDescription || '',
@@ -118,6 +119,23 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
                     {categories.map(cat => (
                       <option key={cat} value={cat}>{cat}</option>
                     ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Storage Location <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    required
+                    value={formData.location}
+                    onChange={(e) => setFormData({ ...formData, location: e.target.value as StorageLocation })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                  >
+                    <option value="">Select Location</option>
+                    <option value="dry">Dry</option>
+                    <option value="fridge">Fridge</option>
+                    <option value="freezer">Freezer</option>
                   </select>
                 </div>
 

@@ -1,4 +1,4 @@
-import { MasterIngredient, calculateCostPerUnit } from '../types/ingredient';
+import { MasterIngredient, calculateCostPerUnit, StorageLocation } from '../types/ingredient';
 
 const createIngredient = (
   id: string,
@@ -9,6 +9,7 @@ const createIngredient = (
   packageDescription: string,
   purchasePrice: number,
   baseUnit: MasterIngredient['baseUnit'],
+  location: StorageLocation,
   vendorId: string,
   inventoryQuantity: number = 10,
   reorderLevel: number = 5
@@ -25,6 +26,7 @@ const createIngredient = (
     purchasePrice,
     costPerUnit,
     baseUnit,
+    location,
     vendorId,
     reorderLevel,
     lastPriceUpdate: '2024-01-15T10:00:00Z',
@@ -43,6 +45,7 @@ export const mockIngredients: MasterIngredient[] = [
     '25 lb bag',
     12.99,
     'lb',
+    'dry',
     'vendor-001',
     15,
     5
@@ -56,6 +59,7 @@ export const mockIngredients: MasterIngredient[] = [
     '50 lb bag',
     24.99,
     'lb',
+    'dry',
     'vendor-001',
     8,
     3
@@ -69,6 +73,7 @@ export const mockIngredients: MasterIngredient[] = [
     '25 lb bag',
     18.99,
     'lb',
+    'dry',
     'vendor-006',
     10,
     4
@@ -82,6 +87,7 @@ export const mockIngredients: MasterIngredient[] = [
     '25 lb bag',
     15.99,
     'lb',
+    'dry',
     'vendor-006',
     6,
     3
@@ -95,6 +101,7 @@ export const mockIngredients: MasterIngredient[] = [
     '50 lb bag',
     28.99,
     'lb',
+    'dry',
     'vendor-003',
     20,
     8
@@ -108,6 +115,7 @@ export const mockIngredients: MasterIngredient[] = [
     '25 lb bag',
     19.99,
     'lb',
+    'dry',
     'vendor-003',
     12,
     5
@@ -121,6 +129,7 @@ export const mockIngredients: MasterIngredient[] = [
     '25 lb bag',
     22.99,
     'lb',
+    'dry',
     'vendor-003',
     10,
     4
@@ -134,6 +143,7 @@ export const mockIngredients: MasterIngredient[] = [
     '25 lb bag',
     22.99,
     'lb',
+    'dry',
     'vendor-003',
     8,
     4
@@ -147,6 +157,7 @@ export const mockIngredients: MasterIngredient[] = [
     '30 lb case',
     89.99,
     'lb',
+    'fridge',
     'vendor-004',
     5,
     3
@@ -160,6 +171,7 @@ export const mockIngredients: MasterIngredient[] = [
     '30 lb case',
     87.99,
     'lb',
+    'fridge',
     'vendor-004',
     4,
     2
@@ -173,6 +185,7 @@ export const mockIngredients: MasterIngredient[] = [
     '35 lb jug',
     42.99,
     'lb',
+    'dry',
     'vendor-007',
     8,
     3
@@ -186,6 +199,7 @@ export const mockIngredients: MasterIngredient[] = [
     '35 lb jug',
     45.99,
     'lb',
+    'dry',
     'vendor-007',
     6,
     2
@@ -199,6 +213,7 @@ export const mockIngredients: MasterIngredient[] = [
     '15 dozen case',
     42.99,
     'piece',
+    'fridge',
     'vendor-004',
     10,
     5
@@ -212,6 +227,7 @@ export const mockIngredients: MasterIngredient[] = [
     '6 lb carton',
     18.99,
     'lb',
+    'fridge',
     'vendor-004',
     8,
     3
@@ -225,6 +241,7 @@ export const mockIngredients: MasterIngredient[] = [
     '1 gallon jug',
     4.99,
     'gal',
+    'fridge',
     'vendor-004',
     20,
     8
@@ -238,6 +255,7 @@ export const mockIngredients: MasterIngredient[] = [
     '1 gallon jug',
     14.99,
     'gal',
+    'fridge',
     'vendor-004',
     15,
     6
@@ -251,6 +269,7 @@ export const mockIngredients: MasterIngredient[] = [
     '3 lb block',
     8.99,
     'lb',
+    'fridge',
     'vendor-004',
     12,
     5
@@ -264,6 +283,7 @@ export const mockIngredients: MasterIngredient[] = [
     '5 lb tub',
     12.99,
     'lb',
+    'fridge',
     'vendor-004',
     10,
     4
@@ -277,6 +297,7 @@ export const mockIngredients: MasterIngredient[] = [
     '1 gallon jug',
     6.99,
     'gal',
+    'fridge',
     'vendor-004',
     8,
     3
@@ -290,6 +311,7 @@ export const mockIngredients: MasterIngredient[] = [
     '32 oz bottle',
     89.99,
     'oz',
+    'dry',
     'vendor-005',
     4,
     2
@@ -303,6 +325,7 @@ export const mockIngredients: MasterIngredient[] = [
     '16 oz bottle',
     34.99,
     'oz',
+    'dry',
     'vendor-005',
     3,
     1
@@ -316,6 +339,7 @@ export const mockIngredients: MasterIngredient[] = [
     '16 oz bottle',
     28.99,
     'oz',
+    'dry',
     'vendor-005',
     3,
     1
@@ -329,6 +353,7 @@ export const mockIngredients: MasterIngredient[] = [
     '5 lb container',
     39.99,
     'lb',
+    'dry',
     'vendor-002',
     8,
     3
@@ -342,6 +367,7 @@ export const mockIngredients: MasterIngredient[] = [
     '25 lb case',
     89.99,
     'lb',
+    'dry',
     'vendor-002',
     10,
     4
@@ -355,6 +381,7 @@ export const mockIngredients: MasterIngredient[] = [
     '25 lb case',
     79.99,
     'lb',
+    'dry',
     'vendor-002',
     12,
     5
@@ -368,6 +395,7 @@ export const mockIngredients: MasterIngredient[] = [
     '25 lb case',
     94.99,
     'lb',
+    'dry',
     'vendor-002',
     8,
     3
@@ -381,6 +409,7 @@ export const mockIngredients: MasterIngredient[] = [
     '10 lb container',
     24.99,
     'lb',
+    'dry',
     'vendor-001',
     6,
     3
@@ -394,6 +423,7 @@ export const mockIngredients: MasterIngredient[] = [
     '10 lb bag',
     18.99,
     'lb',
+    'dry',
     'vendor-001',
     8,
     3
@@ -407,6 +437,7 @@ export const mockIngredients: MasterIngredient[] = [
     '1 lb vacuum pack',
     8.99,
     'lb',
+    'dry',
     'vendor-001',
     10,
     4
@@ -420,6 +451,7 @@ export const mockIngredients: MasterIngredient[] = [
     '1 lb container',
     14.99,
     'lb',
+    'dry',
     'vendor-001',
     4,
     2
@@ -433,6 +465,7 @@ export const mockIngredients: MasterIngredient[] = [
     '5 lb bag',
     34.99,
     'lb',
+    'dry',
     'vendor-008',
     6,
     2
@@ -446,6 +479,7 @@ export const mockIngredients: MasterIngredient[] = [
     '5 lb bag',
     39.99,
     'lb',
+    'dry',
     'vendor-008',
     5,
     2
@@ -459,6 +493,7 @@ export const mockIngredients: MasterIngredient[] = [
     '5 lb bag',
     49.99,
     'lb',
+    'dry',
     'vendor-008',
     4,
     2
@@ -472,6 +507,7 @@ export const mockIngredients: MasterIngredient[] = [
     '10 lb box',
     19.99,
     'lb',
+    'fridge',
     'vendor-007',
     8,
     3
@@ -485,6 +521,7 @@ export const mockIngredients: MasterIngredient[] = [
     '8 lb flat',
     24.99,
     'lb',
+    'fridge',
     'vendor-007',
     5,
     2
@@ -498,6 +535,7 @@ export const mockIngredients: MasterIngredient[] = [
     '5 lb bag',
     22.99,
     'lb',
+    'freezer',
     'vendor-007',
     10,
     4
@@ -511,6 +549,7 @@ export const mockIngredients: MasterIngredient[] = [
     '1 lb container',
     12.99,
     'lb',
+    'dry',
     'vendor-007',
     5,
     2
@@ -524,6 +563,7 @@ export const mockIngredients: MasterIngredient[] = [
     '1 lb container',
     24.99,
     'lb',
+    'dry',
     'vendor-007',
     3,
     1
@@ -537,6 +577,7 @@ export const mockIngredients: MasterIngredient[] = [
     '1 lb container',
     14.99,
     'lb',
+    'dry',
     'vendor-007',
     4,
     2
@@ -550,6 +591,7 @@ export const mockIngredients: MasterIngredient[] = [
     '25 lb bag',
     18.99,
     'lb',
+    'dry',
     'vendor-003',
     15,
     5
@@ -563,6 +605,7 @@ export const mockIngredients: MasterIngredient[] = [
     '12 lb jug',
     42.99,
     'lb',
+    'dry',
     'vendor-008',
     6,
     3
@@ -576,6 +619,7 @@ export const mockIngredients: MasterIngredient[] = [
     '1 gallon jug',
     12.99,
     'gal',
+    'dry',
     'vendor-007',
     8,
     3

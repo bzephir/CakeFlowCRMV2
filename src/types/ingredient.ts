@@ -25,6 +25,8 @@ export type IngredientCategory =
   | 'Spices'
   | 'Other';
 
+export type StorageLocation = 'dry' | 'fridge' | 'freezer';
+
 export interface Vendor {
   id: string;
   name: string;
@@ -52,6 +54,7 @@ export interface MasterIngredient {
   purchasePrice: number;
   costPerUnit: number;
   baseUnit: MeasurementUnit;
+  location: StorageLocation;
   vendorId?: string;
   vendor?: Vendor;
   lastPriceUpdate?: string;
