@@ -59,6 +59,9 @@ export interface MasterIngredient {
   vendor?: Vendor;
   lastPriceUpdate?: string;
   reorderLevel?: number;
+  brand?: string;
+  dateReceived?: string;
+  lotNumber?: string;
   notes?: string;
   createdAt: string;
   updatedAt: string;

@@ -31,6 +31,9 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
     baseUnit: ingredient?.baseUnit || ('lb' as MeasurementUnit),
     vendorId: ingredient?.vendorId || '',
     reorderLevel: ingredient?.reorderLevel || 5,
+    brand: ingredient?.brand || '',
+    dateReceived: ingredient?.dateReceived ? ingredient.dateReceived.split('T')[0] : '',
+    lotNumber: ingredient?.lotNumber || '',
     notes: ingredient?.notes || ''
   });
 
@@ -62,6 +65,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
     e.preventDefault();
     onSubmit({
       ...formData,
+      dateReceived: formData.dateReceived ? new Date(formData.dateReceived).toISOString() : undefined,
       costPerUnit,
       id: ingredient?.id || `ing-${Date.now()}`,
       createdAt: ingredient?.createdAt || new Date().toISOString(),
@@ -141,7 +145,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Vendor
+                    Supplier
                   </label>
                   <div className="flex space-x-2">
                     <select
@@ -149,7 +153,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
                       onChange={(e) => setFormData({ ...formData, vendorId: e.target.value })}
                       className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
                     >
-                      <option value="">Select Vendor</option>
+                      <option value="">Select Supplier</option>
                       {mockVendors.map(vendor => (
                         <option key={vendor.id} value={vendor.id}>{vendor.name}</option>
                       ))}
@@ -159,7 +163,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
                         type="button"
                         onClick={onAddVendor}
                         className="px-3 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
-                        title="Add New Vendor"
+                        title="Add New Supplier"
                       >
                         <Plus className="h-4 w-4 text-gray-600" />
                       </button>
@@ -269,6 +273,44 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
                     type="number"
                     value={formData.reorderLevel}
                     onChange={(e) => setFormData({ ...formData, reorderLevel: parseFloat(e.target.value) })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Brand
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.brand}
+                    onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
+                    placeholder="e.g., King Arthur"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Date Received
+                  </label>
+                  <input
+                    type="date"
+                    value={formData.dateReceived}
+                    onChange={(e) => setFormData({ ...formData, dateReceived: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Lot Number
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.lotNumber}
+                    onChange={(e) => setFormData({ ...formData, lotNumber: e.target.value })}
+                    placeholder="e.g., LOT-2024-001"
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
                   />
                 </div>

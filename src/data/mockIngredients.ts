@@ -12,7 +12,10 @@ const createIngredient = (
   location: StorageLocation,
   vendorId: string,
   inventoryQuantity: number = 10,
-  reorderLevel: number = 5
+  reorderLevel: number = 5,
+  brand?: string,
+  dateReceived?: string,
+  lotNumber?: string
 ): MasterIngredient => {
   const costPerUnit = calculateCostPerUnit(purchasePrice, packageSize, packageUnit, baseUnit);
   return {
@@ -29,6 +32,9 @@ const createIngredient = (
     location,
     vendorId,
     reorderLevel,
+    brand,
+    dateReceived,
+    lotNumber,
     lastPriceUpdate: '2024-01-15T10:00:00Z',
     createdAt: '2024-01-01T08:00:00Z',
     updatedAt: '2024-01-15T10:00:00Z'
@@ -48,7 +54,10 @@ export const mockIngredients: MasterIngredient[] = [
     'dry',
     'vendor-001',
     15,
-    5
+    5,
+    'King Arthur',
+    '2024-01-10T08:00:00Z',
+    'LOT-2024-001'
   ),
   createIngredient(
     'ing-002',
@@ -62,7 +71,10 @@ export const mockIngredients: MasterIngredient[] = [
     'dry',
     'vendor-001',
     8,
-    3
+    3,
+    'King Arthur',
+    '2024-01-08T10:30:00Z',
+    'LOT-2024-002'
   ),
   createIngredient(
     'ing-003',
@@ -76,7 +88,10 @@ export const mockIngredients: MasterIngredient[] = [
     'dry',
     'vendor-006',
     10,
-    4
+    4,
+    'Swans Down',
+    '2024-01-12T09:15:00Z',
+    'LOT-2024-003'
   ),
   createIngredient(
     'ing-004',
@@ -160,7 +175,10 @@ export const mockIngredients: MasterIngredient[] = [
     'fridge',
     'vendor-004',
     5,
-    3
+    3,
+    'Land O Lakes',
+    '2024-01-14T07:00:00Z',
+    'LOT-2024-009'
   ),
   createIngredient(
     'ing-010',
@@ -216,7 +234,10 @@ export const mockIngredients: MasterIngredient[] = [
     'fridge',
     'vendor-004',
     10,
-    5
+    5,
+    'Happy Hen',
+    '2024-01-13T06:30:00Z',
+    'LOT-2024-013'
   ),
   createIngredient(
     'ing-014',
@@ -314,7 +335,10 @@ export const mockIngredients: MasterIngredient[] = [
     'dry',
     'vendor-005',
     4,
-    2
+    2,
+    'Nielsen-Massey',
+    '2024-01-05T11:00:00Z',
+    'LOT-2024-020'
   ),
   createIngredient(
     'ing-021',
@@ -370,7 +394,10 @@ export const mockIngredients: MasterIngredient[] = [
     'dry',
     'vendor-002',
     10,
-    4
+    4,
+    'Callebaut',
+    '2024-01-11T14:20:00Z',
+    'LOT-2024-024'
   ),
   createIngredient(
     'ing-025',

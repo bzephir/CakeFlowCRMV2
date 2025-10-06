@@ -346,6 +346,24 @@ const Ingredients: React.FC = () => {
                             <dt className="text-xs text-gray-500">Base Unit</dt>
                             <dd className="text-sm text-gray-900">{ingredient.baseUnit}</dd>
                           </div>
+                          {ingredient.brand && (
+                            <div>
+                              <dt className="text-xs text-gray-500">Brand</dt>
+                              <dd className="text-sm text-gray-900">{ingredient.brand}</dd>
+                            </div>
+                          )}
+                          {ingredient.dateReceived && (
+                            <div>
+                              <dt className="text-xs text-gray-500">Date Received</dt>
+                              <dd className="text-sm text-gray-900">{new Date(ingredient.dateReceived).toLocaleDateString()}</dd>
+                            </div>
+                          )}
+                          {ingredient.lotNumber && (
+                            <div>
+                              <dt className="text-xs text-gray-500">Lot Number</dt>
+                              <dd className="text-sm text-gray-900">{ingredient.lotNumber}</dd>
+                            </div>
+                          )}
                         </dl>
                       </div>
 
@@ -361,6 +379,10 @@ const Ingredients: React.FC = () => {
                             <dd className="text-sm text-gray-900">${ingredient.costPerUnit.toFixed(4)} per {ingredient.baseUnit}</dd>
                           </div>
                           <div>
+                            <dt className="text-xs text-gray-500">Total Value</dt>
+                            <dd className="text-sm text-gray-900">${(ingredient.purchasePrice * ingredient.inventoryQuantity).toFixed(2)}</dd>
+                          </div>
+                          <div>
                             <dt className="text-xs text-gray-500">Last Price Update</dt>
                             <dd className="text-sm text-gray-900">
                               {ingredient.lastPriceUpdate ? new Date(ingredient.lastPriceUpdate).toLocaleDateString() : 'Never'}
@@ -370,7 +392,7 @@ const Ingredients: React.FC = () => {
                       </div>
 
                       <div>
-                        <h4 className="text-sm font-medium text-gray-900 mb-2">Inventory & Vendor</h4>
+                        <h4 className="text-sm font-medium text-gray-900 mb-2">Inventory & Supplier</h4>
                         <dl className="space-y-1.5">
                           <div>
                             <dt className="text-xs text-gray-500">Inventory Quantity</dt>
@@ -381,7 +403,7 @@ const Ingredients: React.FC = () => {
                             <dd className="text-sm text-gray-900">{ingredient.reorderLevel} units</dd>
                           </div>
                           <div>
-                            <dt className="text-xs text-gray-500">Vendor</dt>
+                            <dt className="text-xs text-gray-500">Supplier</dt>
                             <dd className="text-sm text-gray-900">{getVendorName(ingredient.vendorId)}</dd>
                           </div>
                         </dl>
