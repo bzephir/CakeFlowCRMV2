@@ -334,6 +334,7 @@ export interface Material {
   inventoryQuantity: number;
   totalItemsAvailable: number;
   reorderLevel: number;
+  supplierId?: string;
   vendorId?: string;
   vendorName?: string;
   canLinkToRecipe: boolean;

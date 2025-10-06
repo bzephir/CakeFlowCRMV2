@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { Plus, Search, Filter, Package, DollarSign, PcCase as ToolCase, AlertTriangle, TrendingUp, ChevronDown, ChevronUp, CreditCard as Edit, Trash2 } from 'lucide-react';
 import {
@@ -9,6 +10,7 @@ import {
   calculateTotalPotentialRevenue,
   calculateAverageMargin
 } from '../data/mockMaterials';
+import { mockVendors } from '../data/mockVendors';
 import type { Material } from '../types';
 
 const Materials: React.FC = () => {
@@ -60,6 +62,13 @@ const Materials: React.FC = () => {
   useMemo(() => {
     setCurrentPage(1);
   }, [searchTerm, categoryFilter, stockFilter]);
+
+  const getSupplierName = (supplierId?: string, vendorId?: string) => {
+    const id = supplierId || vendorId;
+    if (!id) return 'No Supplier';
+    const supplier = mockVendors.find(v => v.id === id);
+    return supplier?.name || 'Unknown';
+  };
 
   const getStockStatus = (material: Material) => {
     if (material.inventoryQuantity === 0) {
@@ -376,7 +385,7 @@ const Materials: React.FC = () => {
                       </div>
 
                       <div>
-                        <h4 className="text-sm font-medium text-gray-900 mb-2">Inventory & Vendor</h4>
+                        <h4 className="text-sm font-medium text-gray-900 mb-2">Inventory & Supplier</h4>
                         <dl className="space-y-1.5">
                           <div>
                             <dt className="text-xs text-gray-500">Packages On Hand</dt>
@@ -399,19 +408,31 @@ const Materials: React.FC = () => {
                             <dd className="text-sm text-gray-900">{material.reorderLevel} packages</dd>
                           </div>
                           <div>
-                            <dt className="text-xs text-gray-500">Vendor</dt>
-                            <dd className="text-sm text-gray-900">{material.vendorName || 'No vendor'}</dd>
+                            <dt className="text-xs text-gray-500">Supplier Name</dt>
+                            <dd className="text-sm text-gray-900">
+                              {(material.supplierId || material.vendorId) ? (
+                                <Link
+                                  to={`/suppliers/${material.supplierId || material.vendorId}`}
+                                  className="text-coral-600 hover:text-coral-700 hover:underline"
+                                >
+                                  {getSupplierName(material.supplierId, material.vendorId)}
+                                </Link>
+                              ) : (
+                                <span className="text-gray-500">No Supplier</span>
+                              )}
+                            </dd>
                           </div>
                         </dl>
                       </div>
 
-                      {material.notes && (
-                        <div className="md:col-span-2 lg:col-span-3">
-                          <h4 className="text-sm font-medium text-gray-900 mb-2">Notes</h4>
-                          <p className="text-sm text-gray-700">{material.notes}</p>
-                        </div>
-                      )}
                     </div>
+
+                    {material.notes && (
+                      <div className="mt-4">
+                        <h4 className="text-sm font-medium text-gray-900 mb-2">Notes</h4>
+                        <p className="text-sm text-gray-700">{material.notes}</p>
+                      </div>
+                    )}
 
                     <div className="mt-3 flex space-x-2">
                       <button
