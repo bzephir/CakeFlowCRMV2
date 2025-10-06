@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import IngredientForm from '../components/IngredientForm';
 import MeasurementConverter from '../components/MeasurementConverter';
@@ -353,12 +354,6 @@ const Ingredients: React.FC = () => {
                               <dd className="text-sm text-gray-900">{ingredient.brand}</dd>
                             </div>
                           )}
-                          {ingredient.dateReceived && (
-                            <div>
-                              <dt className="text-xs text-gray-500">Date Received</dt>
-                              <dd className="text-sm text-gray-900">{new Date(ingredient.dateReceived).toLocaleDateString()}</dd>
-                            </div>
-                          )}
                           {ingredient.lotNumber && (
                             <div>
                               <dt className="text-xs text-gray-500">Lot Number</dt>
@@ -422,9 +417,16 @@ const Ingredients: React.FC = () => {
                           <div>
                             <dt className="text-xs text-gray-500">Supplier Name</dt>
                             <dd className="text-sm text-gray-900">
-                              <a href="#" className="text-coral-600 hover:text-coral-700 hover:underline">
-                                {getSupplierName(ingredient.supplierId, ingredient.vendorId)}
-                              </a>
+                              {(ingredient.supplierId || ingredient.vendorId) ? (
+                                <Link
+                                  to={`/suppliers/${ingredient.supplierId || ingredient.vendorId}`}
+                                  className="text-coral-600 hover:text-coral-700 hover:underline"
+                                >
+                                  {getSupplierName(ingredient.supplierId, ingredient.vendorId)}
+                                </Link>
+                              ) : (
+                                <span className="text-gray-500">No Supplier</span>
+                              )}
                             </dd>
                           </div>
                         </dl>
