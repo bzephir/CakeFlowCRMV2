@@ -185,143 +185,139 @@ const Invoices: React.FC = () => {
           </div>
         )}
 
-        {/* Invoices Table */}
-        <div className="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-2 py-1 text-left">
-                    <div className="flex items-center">
-                      <input
-                        type="checkbox"
-                        checked={selectedInvoices.length === filteredInvoices.length && filteredInvoices.length > 0}
-                        onChange={toggleSelectAll}
-                        className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
-                      />
-                    </div>
-                  </th>
-                  <th className="px-3 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Invoice #
-                  </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Date
-                  </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Customer
-                  </th>
-                  <th className="px-1 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Event Type
-                  </th>
-                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Total
-                  </th>
-                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Paid
-                  </th>
-                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Balance Due
-                  </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Next Payment
-                  </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {currentInvoices.map((invoice) => (
-                  <tr key={invoice.id} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="flex items-center">
-                        <input
-                          type="checkbox"
-                          checked={selectedInvoices.includes(invoice.id)}
-                          onChange={() => toggleSelectInvoice(invoice.id)}
-                          className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
-                        />
-                      </div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-700 cursor-pointer hover:text-aqua-600" onClick={() => handleViewInvoice(invoice.id)}>
-                        {invoice.id}
-                      </div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-700">{formatDate(invoice.issueDate)}</div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-700">{invoice.firstName} {invoice.lastName}</div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-700">{invoice.eventType}</div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap text-right">
-                      <div className="text-sm font-medium text-gray-700">{formatCurrency(invoice.total)}</div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap text-right">
-                      <div className="text-sm font-medium text-gray-700">{formatCurrency(invoice.amountPaid)}</div>
-                    </td>
-                      <td className="px-2 py-1 whitespace-nowrap text-right">
-                        <div className="text-sm font-medium text-gray-700">{formatCurrency(invoice.balance)}</div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-700">{formatDate(invoice.dueDate)}</div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getInvoiceStatusColor(invoice.status)}`}>
-                        {getStatusIcon(invoice.status)}
-                        {getInvoiceStatusText(invoice.status)}
-                      </span>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap text-right text-sm font-medium">
-                      <div className="flex justify-end space-x-2">
-                        <button 
-                          onClick={() => handleViewInvoice(invoice.id)}
-                          className="text-aqua-600 hover:text-aqua-900 transition-colors"
-                          title="View"
-                        >
-                          <Eye className="h-4 w-4" />
-                        </button>
-                        <button 
-                          onClick={() => handleEditInvoice(invoice.id)}
-                          className="text-coral-600 hover:text-coral-900 transition-colors"
-                          title="Edit"
-                        >
-                          <Edit className="h-4 w-4" />
-                        </button>
-                        <button 
-                          onClick={() => handleSendInvoice(invoice.id)}
-                          className="text-mint-600 hover:text-mint-900 transition-colors"
-                          title="Send"
-                        >
-                          <Mail className="h-4 w-4" />
-                        </button>
-                        <button 
-                          onClick={() => handleDownloadInvoice(invoice.id)}
-                          className="text-aqua-600 hover:text-aqua-900 transition-colors"
-                          title="Download"
-                        >
-                          <Download className="h-4 w-4" />
-                        </button>
-                        <button 
-                          onClick={() => handleDeleteInvoice(invoice.id)}
-                          className="text-pink-600 hover:text-pink-900 transition-colors"
-                          title="Delete"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        {/* Invoices Header */}
+        <div className="bg-gray-50 rounded-t-lg border border-gray-200 border-b-0">
+          <div className="flex items-center justify-between px-4 py-2">
+            <div className="flex items-center space-x-4 flex-1">
+              <div className="w-10 flex justify-center">
+                <input
+                  type="checkbox"
+                  checked={selectedInvoices.length === filteredInvoices.length && filteredInvoices.length > 0}
+                  onChange={toggleSelectAll}
+                  className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
+                />
+              </div>
+              <div className="w-28">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Invoice #</span>
+              </div>
+              <div className="w-24 text-left">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Date</span>
+              </div>
+              <div className="w-36 text-left">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</span>
+              </div>
+              <div className="w-24 text-left">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Event Type</span>
+              </div>
+              <div className="w-24 text-right">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Total</span>
+              </div>
+              <div className="w-24 text-right">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Paid</span>
+              </div>
+              <div className="w-24 text-right">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Balance Due</span>
+              </div>
+              <div className="w-28 text-left">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Next Payment</span>
+              </div>
+              <div className="w-32 text-center">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Status</span>
+              </div>
+            </div>
+            <div className="w-44">
+              <span className="text-xs font-medium text-gray-500 uppercase tracking-wider"></span>
+            </div>
           </div>
+        </div>
+
+        {/* Invoices List */}
+        <div className="space-y-0">
+          {currentInvoices.map((invoice) => (
+            <div key={invoice.id} className="bg-white border-l border-r border-b border-gray-200 shadow-sm overflow-hidden hover:bg-gray-50 transition-colors">
+              <div className="flex items-center justify-between px-4 py-2">
+                <div className="flex items-center space-x-4 flex-1">
+                  <div className="w-10 flex justify-center">
+                    <input
+                      type="checkbox"
+                      checked={selectedInvoices.includes(invoice.id)}
+                      onChange={() => toggleSelectInvoice(invoice.id)}
+                      className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
+                    />
+                  </div>
+                  <div className="w-28">
+                    <span className="text-sm font-medium text-gray-700 cursor-pointer hover:text-aqua-600" onClick={() => handleViewInvoice(invoice.id)}>
+                      {invoice.id}
+                    </span>
+                  </div>
+                  <div className="w-24 text-left">
+                    <span className="text-sm text-gray-700">{formatDate(invoice.issueDate)}</span>
+                  </div>
+                  <div className="w-36 text-left">
+                    <span className="text-sm font-medium text-gray-700">{invoice.firstName} {invoice.lastName}</span>
+                  </div>
+                  <div className="w-24 text-left">
+                    <span className="text-sm text-gray-700">{invoice.eventType}</span>
+                  </div>
+                  <div className="w-24 text-right">
+                    <span className="text-sm font-medium text-gray-900">{formatCurrency(invoice.total)}</span>
+                  </div>
+                  <div className="w-24 text-right">
+                    <span className="text-sm font-medium text-gray-900">{formatCurrency(invoice.amountPaid)}</span>
+                  </div>
+                  <div className="w-24 text-right">
+                    <span className="text-sm font-medium text-gray-900">{formatCurrency(invoice.balance)}</span>
+                  </div>
+                  <div className="w-28 text-left">
+                    <span className="text-sm text-gray-700">{formatDate(invoice.dueDate)}</span>
+                  </div>
+                  <div className="w-32 flex justify-center">
+                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${getInvoiceStatusColor(invoice.status)}`}>
+                      {getStatusIcon(invoice.status)}
+                      {getInvoiceStatusText(invoice.status)}
+                    </span>
+                  </div>
+                </div>
+                <div className="w-44 flex justify-end space-x-2">
+                  <button
+                    onClick={() => handleViewInvoice(invoice.id)}
+                    className="text-aqua-600 hover:text-aqua-900 transition-colors"
+                    title="View"
+                  >
+                    <Eye className="h-4 w-4" />
+                  </button>
+                  <button
+                    onClick={() => handleEditInvoice(invoice.id)}
+                    className="text-coral-600 hover:text-coral-900 transition-colors"
+                    title="Edit"
+                  >
+                    <Edit className="h-4 w-4" />
+                  </button>
+                  <button
+                    onClick={() => handleSendInvoice(invoice.id)}
+                    className="text-mint-600 hover:text-mint-900 transition-colors"
+                    title="Send"
+                  >
+                    <Mail className="h-4 w-4" />
+                  </button>
+                  <button
+                    onClick={() => handleDownloadInvoice(invoice.id)}
+                    className="text-aqua-600 hover:text-aqua-900 transition-colors"
+                    title="Download"
+                  >
+                    <Download className="h-4 w-4" />
+                  </button>
+                  <button
+                    onClick={() => handleDeleteInvoice(invoice.id)}
+                    className="text-pink-600 hover:text-pink-900 transition-colors"
+                    title="Delete"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
 
         {/* No Results */}

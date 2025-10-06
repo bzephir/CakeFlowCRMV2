@@ -203,110 +203,102 @@ const Inquiries: React.FC = () => {
           </div>
         </div>
 
-        {/* Inquiries List */}
-        <div className="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-3 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Inquiry
-                  </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Customer
-                  </th>
-                  <th className="px-1 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Event Type
-                  </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                     Event Date
-                  </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                     Event Time
-                  </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                     Fulfillment
-                  </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
-                  </th>
-                   <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Assigned To
-                  </th>
-                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {sortedInquiries.map((inquiry) => (
-                  <tr key={inquiry.id} className={`hover:bg-gray-50 transition-colors ${inquiry.status === 'new' ? 'bg-coral-50' : ''}`}>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="flex items-center">
-                        <div className="flex-shrink-0">
-                          {getTypeIcon(inquiry.type)}
-                        </div>
-                        <div className="ml-4">
-                          <div className="text-sm font-medium text-gray-700">{inquiry.id}</div>
-                          <div className="text-xs text-gray-500 flex items-center">
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                          <div className="text-sm font-medium text-gray-700">
-                            {inquiry.firstName} {inquiry.lastName}
-                          </div>
-                          <div className="flex flex-col text-xs text-gray-500">
-                            <span className="flex items-center">
-                            </span>
-                      </div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-700 capitalize"> {inquiry.eventType} </div>
-                      <div className="text-sm text-gray-500">
-                      </div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-700 capitalize" > {formatDate(inquiry.eventDate)}</div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      {inquiry.eventTime && <div className="text-sm text-gray-700">{formatTime(inquiry.eventTime)}</div>}
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-700">
-                        {inquiry.fulfillmentType === 'pickup' 
-                          ? `Pickup: ${inquiry.pickupTime ? formatTime(inquiry.pickupTime) : 'TBD'}`
-                          : `Delivery: ${inquiry.deliveryTime ? formatTime(inquiry.deliveryTime) : 'TBD'}`
-                        }
-                        
-                      </div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(inquiry.status)}`}>
-                        {inquiry.status}
-                      </div>
-                    </td>
-                      <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-700">
-                        {inquiry.assignedTo ? ` ${inquiry.assignedTo}` : 'Unassigned'}
-                      </div>
-                      </td>
-                  
-                    <td className="px-2 py-1 whitespace-nowrap text-right text-sm font-medium">
-                      <button 
-                        onClick={() => handleViewInquiry(inquiry.id)}
-                        className="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded-md text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 transition-all"
-                      >
-                        <Eye className="h-3 w-3 mr-1" />
-                        View
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        {/* Inquiries Header */}
+        <div className="bg-gray-50 rounded-t-lg border border-gray-200 border-b-0">
+          <div className="flex items-center justify-between px-4 py-2">
+            <div className="flex items-center space-x-4 flex-1">
+              <div className="w-40">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Inquiry</span>
+              </div>
+              <div className="w-40 text-left">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</span>
+              </div>
+              <div className="w-28 text-left">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Event Type</span>
+              </div>
+              <div className="w-28 text-left">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Event Date</span>
+              </div>
+              <div className="w-24 text-left">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Event Time</span>
+              </div>
+              <div className="w-36 text-left">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Fulfillment</span>
+              </div>
+              <div className="w-28 text-center">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Status</span>
+              </div>
+              <div className="w-28 text-left">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Assigned To</span>
+              </div>
+            </div>
+            <div className="w-20">
+              <span className="text-xs font-medium text-gray-500 uppercase tracking-wider"></span>
+            </div>
           </div>
+        </div>
+
+        {/* Inquiries List */}
+        <div className="space-y-0">
+          {sortedInquiries.map((inquiry) => (
+            <div key={inquiry.id} className={`bg-white border-l border-r border-b border-gray-200 shadow-sm overflow-hidden hover:bg-gray-50 transition-colors ${inquiry.status === 'new' ? 'bg-coral-50' : ''}`}>
+              <div className="flex items-center justify-between px-4 py-2">
+                <div className="flex items-center space-x-4 flex-1">
+                  <div className="w-40">
+                    <div className="flex items-center">
+                      <div className="flex-shrink-0">
+                        {getTypeIcon(inquiry.type)}
+                      </div>
+                      <div className="ml-2">
+                        <div className="text-sm font-medium text-gray-700">{inquiry.id}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="w-40 text-left">
+                    <div className="text-sm font-medium text-gray-700">
+                      {inquiry.firstName} {inquiry.lastName}
+                    </div>
+                  </div>
+                  <div className="w-28 text-left">
+                    <span className="text-sm text-gray-700 capitalize">{inquiry.eventType}</span>
+                  </div>
+                  <div className="w-28 text-left">
+                    <span className="text-sm text-gray-700">{formatDate(inquiry.eventDate)}</span>
+                  </div>
+                  <div className="w-24 text-left">
+                    {inquiry.eventTime && <span className="text-sm text-gray-700">{formatTime(inquiry.eventTime)}</span>}
+                  </div>
+                  <div className="w-36 text-left">
+                    <span className="text-sm text-gray-700">
+                      {inquiry.fulfillmentType === 'pickup'
+                        ? `Pickup: ${inquiry.pickupTime ? formatTime(inquiry.pickupTime) : 'TBD'}`
+                        : `Delivery: ${inquiry.deliveryTime ? formatTime(inquiry.deliveryTime) : 'TBD'}`
+                      }
+                    </span>
+                  </div>
+                  <div className="w-28 flex justify-center">
+                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(inquiry.status)}`}>
+                      {inquiry.status}
+                    </span>
+                  </div>
+                  <div className="w-28 text-left">
+                    <span className="text-sm text-gray-700">
+                      {inquiry.assignedTo ? inquiry.assignedTo : 'Unassigned'}
+                    </span>
+                  </div>
+                </div>
+                <div className="w-20 flex justify-end">
+                  <button
+                    onClick={() => handleViewInquiry(inquiry.id)}
+                    className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 transition-all"
+                  >
+                    <Eye className="h-3 w-3 mr-1" />
+                    View
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
 
         {filteredInquiries.length === 0 && (
