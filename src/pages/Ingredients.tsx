@@ -382,7 +382,7 @@ const Ingredients: React.FC = () => {
                           </div>
                           <div>
                             <dt className="text-xs text-gray-500">Total Value</dt>
-                            <dd className="text-sm text-gray-900">${(ingredient.purchasePrice * ingredient.inventoryQuantity).toFixed(2)}</dd>
+                            <dd className="text-sm text-gray-900">${(ingredient.purchasePrice * ingredient.quantityOnHand).toFixed(2)}</dd>
                           </div>
                           <div>
                             <dt className="text-xs text-gray-500">Last Price Update</dt>
