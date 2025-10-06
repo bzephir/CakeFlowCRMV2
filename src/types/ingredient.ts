@@ -43,6 +43,22 @@ export interface Vendor {
   updatedAt: string;
 }
 
+export interface Supplier {
+  id: string;
+  name: string;
+  contactPerson?: string;
+  email?: string;
+  phone?: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  zip?: string;
+  paymentTerms?: string;
+  notes?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface MasterIngredient {
   id: string;
   name: string;
@@ -50,17 +66,20 @@ export interface MasterIngredient {
   packageSize: number;
   packageUnit: MeasurementUnit;
   packageDescription?: string;
-  inventoryQuantity: number;
+  quantityOnHand: number;
   purchasePrice: number;
   costPerUnit: number;
   baseUnit: MeasurementUnit;
   location: StorageLocation;
+  supplierId?: string;
+  supplier?: Supplier;
   vendorId?: string;
   vendor?: Vendor;
   lastPriceUpdate?: string;
   reorderLevel?: number;
   brand?: string;
   dateReceived?: string;
+  expirationDate?: string;
   lotNumber?: string;
   notes?: string;
   createdAt: string;

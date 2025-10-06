@@ -32,9 +32,9 @@ const Ingredients: React.FC = () => {
 
       const matchesStock =
         stockFilter === 'all' ||
-        (stockFilter === 'out-of-stock' && ing.inventoryQuantity === 0) ||
-        (stockFilter === 'low' && ing.inventoryQuantity > 0 && ing.inventoryQuantity <= (ing.reorderLevel || 0)) ||
-        (stockFilter === 'in-stock' && ing.inventoryQuantity > (ing.reorderLevel || 0));
+        (stockFilter === 'out-of-stock' && ing.quantityOnHand === 0) ||
+        (stockFilter === 'low' && ing.quantityOnHand > 0 && ing.quantityOnHand <= (ing.reorderLevel || 0)) ||
+        (stockFilter === 'in-stock' && ing.quantityOnHand > (ing.reorderLevel || 0));
 
       return matchesSearch && matchesCategory && matchesStock;
     });
@@ -60,17 +60,18 @@ const Ingredients: React.FC = () => {
     setCurrentPage(1);
   }, [searchTerm, categoryFilter, stockFilter]);
 
-  const getVendorName = (vendorId?: string) => {
-    if (!vendorId) return 'No Vendor';
-    const vendor = mockVendors.find(v => v.id === vendorId);
-    return vendor?.name || 'Unknown';
+  const getSupplierName = (supplierId?: string, vendorId?: string) => {
+    const id = supplierId || vendorId;
+    if (!id) return 'No Supplier';
+    const supplier = mockVendors.find(v => v.id === id);
+    return supplier?.name || 'Unknown';
   };
 
   const getStockStatus = (ing: MasterIngredient) => {
-    if (ing.inventoryQuantity === 0) {
+    if (ing.quantityOnHand === 0) {
       return { text: 'Out of Stock', color: 'bg-red-100 text-red-800' };
     }
-    if (ing.inventoryQuantity <= (ing.reorderLevel || 0)) {
+    if (ing.quantityOnHand <= (ing.reorderLevel || 0)) {
       return { text: 'Low Stock', color: 'bg-yellow-100 text-yellow-800' };
     }
     return { text: 'In Stock', color: 'bg-mint-100 text-mint-800' };
@@ -117,7 +118,7 @@ const Ingredients: React.FC = () => {
   };
 
   const totalValue = filteredIngredients.reduce(
-    (sum, ing) => sum + ing.purchasePrice * ing.inventoryQuantity,
+    (sum, ing) => sum + ing.purchasePrice * ing.quantityOnHand,
     0
   );
 
@@ -312,7 +313,7 @@ const Ingredients: React.FC = () => {
                       <span className="text-sm text-gray-700">{ingredient.packageUnit}</span>
                     </div>
                     <div className="w-36 text-center">
-                      <span className="text-sm text-gray-700">{ingredient.inventoryQuantity}</span>
+                      <span className="text-sm text-gray-700">{ingredient.quantityOnHand}</span>
                     </div>
                     <div className="w-36 flex justify-center">
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${status.color}`}>
@@ -364,6 +365,12 @@ const Ingredients: React.FC = () => {
                               <dd className="text-sm text-gray-900">{ingredient.lotNumber}</dd>
                             </div>
                           )}
+                          {ingredient.expirationDate && (
+                            <div>
+                              <dt className="text-xs text-gray-500">Expiration Date</dt>
+                              <dd className="text-sm text-gray-900">{new Date(ingredient.expirationDate).toLocaleDateString()}</dd>
+                            </div>
+                          )}
                         </dl>
                       </div>
 
@@ -395,16 +402,30 @@ const Ingredients: React.FC = () => {
                         <h4 className="text-sm font-medium text-gray-900 mb-2">Inventory & Supplier</h4>
                         <dl className="space-y-1.5">
                           <div>
-                            <dt className="text-xs text-gray-500">Inventory Quantity</dt>
-                            <dd className="text-sm text-gray-900">{ingredient.inventoryQuantity} units</dd>
+                            <dt className="text-xs text-gray-500">Quantity on Hand</dt>
+                            <dd className="text-sm text-gray-900">{ingredient.quantityOnHand} units</dd>
                           </div>
                           <div>
                             <dt className="text-xs text-gray-500">Reorder Level</dt>
                             <dd className="text-sm text-gray-900">{ingredient.reorderLevel} units</dd>
                           </div>
+                          {ingredient.dateReceived && (
+                            <div>
+                              <dt className="text-xs text-gray-500">Date Received</dt>
+                              <dd className="text-sm text-gray-900">{new Date(ingredient.dateReceived).toLocaleDateString()}</dd>
+                            </div>
+                          )}
                           <div>
-                            <dt className="text-xs text-gray-500">Supplier</dt>
-                            <dd className="text-sm text-gray-900">{getVendorName(ingredient.vendorId)}</dd>
+                            <dt className="text-xs text-gray-500">Storage Location</dt>
+                            <dd className="text-sm text-gray-900 capitalize">{ingredient.location}</dd>
+                          </div>
+                          <div>
+                            <dt className="text-xs text-gray-500">Supplier Name</dt>
+                            <dd className="text-sm text-gray-900">
+                              <a href="#" className="text-coral-600 hover:text-coral-700 hover:underline">
+                                {getSupplierName(ingredient.supplierId, ingredient.vendorId)}
+                              </a>
+                            </dd>
                           </div>
                         </dl>
                       </div>

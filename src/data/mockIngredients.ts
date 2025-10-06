@@ -11,11 +11,12 @@ const createIngredient = (
   baseUnit: MasterIngredient['baseUnit'],
   location: StorageLocation,
   vendorId: string,
-  inventoryQuantity: number = 10,
+  quantityOnHand: number = 10,
   reorderLevel: number = 5,
   brand?: string,
   dateReceived?: string,
-  lotNumber?: string
+  lotNumber?: string,
+  expirationDate?: string
 ): MasterIngredient => {
   const costPerUnit = calculateCostPerUnit(purchasePrice, packageSize, packageUnit, baseUnit);
   return {
@@ -25,15 +26,17 @@ const createIngredient = (
     packageSize,
     packageUnit,
     packageDescription,
-    inventoryQuantity,
+    quantityOnHand,
     purchasePrice,
     costPerUnit,
     baseUnit,
     location,
+    supplierId: vendorId,
     vendorId,
     reorderLevel,
     brand,
     dateReceived,
+    expirationDate,
     lotNumber,
     lastPriceUpdate: '2024-01-15T10:00:00Z',
     createdAt: '2024-01-01T08:00:00Z',
@@ -57,7 +60,8 @@ export const mockIngredients: MasterIngredient[] = [
     5,
     'King Arthur',
     '2024-01-10T08:00:00Z',
-    'LOT-2024-001'
+    'LOT-2024-001',
+    '2025-01-10T00:00:00Z'
   ),
   createIngredient(
     'ing-002',
@@ -74,7 +78,8 @@ export const mockIngredients: MasterIngredient[] = [
     3,
     'King Arthur',
     '2024-01-08T10:30:00Z',
-    'LOT-2024-002'
+    'LOT-2024-002',
+    '2025-01-08T00:00:00Z'
   ),
   createIngredient(
     'ing-003',
@@ -91,7 +96,8 @@ export const mockIngredients: MasterIngredient[] = [
     4,
     'Swans Down',
     '2024-01-12T09:15:00Z',
-    'LOT-2024-003'
+    'LOT-2024-003',
+    '2025-01-12T00:00:00Z'
   ),
   createIngredient(
     'ing-004',
@@ -178,7 +184,8 @@ export const mockIngredients: MasterIngredient[] = [
     3,
     'Land O Lakes',
     '2024-01-14T07:00:00Z',
-    'LOT-2024-009'
+    'LOT-2024-009',
+    '2024-02-14T00:00:00Z'
   ),
   createIngredient(
     'ing-010',
@@ -237,7 +244,8 @@ export const mockIngredients: MasterIngredient[] = [
     5,
     'Happy Hen',
     '2024-01-13T06:30:00Z',
-    'LOT-2024-013'
+    'LOT-2024-013',
+    '2024-02-13T00:00:00Z'
   ),
   createIngredient(
     'ing-014',
@@ -338,7 +346,8 @@ export const mockIngredients: MasterIngredient[] = [
     2,
     'Nielsen-Massey',
     '2024-01-05T11:00:00Z',
-    'LOT-2024-020'
+    'LOT-2024-020',
+    '2026-01-05T00:00:00Z'
   ),
   createIngredient(
     'ing-021',
@@ -397,7 +406,8 @@ export const mockIngredients: MasterIngredient[] = [
     4,
     'Callebaut',
     '2024-01-11T14:20:00Z',
-    'LOT-2024-024'
+    'LOT-2024-024',
+    '2025-07-11T00:00:00Z'
   ),
   createIngredient(
     'ing-025',
@@ -673,7 +683,7 @@ export function searchIngredients(searchTerm: string): MasterIngredient[] {
 
 export function getLowStockIngredients(): MasterIngredient[] {
   return mockIngredients.filter(
-    ing => ing.inventoryQuantity <= (ing.reorderLevel || 0)
+    ing => ing.quantityOnHand <= (ing.reorderLevel || 0)
   );
 }
 

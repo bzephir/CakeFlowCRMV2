@@ -26,13 +26,14 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
     packageSize: ingredient?.packageSize || 0,
     packageUnit: ingredient?.packageUnit || ('lb' as MeasurementUnit),
     packageDescription: ingredient?.packageDescription || '',
-    inventoryQuantity: ingredient?.inventoryQuantity || 0,
+    quantityOnHand: ingredient?.quantityOnHand || 0,
     purchasePrice: ingredient?.purchasePrice || 0,
     baseUnit: ingredient?.baseUnit || ('lb' as MeasurementUnit),
-    vendorId: ingredient?.vendorId || '',
+    supplierId: ingredient?.supplierId || ingredient?.vendorId || '',
     reorderLevel: ingredient?.reorderLevel || 5,
     brand: ingredient?.brand || '',
     dateReceived: ingredient?.dateReceived ? ingredient.dateReceived.split('T')[0] : '',
+    expirationDate: ingredient?.expirationDate ? ingredient.expirationDate.split('T')[0] : '',
     lotNumber: ingredient?.lotNumber || '',
     notes: ingredient?.notes || ''
   });
@@ -66,6 +67,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
     onSubmit({
       ...formData,
       dateReceived: formData.dateReceived ? new Date(formData.dateReceived).toISOString() : undefined,
+      expirationDate: formData.expirationDate ? new Date(formData.expirationDate).toISOString() : undefined,
       costPerUnit,
       id: ingredient?.id || `ing-${Date.now()}`,
       createdAt: ingredient?.createdAt || new Date().toISOString(),
@@ -145,12 +147,12 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Supplier
+                    Supplier Name
                   </label>
                   <div className="flex space-x-2">
                     <select
-                      value={formData.vendorId}
-                      onChange={(e) => setFormData({ ...formData, vendorId: e.target.value })}
+                      value={formData.supplierId}
+                      onChange={(e) => setFormData({ ...formData, supplierId: e.target.value })}
                       className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
                     >
                       <option value="">Select Supplier</option>
@@ -254,13 +256,13 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Inventory Quantity
+                    Quantity on Hand
                   </label>
                   <input
                     type="number"
                     required
-                    value={formData.inventoryQuantity}
-                    onChange={(e) => setFormData({ ...formData, inventoryQuantity: parseFloat(e.target.value) })}
+                    value={formData.quantityOnHand}
+                    onChange={(e) => setFormData({ ...formData, quantityOnHand: parseFloat(e.target.value) })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
                   />
                 </div>
@@ -311,6 +313,18 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
                     value={formData.lotNumber}
                     onChange={(e) => setFormData({ ...formData, lotNumber: e.target.value })}
                     placeholder="e.g., LOT-2024-001"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Expiration Date
+                  </label>
+                  <input
+                    type="date"
+                    value={formData.expirationDate}
+                    onChange={(e) => setFormData({ ...formData, expirationDate: e.target.value })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
                   />
                 </div>
