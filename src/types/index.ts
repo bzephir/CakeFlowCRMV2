@@ -92,8 +92,6 @@ export interface Quote {
   fulfillmentType: 'pickup' | 'delivery';
   pickupTime?: string;
   deliveryTime?: string;
-  pickupTime: string;
-  deliveryTime: string;
   eventDate: string;
   status: 'accepted' | 'sent' | 'draft' | 'rejected' | 'expired';
   total: number;
