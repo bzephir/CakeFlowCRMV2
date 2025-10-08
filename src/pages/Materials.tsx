@@ -471,7 +471,7 @@ const Materials: React.FC = () => {
                       <span className="text-sm text-gray-700">${material.pricePerItem.toFixed(2)}</span>
                     </div>
                     <div className="w-24 text-center">
-                      <span className="text-sm text-gray-700">{material.unitQuantity}</span>
+                      <span className="text-sm text-gray-700">{material.inventoryQuantity}</span>
                     </div>
                     <div className="w-28 flex justify-center">
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${status.color}`}>
