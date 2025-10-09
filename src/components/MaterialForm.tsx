@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { X, Package, DollarSign, TrendingUp, Tag, FileText, AlertCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import { X, Package, DollarSign, TrendingUp, Tag, FileText, AlertCircle } from 'lucide-react';
 import { Material, MaterialCategory } from '../types';
 import { mockVendors } from '../data/mockVendors';
-import { supabase, DatabasePriceHistory } from '../lib/supabaseClient';
 
 interface MaterialFormProps {
   isOpen: boolean;
@@ -33,8 +32,6 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ isOpen, onClose, onSubmit, 
   });
 
   const [priceChangeReason, setPriceChangeReason] = useState('');
-  const [priceHistory, setPriceHistory] = useState<DatabasePriceHistory[]>([]);
-  const [showPriceHistory, setShowPriceHistory] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isDirty, setIsDirty] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -76,27 +73,10 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ isOpen, onClose, onSubmit, 
         oldPackageCost: material.packageCost,
         oldPricePerItem: material.pricePerItem
       });
-      loadPriceHistory(material.id);
     } else if (!material && isOpen) {
       resetForm();
     }
   }, [material, isOpen]);
-
-  const loadPriceHistory = async (materialId: string) => {
-    try {
-      const { data, error } = await supabase
-        .from('material_price_history')
-        .select('*')
-        .eq('material_id', materialId)
-        .order('changed_at', { ascending: false })
-        .limit(10);
-
-      if (error) throw error;
-      setPriceHistory(data || []);
-    } catch (error) {
-      console.error('Error loading price history:', error);
-    }
-  };
 
   const resetForm = () => {
     setFormData({
@@ -112,8 +92,6 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ isOpen, onClose, onSubmit, 
       notes: ''
     });
     setPriceChangeReason('');
-    setPriceHistory([]);
-    setShowPriceHistory(false);
     setErrors({});
     setIsDirty(false);
     setPriceChange({
@@ -207,7 +185,7 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ isOpen, onClose, onSubmit, 
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validateForm()) {
@@ -216,33 +194,27 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ isOpen, onClose, onSubmit, 
 
     setIsSubmitting(true);
 
-    try {
-      const materialData: Partial<Material> = {
-        ...formData,
-        supplierId: formData.vendorId || undefined,
-        vendorId: formData.vendorId || undefined,
-        costPerItem,
-        profitMargin,
-        totalItemsAvailable,
-        updatedAt: new Date().toISOString()
-      };
+    const materialData: Partial<Material> = {
+      ...formData,
+      supplierId: formData.vendorId || undefined,
+      vendorId: formData.vendorId || undefined,
+      costPerItem,
+      profitMargin,
+      totalItemsAvailable,
+      updatedAt: new Date().toISOString()
+    };
 
-      if (material) {
-        materialData.id = material.id;
-        materialData.createdAt = material.createdAt;
-      } else {
-        materialData.id = `mat-${Date.now()}`;
-        materialData.createdAt = new Date().toISOString();
-      }
-
-      await onSubmit(materialData);
-      handleClose();
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      setErrors({ submit: 'Failed to save material. Please try again.' });
-    } finally {
-      setIsSubmitting(false);
+    if (material) {
+      materialData.id = material.id;
+      materialData.createdAt = material.createdAt;
+    } else {
+      materialData.id = `mat-${Date.now()}`;
+      materialData.createdAt = new Date().toISOString();
     }
+
+    onSubmit(materialData);
+    setIsSubmitting(false);
+    handleClose();
   };
 
   const handleClose = () => {
@@ -631,86 +603,6 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ isOpen, onClose, onSubmit, 
                 </div>
               </div>
 
-              {material && priceHistory.length > 0 && (
-                <div>
-                  <button
-                    type="button"
-                    onClick={() => setShowPriceHistory(!showPriceHistory)}
-                    className="flex items-center justify-between w-full text-left text-sm font-medium text-gray-900 mb-3"
-                  >
-                    <span className="flex items-center">
-                      <TrendingUp className="h-4 w-4 mr-2 text-gray-500" />
-                      Price History ({priceHistory.length})
-                    </span>
-                    {showPriceHistory ? (
-                      <ChevronUp className="h-4 w-4 text-gray-400" />
-                    ) : (
-                      <ChevronDown className="h-4 w-4 text-gray-400" />
-                    )}
-                  </button>
-
-                  {showPriceHistory && (
-                    <div className="border border-gray-200 rounded-md overflow-hidden">
-                      <div className="overflow-x-auto">
-                        <table className="min-w-full divide-y divide-gray-200">
-                          <thead className="bg-gray-50">
-                            <tr>
-                              <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Date
-                              </th>
-                              <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Package Cost
-                              </th>
-                              <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Price Per Item
-                              </th>
-                              <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Reason
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody className="bg-white divide-y divide-gray-200">
-                            {priceHistory.map((history) => (
-                              <tr key={history.id}>
-                                <td className="px-4 py-2 text-sm text-gray-900 whitespace-nowrap">
-                                  {formatDate(history.changed_at)}
-                                </td>
-                                <td className="px-4 py-2 text-sm whitespace-nowrap">
-                                  {history.old_package_cost !== null && history.new_package_cost !== null ? (
-                                    <div>
-                                      <div className="text-gray-500">{formatCurrency(history.old_package_cost)} → {formatCurrency(history.new_package_cost)}</div>
-                                      <div className={`text-xs ${history.cost_change_amount! >= 0 ? 'text-red-600' : 'text-green-600'}`}>
-                                        {formatPercentage(history.cost_change_percentage!)}
-                                      </div>
-                                    </div>
-                                  ) : (
-                                    <span className="text-gray-400">-</span>
-                                  )}
-                                </td>
-                                <td className="px-4 py-2 text-sm whitespace-nowrap">
-                                  {history.old_price_per_item !== null && history.new_price_per_item !== null ? (
-                                    <div>
-                                      <div className="text-gray-500">{formatCurrency(history.old_price_per_item)} → {formatCurrency(history.new_price_per_item)}</div>
-                                      <div className={`text-xs ${history.price_change_amount! >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                                        {formatPercentage(history.price_change_percentage!)}
-                                      </div>
-                                    </div>
-                                  ) : (
-                                    <span className="text-gray-400">-</span>
-                                  )}
-                                </td>
-                                <td className="px-4 py-2 text-sm text-gray-700">
-                                  {history.reason || '-'}
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
             </div>
 
             <div className="px-6 py-4 border-t border-gray-200 bg-gray-50 flex justify-end space-x-3">

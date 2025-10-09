@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import MaterialForm from '../components/MaterialForm';
@@ -13,7 +13,6 @@ import {
 } from '../data/mockMaterials';
 import { mockVendors } from '../data/mockVendors';
 import type { Material } from '../types';
-import { supabase, MaterialInsert, MaterialUpdate, PriceHistoryInsert } from '../lib/supabaseClient';
 
 const Materials: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -22,60 +21,14 @@ const Materials: React.FC = () => {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-  const [materials, setMaterials] = useState<Material[]>([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [selectedMaterial, setSelectedMaterial] = useState<Material | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    loadMaterials();
-  }, []);
-
-  const loadMaterials = async () => {
-    try {
-      setIsLoading(true);
-      const { data, error } = await supabase
-        .from('materials')
-        .select('*')
-        .order('name');
-
-      if (error) throw error;
-
-      const mappedMaterials: Material[] = (data || []).map(item => ({
-        id: item.id,
-        name: item.name,
-        category: item.category,
-        unitQuantity: item.unit_quantity,
-        packageCost: Number(item.package_cost),
-        costPerItem: Number(item.cost_per_item),
-        pricePerItem: Number(item.price_per_item),
-        profitMargin: Number(item.profit_margin),
-        inventoryQuantity: item.inventory_quantity,
-        totalItemsAvailable: item.inventory_quantity * item.unit_quantity,
-        reorderLevel: item.reorder_level,
-        supplierId: item.vendor_id || undefined,
-        vendorId: item.vendor_id || undefined,
-        vendorName: item.vendor_id ? getSupplierName(item.vendor_id) : undefined,
-        canLinkToRecipe: item.can_link_to_recipe,
-        notes: item.notes || undefined,
-        createdAt: item.created_at,
-        updatedAt: item.updated_at
-      }));
-
-      setMaterials(mappedMaterials);
-    } catch (error) {
-      console.error('Error loading materials:', error);
-      setMaterials(mockMaterials);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const categories = getMaterialCategories();
-  const lowStockItems = materials.filter(m => m.inventoryQuantity <= m.reorderLevel);
+  const lowStockItems = getLowStockMaterials();
 
   const filteredMaterials = useMemo(() => {
-    return materials.filter(material => {
+    return mockMaterials.filter(material => {
       const matchesSearch =
         material.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         material.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -151,81 +104,15 @@ const Materials: React.FC = () => {
     setIsFormOpen(true);
   };
 
-  const handleMaterialSubmit = async (materialData: Partial<Material>) => {
-    try {
-      const isEdit = !!materialData.id;
+  const handleMaterialSubmit = (materialData: Partial<Material>) => {
+    console.log('Material saved:', materialData);
+    alert(`Material "${materialData.name}" saved successfully!`);
+    setSelectedMaterial(null);
+  };
 
-      if (isEdit) {
-        const updateData: Partial<MaterialUpdate> = {
-          name: materialData.name,
-          category: materialData.category,
-          unit_quantity: materialData.unitQuantity,
-          package_cost: materialData.packageCost,
-          price_per_item: materialData.pricePerItem,
-          inventory_quantity: materialData.inventoryQuantity,
-          reorder_level: materialData.reorderLevel,
-          vendor_id: materialData.supplierId || null,
-          can_link_to_recipe: materialData.canLinkToRecipe,
-          notes: materialData.notes || null
-        };
-
-        const { error } = await supabase
-          .from('materials')
-          .update(updateData)
-          .eq('id', materialData.id);
-
-        if (error) throw error;
-
-        if (selectedMaterial &&
-            (materialData.packageCost !== selectedMaterial.packageCost ||
-             materialData.pricePerItem !== selectedMaterial.pricePerItem)) {
-          const priceHistoryData: PriceHistoryInsert = {
-            material_id: materialData.id!,
-            old_package_cost: selectedMaterial.packageCost !== materialData.packageCost ? selectedMaterial.packageCost : null,
-            new_package_cost: selectedMaterial.packageCost !== materialData.packageCost ? materialData.packageCost : null,
-            old_price_per_item: selectedMaterial.pricePerItem !== materialData.pricePerItem ? selectedMaterial.pricePerItem : null,
-            new_price_per_item: selectedMaterial.pricePerItem !== materialData.pricePerItem ? materialData.pricePerItem : null,
-            reason: 'Price updated',
-            changed_by: 'admin'
-          };
-
-          const { error: historyError } = await supabase
-            .from('material_price_history')
-            .insert(priceHistoryData);
-
-          if (historyError) console.error('Error saving price history:', historyError);
-        }
-
-        alert('Material updated successfully!');
-      } else {
-        const insertData: MaterialInsert = {
-          name: materialData.name!,
-          category: materialData.category!,
-          unit_quantity: materialData.unitQuantity!,
-          package_cost: materialData.packageCost!,
-          price_per_item: materialData.pricePerItem!,
-          inventory_quantity: materialData.inventoryQuantity!,
-          reorder_level: materialData.reorderLevel!,
-          vendor_id: materialData.supplierId || null,
-          can_link_to_recipe: materialData.canLinkToRecipe!,
-          notes: materialData.notes || null
-        };
-
-        const { error } = await supabase
-          .from('materials')
-          .insert(insertData);
-
-        if (error) throw error;
-
-        alert('Material added successfully!');
-      }
-
-      await loadMaterials();
-    } catch (error) {
-      console.error('Error saving material:', error);
-      alert('Failed to save material. Please try again.');
-      throw error;
-    }
+  const handleFormClose = () => {
+    setIsFormOpen(false);
+    setSelectedMaterial(null);
   };
 
   const handleUpdatePricing = (material: Material) => {
@@ -236,49 +123,23 @@ const Materials: React.FC = () => {
     alert(`Adjust inventory for: ${material.name}`);
   };
 
-  const handleDelete = async (material: Material) => {
+  const handleDelete = (material: Material) => {
     if (window.confirm(`Are you sure you want to delete "${material.name}"? This action cannot be undone.`)) {
-      try {
-        const { error } = await supabase
-          .from('materials')
-          .delete()
-          .eq('id', material.id);
-
-        if (error) throw error;
-
-        alert(`Material "${material.name}" has been deleted.`);
-        await loadMaterials();
-      } catch (error) {
-        console.error('Error deleting material:', error);
-        alert('Failed to delete material. Please try again.');
-      }
+      console.log('Delete material:', material.id);
+      alert(`Material "${material.name}" has been deleted.`);
     }
   };
 
-  const totalInventoryValue = materials.reduce((total, m) => total + m.packageCost * m.inventoryQuantity, 0);
-  const totalPotentialRevenue = materials.reduce((total, m) => total + m.pricePerItem * m.totalItemsAvailable, 0);
-  const averageMargin = materials.filter(m => m.profitMargin > 0).reduce((sum, m) => sum + m.profitMargin, 0) / Math.max(materials.filter(m => m.profitMargin > 0).length, 1);
-
-  if (isLoading) {
-    return (
-      <div className="p-6">
-        <Header title="Materials Inventory" icon={Package} />
-        <div className="flex items-center justify-center h-64">
-          <div className="text-gray-500">Loading materials...</div>
-        </div>
-      </div>
-    );
-  }
+  const totalInventoryValue = calculateTotalInventoryValue();
+  const totalPotentialRevenue = calculateTotalPotentialRevenue();
+  const averageMargin = calculateAverageMargin();
 
   return (
     <div className="p-6">
       <Header title="Materials Inventory" icon={Package} />
       <MaterialForm
         isOpen={isFormOpen}
-        onClose={() => {
-          setIsFormOpen(false);
-          setSelectedMaterial(null);
-        }}
+        onClose={handleFormClose}
         onSubmit={handleMaterialSubmit}
         material={selectedMaterial}
       />
@@ -350,7 +211,7 @@ const Materials: React.FC = () => {
               </div>
               <div className="ml-3">
                 <p className="text-sm font-medium text-gray-500">Total Materials</p>
-                <p className="text-lg font-semibold text-gray-900">{materials.length}</p>
+                <p className="text-lg font-semibold text-gray-900">{mockMaterials.length}</p>
               </div>
             </div>
           </div>
