@@ -5,30 +5,7 @@ import Header from '../components/Header';
 import Logo from '../components/Logo';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
 import { generateDocumentNumber } from '../utils/documentNumbering';
-import { 
-  ArrowLeft,
-  Printer, 
-  Download, 
-  Mail, 
-  Calendar, 
-  Clock, 
-  DollarSign, 
-  CheckCircle2, 
-  Edit,
-  Copy,
-  Trash2,
-  User,
-  Phone,
-  MapPin,
-  Package,
-  Truck,
-  FileText,
-  MessageSquare,
-  CreditCard,
-  AlertCircle,
-  Clock as ClockIcon,
-  Ban
-} from 'lucide-react';
+import { ArrowLeft, Printer, Download, Mail, Calendar, Clock, DollarSign, CheckCircle2, CreditCard as Edit, Copy, Trash2, User, Phone, MapPin, Package, Truck, FileText, MessageSquare, CreditCard, AlertCircle, Clock as ClockIcon, Ban } from 'lucide-react';
 
 interface Customer {
   id: string;
