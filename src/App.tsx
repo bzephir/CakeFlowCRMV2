@@ -25,6 +25,7 @@ import Inquiries from './pages/Inquiries';
 import InquiryDetail from './pages/InquiryDetail';
 import Invoice from './pages/Invoice';
 import Invoices from './pages/Invoices';
+import InvoiceDetail from './pages/InvoiceDetail';
 import Quotes from './pages/Quotes';
 import QuoteDetail from './pages/QuoteDetail';
 import CreateQuote from './pages/CreateQuote';
@@ -75,7 +76,8 @@ function App() {
                 <Route path="/orders/:id" element={<OrderDetail />} />
                 <Route path="/orders/new" element={<CreateOrder />} />
                 <Route path="/invoices" element={<Invoices />} />
-                <Route path="/invoice/:id" element={<Invoice />} />
+                <Route path="/invoices/:id" element={<InvoiceDetail />} />
+                <Route path="/invoice/:id/edit" element={<Invoice />} />
                 <Route path="/invoice/new" element={<Invoice />} />
                 <Route path="/reports" element={<Reports />} />
                 <Route path="/production" element={<Production />} />

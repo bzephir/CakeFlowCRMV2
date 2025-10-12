@@ -4,6 +4,7 @@ import { useInvoiceContext } from '../context/InvoiceContext';
 import Header from '../components/Header';
 import Logo from '../components/Logo';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
+import { generateDocumentNumber } from '../utils/documentNumbering';
 import { 
   ArrowLeft,
   Printer, 

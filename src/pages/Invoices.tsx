@@ -29,7 +29,7 @@ const Invoices: React.FC = () => {
   };
 
   const handleViewInvoice = (invoiceId: string) => {
-    navigate(`/invoice/${invoiceId}`);
+    navigate(`/invoices/${invoiceId}`);
   };
 
   const handleCreateInvoice = () => {
