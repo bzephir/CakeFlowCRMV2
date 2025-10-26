@@ -141,63 +141,7 @@ const Packages: React.FC = () => {
         }}
       />
 
-      <div className="p-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-        <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-gray-600">Total Packages</p>
-              <p className="text-2xl font-bold text-gray-900 mt-1">{summary.totalPackages}</p>
-            </div>
-            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-              <PackageIcon className="w-6 h-6 text-blue-600" />
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-gray-600">Active Packages</p>
-              <p className="text-2xl font-bold text-gray-900 mt-1">{summary.activePackages}</p>
-            </div>
-            <div className="w-12 h-12 bg-mint-100 rounded-lg flex items-center justify-center">
-              <Tag className="w-6 h-6 text-mint-600" />
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-gray-600">Avg. Margin</p>
-              <p className="text-2xl font-bold text-gray-900 mt-1">
-                {summary.averageMargin.toFixed(1)}%
-              </p>
-            </div>
-            <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-              <TrendingUp className="w-6 h-6 text-green-600" />
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-gray-600">Most Popular</p>
-              <p className="text-sm font-semibold text-gray-900 mt-1 truncate">
-                {summary.mostPopularPackage?.name || 'N/A'}
-              </p>
-              <p className="text-xs text-gray-500">
-                {summary.mostPopularPackage?.timesOrdered || 0} orders
-              </p>
-            </div>
-            <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-              <DollarSign className="w-6 h-6 text-purple-600" />
-            </div>
-          </div>
-        </div>
-      </div>
+      
 
       {lowMarginPackages.length > 0 && (
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
@@ -285,7 +229,63 @@ const Packages: React.FC = () => {
           </div>
         </div>
       </div>
+<div className="p-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-gray-600">Total Packages</p>
+              <p className="text-2xl font-bold text-gray-900 mt-1">{summary.totalPackages}</p>
+            </div>
+            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+              <PackageIcon className="w-6 h-6 text-blue-600" />
+            </div>
+          </div>
+        </div>
 
+        <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-gray-600">Active Packages</p>
+              <p className="text-2xl font-bold text-gray-900 mt-1">{summary.activePackages}</p>
+            </div>
+            <div className="w-12 h-12 bg-mint-100 rounded-lg flex items-center justify-center">
+              <Tag className="w-6 h-6 text-mint-600" />
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-gray-600">Avg. Margin</p>
+              <p className="text-2xl font-bold text-gray-900 mt-1">
+                {summary.averageMargin.toFixed(1)}%
+              </p>
+            </div>
+            <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+              <TrendingUp className="w-6 h-6 text-green-600" />
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-gray-600">Most Popular</p>
+              <p className="text-sm font-semibold text-gray-900 mt-1 truncate">
+                {summary.mostPopularPackage?.name || 'N/A'}
+              </p>
+              <p className="text-xs text-gray-500">
+                {summary.mostPopularPackage?.timesOrdered || 0} orders
+              </p>
+            </div>
+            <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+              <DollarSign className="w-6 h-6 text-purple-600" />
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="bg-gray-50 rounded-t-lg border border-gray-200 border-b-0">
         <div className="flex items-center justify-between px-4 py-2">
           <div className="flex items-center space-x-4 flex-1">
