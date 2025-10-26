@@ -148,17 +148,8 @@ const Recipes: React.FC = () => {
     <div className="p-6">
       <Header title="Recipes" icon={ChefHat} />
 
-      <div className="flex justify-end mb-6">
-        <button
-          onClick={() => setIsFormOpen(true)}
-          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all"
-        >
-          <Plus className="h-4 w-4 mr-2" />
-          New Recipe
-        </button>
-      </div>
-
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+      <div className="p-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
         <div className="flex flex-col sm:flex-row gap-4 flex-1">
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -215,9 +206,19 @@ const Recipes: React.FC = () => {
             </select>
           </div>
         </div>
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+          <div className="flex space-x-3">
+            <button
+              onClick={() => setIsFormOpen(true)}
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all"
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              New Recipe
+            </button>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
         <div className="bg-white p-4 rounded-lg border border-gray-200">
           <div className="flex items-center">
             <div className="flex-shrink-0">
@@ -554,6 +555,7 @@ const Recipes: React.FC = () => {
             </div>
           </div>
         )}
+      </div>
 
       <RecipeForm
         isOpen={isFormOpen}
