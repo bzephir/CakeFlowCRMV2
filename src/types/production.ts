@@ -1,5 +1,6 @@
 export type ProductionJobStatus = 'queued' | 'in_progress' | 'completed' | 'cancelled' | 'on_hold';
 export type ProductionPriority = 'low' | 'medium' | 'high' | 'urgent';
+export type JobType = 'internal' | 'external';
 export type WorkflowStageStatus = 'pending' | 'in_progress' | 'completed' | 'skipped' | 'blocked';
 export type ApprovalStatus = 'not_required' | 'pending' | 'approved' | 'rejected' | 'revision_requested';
 export type CustomizationType = 'ingredient_override' | 'flavor_change' | 'size_adjustment' | 'decoration_change' | 'other';
@@ -14,6 +15,7 @@ export interface ProductionJob {
   unit: string;
   status: ProductionJobStatus;
   priority: ProductionPriority;
+  jobType: JobType;
 
   scalingFactor?: number;
   clientSpecifications?: string;

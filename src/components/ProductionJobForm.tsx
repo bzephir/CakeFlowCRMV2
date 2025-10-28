@@ -13,7 +13,7 @@ import {
   CheckCircle,
   Save
 } from 'lucide-react';
-import { ProductionPriority, ProductionWorkflowStage, ProductionJobCustomization } from '../types/production';
+import { ProductionPriority, ProductionWorkflowStage, ProductionJobCustomization, JobType } from '../types/production';
 import { Order } from '../types';
 
 interface ProductionJobFormProps {
@@ -38,6 +38,7 @@ const ProductionJobForm: React.FC<ProductionJobFormProps> = ({
     quantityToProduce: 1,
     unit: 'pieces',
     priority: 'medium' as ProductionPriority,
+    jobType: (orderId ? 'external' : 'internal') as JobType,
     scheduledDate: new Date().toISOString().split('T')[0],
     scheduledStartTime: '08:00',
     assignedStaffId: '',
@@ -243,6 +244,23 @@ const ProductionJobForm: React.FC<ProductionJobFormProps> = ({
               <option value="high">High</option>
               <option value="urgent">Urgent</option>
             </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Job Type <span className="text-red-500">*</span>
+            </label>
+            <select
+              name="jobType"
+              value={formData.jobType}
+              onChange={handleInputChange}
+              required
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+              <option value="internal">Internal (Components)</option>
+              <option value="external">External (Customer Orders/Retail)</option>
+            </select>
+            <p className="text-xs text-gray-500 mt-1">Internal: recipe components (buttercream, flowers). External: customer orders or retail items.</p>
           </div>
 
           <div>

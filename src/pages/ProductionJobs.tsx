@@ -7,7 +7,7 @@ import {
   getProductionStatsByStatus,
   searchProductionJobs,
 } from '../data/mockProduction';
-import { ProductionJob, ProductionJobStatus, ProductionPriority } from '../types/production';
+import { ProductionJob, ProductionJobStatus, ProductionPriority, JobType } from '../types/production';
 
 const ProductionJobs: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -83,6 +83,7 @@ const ProductionJobs: React.FC = () => {
       low: { label: 'Low', className: 'bg-gray-100 text-gray-600' },
       medium: { label: 'Medium', className: 'bg-orange-100 text-orange-600' },
       high: { label: 'High', className: 'bg-red-100 text-red-600' },
+      urgent: { label: 'Urgent', className: 'bg-red-200 text-red-800' }
     };
 
     const badge = badges[priority];
@@ -90,6 +91,21 @@ const ProductionJobs: React.FC = () => {
     return (
       <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${badge.className}`}>
         {priority === 'high' && <AlertTriangle className="w-3 h-3 mr-1" />}
+        {badge.label}
+      </span>
+    );
+  };
+
+  const getJobTypeBadge = (jobType: JobType) => {
+    const badges: Record<JobType, { label: string; className: string }> = {
+      internal: { label: 'Internal', className: 'bg-blue-100 text-blue-700' },
+      external: { label: 'External', className: 'bg-green-100 text-green-700' }
+    };
+
+    const badge = badges[jobType];
+
+    return (
+      <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${badge.className}`}>
         {badge.label}
       </span>
     );
@@ -242,6 +258,9 @@ const ProductionJobs: React.FC = () => {
                   Product
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Job Type
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Quantity
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -261,7 +280,7 @@ const ProductionJobs: React.FC = () => {
             <tbody className="bg-white divide-y divide-gray-200">
               {filteredJobs.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-6 py-12 text-center text-gray-500">
+                  <td colSpan={8} className="px-6 py-12 text-center text-gray-500">
                     <Package className="w-12 h-12 mx-auto mb-4 text-gray-400" />
                     <p className="text-lg font-medium">No production jobs found</p>
                     <p className="text-sm">Try adjusting your filters or create a new production job</p>
@@ -284,6 +303,9 @@ const ProductionJobs: React.FC = () => {
                       <div className="text-sm font-medium text-gray-900">{job.recipeName}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
+                      {getJobTypeBadge(job.jobType)}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-900">
                         {job.quantityToProduce} {job.unit}
                       </div>
@@ -292,16 +314,14 @@ const ProductionJobs: React.FC = () => {
                       {getStatusBadge(job.status)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center text-sm text-gray-900">
-                        <Calendar className="w-4 h-4 mr-2 text-gray-400" />
-                        {formatDate(job.scheduledDate)}
+                      <div className="flex items-center text-sm">
+                        {isOverdue(job) && (
+                          <AlertTriangle className="w-4 h-4 mr-2 text-red-600" />
+                        )}
+                        <span className={isOverdue(job) ? 'text-red-600 font-medium' : 'text-gray-900'}>
+                          {formatDate(job.scheduledDate)}
+                        </span>
                       </div>
-                      {isOverdue(job) && (
-                        <div className="flex items-center text-xs text-red-600 mt-1">
-                          <AlertTriangle className="w-3 h-3 mr-1" />
-                          Overdue
-                        </div>
-                      )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       {job.assignedStaffName ? (

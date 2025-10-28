@@ -24,7 +24,7 @@ import {
   getProductionStatsByStatus,
   searchProductionJobs,
 } from '../data/mockProduction';
-import { ProductionJob, ProductionJobStatus, ProductionPriority } from '../types/production';
+import { ProductionJob, ProductionJobStatus, ProductionPriority, JobType } from '../types/production';
 
 const EnhancedProductionJobs: React.FC = () => {
   const navigate = useNavigate();
@@ -34,6 +34,7 @@ const EnhancedProductionJobs: React.FC = () => {
   const [priorityFilter, setPriorityFilter] = useState<string>('all');
   const [dateFilter, setDateFilter] = useState<string>('all');
   const [staffFilter, setStaffFilter] = useState<string>('all');
+  const [jobTypeFilter, setJobTypeFilter] = useState<string>('all');
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
   const [showFilters, setShowFilters] = useState(false);
   const [sortBy, setSortBy] = useState<'date' | 'priority' | 'status' | 'customer'>('priority');
@@ -63,7 +64,15 @@ const EnhancedProductionJobs: React.FC = () => {
     }
 
     if (staffFilter !== 'all') {
-      jobs = jobs.filter(job => job.assignedStaffName === staffFilter);
+      if (staffFilter === 'unassigned') {
+        jobs = jobs.filter(job => !job.assignedStaffName);
+      } else {
+        jobs = jobs.filter(job => job.assignedStaffName === staffFilter);
+      }
+    }
+
+    if (jobTypeFilter !== 'all') {
+      jobs = jobs.filter(job => job.jobType === jobTypeFilter);
     }
 
     if (dateFilter !== 'all') {
@@ -113,7 +122,7 @@ const EnhancedProductionJobs: React.FC = () => {
     });
 
     return jobs;
-  }, [searchTerm, statusFilter, priorityFilter, dateFilter, staffFilter, sortBy, sortOrder]);
+  }, [searchTerm, statusFilter, priorityFilter, dateFilter, staffFilter, jobTypeFilter, sortBy, sortOrder]);
 
   const getStatusBadge = (status: ProductionJobStatus) => {
     const badges: Record<ProductionJobStatus, { label: string; className: string; icon: any }> = {
@@ -148,6 +157,21 @@ const EnhancedProductionJobs: React.FC = () => {
     return (
       <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${badge.className}`}>
         {(priority === 'high' || priority === 'urgent') && <AlertTriangle className="w-3 h-3 mr-1" />}
+        {badge.label}
+      </span>
+    );
+  };
+
+  const getJobTypeBadge = (jobType: JobType) => {
+    const badges: Record<JobType, { label: string; className: string }> = {
+      internal: { label: 'Internal', className: 'bg-blue-100 text-blue-700' },
+      external: { label: 'External', className: 'bg-green-100 text-green-700' }
+    };
+
+    const badge = badges[jobType];
+
+    return (
+      <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${badge.className}`}>
         {badge.label}
       </span>
     );
@@ -297,7 +321,7 @@ const EnhancedProductionJobs: React.FC = () => {
           </div>
 
           {showFilters && (
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4 pt-4 border-t border-gray-200">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mt-4 pt-4 border-t border-gray-200">
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
@@ -324,6 +348,16 @@ const EnhancedProductionJobs: React.FC = () => {
               </select>
 
               <select
+                value={jobTypeFilter}
+                onChange={(e) => setJobTypeFilter(e.target.value)}
+                className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              >
+                <option value="all">All Job Types</option>
+                <option value="internal">Internal</option>
+                <option value="external">External</option>
+              </select>
+
+              <select
                 value={dateFilter}
                 onChange={(e) => setDateFilter(e.target.value)}
                 className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -341,6 +375,7 @@ const EnhancedProductionJobs: React.FC = () => {
                 className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="all">All Staff</option>
+                <option value="unassigned">Unassigned</option>
                 {allStaff.map(staff => (
                   <option key={staff} value={staff}>{staff}</option>
                 ))}
@@ -386,6 +421,9 @@ const EnhancedProductionJobs: React.FC = () => {
                     Product
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Job Type
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Quantity
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -405,7 +443,7 @@ const EnhancedProductionJobs: React.FC = () => {
               <tbody className="bg-white divide-y divide-gray-200">
                 {filteredJobs.length === 0 ? (
                   <tr>
-                    <td colSpan={7} className="px-6 py-12 text-center text-gray-500">
+                    <td colSpan={8} className="px-6 py-12 text-center text-gray-500">
                       <Package className="w-12 h-12 mx-auto mb-4 text-gray-400" />
                       <p className="text-lg font-medium">No production jobs found</p>
                       <p className="text-sm">Try adjusting your filters or create a new production job</p>
@@ -427,9 +465,9 @@ const EnhancedProductionJobs: React.FC = () => {
                       </td>
                       <td className="px-6 py-4">
                         <div className="text-sm font-medium text-gray-900">{job.recipeName}</div>
-                        {job.customerName && (
-                          <div className="text-xs text-gray-500">{job.customerName}</div>
-                        )}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {getJobTypeBadge(job.jobType)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm text-gray-900">
@@ -440,16 +478,14 @@ const EnhancedProductionJobs: React.FC = () => {
                         {getStatusBadge(job.status)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center text-sm text-gray-900">
-                          <Calendar className="w-4 h-4 mr-2 text-gray-400" />
-                          {formatDate(job.scheduledDate)}
+                        <div className="flex items-center text-sm">
+                          {isOverdue(job) && (
+                            <AlertTriangle className="w-4 h-4 mr-2 text-red-600" />
+                          )}
+                          <span className={isOverdue(job) ? 'text-red-600 font-medium' : 'text-gray-900'}>
+                            {formatDate(job.scheduledDate)}
+                          </span>
                         </div>
-                        {isOverdue(job) && (
-                          <div className="flex items-center text-xs text-red-600 mt-1">
-                            <AlertTriangle className="w-3 h-3 mr-1" />
-                            Overdue
-                          </div>
-                        )}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         {job.assignedStaffName ? (
@@ -494,9 +530,13 @@ const EnhancedProductionJobs: React.FC = () => {
                     {job.quantityToProduce} {job.unit}
                   </div>
 
-                  <div className="flex items-center text-sm text-gray-600">
-                    <Calendar className="w-4 h-4 mr-2" />
-                    {formatDate(job.scheduledDate)}
+                  <div className="flex items-center text-sm">
+                    {isOverdue(job) && (
+                      <AlertTriangle className="w-4 h-4 mr-2 text-red-600" />
+                    )}
+                    <span className={isOverdue(job) ? 'text-red-600 font-medium' : 'text-gray-600'}>
+                      {formatDate(job.scheduledDate)}
+                    </span>
                   </div>
 
                   {job.assignedStaffName && (
