@@ -1,5 +1,5 @@
 export type ProductionJobStatus = 'queued' | 'in_progress' | 'completed' | 'cancelled' | 'on_hold';
-export type ProductionPriority = 'low' | 'normal' | 'high' | 'urgent';
+export type ProductionPriority = 'low' | 'medium' | 'high';
 
 export interface ProductionJob {
   id: string;
