@@ -26,9 +26,7 @@ import {
   mockMaterials,
   getMaterialCategories,
   getLowStockMaterials,
-  calculateTotalInventoryValue,
-  calculateTotalPotentialRevenue,
-  calculateAverageMargin
+  calculateTotalInventoryValue
 } from '../data/mockMaterials';
 import { mockVendors } from '../data/mockVendors';
 import type { MasterIngredient } from '../types/ingredient';
@@ -119,7 +117,7 @@ const Inventory: React.FC = () => {
     setExpandedId(null);
   };
 
-  useMemo(() => {
+  React.useEffect(() => {
     setCurrentPage(1);
   }, [searchTerm, categoryFilter, stockFilter]);
 
@@ -249,7 +247,7 @@ const Inventory: React.FC = () => {
     setEditingMaterial(null);
   };
 
-  const handleVendorSubmit = (vendorData: any) => {
+  const handleVendorSubmit = (vendorData: { name: string; [key: string]: unknown }) => {
     console.log('Vendor saved:', vendorData);
     alert(`Vendor "${vendorData.name}" added successfully!`);
   };
