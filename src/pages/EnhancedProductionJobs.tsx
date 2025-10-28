@@ -34,13 +34,22 @@ const EnhancedProductionJobs: React.FC = () => {
   const [priorityFilter, setPriorityFilter] = useState<string>('all');
   const [dateFilter, setDateFilter] = useState<string>('all');
   const [staffFilter, setStaffFilter] = useState<string>('all');
-  const [jobTypeFilter, setJobTypeFilter] = useState<string>('all');
+  const [activeTab, setActiveTab] = useState<'internal' | 'external'>('external');
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
   const [showFilters, setShowFilters] = useState(false);
   const [sortBy, setSortBy] = useState<'date' | 'priority' | 'status' | 'customer'>('priority');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
 
-  const stats = getProductionStatsByStatus();
+  const allJobs = mockProductionJobs;
+  const tabFilteredJobs = allJobs.filter(job => job.jobType === activeTab);
+
+  const stats = {
+    queued: tabFilteredJobs.filter(j => j.status === 'queued').length,
+    inProgress: tabFilteredJobs.filter(j => j.status === 'in_progress').length,
+    completed: tabFilteredJobs.filter(j => j.status === 'completed').length,
+    cancelled: tabFilteredJobs.filter(j => j.status === 'cancelled').length,
+    onHold: tabFilteredJobs.filter(j => j.status === 'on_hold').length,
+  };
 
   const allStaff = useMemo(() => {
     const staffSet = new Set<string>();
@@ -54,10 +63,10 @@ const EnhancedProductionJobs: React.FC = () => {
 
   const filteredJobs = useMemo(() => {
     let jobs = searchTerm
-      ? searchProductionJobs(searchTerm)
+      ? searchProductionJobs(searchTerm).filter(job => job.jobType === activeTab)
       : statusFilter === 'all'
-      ? mockProductionJobs
-      : getProductionJobsByStatus(statusFilter);
+      ? tabFilteredJobs
+      : tabFilteredJobs.filter(job => job.status === statusFilter);
 
     if (priorityFilter !== 'all') {
       jobs = jobs.filter(job => job.priority === priorityFilter);
@@ -69,10 +78,6 @@ const EnhancedProductionJobs: React.FC = () => {
       } else {
         jobs = jobs.filter(job => job.assignedStaffName === staffFilter);
       }
-    }
-
-    if (jobTypeFilter !== 'all') {
-      jobs = jobs.filter(job => job.jobType === jobTypeFilter);
     }
 
     if (dateFilter !== 'all') {
@@ -122,7 +127,7 @@ const EnhancedProductionJobs: React.FC = () => {
     });
 
     return jobs;
-  }, [searchTerm, statusFilter, priorityFilter, dateFilter, staffFilter, jobTypeFilter, sortBy, sortOrder]);
+  }, [searchTerm, statusFilter, priorityFilter, dateFilter, staffFilter, activeTab, sortBy, sortOrder, tabFilteredJobs]);
 
   const getStatusBadge = (status: ProductionJobStatus) => {
     const badges: Record<ProductionJobStatus, { label: string; className: string; icon: any }> = {
@@ -218,6 +223,47 @@ const EnhancedProductionJobs: React.FC = () => {
             <Plus className="w-5 h-5 mr-2" />
             New Production Job
           </Link>
+        </div>
+      </div>
+
+      <div className="bg-white rounded-lg shadow mb-6">
+        <div className="border-b border-gray-200">
+          <nav className="flex -mb-px">
+            <button
+              onClick={() => setActiveTab('external')}
+              className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
+                activeTab === 'external'
+                  ? 'border-coral-500 text-coral-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              External Jobs
+              <span className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
+                activeTab === 'external'
+                  ? 'bg-coral-100 text-coral-700'
+                  : 'bg-gray-100 text-gray-600'
+              }`}>
+                {allJobs.filter(j => j.jobType === 'external').length}
+              </span>
+            </button>
+            <button
+              onClick={() => setActiveTab('internal')}
+              className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
+                activeTab === 'internal'
+                  ? 'border-coral-500 text-coral-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              Internal Jobs
+              <span className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
+                activeTab === 'internal'
+                  ? 'bg-coral-100 text-coral-700'
+                  : 'bg-gray-100 text-gray-600'
+              }`}>
+                {allJobs.filter(j => j.jobType === 'internal').length}
+              </span>
+            </button>
+          </nav>
         </div>
       </div>
 
@@ -321,7 +367,7 @@ const EnhancedProductionJobs: React.FC = () => {
           </div>
 
           {showFilters && (
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mt-4 pt-4 border-t border-gray-200">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4 pt-4 border-t border-gray-200">
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
@@ -345,16 +391,6 @@ const EnhancedProductionJobs: React.FC = () => {
                 <option value="high">High</option>
                 <option value="medium">Medium</option>
                 <option value="low">Low</option>
-              </select>
-
-              <select
-                value={jobTypeFilter}
-                onChange={(e) => setJobTypeFilter(e.target.value)}
-                className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              >
-                <option value="all">All Job Types</option>
-                <option value="internal">Internal</option>
-                <option value="external">External</option>
               </select>
 
               <select
@@ -421,9 +457,6 @@ const EnhancedProductionJobs: React.FC = () => {
                     Product
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Job Type
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -440,7 +473,7 @@ const EnhancedProductionJobs: React.FC = () => {
               <tbody className="bg-white divide-y divide-gray-200">
                 {filteredJobs.length === 0 ? (
                   <tr>
-                    <td colSpan={7} className="px-6 py-12 text-center text-gray-500">
+                    <td colSpan={6} className="px-6 py-12 text-center text-gray-500">
                       <Package className="w-12 h-12 mx-auto mb-4 text-gray-400" />
                       <p className="text-lg font-medium">No production jobs found</p>
                       <p className="text-sm">Try adjusting your filters or create a new production job</p>
@@ -460,9 +493,6 @@ const EnhancedProductionJobs: React.FC = () => {
                       </td>
                       <td className="px-6 py-4">
                         <div className="text-sm font-medium text-gray-900">{job.recipeName}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {getJobTypeBadge(job.jobType)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         {getStatusBadge(job.status)}
