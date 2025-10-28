@@ -335,11 +335,6 @@ const Packages: React.FC = () => {
                 <div className="flex items-center space-x-4 flex-1">
                   <div className="flex-1">
                     <h3 className="text-sm font-medium text-gray-900">{pkg.name}</h3>
-                    {pkg.isTemplate && (
-                      <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 mt-1">
-                        Template
-                      </span>
-                    )}
                   </div>
                   <div className="w-32 text-left">
                     <span className="text-sm text-gray-700">{getCategoryDisplay(pkg.category)}</span>
