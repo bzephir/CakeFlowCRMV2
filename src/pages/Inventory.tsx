@@ -268,10 +268,10 @@ const Inventory: React.FC = () => {
             <nav className="flex -mb-px">
               <button
                 onClick={() => handleTabChange('ingredients')}
-                className={`group relative min-w-0 flex-1 overflow-hidden py-4 px-6 text-sm font-medium text-center hover:bg-gray-50 focus:z-10 transition-colors ${
+                className={`group relative min-w-0 flex-1 overflow-hidden py-4 px-6 text-sm font-semibold text-center focus:z-10 transition-all ${
                   activeTab === 'ingredients'
-                    ? 'text-coral-600 border-b-2 border-coral-500'
-                    : 'text-gray-500 hover:text-gray-700 border-b-2 border-transparent'
+                    ? 'text-coral-700 bg-coral-50 border-b-4 border-coral-600 shadow-sm'
+                    : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50 border-b-4 border-transparent'
                 }`}
               >
                 <div className="flex items-center justify-center space-x-2">
@@ -293,10 +293,10 @@ const Inventory: React.FC = () => {
               </button>
               <button
                 onClick={() => handleTabChange('materials')}
-                className={`group relative min-w-0 flex-1 overflow-hidden py-4 px-6 text-sm font-medium text-center hover:bg-gray-50 focus:z-10 transition-colors ${
+                className={`group relative min-w-0 flex-1 overflow-hidden py-4 px-6 text-sm font-semibold text-center focus:z-10 transition-all ${
                   activeTab === 'materials'
-                    ? 'text-coral-600 border-b-2 border-coral-500'
-                    : 'text-gray-500 hover:text-gray-700 border-b-2 border-transparent'
+                    ? 'text-coral-700 bg-coral-50 border-b-4 border-coral-600 shadow-sm'
+                    : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50 border-b-4 border-transparent'
                 }`}
               >
                 <div className="flex items-center justify-center space-x-2">
