@@ -261,9 +261,6 @@ const ProductionJobs: React.FC = () => {
                   Job Type
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Quantity
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Status
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -280,7 +277,7 @@ const ProductionJobs: React.FC = () => {
             <tbody className="bg-white divide-y divide-gray-200">
               {filteredJobs.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="px-6 py-12 text-center text-gray-500">
+                  <td colSpan={7} className="px-6 py-12 text-center text-gray-500">
                     <Package className="w-12 h-12 mx-auto mb-4 text-gray-400" />
                     <p className="text-lg font-medium">No production jobs found</p>
                     <p className="text-sm">Try adjusting your filters or create a new production job</p>
@@ -290,9 +287,7 @@ const ProductionJobs: React.FC = () => {
                 filteredJobs.map((job) => (
                   <tr
                     key={job.id}
-                    className={`hover:bg-gray-50 transition-colors ${
-                      isOverdue(job) ? 'bg-red-50' : ''
-                    }`}
+                    className="hover:bg-gray-50 transition-colors"
                   >
                     <td className="px-6 py-4 whitespace-nowrap">
                       <Link to={`/production/jobs/${job.id}`} className="text-blue-600 hover:text-blue-800 font-medium">
@@ -304,11 +299,6 @@ const ProductionJobs: React.FC = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       {getJobTypeBadge(job.jobType)}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">
-                        {job.quantityToProduce} {job.unit}
-                      </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       {getStatusBadge(job.status)}
