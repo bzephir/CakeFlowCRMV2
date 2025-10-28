@@ -1,5 +1,8 @@
 export type ProductionJobStatus = 'queued' | 'in_progress' | 'completed' | 'cancelled' | 'on_hold';
-export type ProductionPriority = 'low' | 'medium' | 'high';
+export type ProductionPriority = 'low' | 'medium' | 'high' | 'urgent';
+export type WorkflowStageStatus = 'pending' | 'in_progress' | 'completed' | 'skipped' | 'blocked';
+export type ApprovalStatus = 'not_required' | 'pending' | 'approved' | 'rejected' | 'revision_requested';
+export type CustomizationType = 'ingredient_override' | 'flavor_change' | 'size_adjustment' | 'decoration_change' | 'other';
 
 export interface ProductionJob {
   id: string;
@@ -11,6 +14,12 @@ export interface ProductionJob {
   unit: string;
   status: ProductionJobStatus;
   priority: ProductionPriority;
+
+  scalingFactor?: number;
+  clientSpecifications?: string;
+  designNotes?: string;
+  requiresClientApproval?: boolean;
+  approvalStatus?: ApprovalStatus;
 
   scheduledDate: string;
   scheduledStartTime?: string;
@@ -259,4 +268,150 @@ export interface StaffProductivityReport {
   onTimeCompletions: number;
 
   totalProductionValue: number;
+}
+
+export interface SubRecipe {
+  id: string;
+  recipeId?: string;
+  name: string;
+  category: string;
+  description?: string;
+  yieldQuantity: number;
+  yieldUnit: string;
+  shelfLifeDays: number;
+  storageLocation: 'dry' | 'fridge' | 'freezer';
+  costPerUnit: number;
+  laborCost: number;
+  totalCost: number;
+  currentStock: number;
+  unit: string;
+  isActive: boolean;
+  notes?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface RecipeSubRecipe {
+  id: string;
+  recipeId: string;
+  subRecipeId: string;
+  subRecipeName?: string;
+  quantityRequired: number;
+  unit: string;
+  isOptional: boolean;
+  notes?: string;
+}
+
+export interface ProductionWorkflowStage {
+  id: string;
+  productionJobId: string;
+  stageName: string;
+  stageOrder: number;
+  status: WorkflowStageStatus;
+  estimatedDurationMinutes?: number;
+  actualDurationMinutes?: number;
+  assignedStaffId?: string;
+  assignedStaffName?: string;
+  startedAt?: string;
+  completedAt?: string;
+  notes?: string;
+  qualityCheckPassed?: boolean;
+  qualityNotes?: string;
+  createdAt: string;
+}
+
+export interface ProductionJobAttachment {
+  id: string;
+  productionJobId: string;
+  fileName: string;
+  fileType: 'photo' | 'design' | 'reference' | 'approval' | 'other';
+  fileUrl: string;
+  fileSize?: number;
+  description?: string;
+  uploadedBy: string;
+  uploadedAt: string;
+}
+
+export interface ProductionJobCustomization {
+  id: string;
+  productionJobId: string;
+  customizationType: CustomizationType;
+  fieldName: string;
+  originalValue?: string;
+  customValue: string;
+  notes?: string;
+  createdAt: string;
+}
+
+export interface ClientApproval {
+  id: string;
+  productionJobId: string;
+  approvalType: 'design' | 'flavor' | 'specifications' | 'final_product';
+  status: ApprovalStatus;
+  approvedByName?: string;
+  approvedAt?: string;
+  notes?: string;
+  createdAt: string;
+}
+
+export interface SubRecipeBatch {
+  id: string;
+  batchNumber: string;
+  subRecipeId: string;
+  subRecipeName: string;
+  quantityProduced: number;
+  unit: string;
+  productionDate: string;
+  expirationDate?: string;
+  producedBy: string;
+  producedByName?: string;
+  qualityCheckPassed: boolean;
+  qualityNotes?: string;
+  costPerUnit: number;
+  totalCost: number;
+  createdAt: string;
+}
+
+export interface ProductionJobWithDetails extends ProductionJob {
+  workflowStages?: ProductionWorkflowStage[];
+  attachments?: ProductionJobAttachment[];
+  customizations?: ProductionJobCustomization[];
+  approvals?: ClientApproval[];
+  subRecipeRequirements?: RecipeSubRecipe[];
+}
+
+export interface ProductionSchedule {
+  date: string;
+  jobs: ProductionJob[];
+  totalJobs: number;
+  staffAssignments: {
+    staffId: string;
+    staffName: string;
+    assignedJobs: number;
+  }[];
+}
+
+export interface IngredientRequirement {
+  ingredientId: string;
+  ingredientName: string;
+  category: string;
+  requiredQuantity: number;
+  unit: string;
+  currentStock: number;
+  isAvailable: boolean;
+  shortage?: number;
+  estimatedCost: number;
+}
+
+export interface SubRecipeRequirement {
+  subRecipeId: string;
+  subRecipeName: string;
+  requiredQuantity: number;
+  unit: string;
+  currentStock: number;
+  isAvailable: boolean;
+  shortage?: number;
+  estimatedCost: number;
+  shelfLifeDays: number;
+  needsProduction: boolean;
 }
