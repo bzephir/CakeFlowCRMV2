@@ -188,23 +188,34 @@ const Production: React.FC = () => {
     <div className="p-6">
       <Header title="Production" icon={Factory} />
       <div className="p-6 max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+          <div className="flex-1 relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <input
+              type="text"
+              placeholder="Search by job number, recipe, customer, or order..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="block w-full sm:w-96 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+            />
+          </div>
+
           <div className="flex gap-2">
-          <button
-            onClick={handleExport}
-            className="flex items-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-          >
-            <Download className="w-4 h-4 mr-2" />
-            Export
-          </button>
-          <Link
-            to="/production/new"
-            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            <Plus className="w-5 h-5 mr-2" />
-            New Production Job
-          </Link>
-        </div>
+            <button
+              onClick={handleExport}
+              className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-colors"
+            >
+              <Download className="w-4 h-4 mr-2" />
+              Export
+            </button>
+            <Link
+              to="/production/new"
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all"
+            >
+              <Plus className="w-5 h-5 mr-2" />
+              New Production Job
+            </Link>
+          </div>
         </div>
 
       <div className="bg-white rounded-lg shadow mb-6">
@@ -308,22 +319,11 @@ const Production: React.FC = () => {
       <div className="bg-white rounded-lg shadow mb-6">
         <div className="p-4 border-b border-gray-200">
           <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input
-                type="text"
-                placeholder="Search by job number, recipe, customer, or order..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
-
             <div className="flex gap-2">
               <button
                 onClick={() => setShowFilters(!showFilters)}
                 className={`flex items-center px-4 py-2 border rounded-lg transition-colors ${
-                  showFilters ? 'bg-blue-50 border-blue-300 text-blue-700' : 'border-gray-300 hover:bg-gray-50'
+                  showFilters ? 'bg-coral-50 border-coral-300 text-coral-700' : 'border-gray-300 hover:bg-gray-50'
                 }`}
               >
                 <SlidersHorizontal className="w-4 h-4 mr-2" />

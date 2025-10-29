@@ -261,6 +261,27 @@ const Inventory: React.FC = () => {
       <Header title="Inventory Management" icon={Package} />
 
       <div className="p-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+          <InventoryFilters
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
+            categoryFilter={categoryFilter}
+            onCategoryChange={setCategoryFilter}
+            stockFilter={stockFilter}
+            onStockChange={setStockFilter}
+            categories={activeTab === 'ingredients' ? ingredientCategories : materialCategories}
+            searchPlaceholder={`Search ${activeTab}...`}
+          />
+
+          <button
+            onClick={handleAddItem}
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all"
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            Add {activeTab === 'ingredients' ? 'Ingredient' : 'Material'}
+          </button>
+        </div>
+
         <InventoryStats stats={unifiedStats} />
 
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
@@ -320,26 +341,6 @@ const Inventory: React.FC = () => {
           </div>
 
           <div className="p-6">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-              <InventoryFilters
-                searchTerm={searchTerm}
-                onSearchChange={setSearchTerm}
-                categoryFilter={categoryFilter}
-                onCategoryChange={setCategoryFilter}
-                stockFilter={stockFilter}
-                onStockChange={setStockFilter}
-                categories={activeTab === 'ingredients' ? ingredientCategories : materialCategories}
-                searchPlaceholder={`Search ${activeTab}...`}
-              />
-
-              <button
-                onClick={handleAddItem}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all"
-              >
-                <Plus className="h-4 w-4 mr-2" />
-                Add {activeTab === 'ingredients' ? 'Ingredient' : 'Material'}
-              </button>
-            </div>
 
             {activeTab === 'ingredients' ? (
               <>
