@@ -169,11 +169,11 @@ const Production: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="p-6">
       <Header title="Production" icon={Factory} />
 
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 px-6 pt-6 pb-4">
+      <div className="p-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
           <ProductionFilters
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}
@@ -193,11 +193,11 @@ const Production: React.FC = () => {
           </Link>
         </div>
 
-        <div className="px-6 pb-4">
+        <div className="mb-6">
           <ProductionStats stats={stats} />
         </div>
 
-        <div className="bg-white shadow-sm border-t border-gray-200 flex-1 flex flex-col overflow-hidden">
+        <div className="bg-white shadow-sm border border-gray-200 rounded-lg">
           <div className="border-b border-gray-200">
             <nav className="flex -mb-px">
               <button
@@ -243,8 +243,8 @@ const Production: React.FC = () => {
             </nav>
           </div>
 
-          <div className="flex-1 flex flex-col overflow-hidden">
-            <div className="bg-gray-50 border border-gray-200 border-b-0 sticky top-0 z-10">
+          <div className="p-6">
+            <div className="bg-gray-50 rounded-t-lg border border-gray-200 border-b-0">
               <div className="flex items-center justify-between px-4 py-2">
                 <div className="flex items-center space-x-4 flex-1">
                   <div className="w-32">
@@ -273,14 +273,14 @@ const Production: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex-1 overflow-y-auto">
+            <div className="space-y-0">
               <div>
               {paginatedJobs.map((job) => {
                 return (
-                  <div key={job.id} className="bg-white border-b border-gray-200 hover:bg-gray-50 transition-colors">
+                  <div key={job.id} className="bg-white border-l border-r border-b border-gray-200 shadow-sm overflow-hidden hover:bg-gray-50 transition-colors">
                     <Link
                       to={`/production/${job.id}`}
-                      className="flex items-center px-4 py-3 block"
+                      className="flex items-center px-4 py-2 block"
                     >
                       <div className="flex items-center space-x-4 flex-1">
                         <div className="w-32">
@@ -325,7 +325,7 @@ const Production: React.FC = () => {
               })}
 
                 {filteredJobs.length === 0 && (
-                  <div className="text-center py-12 bg-white">
+                  <div className="text-center py-12 bg-white rounded-lg border border-gray-200">
                     <Package className="mx-auto h-12 w-12 text-gray-400 mb-4" />
                     <div className="text-gray-500 text-lg">No production jobs found</div>
                     <div className="text-gray-400 text-sm mt-2">
