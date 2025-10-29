@@ -42,9 +42,7 @@ import Communication from './pages/Communication';
 import Notifications from './pages/Notifications';
 import EmailBox from './pages/EmailBox';
 import Production from './pages/Production';
-import ProductionJobDetail from './pages/ProductionJobDetail';
 import EnhancedProductionJobDetail from './pages/EnhancedProductionJobDetail';
-import EnhancedProductionJobs from './pages/EnhancedProductionJobs';
 import CreateProductionJob from './pages/CreateProductionJob';
 
 // Placeholder components for other routes
@@ -83,12 +81,10 @@ function App() {
                 <Route path="/invoice/:id/edit" element={<Invoice />} />
                 <Route path="/invoice/new" element={<Invoice />} />
                 <Route path="/reports" element={<Reports />} />
-                <Route path="/production" element={<EnhancedProductionJobs />} />
-                <Route path="/production/jobs" element={<EnhancedProductionJobs />} />
+                <Route path="/production" element={<Production />} />
+                <Route path="/production/jobs" element={<Production />} />
                 <Route path="/production/jobs/new" element={<CreateProductionJob />} />
                 <Route path="/production/jobs/:id" element={<EnhancedProductionJobDetail />} />
-                <Route path="/production/jobs/:id/old" element={<ProductionJobDetail />} />
-                <Route path="/production/old" element={<Production />} />
                 <Route path="/recipes" element={<Recipes />} />
                 <Route path="/recipes/:id" element={<RecipeDetail />} />
                 <Route path="/recipes/margin-report" element={<RecipeMarginReport />} />

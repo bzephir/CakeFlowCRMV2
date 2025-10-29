@@ -1,31 +1,79 @@
 import React, { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import { Plus, Search, Filter, Calendar, User, Package, AlertTriangle, Clock, CheckCircle, XCircle, Pause, PlayCircle } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import {
+  Plus,
+  Search,
+  User,
+  Package,
+  AlertTriangle,
+  Clock,
+  CheckCircle,
+  XCircle,
+  Pause,
+  PlayCircle,
+  Download,
+  Grid,
+  List,
+  SlidersHorizontal
+} from 'lucide-react';
 import {
   mockProductionJobs,
-  getProductionJobsByStatus,
-  getProductionStatsByStatus,
   searchProductionJobs,
 } from '../data/mockProduction';
 import { ProductionJob, ProductionJobStatus, ProductionPriority, JobType } from '../types/production';
 
-const ProductionJobs: React.FC = () => {
+const Production: React.FC = () => {
+  const navigate = useNavigate();
+
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [priorityFilter, setPriorityFilter] = useState<string>('all');
   const [dateFilter, setDateFilter] = useState<string>('all');
+  const [staffFilter, setStaffFilter] = useState<string>('all');
+  const [activeTab, setActiveTab] = useState<'internal' | 'external'>('external');
+  const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
+  const [showFilters, setShowFilters] = useState(false);
+  const [sortBy, setSortBy] = useState<'date' | 'priority' | 'status' | 'customer'>('priority');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
 
-  const stats = getProductionStatsByStatus();
+  const allJobs = mockProductionJobs;
+  const tabFilteredJobs = allJobs.filter(job => job.jobType === activeTab);
+
+  const stats = {
+    queued: tabFilteredJobs.filter(j => j.status === 'queued').length,
+    inProgress: tabFilteredJobs.filter(j => j.status === 'in_progress').length,
+    completed: tabFilteredJobs.filter(j => j.status === 'completed').length,
+    cancelled: tabFilteredJobs.filter(j => j.status === 'cancelled').length,
+    onHold: tabFilteredJobs.filter(j => j.status === 'on_hold').length,
+  };
+
+  const allStaff = useMemo(() => {
+    const staffSet = new Set<string>();
+    mockProductionJobs.forEach(job => {
+      if (job.assignedStaffName) {
+        staffSet.add(job.assignedStaffName);
+      }
+    });
+    return Array.from(staffSet).sort();
+  }, []);
 
   const filteredJobs = useMemo(() => {
     let jobs = searchTerm
-      ? searchProductionJobs(searchTerm)
+      ? searchProductionJobs(searchTerm).filter(job => job.jobType === activeTab)
       : statusFilter === 'all'
-      ? mockProductionJobs
-      : getProductionJobsByStatus(statusFilter);
+      ? tabFilteredJobs
+      : tabFilteredJobs.filter(job => job.status === statusFilter);
 
     if (priorityFilter !== 'all') {
       jobs = jobs.filter(job => job.priority === priorityFilter);
+    }
+
+    if (staffFilter !== 'all') {
+      if (staffFilter === 'unassigned') {
+        jobs = jobs.filter(job => !job.assignedStaffName);
+      } else {
+        jobs = jobs.filter(job => job.assignedStaffName === staffFilter);
+      }
     }
 
     if (dateFilter !== 'all') {
@@ -51,12 +99,31 @@ const ProductionJobs: React.FC = () => {
       }
     }
 
-    return jobs.sort((a, b) => {
-      if (a.priority === 'high' && b.priority !== 'high') return -1;
-      if (a.priority !== 'high' && b.priority === 'high') return 1;
-      return a.scheduledDate.localeCompare(b.scheduledDate);
+    jobs = [...jobs].sort((a, b) => {
+      let comparison = 0;
+
+      switch (sortBy) {
+        case 'date':
+          comparison = a.scheduledDate.localeCompare(b.scheduledDate);
+          break;
+        case 'priority':
+          const priorityOrder = { urgent: 4, high: 3, medium: 2, low: 1 };
+          comparison = (priorityOrder[b.priority as keyof typeof priorityOrder] || 0) -
+                      (priorityOrder[a.priority as keyof typeof priorityOrder] || 0);
+          break;
+        case 'status':
+          comparison = a.status.localeCompare(b.status);
+          break;
+        case 'customer':
+          comparison = (a.customerName || '').localeCompare(b.customerName || '');
+          break;
+      }
+
+      return sortOrder === 'asc' ? comparison : -comparison;
     });
-  }, [searchTerm, statusFilter, priorityFilter, dateFilter]);
+
+    return jobs;
+  }, [searchTerm, statusFilter, priorityFilter, dateFilter, staffFilter, activeTab, sortBy, sortOrder, tabFilteredJobs]);
 
   const getStatusBadge = (status: ProductionJobStatus) => {
     const badges: Record<ProductionJobStatus, { label: string; className: string; icon: any }> = {
@@ -86,26 +153,11 @@ const ProductionJobs: React.FC = () => {
       urgent: { label: 'Urgent', className: 'bg-red-200 text-red-800' }
     };
 
-    const badge = badges[priority];
+    const badge = badges[priority] || badges.medium;
 
     return (
       <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${badge.className}`}>
-        {priority === 'high' && <AlertTriangle className="w-3 h-3 mr-1" />}
-        {badge.label}
-      </span>
-    );
-  };
-
-  const getJobTypeBadge = (jobType: JobType) => {
-    const badges: Record<JobType, { label: string; className: string }> = {
-      internal: { label: 'Internal', className: 'bg-blue-100 text-blue-700' },
-      external: { label: 'External', className: 'bg-green-100 text-green-700' }
-    };
-
-    const badge = badges[jobType];
-
-    return (
-      <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${badge.className}`}>
+        {(priority === 'high' || priority === 'urgent') && <AlertTriangle className="w-3 h-3 mr-1" />}
         {badge.label}
       </span>
     );
@@ -125,24 +177,80 @@ const ProductionJobs: React.FC = () => {
     return job.orderDueDate < today;
   };
 
+  const handleExport = () => {
+    console.log('Exporting production jobs...');
+    alert('Export functionality coming soon!');
+  };
+
   return (
     <div className="p-6 max-w-7xl mx-auto">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Production Dashboard</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Production Jobs</h1>
           <p className="text-gray-600 mt-1">Manage bakery production schedule and batch tracking</p>
         </div>
-        <Link
-          to="/production/jobs/new"
-          className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-        >
-          <Plus className="w-5 h-5 mr-2" />
-          New Production Job
-        </Link>
+        <div className="flex gap-2">
+          <button
+            onClick={handleExport}
+            className="flex items-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+          >
+            <Download className="w-4 h-4 mr-2" />
+            Export
+          </button>
+          <Link
+            to="/production/jobs/new"
+            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            <Plus className="w-5 h-5 mr-2" />
+            New Production Job
+          </Link>
+        </div>
+      </div>
+
+      <div className="bg-white rounded-lg shadow mb-6">
+        <div className="border-b border-gray-200">
+          <nav className="flex -mb-px">
+            <button
+              onClick={() => setActiveTab('external')}
+              className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
+                activeTab === 'external'
+                  ? 'border-coral-500 text-coral-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              External Jobs
+              <span className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
+                activeTab === 'external'
+                  ? 'bg-coral-100 text-coral-700'
+                  : 'bg-gray-100 text-gray-600'
+              }`}>
+                {allJobs.filter(j => j.jobType === 'external').length}
+              </span>
+            </button>
+            <button
+              onClick={() => setActiveTab('internal')}
+              className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
+                activeTab === 'internal'
+                  ? 'border-coral-500 text-coral-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              Internal Jobs
+              <span className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
+                activeTab === 'internal'
+                  ? 'bg-coral-100 text-coral-700'
+                  : 'bg-gray-100 text-gray-600'
+              }`}>
+                {allJobs.filter(j => j.jobType === 'internal').length}
+              </span>
+            </button>
+          </nav>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
-        <div className="bg-gradient-to-br from-gray-50 to-gray-100 p-4 rounded-lg border border-gray-200">
+        <div className="bg-gradient-to-br from-gray-50 to-gray-100 p-4 rounded-lg border border-gray-200 cursor-pointer hover:shadow-md transition-shadow"
+             onClick={() => setStatusFilter('queued')}>
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-600">Queued</p>
@@ -152,7 +260,8 @@ const ProductionJobs: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
+        <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200 cursor-pointer hover:shadow-md transition-shadow"
+             onClick={() => setStatusFilter('in_progress')}>
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-blue-600">In Progress</p>
@@ -162,7 +271,8 @@ const ProductionJobs: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg border border-green-200">
+        <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg border border-green-200 cursor-pointer hover:shadow-md transition-shadow"
+             onClick={() => setStatusFilter('completed')}>
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-green-600">Completed</p>
@@ -172,7 +282,8 @@ const ProductionJobs: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-4 rounded-lg border border-yellow-200">
+        <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-4 rounded-lg border border-yellow-200 cursor-pointer hover:shadow-md transition-shadow"
+             onClick={() => setStatusFilter('on_hold')}>
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-yellow-600">On Hold</p>
@@ -182,7 +293,8 @@ const ProductionJobs: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-red-50 to-red-100 p-4 rounded-lg border border-red-200">
+        <div className="bg-gradient-to-br from-red-50 to-red-100 p-4 rounded-lg border border-red-200 cursor-pointer hover:shadow-md transition-shadow"
+             onClick={() => setStatusFilter('cancelled')}>
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-red-600">Cancelled</p>
@@ -208,6 +320,35 @@ const ProductionJobs: React.FC = () => {
             </div>
 
             <div className="flex gap-2">
+              <button
+                onClick={() => setShowFilters(!showFilters)}
+                className={`flex items-center px-4 py-2 border rounded-lg transition-colors ${
+                  showFilters ? 'bg-blue-50 border-blue-300 text-blue-700' : 'border-gray-300 hover:bg-gray-50'
+                }`}
+              >
+                <SlidersHorizontal className="w-4 h-4 mr-2" />
+                Filters
+              </button>
+
+              <div className="flex border border-gray-300 rounded-lg overflow-hidden">
+                <button
+                  onClick={() => setViewMode('list')}
+                  className={`p-2 ${viewMode === 'list' ? 'bg-gray-100' : 'hover:bg-gray-50'}`}
+                >
+                  <List className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={() => setViewMode('grid')}
+                  className={`p-2 ${viewMode === 'grid' ? 'bg-gray-100' : 'hover:bg-gray-50'}`}
+                >
+                  <Grid className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {showFilters && (
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4 pt-4 border-t border-gray-200">
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
@@ -227,6 +368,7 @@ const ProductionJobs: React.FC = () => {
                 className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="all">All Priority</option>
+                <option value="urgent">Urgent</option>
                 <option value="high">High</option>
                 <option value="medium">Medium</option>
                 <option value="low">Low</option>
@@ -243,95 +385,176 @@ const ProductionJobs: React.FC = () => {
                 <option value="this_week">This Week</option>
                 <option value="overdue">Overdue</option>
               </select>
+
+              <select
+                value={staffFilter}
+                onChange={(e) => setStaffFilter(e.target.value)}
+                className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              >
+                <option value="all">All Staff</option>
+                <option value="unassigned">Unassigned</option>
+                {allStaff.map(staff => (
+                  <option key={staff} value={staff}>{staff}</option>
+                ))}
+              </select>
             </div>
+          )}
+
+          <div className="flex items-center gap-4 mt-4 pt-4 border-t border-gray-200 text-sm">
+            <span className="text-gray-600">Sort by:</span>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as any)}
+              className="px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+            >
+              <option value="priority">Priority</option>
+              <option value="date">Date</option>
+              <option value="status">Status</option>
+              <option value="customer">Customer</option>
+            </select>
+
+            <button
+              onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
+              className="px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-50"
+            >
+              {sortOrder === 'asc' ? '↑ Ascending' : '↓ Descending'}
+            </button>
+
+            <span className="text-gray-500 ml-auto">
+              {filteredJobs.length} job{filteredJobs.length !== 1 ? 's' : ''}
+            </span>
           </div>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-200">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Job#
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Product
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Job Type
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Status
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Scheduled Date
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Assigned Staff
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Priority
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {filteredJobs.length === 0 ? (
+        {viewMode === 'list' ? (
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>
-                  <td colSpan={7} className="px-6 py-12 text-center text-gray-500">
-                    <Package className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-                    <p className="text-lg font-medium">No production jobs found</p>
-                    <p className="text-sm">Try adjusting your filters or create a new production job</p>
-                  </td>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Job#
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Product
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Status
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Scheduled Date
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Assigned Staff
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Priority
+                  </th>
                 </tr>
-              ) : (
-                filteredJobs.map((job) => (
-                  <tr
-                    key={job.id}
-                    className="hover:bg-gray-50 transition-colors"
-                  >
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <Link to={`/production/jobs/${job.id}`} className="text-blue-600 hover:text-blue-800 font-medium">
-                        {job.jobNumber}
-                      </Link>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="text-sm font-medium text-gray-900">{job.recipeName}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {getJobTypeBadge(job.jobType)}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {getStatusBadge(job.status)}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center text-sm">
-                        {isOverdue(job) && (
-                          <AlertTriangle className="w-4 h-4 mr-2 text-red-600" />
-                        )}
-                        <span className={isOverdue(job) ? 'text-red-600 font-medium' : 'text-gray-900'}>
-                          {formatDate(job.scheduledDate)}
-                        </span>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {job.assignedStaffName ? (
-                        <div className="flex items-center text-sm text-gray-900">
-                          <User className="w-4 h-4 mr-2 text-gray-400" />
-                          {job.assignedStaffName}
-                        </div>
-                      ) : (
-                        <span className="text-sm text-gray-400">Unassigned</span>
-                      )}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {getPriorityBadge(job.priority)}
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {filteredJobs.length === 0 ? (
+                  <tr>
+                    <td colSpan={6} className="px-6 py-12 text-center text-gray-500">
+                      <Package className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+                      <p className="text-lg font-medium">No production jobs found</p>
+                      <p className="text-sm">Try adjusting your filters or create a new production job</p>
                     </td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
+                ) : (
+                  filteredJobs.map((job) => (
+                    <tr
+                      key={job.id}
+                      className="hover:bg-gray-50 transition-colors cursor-pointer"
+                      onClick={() => navigate(`/production/jobs/${job.id}`)}
+                    >
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className="text-blue-600 hover:text-blue-800 font-medium">
+                          {job.jobNumber}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="text-sm font-medium text-gray-900">{job.recipeName}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {getStatusBadge(job.status)}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="flex items-center text-sm">
+                          {isOverdue(job) && (
+                            <AlertTriangle className="w-4 h-4 mr-2 text-red-600" />
+                          )}
+                          <span className={isOverdue(job) ? 'text-red-600 font-medium' : 'text-gray-900'}>
+                            {formatDate(job.scheduledDate)}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {job.assignedStaffName ? (
+                          <div className="flex items-center text-sm text-gray-900">
+                            <User className="w-4 h-4 mr-2 text-gray-400" />
+                            {job.assignedStaffName}
+                          </div>
+                        ) : (
+                          <span className="text-sm text-gray-400">Unassigned</span>
+                        )}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {getPriorityBadge(job.priority)}
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filteredJobs.map((job) => (
+              <Link
+                key={job.id}
+                to={`/production/jobs/${job.id}`}
+                className={`block p-4 border-2 rounded-lg hover:shadow-md transition-shadow ${
+                  isOverdue(job) ? 'border-red-300 bg-red-50' : 'border-gray-200 bg-white'
+                }`}
+              >
+                <div className="flex justify-between items-start mb-3">
+                  <div>
+                    <h3 className="font-semibold text-gray-900">{job.jobNumber}</h3>
+                    <p className="text-sm text-gray-600">{job.recipeName}</p>
+                  </div>
+                  {getPriorityBadge(job.priority)}
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex items-center text-sm text-gray-600">
+                    <Package className="w-4 h-4 mr-2" />
+                    {job.quantityToProduce} {job.unit}
+                  </div>
+
+                  <div className="flex items-center text-sm">
+                    {isOverdue(job) && (
+                      <AlertTriangle className="w-4 h-4 mr-2 text-red-600" />
+                    )}
+                    <span className={isOverdue(job) ? 'text-red-600 font-medium' : 'text-gray-600'}>
+                      {formatDate(job.scheduledDate)}
+                    </span>
+                  </div>
+
+                  {job.assignedStaffName && (
+                    <div className="flex items-center text-sm text-gray-600">
+                      <User className="w-4 h-4 mr-2" />
+                      {job.assignedStaffName}
+                    </div>
+                  )}
+                </div>
+
+                <div className="mt-3 pt-3 border-t border-gray-200">
+                  {getStatusBadge(job.status)}
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
 
       {filteredJobs.length > 0 && (
@@ -351,4 +574,4 @@ const ProductionJobs: React.FC = () => {
   );
 };
 
-export default ProductionJobs;
+export default Production;
