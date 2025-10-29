@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import { mockSampleQuoteDetail, mockSampleQuotesDetail, mockQuotesList } from '../data/mockData';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
-import { Plus, Search, Filter, Eye, CreditCard as Edit, Mail, Trash2, Calendar, Copy, FileText, Clock, Receipt, CheckCircle2, XCircle, AlertCircle, ArrowRightCircle, Package, Truck, DollarSign, TrendingUp } from 'lucide-react';
+import { Plus, Search, Filter, Trash2, FileText, Clock, Receipt, CheckCircle2, XCircle, AlertCircle, Package, Truck, DollarSign, TrendingUp, Mail } from 'lucide-react';
 
 const Quotes: React.FC = () => {
   const navigate = useNavigate();
@@ -301,32 +301,29 @@ const Quotes: React.FC = () => {
                 className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
               />
             </div>
-            <div className="w-20">
+            <div className="w-28">
               <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Quote #</span>
             </div>
-            <div className="w-36 text-left">
+            <div className="w-40 text-left">
               <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</span>
             </div>
-            <div className="w-24 text-left">
+            <div className="w-32 text-left">
               <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Event Type</span>
             </div>
-            <div className="w-24 text-left">
+            <div className="w-28 text-left">
               <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Event Date</span>
             </div>
             <div className="w-32 text-left">
               <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Fulfillment</span>
             </div>
-            <div className="w-24 text-left">
-              <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Expiry Date</span>
-            </div>
-            <div className="w-24 text-right">
+            <div className="w-28 text-right">
               <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</span>
             </div>
-            <div className="w-20 text-center">
+            <div className="w-24 text-center">
               <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Status</span>
             </div>
           </div>
-          <div className="w-36">
+          <div className="w-12">
             <span className="text-xs font-medium text-gray-500 uppercase tracking-wider"></span>
           </div>
         </div>
@@ -334,100 +331,74 @@ const Quotes: React.FC = () => {
 
       {/* Quotes List */}
       <div className="space-y-0">
-        {currentQuotes.map((quote) => (
-          <div key={quote.id} className="bg-white border-l border-r border-b border-gray-200 shadow-sm overflow-hidden hover:bg-gray-50 transition-colors">
-            <div className="flex items-center justify-between px-3 py-1.5">
-              <div className="flex items-center space-x-1 flex-1">
-                <div className="w-8 flex justify-center">
-                  <input
-                    type="checkbox"
-                    checked={selectedQuotes.includes(quote.id)}
-                    onChange={() => toggleSelectQuote(quote.id)}
-                    className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
-                  />
+        {currentQuotes.map((quote) => {
+          const eventDate = new Date(quote.eventDate);
+          const formattedEventDate = `${String(eventDate.getMonth() + 1).padStart(2, '0')}/${String(eventDate.getDate()).padStart(2, '0')}/${eventDate.getFullYear()}`;
+
+          return (
+            <div key={quote.id} className="bg-white border-l border-r border-b border-gray-200 shadow-sm overflow-hidden hover:bg-gray-50 transition-colors">
+              <div className="flex items-center justify-between px-3 py-1.5">
+                <div className="flex items-center space-x-1 flex-1">
+                  <div className="w-8 flex justify-center">
+                    <input
+                      type="checkbox"
+                      checked={selectedQuotes.includes(quote.id)}
+                      onChange={() => toggleSelectQuote(quote.id)}
+                      className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
+                    />
+                  </div>
+                  <div className="w-28">
+                    <a
+                      href={`#/quotes/${quote.id}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleViewQuote(quote.id);
+                      }}
+                      className="text-sm font-medium text-gray-700 hover:text-aqua-600 transition-colors"
+                    >
+                      {quote.id}
+                    </a>
+                  </div>
+                  <div className="w-40 text-left">
+                    <span className="text-sm font-medium text-gray-700">{quote.customer}</span>
+                  </div>
+                  <div className="w-32 text-left">
+                    <span className="text-sm text-gray-700">{quote.eventType}</span>
+                  </div>
+                  <div className="w-28 text-left">
+                    <span className="text-sm text-gray-700">{formattedEventDate}</span>
+                  </div>
+                  <div className="w-32 text-left">
+                    <span className="text-sm text-gray-700 flex items-center">
+                      {quote.fulfillmentType === 'pickup'
+                        ? <><Package className="h-3 w-3 mr-1" /> {quote.pickupTime ? formatTime(quote.pickupTime) : 'TBD'}</>
+                        : <><Truck className="h-3 w-3 mr-1" /> {quote.deliveryTime ? formatTime(quote.deliveryTime) : 'TBD'}</>
+                      }
+                    </span>
+                  </div>
+                  <div className="w-28 text-right">
+                    <span className="text-sm font-medium text-gray-900">{formatCurrency(quote.amount)}</span>
+                  </div>
+                  <div className="w-24 flex justify-center">
+                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(quote.status)}`}>
+                      {getStatusIcon(quote.status)}
+                      {quote.status.charAt(0).toUpperCase() + quote.status.slice(1)}
+                    </span>
+                  </div>
                 </div>
-                <div className="w-20">
-                  <span className="text-sm font-medium text-gray-700 cursor-pointer hover:text-aqua-600" onClick={() => handleViewQuote(quote.id)}>
-                    {quote.id}
-                  </span>
+                <div className="w-12 flex justify-end">
+                  <button
+                    onClick={() => handleDeleteQuote(quote.id)}
+                    className="text-pink-600 hover:text-pink-900 transition-colors"
+                    title="Delete"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </button>
                 </div>
-                <div className="w-36 text-left">
-                  <span className="text-sm font-medium text-gray-700">{quote.customer}</span>
-                </div>
-                <div className="w-24 text-left">
-                  <span className="text-sm text-gray-700">{quote.eventType}</span>
-                </div>
-                <div className="w-24 text-left">
-                  <span className="text-sm text-gray-700">{formatDate(quote.eventDate)}</span>
-                </div>
-                <div className="w-32 text-left">
-                  <span className="text-sm text-gray-700">
-                    {quote.fulfillmentType === 'pickup'
-                      ? <span className="flex items-center"><Package className="h-3 w-3 mr-1" /> Pickup: {quote.pickupTime ? formatTime(quote.pickupTime) : 'TBD'}</span>
-                      : <span className="flex items-center"><Truck className="h-3 w-3 mr-1" /> Delivery: {quote.deliveryTime ? formatTime(quote.deliveryTime) : 'TBD'}</span>
-                    }
-                  </span>
-                </div>
-                <div className="w-24 text-left">
-                  <span className="text-sm text-gray-700">{formatDate(quote.expiryDate)}</span>
-                </div>
-                <div className="w-24 text-right">
-                  <span className="text-sm font-medium text-gray-900">{formatCurrency(quote.amount)}</span>
-                </div>
-                <div className="w-20 flex justify-center">
-                  <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(quote.status)}`}>
-                    {getStatusIcon(quote.status)}
-                    {quote.status.charAt(0).toUpperCase() + quote.status.slice(1)}
-                  </span>
-                </div>
-              </div>
-              <div className="w-36 flex justify-end space-x-1">
-                <button
-                  onClick={() => handleViewQuote(quote.id)}
-                  className="text-aqua-600 hover:text-aqua-900 transition-colors"
-                  title="View"
-                >
-                  <Eye className="h-4 w-4" />
-                </button>
-                <button
-                  onClick={() => handleEditQuote(quote.id)}
-                  className="text-coral-600 hover:text-coral-900 transition-colors"
-                  title="Edit"
-                >
-                  <Edit className="h-4 w-4" />
-                </button>
-                <button
-                  onClick={() => handleSendQuote(quote.id)}
-                  className="text-mint-600 hover:text-mint-900 transition-colors"
-                  title="Send"
-                >
-                  <Mail className="h-4 w-4" />
-                </button>
-                <button
-                  onClick={() => handleConvertToInvoice(quote.id)}
-                  className="text-aqua-600 hover:text-aqua-900 transition-colors"
-                  title="Convert to Invoice"
-                >
-                  <ArrowRightCircle className="h-4 w-4" />
-                </button>
-                <button
-                  onClick={() => handleDuplicateQuote(quote.id)}
-                  className="text-gray-600 hover:text-gray-900 transition-colors"
-                  title="Duplicate"
-                >
-                  <Copy className="h-4 w-4" />
-                </button>
-                <button
-                  onClick={() => handleDeleteQuote(quote.id)}
-                  className="text-pink-600 hover:text-pink-900 transition-colors"
-                  title="Delete"
-                >
-                  <Trash2 className="h-4 w-4" />
-                </button>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* No Results */}
