@@ -302,7 +302,7 @@ const Quotes: React.FC = () => {
         {/* Quotes Header */}
         <div className="bg-gray-50 rounded-t-lg border border-gray-200 border-b-0">
           <div className="flex items-center justify-between px-4 py-2">
-            <div className="flex items-center space-x-4 flex-1">
+            <div className="flex items-center space-x-2 flex-1">
               <div className="w-10 flex justify-center">
                 <input
                   type="checkbox"
@@ -311,35 +311,32 @@ const Quotes: React.FC = () => {
                   className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
                 />
               </div>
-              <div className="w-28">
+              <div className="w-24">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Quote #</span>
               </div>
-              <div className="w-36 text-left">
+              <div className="w-44 text-left">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</span>
               </div>
-              <div className="w-24 text-left">
-                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Date Issued</span>
-              </div>
-              <div className="w-24 text-left">
+              <div className="w-28 text-left">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Event Type</span>
               </div>
-              <div className="w-24 text-left">
+              <div className="w-28 text-left">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Event Date</span>
               </div>
               <div className="w-40 text-left">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Fulfillment</span>
               </div>
-              <div className="w-24 text-left">
+              <div className="w-28 text-left">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Expiry Date</span>
               </div>
-              <div className="w-24 text-right">
+              <div className="w-28 text-right">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</span>
               </div>
-              <div className="w-28 text-center">
+              <div className="w-24 text-center">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Status</span>
               </div>
             </div>
-            <div className="w-48">
+            <div className="w-44">
               <span className="text-xs font-medium text-gray-500 uppercase tracking-wider"></span>
             </div>
           </div>
@@ -349,8 +346,8 @@ const Quotes: React.FC = () => {
         <div className="space-y-0">
           {currentQuotes.map((quote) => (
             <div key={quote.id} className="bg-white border-l border-r border-b border-gray-200 shadow-sm overflow-hidden hover:bg-gray-50 transition-colors">
-              <div className="flex items-center justify-between px-4 py-2">
-                <div className="flex items-center space-x-4 flex-1">
+              <div className="flex items-center justify-between px-3 py-2">
+                <div className="flex items-center space-x-2 flex-1">
                   <div className="w-10 flex justify-center">
                     <input
                       type="checkbox"
@@ -359,21 +356,18 @@ const Quotes: React.FC = () => {
                       className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
                     />
                   </div>
-                  <div className="w-28">
+                  <div className="w-24">
                     <span className="text-sm font-medium text-gray-700 cursor-pointer hover:text-aqua-600" onClick={() => handleViewQuote(quote.id)}>
                       {quote.id}
                     </span>
                   </div>
-                  <div className="w-36 text-left">
+                  <div className="w-44 text-left">
                     <span className="text-sm font-medium text-gray-700">{quote.customer}</span>
                   </div>
-                  <div className="w-24 text-left">
-                    <span className="text-sm text-gray-700">{formatDate(quote.issueDate)}</span>
-                  </div>
-                  <div className="w-24 text-left">
+                  <div className="w-28 text-left">
                     <span className="text-sm text-gray-700">{quote.eventType}</span>
                   </div>
-                  <div className="w-24 text-left">
+                  <div className="w-28 text-left">
                     <span className="text-sm text-gray-700">{formatDate(quote.eventDate)}</span>
                   </div>
                   <div className="w-40 text-left">
@@ -384,20 +378,20 @@ const Quotes: React.FC = () => {
                       }
                     </span>
                   </div>
-                  <div className="w-24 text-left">
+                  <div className="w-28 text-left">
                     <span className="text-sm text-gray-700">{formatDate(quote.expiryDate)}</span>
                   </div>
-                  <div className="w-24 text-right">
+                  <div className="w-28 text-right">
                     <span className="text-sm font-medium text-gray-900">{formatCurrency(quote.amount)}</span>
                   </div>
-                  <div className="w-28 flex justify-center">
+                  <div className="w-24 flex justify-center">
                     <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(quote.status)}`}>
                       {getStatusIcon(quote.status)}
                       {quote.status.charAt(0).toUpperCase() + quote.status.slice(1)}
                     </span>
                   </div>
                 </div>
-                <div className="w-48 flex justify-end space-x-2">
+                <div className="w-44 flex justify-end space-x-2">
                   <button
                     onClick={() => handleViewQuote(quote.id)}
                     className="text-aqua-600 hover:text-aqua-900 transition-colors"
