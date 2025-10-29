@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, Package } from 'lucide-react';
+import { ArrowLeft, Package, Factory } from 'lucide-react';
+import Header from '../components/Header';
 import ProductionJobForm from '../components/ProductionJobForm';
 
 const CreateProductionJob: React.FC = () => {
@@ -15,36 +16,26 @@ const CreateProductionJob: React.FC = () => {
     console.log('Creating production job:', jobData);
 
     alert('Production job created successfully!');
-    navigate('/production/jobs');
+    navigate('/production');
   };
 
   const handleCancel = () => {
-    navigate('/production/jobs');
+    navigate('/production');
   };
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
-      <div className="mb-6">
-        <button
-          onClick={handleCancel}
-          className="inline-flex items-center text-gray-600 hover:text-gray-900 mb-4"
-        >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Production Jobs
-        </button>
-
-        <div className="flex items-center">
-          <Package className="w-8 h-8 text-blue-600 mr-3" />
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">Create Production Job</h1>
-            <p className="text-gray-600 mt-1">
-              {orderId
-                ? 'Create a production job from customer order'
-                : 'Create a new production job'}
-            </p>
-          </div>
+    <div>
+      <Header title="Create Production Job" icon={Factory} />
+      <div className="p-6 max-w-7xl mx-auto">
+        <div className="mb-6">
+          <button
+            onClick={handleCancel}
+            className="inline-flex items-center text-gray-600 hover:text-gray-900 mb-4"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Production Jobs
+          </button>
         </div>
-      </div>
 
       {orderData && (
         <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
@@ -76,6 +67,7 @@ const CreateProductionJob: React.FC = () => {
         onSubmit={handleSubmit}
         onCancel={handleCancel}
       />
+      </div>
     </div>
   );
 };

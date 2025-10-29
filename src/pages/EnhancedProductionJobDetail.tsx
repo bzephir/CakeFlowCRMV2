@@ -19,8 +19,10 @@ import {
   Download,
   DollarSign,
   ListChecks,
-  MessageSquare
+  MessageSquare,
+  Factory,
 } from 'lucide-react';
+import Header from '../components/Header';
 import { getProductionJobById, getProductionBatchByNumber } from '../data/mockProduction';
 import { ProductionJobStatus, ProductionWorkflowStage, ClientApproval } from '../types/production';
 import WorkflowStageTracker from '../components/WorkflowStageTracker';
@@ -249,22 +251,20 @@ const EnhancedProductionJobDetail: React.FC = () => {
   }
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
-      <div className="mb-6">
-        <Link
-          to="/production"
-          className="inline-flex items-center text-gray-600 hover:text-gray-900 mb-4"
-        >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Production Jobs
-        </Link>
+    <div>
+      <Header title={job.jobNumber} icon={Factory} />
+      <div className="p-6 max-w-7xl mx-auto">
+        <div className="mb-6">
+          <Link
+            to="/production"
+            className="inline-flex items-center text-gray-600 hover:text-gray-900 mb-4"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Production Jobs
+          </Link>
 
-        <div className="flex justify-between items-start">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">{job.jobNumber}</h1>
-            <p className="text-gray-600 mt-1">{job.recipeName}</p>
-          </div>
-          <div className="flex gap-2">
+          <div className="flex justify-between items-start">
+            <div className="flex gap-2">
             <button className="flex items-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
               <Edit className="w-4 h-4 mr-2" />
               Edit
@@ -273,9 +273,9 @@ const EnhancedProductionJobDetail: React.FC = () => {
               <Trash2 className="w-4 h-4 mr-2" />
               Delete
             </button>
+            </div>
           </div>
         </div>
-      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
         <div className="bg-white p-4 rounded-lg shadow border border-gray-200">
@@ -697,6 +697,7 @@ const EnhancedProductionJobDetail: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

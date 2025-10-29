@@ -14,8 +14,10 @@ import {
   Download,
   Grid,
   List,
-  SlidersHorizontal
+  SlidersHorizontal,
+  Factory
 } from 'lucide-react';
+import Header from '../components/Header';
 import {
   mockProductionJobs,
   searchProductionJobs,
@@ -183,13 +185,11 @@ const Production: React.FC = () => {
   };
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
-      <div className="flex justify-between items-center mb-6">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Production Jobs</h1>
-          <p className="text-gray-600 mt-1">Manage bakery production schedule and batch tracking</p>
-        </div>
-        <div className="flex gap-2">
+    <div>
+      <Header title="Production" icon={Factory} />
+      <div className="p-6 max-w-7xl mx-auto">
+        <div className="flex justify-between items-center mb-6">
+          <div className="flex gap-2">
           <button
             onClick={handleExport}
             className="flex items-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
@@ -205,7 +205,7 @@ const Production: React.FC = () => {
             New Production Job
           </Link>
         </div>
-      </div>
+        </div>
 
       <div className="bg-white rounded-lg shadow mb-6">
         <div className="border-b border-gray-200">
@@ -570,6 +570,7 @@ const Production: React.FC = () => {
           </p>
         </div>
       )}
+      </div>
     </div>
   );
 };
