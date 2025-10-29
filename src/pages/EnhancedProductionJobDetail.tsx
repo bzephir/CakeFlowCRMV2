@@ -195,15 +195,14 @@ const EnhancedProductionJobDetail: React.FC = () => {
     const badges: Record<string, { label: string; className: string }> = {
       low: { label: 'Low', className: 'bg-gray-100 text-gray-600' },
       medium: { label: 'Medium', className: 'bg-orange-100 text-orange-600' },
-      high: { label: 'High', className: 'bg-red-100 text-red-600' },
-      urgent: { label: 'Urgent', className: 'bg-red-200 text-red-800' }
+      high: { label: 'High', className: 'bg-red-100 text-red-600' }
     };
 
     const badge = badges[priority] || badges.medium;
 
     return (
       <span className={`inline-flex items-center px-3 py-1.5 rounded-lg text-sm font-medium ${badge.className}`}>
-        {(priority === 'high' || priority === 'urgent') && <AlertTriangle className="w-4 h-4 mr-2" />}
+        {priority === 'high' && <AlertTriangle className="w-4 h-4 mr-2" />}
         {badge.label}
       </span>
     );

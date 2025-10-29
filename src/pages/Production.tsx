@@ -151,15 +151,14 @@ const Production: React.FC = () => {
     const badges: Record<ProductionPriority, { label: string; className: string }> = {
       low: { label: 'Low', className: 'bg-gray-100 text-gray-600' },
       medium: { label: 'Medium', className: 'bg-orange-100 text-orange-600' },
-      high: { label: 'High', className: 'bg-red-100 text-red-600' },
-      urgent: { label: 'Urgent', className: 'bg-red-200 text-red-800' }
+      high: { label: 'High', className: 'bg-red-100 text-red-600' }
     };
 
     const badge = badges[priority] || badges.medium;
 
     return (
       <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${badge.className}`}>
-        {(priority === 'high' || priority === 'urgent') && <AlertTriangle className="w-3 h-3 mr-1" />}
+        {priority === 'high' && <AlertTriangle className="w-3 h-3 mr-1" />}
         {badge.label}
       </span>
     );
@@ -246,11 +245,6 @@ const Production: React.FC = () => {
                   }`}>
                     {allJobs.filter(j => j.jobType === 'external').length}
                   </span>
-                  {allJobs.filter(j => j.jobType === 'external' && j.priority === 'urgent').length > 0 && (
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                      {allJobs.filter(j => j.jobType === 'external' && j.priority === 'urgent').length} urgent
-                    </span>
-                  )}
                 </div>
               </button>
               <button
@@ -271,11 +265,6 @@ const Production: React.FC = () => {
                   }`}>
                     {allJobs.filter(j => j.jobType === 'internal').length}
                   </span>
-                  {allJobs.filter(j => j.jobType === 'internal' && j.priority === 'urgent').length > 0 && (
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                      {allJobs.filter(j => j.jobType === 'internal' && j.priority === 'urgent').length} urgent
-                    </span>
-                  )}
                 </div>
               </button>
             </nav>

@@ -1,5 +1,5 @@
 export type ProductionJobStatus = 'queued' | 'in_progress' | 'completed' | 'cancelled' | 'on_hold';
-export type ProductionPriority = 'low' | 'medium' | 'high' | 'urgent';
+export type ProductionPriority = 'low' | 'medium' | 'high';
 export type JobType = 'internal' | 'external';
 export type WorkflowStageStatus = 'pending' | 'in_progress' | 'completed' | 'skipped' | 'blocked';
 export type ApprovalStatus = 'not_required' | 'pending' | 'approved' | 'rejected' | 'revision_requested';

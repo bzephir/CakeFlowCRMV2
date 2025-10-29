@@ -60,7 +60,6 @@ const ProductionFilters: React.FC<ProductionFiltersProps> = ({
           className="block w-full sm:w-40 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
         >
           <option value="all">All Priorities</option>
-          <option value="urgent">Urgent</option>
           <option value="high">High</option>
           <option value="medium">Medium</option>
           <option value="low">Low</option>
