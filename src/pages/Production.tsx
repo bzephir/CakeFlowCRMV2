@@ -266,42 +266,58 @@ const Production: React.FC = () => {
           </div>
         </div>
 
-      <div className="bg-white rounded-lg shadow mb-6">
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
         <div className="border-b border-gray-200">
           <nav className="flex -mb-px">
             <button
               onClick={() => setActiveTab('external')}
-              className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
+              className={`group relative min-w-0 flex-1 overflow-hidden py-4 px-6 text-sm font-semibold text-center focus:z-10 transition-all ${
                 activeTab === 'external'
-                  ? 'border-coral-500 text-coral-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  ? 'text-coral-700 bg-coral-50 border-b-4 border-coral-600 shadow-sm'
+                  : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50 border-b-4 border-transparent'
               }`}
             >
-              External Jobs
-              <span className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
-                activeTab === 'external'
-                  ? 'bg-coral-100 text-coral-700'
-                  : 'bg-gray-100 text-gray-600'
-              }`}>
-                {allJobs.filter(j => j.jobType === 'external').length}
-              </span>
+              <div className="flex items-center justify-center space-x-2">
+                <User className="h-5 w-5" />
+                <span>External Jobs</span>
+                <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
+                  activeTab === 'external'
+                    ? 'bg-coral-100 text-coral-800'
+                    : 'bg-gray-100 text-gray-800'
+                }`}>
+                  {allJobs.filter(j => j.jobType === 'external').length}
+                </span>
+                {allJobs.filter(j => j.jobType === 'external' && j.priority === 'urgent').length > 0 && (
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                    {allJobs.filter(j => j.jobType === 'external' && j.priority === 'urgent').length} urgent
+                  </span>
+                )}
+              </div>
             </button>
             <button
               onClick={() => setActiveTab('internal')}
-              className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
+              className={`group relative min-w-0 flex-1 overflow-hidden py-4 px-6 text-sm font-semibold text-center focus:z-10 transition-all ${
                 activeTab === 'internal'
-                  ? 'border-coral-500 text-coral-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  ? 'text-coral-700 bg-coral-50 border-b-4 border-coral-600 shadow-sm'
+                  : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50 border-b-4 border-transparent'
               }`}
             >
-              Internal Jobs
-              <span className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
-                activeTab === 'internal'
-                  ? 'bg-coral-100 text-coral-700'
-                  : 'bg-gray-100 text-gray-600'
-              }`}>
-                {allJobs.filter(j => j.jobType === 'internal').length}
-              </span>
+              <div className="flex items-center justify-center space-x-2">
+                <Factory className="h-5 w-5" />
+                <span>Internal Jobs</span>
+                <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
+                  activeTab === 'internal'
+                    ? 'bg-coral-100 text-coral-800'
+                    : 'bg-gray-100 text-gray-800'
+                }`}>
+                  {allJobs.filter(j => j.jobType === 'internal').length}
+                </span>
+                {allJobs.filter(j => j.jobType === 'internal' && j.priority === 'urgent').length > 0 && (
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                    {allJobs.filter(j => j.jobType === 'internal' && j.priority === 'urgent').length} urgent
+                  </span>
+                )}
+              </div>
             </button>
           </nav>
         </div>
