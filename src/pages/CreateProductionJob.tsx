@@ -24,7 +24,7 @@ const CreateProductionJob: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="p-6">
       <Header title="Create Production Job" icon={Factory} />
       <div className="p-6 max-w-7xl mx-auto">
         <div className="mb-6">

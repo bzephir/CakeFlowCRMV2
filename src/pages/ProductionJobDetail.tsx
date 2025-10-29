@@ -115,7 +115,7 @@ const ProductionJobDetail: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="p-6">
       <Header title={job.jobNumber} icon={Factory} />
       <div className="p-6 max-w-7xl mx-auto">
         <div className="mb-6">

@@ -185,7 +185,7 @@ const Production: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="p-6">
       <Header title="Production" icon={Factory} />
       <div className="p-6 max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-6">
