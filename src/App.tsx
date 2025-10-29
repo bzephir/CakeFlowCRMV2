@@ -82,9 +82,8 @@ function App() {
                 <Route path="/invoice/new" element={<Invoice />} />
                 <Route path="/reports" element={<Reports />} />
                 <Route path="/production" element={<Production />} />
-                <Route path="/production/jobs" element={<Production />} />
-                <Route path="/production/jobs/new" element={<CreateProductionJob />} />
-                <Route path="/production/jobs/:id" element={<EnhancedProductionJobDetail />} />
+                <Route path="/production/new" element={<CreateProductionJob />} />
+                <Route path="/production/:id" element={<EnhancedProductionJobDetail />} />
                 <Route path="/recipes" element={<Recipes />} />
                 <Route path="/recipes/:id" element={<RecipeDetail />} />
                 <Route path="/recipes/margin-report" element={<RecipeMarginReport />} />
