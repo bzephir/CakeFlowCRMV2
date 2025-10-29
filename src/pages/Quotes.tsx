@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
+import QuoteSummaryCard from '../components/QuoteSummaryCard';
 import { mockSampleQuoteDetail, mockSampleQuotesDetail, mockQuotesList } from '../data/mockData';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
-import { Plus, Search, Filter, Eye, CreditCard as Edit, Mail, Trash2, Calendar, Copy, FileText, Clock, Receipt, CheckCircle2, XCircle, AlertCircle, ArrowRightCircle, Package, Truck } from 'lucide-react';
+import { Plus, Search, Filter, Eye, CreditCard as Edit, Mail, Trash2, Calendar, Copy, FileText, Clock, Receipt, CheckCircle2, XCircle, AlertCircle, ArrowRightCircle, Package, Truck, DollarSign, TrendingUp } from 'lucide-react';
 
 const Quotes: React.FC = () => {
   const navigate = useNavigate();
@@ -118,6 +119,49 @@ const Quotes: React.FC = () => {
     return matchesSearch && matchesStatus;
   });
 
+  const quoteStats = useMemo(() => {
+    const total = filteredQuotes.length;
+    const totalAmount = filteredQuotes.reduce((sum, quote) => sum + quote.amount, 0);
+    const draftCount = filteredQuotes.filter(q => q.status === 'draft').length;
+    const sentCount = filteredQuotes.filter(q => q.status === 'sent').length;
+    const acceptedCount = filteredQuotes.filter(q => q.status === 'accepted').length;
+    const rejectedCount = filteredQuotes.filter(q => q.status === 'rejected').length;
+    const expiredCount = filteredQuotes.filter(q => q.status === 'expired').length;
+
+    const today = new Date();
+    const sevenDaysFromNow = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+    const expiringSoonCount = filteredQuotes.filter(q => {
+      const expiryDate = new Date(q.expiryDate);
+      return expiryDate >= today && expiryDate <= sevenDaysFromNow && q.status === 'sent';
+    }).length;
+
+    const averageValue = total > 0 ? totalAmount / total : 0;
+    const acceptanceRate = sentCount + acceptedCount > 0
+      ? ((acceptedCount / (sentCount + acceptedCount + rejectedCount)) * 100).toFixed(0)
+      : 0;
+
+    return {
+      total,
+      totalAmount,
+      draftCount,
+      sentCount,
+      acceptedCount,
+      rejectedCount,
+      expiredCount,
+      expiringSoonCount,
+      averageValue,
+      acceptanceRate,
+    };
+  }, [filteredQuotes]);
+
+  const handleSummaryFilter = (status: string) => {
+    if (statusFilter === status) {
+      setStatusFilter('all');
+    } else {
+      setStatusFilter(status);
+    }
+  };
+
   // Pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -174,20 +218,76 @@ const Quotes: React.FC = () => {
           </button>
         </div>
 
+        {/* Summary Cards */}
+        <div className="mb-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+          <QuoteSummaryCard
+            icon={DollarSign}
+            label="Total Value"
+            value={formatCurrency(quoteStats.totalAmount)}
+            subtext={`${quoteStats.total} quotes`}
+            color="coral"
+          />
+          <QuoteSummaryCard
+            icon={FileText}
+            label="Draft"
+            value={quoteStats.draftCount}
+            subtext="Not sent yet"
+            color="gray"
+            onClick={() => handleSummaryFilter('draft')}
+            isActive={statusFilter === 'draft'}
+          />
+          <QuoteSummaryCard
+            icon={Mail}
+            label="Sent"
+            value={quoteStats.sentCount}
+            subtext="Awaiting response"
+            color="aqua"
+            onClick={() => handleSummaryFilter('sent')}
+            isActive={statusFilter === 'sent'}
+          />
+          <QuoteSummaryCard
+            icon={CheckCircle2}
+            label="Accepted"
+            value={quoteStats.acceptedCount}
+            subtext={`${quoteStats.acceptanceRate}% rate`}
+            color="mint"
+            onClick={() => handleSummaryFilter('accepted')}
+            isActive={statusFilter === 'accepted'}
+          />
+          <QuoteSummaryCard
+            icon={XCircle}
+            label="Rejected"
+            value={quoteStats.rejectedCount}
+            subtext="Not converted"
+            color="pink"
+            onClick={() => handleSummaryFilter('rejected')}
+            isActive={statusFilter === 'rejected'}
+          />
+          <QuoteSummaryCard
+            icon={Clock}
+            label="Expired"
+            value={quoteStats.expiredCount}
+            subtext={`${quoteStats.expiringSoonCount} expiring soon`}
+            color="gray"
+            onClick={() => handleSummaryFilter('expired')}
+            isActive={statusFilter === 'expired'}
+          />
+        </div>
+
         {/* Bulk Actions */}
         {selectedQuotes.length > 0 && (
           <div className="mb-4 flex items-center gap-2">
             <span className="text-sm text-gray-500">
               {selectedQuotes.length} selected
             </span>
-            <button 
+            <button
               onClick={() => handleBulkAction('send')}
               className="inline-flex items-center px-3 py-1 border border-gray-300 text-xs font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-colors"
             >
               <Mail className="h-3 w-3 mr-1" />
               Send
             </button>
-            <button 
+            <button
               onClick={() => handleBulkAction('delete')}
               className="inline-flex items-center px-3 py-1 border border-gray-300 text-xs font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-colors"
             >
