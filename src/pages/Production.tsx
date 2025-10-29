@@ -2,7 +2,6 @@ import React, { useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Plus,
-  Search,
   User,
   Package,
   AlertTriangle,
@@ -11,20 +10,24 @@ import {
   XCircle,
   Pause,
   PlayCircle,
-  Download,
-  Grid,
-  List,
-  SlidersHorizontal,
   Factory,
-  Filter,
-  ArrowUpDown
+  DollarSign,
+  Calendar,
+  Edit,
+  Trash2,
+  ChevronDown,
+  ChevronUp,
+  TrendingUp
 } from 'lucide-react';
 import Header from '../components/Header';
+import ProductionFilters from '../components/ProductionFilters';
+import ProductionPagination from '../components/ProductionPagination';
+import ProductionStats from '../components/ProductionStats';
 import {
   mockProductionJobs,
   searchProductionJobs,
 } from '../data/mockProduction';
-import { ProductionJob, ProductionJobStatus, ProductionPriority, JobType } from '../types/production';
+import { ProductionJob, ProductionJobStatus, ProductionPriority } from '../types/production';
 
 const Production: React.FC = () => {
   const navigate = useNavigate();
@@ -32,34 +35,54 @@ const Production: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [priorityFilter, setPriorityFilter] = useState<string>('all');
-  const [dateFilter, setDateFilter] = useState<string>('all');
-  const [staffFilter, setStaffFilter] = useState<string>('all');
   const [activeTab, setActiveTab] = useState<'internal' | 'external'>('external');
-  const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
-  const [showFilters, setShowFilters] = useState(false);
-  const [sortBy, setSortBy] = useState<'date' | 'priority' | 'status' | 'customer'>('priority');
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   const allJobs = mockProductionJobs;
   const tabFilteredJobs = allJobs.filter(job => job.jobType === activeTab);
 
-  const stats = {
-    queued: tabFilteredJobs.filter(j => j.status === 'queued').length,
-    inProgress: tabFilteredJobs.filter(j => j.status === 'in_progress').length,
-    completed: tabFilteredJobs.filter(j => j.status === 'completed').length,
-    cancelled: tabFilteredJobs.filter(j => j.status === 'cancelled').length,
-    onHold: tabFilteredJobs.filter(j => j.status === 'on_hold').length,
-  };
+  const stats = useMemo(() => {
+    const queued = tabFilteredJobs.filter(j => j.status === 'queued').length;
+    const inProgress = tabFilteredJobs.filter(j => j.status === 'in_progress').length;
+    const completed = tabFilteredJobs.filter(j => j.status === 'completed').length;
+    const onHold = tabFilteredJobs.filter(j => j.status === 'on_hold').length;
+    const totalCost = tabFilteredJobs.reduce((sum, job) => sum + job.totalCost, 0);
 
-  const allStaff = useMemo(() => {
-    const staffSet = new Set<string>();
-    mockProductionJobs.forEach(job => {
-      if (job.assignedStaffName) {
-        staffSet.add(job.assignedStaffName);
+    return [
+      {
+        label: 'Total Jobs',
+        value: tabFilteredJobs.length,
+        icon: Factory,
+        gradient: 'from-coral-400 to-coral-500'
+      },
+      {
+        label: 'In Progress',
+        value: inProgress,
+        icon: PlayCircle,
+        gradient: 'from-blue-400 to-blue-500'
+      },
+      {
+        label: 'Queued',
+        value: queued,
+        icon: Clock,
+        gradient: 'from-yellow-400 to-yellow-500'
+      },
+      {
+        label: 'Completed',
+        value: completed,
+        icon: CheckCircle,
+        gradient: 'from-mint-400 to-mint-500'
+      },
+      {
+        label: 'Total Cost',
+        value: `$${totalCost.toFixed(2)}`,
+        icon: DollarSign,
+        gradient: 'from-aqua-400 to-aqua-500'
       }
-    });
-    return Array.from(staffSet).sort();
-  }, []);
+    ];
+  }, [tabFilteredJobs]);
 
   const filteredJobs = useMemo(() => {
     let jobs = searchTerm
@@ -72,68 +95,43 @@ const Production: React.FC = () => {
       jobs = jobs.filter(job => job.priority === priorityFilter);
     }
 
-    if (staffFilter !== 'all') {
-      if (staffFilter === 'unassigned') {
-        jobs = jobs.filter(job => !job.assignedStaffName);
-      } else {
-        jobs = jobs.filter(job => job.assignedStaffName === staffFilter);
-      }
-    }
-
-    if (dateFilter !== 'all') {
-      const today = new Date().toISOString().split('T')[0];
-      const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
-      const weekFromNow = new Date(Date.now() + 7 * 86400000).toISOString().split('T')[0];
-
-      switch (dateFilter) {
-        case 'today':
-          jobs = jobs.filter(job => job.scheduledDate === today);
-          break;
-        case 'tomorrow':
-          jobs = jobs.filter(job => job.scheduledDate === tomorrow);
-          break;
-        case 'this_week':
-          jobs = jobs.filter(job => job.scheduledDate >= today && job.scheduledDate <= weekFromNow);
-          break;
-        case 'overdue':
-          jobs = jobs.filter(
-            job => job.orderDueDate && job.orderDueDate < today && job.status !== 'completed'
-          );
-          break;
-      }
-    }
-
-    jobs = [...jobs].sort((a, b) => {
-      let comparison = 0;
-
-      switch (sortBy) {
-        case 'date':
-          comparison = a.scheduledDate.localeCompare(b.scheduledDate);
-          break;
-        case 'priority':
-          const priorityOrder = { urgent: 4, high: 3, medium: 2, low: 1 };
-          comparison = (priorityOrder[b.priority as keyof typeof priorityOrder] || 0) -
-                      (priorityOrder[a.priority as keyof typeof priorityOrder] || 0);
-          break;
-        case 'status':
-          comparison = a.status.localeCompare(b.status);
-          break;
-        case 'customer':
-          comparison = (a.customerName || '').localeCompare(b.customerName || '');
-          break;
-      }
-
-      return sortOrder === 'asc' ? comparison : -comparison;
-    });
-
     return jobs;
-  }, [searchTerm, statusFilter, priorityFilter, dateFilter, staffFilter, activeTab, sortBy, sortOrder, tabFilteredJobs]);
+  }, [searchTerm, statusFilter, priorityFilter, activeTab, tabFilteredJobs]);
+
+  const totalPages = Math.ceil(filteredJobs.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedJobs = filteredJobs.slice(startIndex, endIndex);
+
+  const handleTabChange = (tab: 'internal' | 'external') => {
+    setActiveTab(tab);
+    setSearchTerm('');
+    setStatusFilter('all');
+    setPriorityFilter('all');
+    setExpandedId(null);
+    setCurrentPage(1);
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    setExpandedId(null);
+  };
+
+  const handleItemsPerPageChange = (value: number) => {
+    setItemsPerPage(value);
+    setCurrentPage(1);
+    setExpandedId(null);
+  };
+
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, statusFilter, priorityFilter]);
 
   const getStatusBadge = (status: ProductionJobStatus) => {
     const badges: Record<ProductionJobStatus, { label: string; className: string; icon: any }> = {
       queued: { label: 'Queued', className: 'bg-gray-100 text-gray-700', icon: Clock },
       in_progress: { label: 'In Progress', className: 'bg-blue-100 text-blue-700', icon: PlayCircle },
-      completed: { label: 'Completed', className: 'bg-green-100 text-green-700', icon: CheckCircle },
+      completed: { label: 'Completed', className: 'bg-mint-100 text-mint-700', icon: CheckCircle },
       cancelled: { label: 'Cancelled', className: 'bg-red-100 text-red-700', icon: XCircle },
       on_hold: { label: 'On Hold', className: 'bg-yellow-100 text-yellow-700', icon: Pause },
     };
@@ -142,7 +140,7 @@ const Production: React.FC = () => {
     const Icon = badge.icon;
 
     return (
-      <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${badge.className}`}>
+      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${badge.className}`}>
         <Icon className="w-3 h-3 mr-1" />
         {badge.label}
       </span>
@@ -181,427 +179,364 @@ const Production: React.FC = () => {
     return job.orderDueDate < today;
   };
 
-  const handleExport = () => {
-    console.log('Exporting production jobs...');
-    alert('Export functionality coming soon!');
+  const toggleExpand = (id: string) => {
+    setExpandedId(expandedId === id ? null : id);
+  };
+
+  const handleEditJob = (job: ProductionJob) => {
+    navigate(`/production/${job.id}/edit`);
+  };
+
+  const handleDeleteJob = (job: ProductionJob) => {
+    if (window.confirm(`Are you sure you want to delete job "${job.jobNumber}"? This action cannot be undone.`)) {
+      console.log('Delete job:', job.id);
+      alert(`Job "${job.jobNumber}" has been deleted.`);
+    }
+  };
+
+  const handleUpdateStatus = (job: ProductionJob) => {
+    alert(`Update status for job ${job.jobNumber}`);
   };
 
   return (
     <div className="p-6">
       <Header title="Production" icon={Factory} />
-      <div className="p-6 max-w-7xl mx-auto">
+
+      <div className="p-6">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-          <div className="flex flex-col sm:flex-row gap-4 flex-1">
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-4 w-4 text-gray-400" />
-              </div>
-              <input
-                type="text"
-                placeholder="Search by job number, recipe, customer..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="block w-full sm:w-64 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
-              />
-            </div>
+          <ProductionFilters
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
+            statusFilter={statusFilter}
+            onStatusChange={setStatusFilter}
+            priorityFilter={priorityFilter}
+            onPriorityChange={setPriorityFilter}
+            searchPlaceholder="Search by job number, recipe, customer..."
+          />
 
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Filter className="h-4 w-4 text-gray-400" />
-              </div>
-              <select
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
-                className="block w-full sm:w-48 pl-10 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
-              >
-                <option value="all">All Statuses</option>
-                <option value="queued">Queued</option>
-                <option value="in_progress">In Progress</option>
-                <option value="completed">Completed</option>
-                <option value="on_hold">On Hold</option>
-                <option value="cancelled">Cancelled</option>
-              </select>
-            </div>
-
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <ArrowUpDown className="h-4 w-4 text-gray-400" />
-              </div>
-              <select
-                value={`${sortBy}-${sortOrder}`}
-                onChange={(e) => {
-                  const [field, order] = e.target.value.split('-');
-                  setSortBy(field as any);
-                  setSortOrder(order as 'asc' | 'desc');
-                }}
-                className="block w-full sm:w-48 pl-10 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
-              >
-                <option value="priority-desc">Priority (High to Low)</option>
-                <option value="priority-asc">Priority (Low to High)</option>
-                <option value="date-asc">Date (Oldest First)</option>
-                <option value="date-desc">Date (Newest First)</option>
-                <option value="status-asc">Status (A-Z)</option>
-                <option value="status-desc">Status (Z-A)</option>
-                <option value="customer-asc">Customer (A-Z)</option>
-                <option value="customer-desc">Customer (Z-A)</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="flex gap-2">
-            <button
-              onClick={handleExport}
-              className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-colors"
-            >
-              <Download className="w-4 h-4 mr-2" />
-              Export
-            </button>
-            <Link
-              to="/production/new"
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all"
-            >
-              <Plus className="w-5 h-5 mr-2" />
-              New Production Job
-            </Link>
-          </div>
+          <Link
+            to="/production/new"
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all"
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            New Production Job
+          </Link>
         </div>
 
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
-        <div className="border-b border-gray-200">
-          <nav className="flex -mb-px">
-            <button
-              onClick={() => setActiveTab('external')}
-              className={`group relative min-w-0 flex-1 overflow-hidden py-4 px-6 text-sm font-semibold text-center focus:z-10 transition-all ${
-                activeTab === 'external'
-                  ? 'text-coral-700 bg-coral-50 border-b-4 border-coral-600 shadow-sm'
-                  : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50 border-b-4 border-transparent'
-              }`}
-            >
-              <div className="flex items-center justify-center space-x-2">
-                <User className="h-5 w-5" />
-                <span>External Jobs</span>
-                <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
-                  activeTab === 'external'
-                    ? 'bg-coral-100 text-coral-800'
-                    : 'bg-gray-100 text-gray-800'
-                }`}>
-                  {allJobs.filter(j => j.jobType === 'external').length}
-                </span>
-                {allJobs.filter(j => j.jobType === 'external' && j.priority === 'urgent').length > 0 && (
-                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                    {allJobs.filter(j => j.jobType === 'external' && j.priority === 'urgent').length} urgent
-                  </span>
-                )}
-              </div>
-            </button>
-            <button
-              onClick={() => setActiveTab('internal')}
-              className={`group relative min-w-0 flex-1 overflow-hidden py-4 px-6 text-sm font-semibold text-center focus:z-10 transition-all ${
-                activeTab === 'internal'
-                  ? 'text-coral-700 bg-coral-50 border-b-4 border-coral-600 shadow-sm'
-                  : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50 border-b-4 border-transparent'
-              }`}
-            >
-              <div className="flex items-center justify-center space-x-2">
-                <Factory className="h-5 w-5" />
-                <span>Internal Jobs</span>
-                <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
-                  activeTab === 'internal'
-                    ? 'bg-coral-100 text-coral-800'
-                    : 'bg-gray-100 text-gray-800'
-                }`}>
-                  {allJobs.filter(j => j.jobType === 'internal').length}
-                </span>
-                {allJobs.filter(j => j.jobType === 'internal' && j.priority === 'urgent').length > 0 && (
-                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                    {allJobs.filter(j => j.jobType === 'internal' && j.priority === 'urgent').length} urgent
-                  </span>
-                )}
-              </div>
-            </button>
-          </nav>
-        </div>
-      </div>
+        <ProductionStats stats={stats} />
 
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
-        <div className="bg-gradient-to-br from-gray-50 to-gray-100 p-4 rounded-lg border border-gray-200 cursor-pointer hover:shadow-md transition-shadow"
-             onClick={() => setStatusFilter('queued')}>
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-gray-600">Queued</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.queued}</p>
-            </div>
-            <Clock className="w-8 h-8 text-gray-500" />
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200 cursor-pointer hover:shadow-md transition-shadow"
-             onClick={() => setStatusFilter('in_progress')}>
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-blue-600">In Progress</p>
-              <p className="text-2xl font-bold text-blue-900">{stats.inProgress}</p>
-            </div>
-            <PlayCircle className="w-8 h-8 text-blue-500" />
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg border border-green-200 cursor-pointer hover:shadow-md transition-shadow"
-             onClick={() => setStatusFilter('completed')}>
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-green-600">Completed</p>
-              <p className="text-2xl font-bold text-green-900">{stats.completed}</p>
-            </div>
-            <CheckCircle className="w-8 h-8 text-green-500" />
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-4 rounded-lg border border-yellow-200 cursor-pointer hover:shadow-md transition-shadow"
-             onClick={() => setStatusFilter('on_hold')}>
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-yellow-600">On Hold</p>
-              <p className="text-2xl font-bold text-yellow-900">{stats.onHold}</p>
-            </div>
-            <Pause className="w-8 h-8 text-yellow-500" />
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-br from-red-50 to-red-100 p-4 rounded-lg border border-red-200 cursor-pointer hover:shadow-md transition-shadow"
-             onClick={() => setStatusFilter('cancelled')}>
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-red-600">Cancelled</p>
-              <p className="text-2xl font-bold text-red-900">{stats.cancelled}</p>
-            </div>
-            <XCircle className="w-8 h-8 text-red-500" />
-          </div>
-        </div>
-      </div>
-
-      <div className="bg-white rounded-lg shadow mb-6">
-        <div className="p-4 border-b border-gray-200">
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex gap-2">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
+          <div className="border-b border-gray-200">
+            <nav className="flex -mb-px">
               <button
-                onClick={() => setShowFilters(!showFilters)}
-                className={`flex items-center px-4 py-2 border rounded-lg transition-colors ${
-                  showFilters ? 'bg-coral-50 border-coral-300 text-coral-700' : 'border-gray-300 hover:bg-gray-50'
+                onClick={() => handleTabChange('external')}
+                className={`group relative min-w-0 flex-1 overflow-hidden py-4 px-6 text-sm font-semibold text-center focus:z-10 transition-all ${
+                  activeTab === 'external'
+                    ? 'text-coral-700 bg-coral-50 border-b-4 border-coral-600 shadow-sm'
+                    : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50 border-b-4 border-transparent'
                 }`}
               >
-                <SlidersHorizontal className="w-4 h-4 mr-2" />
-                Filters
-              </button>
-
-              <div className="flex border border-gray-300 rounded-lg overflow-hidden">
-                <button
-                  onClick={() => setViewMode('list')}
-                  className={`p-2 ${viewMode === 'list' ? 'bg-gray-100' : 'hover:bg-gray-50'}`}
-                >
-                  <List className="w-5 h-5" />
-                </button>
-                <button
-                  onClick={() => setViewMode('grid')}
-                  className={`p-2 ${viewMode === 'grid' ? 'bg-gray-100' : 'hover:bg-gray-50'}`}
-                >
-                  <Grid className="w-5 h-5" />
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {showFilters && (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 pt-4 border-t border-gray-200">
-              <select
-                value={priorityFilter}
-                onChange={(e) => setPriorityFilter(e.target.value)}
-                className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              >
-                <option value="all">All Priority</option>
-                <option value="urgent">Urgent</option>
-                <option value="high">High</option>
-                <option value="medium">Medium</option>
-                <option value="low">Low</option>
-              </select>
-
-              <select
-                value={dateFilter}
-                onChange={(e) => setDateFilter(e.target.value)}
-                className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              >
-                <option value="all">All Dates</option>
-                <option value="today">Today</option>
-                <option value="tomorrow">Tomorrow</option>
-                <option value="this_week">This Week</option>
-                <option value="overdue">Overdue</option>
-              </select>
-
-              <select
-                value={staffFilter}
-                onChange={(e) => setStaffFilter(e.target.value)}
-                className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              >
-                <option value="all">All Staff</option>
-                <option value="unassigned">Unassigned</option>
-                {allStaff.map(staff => (
-                  <option key={staff} value={staff}>{staff}</option>
-                ))}
-              </select>
-            </div>
-          )}
-
-          <div className="flex items-center gap-4 mt-4 pt-4 border-t border-gray-200 text-sm">
-            <span className="text-gray-500 ml-auto">
-              {filteredJobs.length} job{filteredJobs.length !== 1 ? 's' : ''}
-            </span>
-          </div>
-        </div>
-
-        {viewMode === 'list' ? (
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-gray-50 border-b border-gray-200">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Job#
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Product
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Scheduled Date
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Assigned Staff
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Priority
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {filteredJobs.length === 0 ? (
-                  <tr>
-                    <td colSpan={6} className="px-6 py-12 text-center text-gray-500">
-                      <Package className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-                      <p className="text-lg font-medium">No production jobs found</p>
-                      <p className="text-sm">Try adjusting your filters or create a new production job</p>
-                    </td>
-                  </tr>
-                ) : (
-                  filteredJobs.map((job) => (
-                    <tr
-                      key={job.id}
-                      className="hover:bg-gray-50 transition-colors cursor-pointer"
-                      onClick={() => navigate(`/production/${job.id}`)}
-                    >
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="text-blue-600 hover:text-blue-800 font-medium">
-                          {job.jobNumber}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="text-sm font-medium text-gray-900">{job.recipeName}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {getStatusBadge(job.status)}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center text-sm">
-                          {isOverdue(job) && (
-                            <AlertTriangle className="w-4 h-4 mr-2 text-red-600" />
-                          )}
-                          <span className={isOverdue(job) ? 'text-red-600 font-medium' : 'text-gray-900'}>
-                            {formatDate(job.scheduledDate)}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {job.assignedStaffName ? (
-                          <div className="flex items-center text-sm text-gray-900">
-                            <User className="w-4 h-4 mr-2 text-gray-400" />
-                            {job.assignedStaffName}
-                          </div>
-                        ) : (
-                          <span className="text-sm text-gray-400">Unassigned</span>
-                        )}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {getPriorityBadge(job.priority)}
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredJobs.map((job) => (
-              <Link
-                key={job.id}
-                to={`/production/${job.id}`}
-                className={`block p-4 border-2 rounded-lg hover:shadow-md transition-shadow ${
-                  isOverdue(job) ? 'border-red-300 bg-red-50' : 'border-gray-200 bg-white'
-                }`}
-              >
-                <div className="flex justify-between items-start mb-3">
-                  <div>
-                    <h3 className="font-semibold text-gray-900">{job.jobNumber}</h3>
-                    <p className="text-sm text-gray-600">{job.recipeName}</p>
-                  </div>
-                  {getPriorityBadge(job.priority)}
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex items-center text-sm text-gray-600">
-                    <Package className="w-4 h-4 mr-2" />
-                    {job.quantityToProduce} {job.unit}
-                  </div>
-
-                  <div className="flex items-center text-sm">
-                    {isOverdue(job) && (
-                      <AlertTriangle className="w-4 h-4 mr-2 text-red-600" />
-                    )}
-                    <span className={isOverdue(job) ? 'text-red-600 font-medium' : 'text-gray-600'}>
-                      {formatDate(job.scheduledDate)}
+                <div className="flex items-center justify-center space-x-2">
+                  <User className="h-5 w-5" />
+                  <span>External Jobs</span>
+                  <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
+                    activeTab === 'external'
+                      ? 'bg-coral-100 text-coral-800'
+                      : 'bg-gray-100 text-gray-800'
+                  }`}>
+                    {allJobs.filter(j => j.jobType === 'external').length}
+                  </span>
+                  {allJobs.filter(j => j.jobType === 'external' && j.priority === 'urgent').length > 0 && (
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                      {allJobs.filter(j => j.jobType === 'external' && j.priority === 'urgent').length} urgent
                     </span>
-                  </div>
-
-                  {job.assignedStaffName && (
-                    <div className="flex items-center text-sm text-gray-600">
-                      <User className="w-4 h-4 mr-2" />
-                      {job.assignedStaffName}
-                    </div>
                   )}
                 </div>
-
-                <div className="mt-3 pt-3 border-t border-gray-200">
-                  {getStatusBadge(job.status)}
+              </button>
+              <button
+                onClick={() => handleTabChange('internal')}
+                className={`group relative min-w-0 flex-1 overflow-hidden py-4 px-6 text-sm font-semibold text-center focus:z-10 transition-all ${
+                  activeTab === 'internal'
+                    ? 'text-coral-700 bg-coral-50 border-b-4 border-coral-600 shadow-sm'
+                    : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50 border-b-4 border-transparent'
+                }`}
+              >
+                <div className="flex items-center justify-center space-x-2">
+                  <Factory className="h-5 w-5" />
+                  <span>Internal Jobs</span>
+                  <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
+                    activeTab === 'internal'
+                      ? 'bg-coral-100 text-coral-800'
+                      : 'bg-gray-100 text-gray-800'
+                  }`}>
+                    {allJobs.filter(j => j.jobType === 'internal').length}
+                  </span>
+                  {allJobs.filter(j => j.jobType === 'internal' && j.priority === 'urgent').length > 0 && (
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                      {allJobs.filter(j => j.jobType === 'internal' && j.priority === 'urgent').length} urgent
+                    </span>
+                  )}
                 </div>
-              </Link>
-            ))}
+              </button>
+            </nav>
           </div>
-        )}
-      </div>
 
-      {filteredJobs.length > 0 && (
-        <div className="flex items-center justify-between bg-white px-6 py-4 rounded-lg shadow">
-          <p className="text-sm text-gray-700">
-            Showing <span className="font-medium">{filteredJobs.length}</span> production job
-            {filteredJobs.length !== 1 ? 's' : ''}
-          </p>
-          <p className="text-sm text-gray-500">
-            Total Production Cost: <span className="font-semibold text-gray-900">
-              ${filteredJobs.reduce((sum, job) => sum + job.totalCost, 0).toFixed(2)}
-            </span>
-          </p>
+          <div className="p-6">
+            <div className="bg-gray-50 rounded-t-lg border border-gray-200 border-b-0">
+              <div className="flex items-center justify-between px-4 py-2">
+                <div className="flex items-center space-x-4 flex-1">
+                  <div className="w-32">
+                    <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Job Number</span>
+                  </div>
+                  <div className="flex-1">
+                    <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Product/Recipe</span>
+                  </div>
+                  <div className="w-28 text-center">
+                    <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</span>
+                  </div>
+                  <div className="w-32 text-center">
+                    <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Scheduled</span>
+                  </div>
+                  <div className="w-32 text-center">
+                    <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Assigned To</span>
+                  </div>
+                  <div className="w-28 text-center">
+                    <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Priority</span>
+                  </div>
+                  <div className="w-32 text-center">
+                    <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Status</span>
+                  </div>
+                </div>
+                <div className="w-10"></div>
+              </div>
+            </div>
+
+            <div className="space-y-0">
+              {paginatedJobs.map((job) => {
+                const isExpanded = expandedId === job.id;
+
+                return (
+                  <div key={job.id} className="bg-white border-l border-r border-b border-gray-200 shadow-sm overflow-hidden hover:bg-gray-50 transition-colors">
+                    <div
+                      className="flex items-center justify-between px-4 py-2 cursor-pointer"
+                      onClick={() => toggleExpand(job.id)}
+                    >
+                      <div className="flex items-center space-x-4 flex-1">
+                        <div className="w-32">
+                          <span className="text-sm font-medium text-blue-600">{job.jobNumber}</span>
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="text-sm font-medium text-gray-900">{job.recipeName}</h3>
+                          {job.customerName && (
+                            <p className="text-xs text-gray-500">{job.customerName}</p>
+                          )}
+                        </div>
+                        <div className="w-28 text-center">
+                          <span className="text-sm text-gray-700">{job.quantityToProduce} {job.unit}</span>
+                        </div>
+                        <div className="w-32 text-center">
+                          <div className="flex items-center justify-center text-sm">
+                            {isOverdue(job) && (
+                              <AlertTriangle className="w-4 h-4 mr-1 text-red-600" />
+                            )}
+                            <span className={isOverdue(job) ? 'text-red-600 font-medium' : 'text-gray-700'}>
+                              {formatDate(job.scheduledDate)}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="w-32 text-center">
+                          {job.assignedStaffName ? (
+                            <span className="text-sm text-gray-700">{job.assignedStaffName}</span>
+                          ) : (
+                            <span className="text-sm text-gray-400">Unassigned</span>
+                          )}
+                        </div>
+                        <div className="w-28 flex justify-center">
+                          {getPriorityBadge(job.priority)}
+                        </div>
+                        <div className="w-32 flex justify-center">
+                          {getStatusBadge(job.status)}
+                        </div>
+                      </div>
+                      <div className="w-10 flex justify-center">
+                        {isExpanded ? (
+                          <ChevronUp className="h-4 w-4 text-gray-400" />
+                        ) : (
+                          <ChevronDown className="h-4 w-4 text-gray-400" />
+                        )}
+                      </div>
+                    </div>
+
+                    {isExpanded && (
+                      <div className="px-4 py-3 border-t border-gray-200 bg-gray-50">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                          <div>
+                            <h4 className="text-sm font-medium text-gray-900 mb-2">Job Details</h4>
+                            <dl className="space-y-1.5">
+                              <div>
+                                <dt className="text-xs text-gray-500">Job Number</dt>
+                                <dd className="text-sm text-gray-900">{job.jobNumber}</dd>
+                              </div>
+                              <div>
+                                <dt className="text-xs text-gray-500">Recipe</dt>
+                                <dd className="text-sm text-gray-900">
+                                  <Link
+                                    to={`/recipes/${job.recipeId}`}
+                                    className="text-coral-600 hover:text-coral-700 hover:underline"
+                                  >
+                                    {job.recipeName}
+                                  </Link>
+                                </dd>
+                              </div>
+                              <div>
+                                <dt className="text-xs text-gray-500">Quantity to Produce</dt>
+                                <dd className="text-sm text-gray-900">{job.quantityToProduce} {job.unit}</dd>
+                              </div>
+                              {job.customerName && (
+                                <div>
+                                  <dt className="text-xs text-gray-500">Customer</dt>
+                                  <dd className="text-sm text-gray-900">{job.customerName}</dd>
+                                </div>
+                              )}
+                            </dl>
+                          </div>
+
+                          <div>
+                            <h4 className="text-sm font-medium text-gray-900 mb-2">Progress & Timing</h4>
+                            <dl className="space-y-1.5">
+                              <div>
+                                <dt className="text-xs text-gray-500">Scheduled Date</dt>
+                                <dd className={`text-sm ${isOverdue(job) ? 'text-red-600 font-medium' : 'text-gray-900'}`}>
+                                  {formatDate(job.scheduledDate)}
+                                  {isOverdue(job) && <span className="ml-2 text-xs">(Overdue)</span>}
+                                </dd>
+                              </div>
+                              {job.orderDueDate && (
+                                <div>
+                                  <dt className="text-xs text-gray-500">Due Date</dt>
+                                  <dd className="text-sm text-gray-900">{formatDate(job.orderDueDate)}</dd>
+                                </div>
+                              )}
+                              {job.actualStartDate && (
+                                <div>
+                                  <dt className="text-xs text-gray-500">Started</dt>
+                                  <dd className="text-sm text-gray-900">{formatDate(job.actualStartDate)}</dd>
+                                </div>
+                              )}
+                              {job.actualCompletionDate && (
+                                <div>
+                                  <dt className="text-xs text-gray-500">Completed</dt>
+                                  <dd className="text-sm text-gray-900">{formatDate(job.actualCompletionDate)}</dd>
+                                </div>
+                              )}
+                            </dl>
+                          </div>
+
+                          <div>
+                            <h4 className="text-sm font-medium text-gray-900 mb-2">Assignment & Cost</h4>
+                            <dl className="space-y-1.5">
+                              <div>
+                                <dt className="text-xs text-gray-500">Assigned Staff</dt>
+                                <dd className="text-sm text-gray-900">
+                                  {job.assignedStaffName || <span className="text-gray-400">Unassigned</span>}
+                                </dd>
+                              </div>
+                              <div>
+                                <dt className="text-xs text-gray-500">Total Cost</dt>
+                                <dd className="text-sm text-gray-900">${job.totalCost.toFixed(2)}</dd>
+                              </div>
+                              <div>
+                                <dt className="text-xs text-gray-500">Priority</dt>
+                                <dd className="text-sm text-gray-900">{getPriorityBadge(job.priority)}</dd>
+                              </div>
+                              <div>
+                                <dt className="text-xs text-gray-500">Status</dt>
+                                <dd className="text-sm text-gray-900">{getStatusBadge(job.status)}</dd>
+                              </div>
+                            </dl>
+                          </div>
+                        </div>
+
+                        {job.notes && (
+                          <div className="mt-4">
+                            <h4 className="text-sm font-medium text-gray-900 mb-2">Notes</h4>
+                            <p className="text-sm text-gray-700">{job.notes}</p>
+                          </div>
+                        )}
+
+                        <div className="mt-3 flex space-x-2">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              navigate(`/production/${job.id}`);
+                            }}
+                            className="inline-flex items-center px-3 py-1.5 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+                          >
+                            <Package className="h-4 w-4 mr-1.5" />
+                            View Details
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleEditJob(job);
+                            }}
+                            className="inline-flex items-center px-3 py-1.5 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+                          >
+                            <Edit className="h-4 w-4 mr-1.5" />
+                            Edit
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleUpdateStatus(job);
+                            }}
+                            className="inline-flex items-center px-3 py-1.5 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+                          >
+                            <TrendingUp className="h-4 w-4 mr-1.5" />
+                            Update Status
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleDeleteJob(job);
+                            }}
+                            className="inline-flex items-center px-3 py-1.5 border border-red-300 text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50 transition-colors"
+                          >
+                            <Trash2 className="h-4 w-4 mr-1.5" />
+                            Delete
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+
+              {filteredJobs.length === 0 && (
+                <div className="text-center py-12 bg-white rounded-lg border border-gray-200">
+                  <Package className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+                  <div className="text-gray-500 text-lg">No production jobs found</div>
+                  <div className="text-gray-400 text-sm mt-2">
+                    {searchTerm || statusFilter !== 'all' || priorityFilter !== 'all'
+                      ? 'Try adjusting your search or filter criteria'
+                      : 'Get started by creating your first production job'}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <ProductionPagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              itemsPerPage={itemsPerPage}
+              totalItems={filteredJobs.length}
+              startIndex={startIndex}
+              endIndex={endIndex}
+              onPageChange={handlePageChange}
+              onItemsPerPageChange={handleItemsPerPageChange}
+            />
+          </div>
         </div>
-      )}
       </div>
     </div>
   );
