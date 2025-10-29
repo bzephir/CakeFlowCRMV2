@@ -199,10 +199,10 @@ const Production: React.FC = () => {
   };
 
   return (
-    <div className="p-6">
+    <div className="flex flex-col h-screen">
       <Header title="Production" icon={Factory} />
 
-      <div className="p-6">
+      <div className="flex-1 flex flex-col p-6 overflow-hidden">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
           <ProductionFilters
             searchTerm={searchTerm}
@@ -225,7 +225,7 @@ const Production: React.FC = () => {
 
         <ProductionStats stats={stats} />
 
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 flex-1 flex flex-col overflow-hidden">
           <div className="border-b border-gray-200">
             <nav className="flex -mb-px">
               <button
@@ -281,8 +281,8 @@ const Production: React.FC = () => {
             </nav>
           </div>
 
-          <div className="p-6">
-            <div className="bg-gray-50 rounded-t-lg border border-gray-200 border-b-0">
+          <div className="flex-1 flex flex-col overflow-hidden">
+            <div className="bg-gray-50 border border-gray-200 border-b-0 sticky top-0 z-10">
               <div className="flex items-center justify-between px-4 py-2">
                 <div className="flex items-center space-x-4 flex-1">
                   <div className="w-32">
@@ -311,7 +311,8 @@ const Production: React.FC = () => {
               </div>
             </div>
 
-            <div className="space-y-0">
+            <div className="flex-1 overflow-y-auto">
+              <div className="space-y-0">
               {paginatedJobs.map((job) => {
                 const isExpanded = expandedId === job.id;
 
@@ -512,29 +513,32 @@ const Production: React.FC = () => {
                 );
               })}
 
-              {filteredJobs.length === 0 && (
-                <div className="text-center py-12 bg-white rounded-lg border border-gray-200">
-                  <Package className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-                  <div className="text-gray-500 text-lg">No production jobs found</div>
-                  <div className="text-gray-400 text-sm mt-2">
-                    {searchTerm || statusFilter !== 'all' || priorityFilter !== 'all'
-                      ? 'Try adjusting your search or filter criteria'
-                      : 'Get started by creating your first production job'}
+                {filteredJobs.length === 0 && (
+                  <div className="text-center py-12 bg-white rounded-lg border border-gray-200">
+                    <Package className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+                    <div className="text-gray-500 text-lg">No production jobs found</div>
+                    <div className="text-gray-400 text-sm mt-2">
+                      {searchTerm || statusFilter !== 'all' || priorityFilter !== 'all'
+                        ? 'Try adjusting your search or filter criteria'
+                        : 'Get started by creating your first production job'}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
 
-            <ProductionPagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              itemsPerPage={itemsPerPage}
-              totalItems={filteredJobs.length}
-              startIndex={startIndex}
-              endIndex={endIndex}
-              onPageChange={handlePageChange}
-              onItemsPerPageChange={handleItemsPerPageChange}
-            />
+            <div className="sticky bottom-0 bg-white border-t border-gray-200">
+              <ProductionPagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                itemsPerPage={itemsPerPage}
+                totalItems={filteredJobs.length}
+                startIndex={startIndex}
+                endIndex={endIndex}
+                onPageChange={handlePageChange}
+                onItemsPerPageChange={handleItemsPerPageChange}
+              />
+            </div>
           </div>
         </div>
       </div>
