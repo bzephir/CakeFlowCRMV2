@@ -8,7 +8,6 @@ import {
   Filter,
   ChefHat,
   TrendingUp,
-  AlertTriangle,
   ChevronDown,
   ChevronUp,
   CreditCard as Edit,
@@ -219,68 +218,62 @@ const Recipes: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-        <div className="bg-white p-4 rounded-lg border border-gray-200">
-          <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-coral-500 rounded-full flex items-center justify-center">
-                <ChefHat className="h-4 w-4 text-white" />
+          <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-coral-500 rounded-full flex items-center justify-center">
+                  <ChefHat className="h-4 w-4 text-white" />
+                </div>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-500">Total Recipes</p>
+                <p className="text-lg font-semibold text-gray-900">{mockRecipes.length}</p>
               </div>
             </div>
-            <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500">Total Recipes</p>
-              <p className="text-lg font-semibold text-gray-900">{mockRecipes.length}</p>
-            </div>
           </div>
-        </div>
 
-        <div className="bg-white p-4 rounded-lg border border-gray-200">
-          <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <div className="w-8 h-8 bg-gradient-to-r from-mint-400 to-mint-500 rounded-full flex items-center justify-center">
-                <TrendingUp className="h-4 w-4 text-white" />
+          <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-gradient-to-r from-mint-400 to-mint-500 rounded-full flex items-center justify-center">
+                  <TrendingUp className="h-4 w-4 text-white" />
+                </div>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-500">Avg Cost</p>
+                <p className="text-lg font-semibold text-gray-900">${averageCost.toFixed(2)}</p>
               </div>
             </div>
-            <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500">Avg Cost</p>
-              <p className="text-lg font-semibold text-gray-900">
-                ${averageCost.toFixed(2)}
-              </p>
-            </div>
           </div>
-        </div>
 
-        <div className="bg-white p-4 rounded-lg border border-gray-200">
-          <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center">
-                <AlertTriangle className="h-4 w-4 text-white" />
+          <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center">
+                  <TrendingUp className="h-4 w-4 text-white" />
+                </div>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-500">Active Recipes</p>
+                <p className="text-lg font-semibold text-gray-900">{activeRecipes}</p>
               </div>
             </div>
-            <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500">Active Recipes</p>
-              <p className="text-lg font-semibold text-gray-900">
-                {activeRecipes}
-              </p>
-            </div>
           </div>
-        </div>
 
-        <div className="bg-white p-4 rounded-lg border border-gray-200">
-          <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <div className="w-8 h-8 bg-gradient-to-r from-aqua-400 to-aqua-500 rounded-full flex items-center justify-center">
-                <ChefHat className="h-4 w-4 text-white" />
+          <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-gradient-to-r from-aqua-400 to-aqua-500 rounded-full flex items-center justify-center">
+                  <ChefHat className="h-4 w-4 text-white" />
+                </div>
               </div>
-            </div>
-            <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500">Most Popular</p>
-              <p className="text-lg font-semibold text-gray-900 truncate">
-                {mostPopularRecipe?.name.split(' ')[0] || 'N/A'}
-              </p>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-500">Most Popular</p>
+                <p className="text-lg font-semibold text-gray-900 truncate">{mostPopularRecipe?.name.split(' ')[0] || 'N/A'}</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
         <div className="bg-gray-50 rounded-t-lg border border-gray-200 border-b-0">
           <div className="flex items-center justify-between px-4 py-2">

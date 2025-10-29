@@ -2,11 +2,10 @@ import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useInvoiceContext } from '../context/InvoiceContext';
 import Header from '../components/Header';
-import SummaryCard from '../components/SummaryCard';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { getInvoiceStatusColor, getInvoiceStatusText } from '../data/mockData';
-import { Plus, Search, Filter, Eye, CreditCard as Edit, Mail, Download, Trash2, CheckCircle2, DollarSign, Clock, CreditCard, AlertCircle, FileText, Hourglass, Ban, TrendingUp } from 'lucide-react';
+import { Plus, Search, Filter, Eye, CreditCard as Edit, Mail, Download, Trash2, CheckCircle2, DollarSign, Clock, CreditCard, AlertCircle, Hourglass, Ban, TrendingUp } from 'lucide-react';
 
 const Invoices: React.FC = () => {
   const navigate = useNavigate();
@@ -207,66 +206,62 @@ const Invoices: React.FC = () => {
         </div>
 
         {/* Summary Cards */}
-        <div className="mb-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 gap-4">
-          <SummaryCard
-            icon={DollarSign}
-            label="Total Invoiced"
-            value={formatCurrency(invoiceStats.totalInvoiced)}
-            subtext={`${invoiceStats.total} invoices`}
-            color="coral"
-          />
-          <SummaryCard
-            icon={Hourglass}
-            label="Pending"
-            value={invoiceStats.pendingCount}
-            subtext="Not paid yet"
-            color="gray"
-            onClick={() => handleSummaryFilter('pending')}
-            isActive={statusFilter === 'pending'}
-          />
-          <SummaryCard
-            icon={CreditCard}
-            label="Deposit Paid"
-            value={invoiceStats.depositPaidCount}
-            subtext="Partial payment"
-            color="aqua"
-            onClick={() => handleSummaryFilter('deposit_paid')}
-            isActive={statusFilter === 'deposit_paid'}
-          />
-          <SummaryCard
-            icon={Clock}
-            label="Partial"
-            value={invoiceStats.partialCount}
-            subtext="Multiple payments"
-            color="aqua"
-            onClick={() => handleSummaryFilter('partial')}
-            isActive={statusFilter === 'partial'}
-          />
-          <SummaryCard
-            icon={CheckCircle2}
-            label="Paid"
-            value={invoiceStats.paidCount}
-            subtext={`${invoiceStats.collectionRate}% collected`}
-            color="mint"
-            onClick={() => handleSummaryFilter('paid')}
-            isActive={statusFilter === 'paid'}
-          />
-          <SummaryCard
-            icon={AlertCircle}
-            label="Overdue"
-            value={invoiceStats.overdueCount}
-            subtext="Past due date"
-            color="pink"
-            onClick={() => handleSummaryFilter('overdue')}
-            isActive={statusFilter === 'overdue'}
-          />
-          <SummaryCard
-            icon={DollarSign}
-            label="Outstanding"
-            value={formatCurrency(invoiceStats.totalOutstanding)}
-            subtext="To be collected"
-            color="coral"
-          />
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+          <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-coral-500 rounded-full flex items-center justify-center">
+                  <DollarSign className="h-4 w-4 text-white" />
+                </div>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-500">Total Invoiced</p>
+                <p className="text-lg font-semibold text-gray-900">{formatCurrency(invoiceStats.totalInvoiced)}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-gradient-to-r from-mint-400 to-mint-500 rounded-full flex items-center justify-center">
+                  <CheckCircle2 className="h-4 w-4 text-white" />
+                </div>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-500">Paid</p>
+                <p className="text-lg font-semibold text-gray-900">{invoiceStats.paidCount}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-gradient-to-r from-pink-400 to-pink-500 rounded-full flex items-center justify-center">
+                  <AlertCircle className="h-4 w-4 text-white" />
+                </div>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-500">Overdue</p>
+                <p className="text-lg font-semibold text-gray-900">{invoiceStats.overdueCount}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-gradient-to-r from-aqua-400 to-aqua-500 rounded-full flex items-center justify-center">
+                  <TrendingUp className="h-4 w-4 text-white" />
+                </div>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-500">Outstanding</p>
+                <p className="text-lg font-semibold text-gray-900">{formatCurrency(invoiceStats.totalOutstanding)}</p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Bulk Actions */}

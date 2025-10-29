@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import SummaryCard from '../components/SummaryCard';
 import { mockSampleQuoteDetail, mockSampleQuotesDetail, mockQuotesList } from '../data/mockData';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
@@ -219,59 +218,62 @@ const Quotes: React.FC = () => {
         </div>
 
         {/* Summary Cards */}
-        <div className="mb-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-          <SummaryCard
-            icon={DollarSign}
-            label="Total Value"
-            value={formatCurrency(quoteStats.totalAmount)}
-            subtext={`${quoteStats.total} quotes`}
-            color="coral"
-          />
-          <SummaryCard
-            icon={FileText}
-            label="Draft"
-            value={quoteStats.draftCount}
-            subtext="Not sent yet"
-            color="gray"
-            onClick={() => handleSummaryFilter('draft')}
-            isActive={statusFilter === 'draft'}
-          />
-          <SummaryCard
-            icon={Mail}
-            label="Sent"
-            value={quoteStats.sentCount}
-            subtext="Awaiting response"
-            color="aqua"
-            onClick={() => handleSummaryFilter('sent')}
-            isActive={statusFilter === 'sent'}
-          />
-          <SummaryCard
-            icon={CheckCircle2}
-            label="Accepted"
-            value={quoteStats.acceptedCount}
-            subtext={`${quoteStats.acceptanceRate}% rate`}
-            color="mint"
-            onClick={() => handleSummaryFilter('accepted')}
-            isActive={statusFilter === 'accepted'}
-          />
-          <SummaryCard
-            icon={XCircle}
-            label="Rejected"
-            value={quoteStats.rejectedCount}
-            subtext="Not converted"
-            color="pink"
-            onClick={() => handleSummaryFilter('rejected')}
-            isActive={statusFilter === 'rejected'}
-          />
-          <SummaryCard
-            icon={Clock}
-            label="Expired"
-            value={quoteStats.expiredCount}
-            subtext={`${quoteStats.expiringSoonCount} expiring soon`}
-            color="gray"
-            onClick={() => handleSummaryFilter('expired')}
-            isActive={statusFilter === 'expired'}
-          />
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+          <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-coral-500 rounded-full flex items-center justify-center">
+                  <DollarSign className="h-4 w-4 text-white" />
+                </div>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-500">Total Value</p>
+                <p className="text-lg font-semibold text-gray-900">{formatCurrency(quoteStats.totalAmount)}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-gradient-to-r from-aqua-400 to-aqua-500 rounded-full flex items-center justify-center">
+                  <Mail className="h-4 w-4 text-white" />
+                </div>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-500">Sent</p>
+                <p className="text-lg font-semibold text-gray-900">{quoteStats.sentCount}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-gradient-to-r from-mint-400 to-mint-500 rounded-full flex items-center justify-center">
+                  <CheckCircle2 className="h-4 w-4 text-white" />
+                </div>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-500">Accepted</p>
+                <p className="text-lg font-semibold text-gray-900">{quoteStats.acceptedCount}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center">
+                  <TrendingUp className="h-4 w-4 text-white" />
+                </div>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-500">Acceptance Rate</p>
+                <p className="text-lg font-semibold text-gray-900">{quoteStats.acceptanceRate}%</p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Bulk Actions */}
