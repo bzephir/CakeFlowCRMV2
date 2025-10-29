@@ -1,11 +1,10 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import SummaryCard from '../components/SummaryCard';
 import { mockOrdersList } from '../data/mockData';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
 import { generateDocumentNumber } from '../utils/documentNumbering';
-import { Plus, Search, Filter, Eye, CreditCard as Edit, Mail, Trash2, Calendar, Copy, FileText, Clock, CheckCircle2, XCircle, AlertCircle, ArrowRightCircle, Package, Truck, DollarSign, TrendingUp, CircleDollarSign } from 'lucide-react';
+import { Plus, Search, Filter, Eye, CreditCard as Edit, Mail, Trash2, Download, Calendar, Copy, FileText, Clock, CheckCircle2, XCircle, AlertCircle, ArrowRightCircle, Package, Truck, DollarSign, TrendingUp, CircleDollarSign, Hourglass } from 'lucide-react';
 
 const Orders: React.FC = () => {
   const navigate = useNavigate();
@@ -56,10 +55,12 @@ const Orders: React.FC = () => {
     navigate(`/orders/${orderId}/edit`);
   };
 
-  const handleSendInvoice = (orderId: string) => {
-    const newInvoiceNumber = generateDocumentNumber('invoice');
-    console.log('Creating invoice for order:', orderId);
-    navigate('/invoice/new', { state: { convertedFromOrder: orderId, invoiceNumber: newInvoiceNumber } });
+  const handleSendOrder = (orderId: string) => {
+    alert(`Email order ${orderId} to customer`);
+  };
+
+  const handleDownloadOrder = (orderId: string) => {
+    alert(`Download order ${orderId} as PDF`);
   };
 
   const handleDuplicateOrder = (orderId: string) => {
@@ -205,66 +206,62 @@ const Orders: React.FC = () => {
         </div>
 
         {/* Summary Cards */}
-        <div className="mb-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 gap-4">
-          <SummaryCard
-            icon={DollarSign}
-            label="Total Revenue"
-            value={formatCurrency(orderStats.totalRevenue)}
-            subtext={`${orderStats.total} orders`}
-            color="coral"
-          />
-          <SummaryCard
-            icon={AlertCircle}
-            label="Inquiry"
-            value={orderStats.inquiryCount}
-            subtext="New inquiries"
-            color="gray"
-            onClick={() => handleSummaryFilter('inquiry')}
-            isActive={statusFilter === 'inquiry'}
-          />
-          <SummaryCard
-            icon={FileText}
-            label="Quoted"
-            value={orderStats.quotedCount}
-            subtext="Awaiting confirmation"
-            color="pink"
-            onClick={() => handleSummaryFilter('quoted')}
-            isActive={statusFilter === 'quoted'}
-          />
-          <SummaryCard
-            icon={CheckCircle2}
-            label="Confirmed"
-            value={orderStats.confirmedCount}
-            subtext="Ready to start"
-            color="coral"
-            onClick={() => handleSummaryFilter('confirmed')}
-            isActive={statusFilter === 'confirmed'}
-          />
-          <SummaryCard
-            icon={Clock}
-            label="In Production"
-            value={orderStats.inProductionCount}
-            subtext="Being made"
-            color="aqua"
-            onClick={() => handleSummaryFilter('in-production')}
-            isActive={statusFilter === 'in-production'}
-          />
-          <SummaryCard
-            icon={CheckCircle2}
-            label="Completed"
-            value={orderStats.completedCount}
-            subtext="Fulfilled"
-            color="mint"
-            onClick={() => handleSummaryFilter('completed')}
-            isActive={statusFilter === 'completed'}
-          />
-          <SummaryCard
-            icon={CircleDollarSign}
-            label="Outstanding"
-            value={formatCurrency(orderStats.totalOutstanding)}
-            subtext={`${orderStats.outstandingCount} with balance`}
-            color="pink"
-          />
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+          <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-coral-500 rounded-full flex items-center justify-center">
+                  <DollarSign className="h-4 w-4 text-white" />
+                </div>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-500">Total Revenue</p>
+                <p className="text-lg font-semibold text-gray-900">{formatCurrency(orderStats.totalRevenue)}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-gradient-to-r from-aqua-400 to-aqua-500 rounded-full flex items-center justify-center">
+                  <CheckCircle2 className="h-4 w-4 text-white" />
+                </div>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-500">Confirmed</p>
+                <p className="text-lg font-semibold text-gray-900">{orderStats.confirmedCount}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-gradient-to-r from-mint-400 to-mint-500 rounded-full flex items-center justify-center">
+                  <Clock className="h-4 w-4 text-white" />
+                </div>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-500">In Production</p>
+                <p className="text-lg font-semibold text-gray-900">{orderStats.inProductionCount}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-gradient-to-r from-pink-400 to-pink-500 rounded-full flex items-center justify-center">
+                  <TrendingUp className="h-4 w-4 text-white" />
+                </div>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-500">Outstanding</p>
+                <p className="text-lg font-semibold text-gray-900">{formatCurrency(orderStats.totalOutstanding)}</p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Bulk Actions */}
@@ -305,23 +302,26 @@ const Orders: React.FC = () => {
               <div className="w-28">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Order #</span>
               </div>
+              <div className="w-24 text-left">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Date</span>
+              </div>
               <div className="w-36 text-left">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</span>
               </div>
               <div className="w-24 text-left">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Event Type</span>
               </div>
-              <div className="w-24 text-left">
-                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Event Date</span>
-              </div>
-              <div className="w-40 text-left">
-                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Fulfillment</span>
-              </div>
               <div className="w-24 text-right">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Total</span>
               </div>
               <div className="w-24 text-right">
-                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Balance</span>
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Paid</span>
+              </div>
+              <div className="w-24 text-right">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Balance Due</span>
+              </div>
+              <div className="w-28 text-left">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Next Payment</span>
               </div>
               <div className="w-32 text-center">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Status</span>
@@ -348,9 +348,12 @@ const Orders: React.FC = () => {
                     />
                   </div>
                   <div className="w-28">
-                    <span className="text-sm font-medium text-gray-700 cursor-pointer hover:text-coral-600" onClick={() => handleViewOrder(order.id)}>
+                    <span className="text-sm font-medium text-gray-700 cursor-pointer hover:text-aqua-600" onClick={() => handleViewOrder(order.id)}>
                       {order.id}
                     </span>
+                  </div>
+                  <div className="w-24 text-left">
+                    <span className="text-sm text-gray-700">{formatDate(order.eventDate)}</span>
                   </div>
                   <div className="w-36 text-left">
                     <span className="text-sm font-medium text-gray-700">{order.customerName}</span>
@@ -358,22 +361,17 @@ const Orders: React.FC = () => {
                   <div className="w-24 text-left">
                     <span className="text-sm text-gray-700 capitalize">{order.eventType}</span>
                   </div>
-                  <div className="w-24 text-left">
-                    <span className="text-sm text-gray-700">{formatDate(order.eventDate)}</span>
-                  </div>
-                  <div className="w-40 text-left">
-                    <span className="text-sm text-gray-700">
-                      {order.fulfillmentType === 'pickup'
-                        ? <span className="flex items-center"><Package className="h-3 w-3 mr-1" /> Pickup: {order.pickupTime ? formatTime(order.pickupTime) : 'TBD'}</span>
-                        : <span className="flex items-center"><Truck className="h-3 w-3 mr-1" /> Delivery: {order.deliveryTime ? formatTime(order.deliveryTime) : 'TBD'}</span>
-                      }
-                    </span>
-                  </div>
                   <div className="w-24 text-right">
                     <span className="text-sm font-medium text-gray-900">{formatCurrency(order.total)}</span>
                   </div>
                   <div className="w-24 text-right">
+                    <span className="text-sm font-medium text-gray-900">{formatCurrency(order.total - (order.balance || 0))}</span>
+                  </div>
+                  <div className="w-24 text-right">
                     <span className="text-sm font-medium text-gray-900">{formatCurrency(order.balance || 0)}</span>
+                  </div>
+                  <div className="w-28 text-left">
+                    <span className="text-sm text-gray-700">{formatDate(order.eventDate)}</span>
                   </div>
                   <div className="w-32 flex justify-center">
                     <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(order.status)}`}>
@@ -398,18 +396,18 @@ const Orders: React.FC = () => {
                     <Edit className="h-4 w-4" />
                   </button>
                   <button
-                    onClick={() => handleSendInvoice(order.id)}
+                    onClick={() => handleSendOrder(order.id)}
                     className="text-mint-600 hover:text-mint-900 transition-colors"
-                    title="Send Invoice"
+                    title="Send"
                   >
-                    <ArrowRightCircle className="h-4 w-4" />
+                    <Mail className="h-4 w-4" />
                   </button>
                   <button
-                    onClick={() => handleDuplicateOrder(order.id)}
-                    className="text-gray-600 hover:text-gray-900 transition-colors"
-                    title="Duplicate"
+                    onClick={() => handleDownloadOrder(order.id)}
+                    className="text-aqua-600 hover:text-aqua-900 transition-colors"
+                    title="Download"
                   >
-                    <Copy className="h-4 w-4" />
+                    <Download className="h-4 w-4" />
                   </button>
                   <button
                     onClick={() => handleDeleteOrder(order.id)}
