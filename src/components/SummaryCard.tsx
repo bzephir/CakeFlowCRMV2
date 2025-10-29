@@ -1,7 +1,7 @@
 import React from 'react';
 import { LucideIcon } from 'lucide-react';
 
-interface QuoteSummaryCardProps {
+interface SummaryCardProps {
   icon: LucideIcon;
   label: string;
   value: string | number;
@@ -11,7 +11,7 @@ interface QuoteSummaryCardProps {
   isActive?: boolean;
 }
 
-const QuoteSummaryCard: React.FC<QuoteSummaryCardProps> = ({
+const SummaryCard: React.FC<SummaryCardProps> = ({
   icon: Icon,
   label,
   value,
@@ -100,4 +100,4 @@ const QuoteSummaryCard: React.FC<QuoteSummaryCardProps> = ({
   );
 };
 
-export default QuoteSummaryCard;
+export default SummaryCard;

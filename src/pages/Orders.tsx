@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
+import SummaryCard from '../components/SummaryCard';
 import { mockOrdersList } from '../data/mockData';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
 import { generateDocumentNumber } from '../utils/documentNumbering';
-import { Plus, Search, Filter, Eye, CreditCard as Edit, Mail, Trash2, Calendar, Copy, FileText, Clock, CheckCircle2, XCircle, AlertCircle, ArrowRightCircle, Package, Truck } from 'lucide-react';
+import { Plus, Search, Filter, Eye, CreditCard as Edit, Mail, Trash2, Calendar, Copy, FileText, Clock, CheckCircle2, XCircle, AlertCircle, ArrowRightCircle, Package, Truck, DollarSign, TrendingUp, CircleDollarSign } from 'lucide-react';
 
 const Orders: React.FC = () => {
   const navigate = useNavigate();
@@ -108,6 +109,44 @@ const Orders: React.FC = () => {
     return matchesSearch && matchesStatus;
   });
 
+  const orderStats = useMemo(() => {
+    const total = filteredOrders.length;
+    const totalRevenue = filteredOrders.reduce((sum, order) => sum + order.total, 0);
+    const totalOutstanding = filteredOrders.reduce((sum, order) => sum + (order.balance || 0), 0);
+
+    const inquiryCount = filteredOrders.filter(o => o.status === 'inquiry').length;
+    const quotedCount = filteredOrders.filter(o => o.status === 'quoted').length;
+    const confirmedCount = filteredOrders.filter(o => o.status === 'confirmed').length;
+    const inProductionCount = filteredOrders.filter(o => o.status === 'in-production').length;
+    const completedCount = filteredOrders.filter(o => o.status === 'completed').length;
+    const cancelledCount = filteredOrders.filter(o => o.status === 'cancelled').length;
+
+    const averageValue = total > 0 ? totalRevenue / total : 0;
+    const outstandingCount = filteredOrders.filter(o => (o.balance || 0) > 0).length;
+
+    return {
+      total,
+      totalRevenue,
+      totalOutstanding,
+      inquiryCount,
+      quotedCount,
+      confirmedCount,
+      inProductionCount,
+      completedCount,
+      cancelledCount,
+      averageValue,
+      outstandingCount,
+    };
+  }, [filteredOrders]);
+
+  const handleSummaryFilter = (status: string) => {
+    if (statusFilter === status) {
+      setStatusFilter('all');
+    } else {
+      setStatusFilter(status);
+    }
+  };
+
   // Pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -156,13 +195,76 @@ const Orders: React.FC = () => {
             </div>
           </div>
           
-          <button 
+          <button
             onClick={handleCreateOrder}
             className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all"
           >
             <Plus className="h-4 w-4 mr-2" />
             Create Order
           </button>
+        </div>
+
+        {/* Summary Cards */}
+        <div className="mb-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 gap-4">
+          <SummaryCard
+            icon={DollarSign}
+            label="Total Revenue"
+            value={formatCurrency(orderStats.totalRevenue)}
+            subtext={`${orderStats.total} orders`}
+            color="coral"
+          />
+          <SummaryCard
+            icon={AlertCircle}
+            label="Inquiry"
+            value={orderStats.inquiryCount}
+            subtext="New inquiries"
+            color="gray"
+            onClick={() => handleSummaryFilter('inquiry')}
+            isActive={statusFilter === 'inquiry'}
+          />
+          <SummaryCard
+            icon={FileText}
+            label="Quoted"
+            value={orderStats.quotedCount}
+            subtext="Awaiting confirmation"
+            color="pink"
+            onClick={() => handleSummaryFilter('quoted')}
+            isActive={statusFilter === 'quoted'}
+          />
+          <SummaryCard
+            icon={CheckCircle2}
+            label="Confirmed"
+            value={orderStats.confirmedCount}
+            subtext="Ready to start"
+            color="coral"
+            onClick={() => handleSummaryFilter('confirmed')}
+            isActive={statusFilter === 'confirmed'}
+          />
+          <SummaryCard
+            icon={Clock}
+            label="In Production"
+            value={orderStats.inProductionCount}
+            subtext="Being made"
+            color="aqua"
+            onClick={() => handleSummaryFilter('in-production')}
+            isActive={statusFilter === 'in-production'}
+          />
+          <SummaryCard
+            icon={CheckCircle2}
+            label="Completed"
+            value={orderStats.completedCount}
+            subtext="Fulfilled"
+            color="mint"
+            onClick={() => handleSummaryFilter('completed')}
+            isActive={statusFilter === 'completed'}
+          />
+          <SummaryCard
+            icon={CircleDollarSign}
+            label="Outstanding"
+            value={formatCurrency(orderStats.totalOutstanding)}
+            subtext={`${orderStats.outstandingCount} with balance`}
+            color="pink"
+          />
         </div>
 
         {/* Bulk Actions */}

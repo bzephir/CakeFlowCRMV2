@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import QuoteSummaryCard from '../components/QuoteSummaryCard';
+import SummaryCard from '../components/SummaryCard';
 import { mockSampleQuoteDetail, mockSampleQuotesDetail, mockQuotesList } from '../data/mockData';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
@@ -220,14 +220,14 @@ const Quotes: React.FC = () => {
 
         {/* Summary Cards */}
         <div className="mb-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-          <QuoteSummaryCard
+          <SummaryCard
             icon={DollarSign}
             label="Total Value"
             value={formatCurrency(quoteStats.totalAmount)}
             subtext={`${quoteStats.total} quotes`}
             color="coral"
           />
-          <QuoteSummaryCard
+          <SummaryCard
             icon={FileText}
             label="Draft"
             value={quoteStats.draftCount}
@@ -236,7 +236,7 @@ const Quotes: React.FC = () => {
             onClick={() => handleSummaryFilter('draft')}
             isActive={statusFilter === 'draft'}
           />
-          <QuoteSummaryCard
+          <SummaryCard
             icon={Mail}
             label="Sent"
             value={quoteStats.sentCount}
@@ -245,7 +245,7 @@ const Quotes: React.FC = () => {
             onClick={() => handleSummaryFilter('sent')}
             isActive={statusFilter === 'sent'}
           />
-          <QuoteSummaryCard
+          <SummaryCard
             icon={CheckCircle2}
             label="Accepted"
             value={quoteStats.acceptedCount}
@@ -254,7 +254,7 @@ const Quotes: React.FC = () => {
             onClick={() => handleSummaryFilter('accepted')}
             isActive={statusFilter === 'accepted'}
           />
-          <QuoteSummaryCard
+          <SummaryCard
             icon={XCircle}
             label="Rejected"
             value={quoteStats.rejectedCount}
@@ -263,7 +263,7 @@ const Quotes: React.FC = () => {
             onClick={() => handleSummaryFilter('rejected')}
             isActive={statusFilter === 'rejected'}
           />
-          <QuoteSummaryCard
+          <SummaryCard
             icon={Clock}
             label="Expired"
             value={quoteStats.expiredCount}

@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useInvoiceContext } from '../context/InvoiceContext';
 import Header from '../components/Header';
+import SummaryCard from '../components/SummaryCard';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { getInvoiceStatusColor, getInvoiceStatusText } from '../data/mockData';
-import { Plus, Search, Filter, Eye, CreditCard as Edit, Mail, Download, Trash2, CheckCircle2, DollarSign, Clock, CreditCard, AlertCircle, FileText, Hourglass, Ban } from 'lucide-react';
+import { Plus, Search, Filter, Eye, CreditCard as Edit, Mail, Download, Trash2, CheckCircle2, DollarSign, Clock, CreditCard, AlertCircle, FileText, Hourglass, Ban, TrendingUp } from 'lucide-react';
 
 const Invoices: React.FC = () => {
   const navigate = useNavigate();
@@ -101,6 +102,49 @@ const Invoices: React.FC = () => {
     return matchesSearch && matchesStatus;
   });
 
+  const invoiceStats = useMemo(() => {
+    const total = filteredInvoices.length;
+    const totalInvoiced = filteredInvoices.reduce((sum, inv) => sum + inv.total, 0);
+    const totalPaid = filteredInvoices.reduce((sum, inv) => sum + inv.amountPaid, 0);
+    const totalOutstanding = filteredInvoices.reduce((sum, inv) => sum + inv.balance, 0);
+
+    const pendingCount = filteredInvoices.filter(i => i.status === 'pending').length;
+    const depositPaidCount = filteredInvoices.filter(i => i.status === 'deposit_paid').length;
+    const partialCount = filteredInvoices.filter(i => i.status === 'partial').length;
+    const paidCount = filteredInvoices.filter(i => i.status === 'paid').length;
+    const overdueCount = filteredInvoices.filter(i => i.status === 'overdue').length;
+    const cancelledCount = filteredInvoices.filter(i => i.status === 'cancelled').length;
+
+    const collectionRate = totalInvoiced > 0
+      ? ((totalPaid / totalInvoiced) * 100).toFixed(0)
+      : 0;
+
+    const averageValue = total > 0 ? totalInvoiced / total : 0;
+
+    return {
+      total,
+      totalInvoiced,
+      totalPaid,
+      totalOutstanding,
+      pendingCount,
+      depositPaidCount,
+      partialCount,
+      paidCount,
+      overdueCount,
+      cancelledCount,
+      collectionRate,
+      averageValue,
+    };
+  }, [filteredInvoices]);
+
+  const handleSummaryFilter = (status: string) => {
+    if (statusFilter === status) {
+      setStatusFilter('all');
+    } else {
+      setStatusFilter(status);
+    }
+  };
+
   // Pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -153,13 +197,76 @@ const Invoices: React.FC = () => {
             </div>
           </div>
           
-          <button 
+          <button
             onClick={handleCreateInvoice}
             className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all"
           >
             <Plus className="h-4 w-4 mr-2" />
             Create Invoice
           </button>
+        </div>
+
+        {/* Summary Cards */}
+        <div className="mb-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 gap-4">
+          <SummaryCard
+            icon={DollarSign}
+            label="Total Invoiced"
+            value={formatCurrency(invoiceStats.totalInvoiced)}
+            subtext={`${invoiceStats.total} invoices`}
+            color="coral"
+          />
+          <SummaryCard
+            icon={Hourglass}
+            label="Pending"
+            value={invoiceStats.pendingCount}
+            subtext="Not paid yet"
+            color="gray"
+            onClick={() => handleSummaryFilter('pending')}
+            isActive={statusFilter === 'pending'}
+          />
+          <SummaryCard
+            icon={CreditCard}
+            label="Deposit Paid"
+            value={invoiceStats.depositPaidCount}
+            subtext="Partial payment"
+            color="aqua"
+            onClick={() => handleSummaryFilter('deposit_paid')}
+            isActive={statusFilter === 'deposit_paid'}
+          />
+          <SummaryCard
+            icon={Clock}
+            label="Partial"
+            value={invoiceStats.partialCount}
+            subtext="Multiple payments"
+            color="aqua"
+            onClick={() => handleSummaryFilter('partial')}
+            isActive={statusFilter === 'partial'}
+          />
+          <SummaryCard
+            icon={CheckCircle2}
+            label="Paid"
+            value={invoiceStats.paidCount}
+            subtext={`${invoiceStats.collectionRate}% collected`}
+            color="mint"
+            onClick={() => handleSummaryFilter('paid')}
+            isActive={statusFilter === 'paid'}
+          />
+          <SummaryCard
+            icon={AlertCircle}
+            label="Overdue"
+            value={invoiceStats.overdueCount}
+            subtext="Past due date"
+            color="pink"
+            onClick={() => handleSummaryFilter('overdue')}
+            isActive={statusFilter === 'overdue'}
+          />
+          <SummaryCard
+            icon={DollarSign}
+            label="Outstanding"
+            value={formatCurrency(invoiceStats.totalOutstanding)}
+            subtext="To be collected"
+            color="coral"
+          />
         </div>
 
         {/* Bulk Actions */}
