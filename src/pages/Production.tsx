@@ -11,13 +11,7 @@ import {
   Pause,
   PlayCircle,
   Factory,
-  DollarSign,
-  Calendar,
-  Edit,
-  Trash2,
-  ChevronDown,
-  ChevronUp,
-  TrendingUp
+  DollarSign
 } from 'lucide-react';
 import Header from '../components/Header';
 import ProductionFilters from '../components/ProductionFilters';
@@ -36,7 +30,6 @@ const Production: React.FC = () => {
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [priorityFilter, setPriorityFilter] = useState<string>('all');
   const [activeTab, setActiveTab] = useState<'internal' | 'external'>('external');
-  const [expandedId, setExpandedId] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
@@ -108,19 +101,16 @@ const Production: React.FC = () => {
     setSearchTerm('');
     setStatusFilter('all');
     setPriorityFilter('all');
-    setExpandedId(null);
     setCurrentPage(1);
   };
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    setExpandedId(null);
   };
 
   const handleItemsPerPageChange = (value: number) => {
     setItemsPerPage(value);
     setCurrentPage(1);
-    setExpandedId(null);
   };
 
   React.useEffect(() => {
@@ -178,31 +168,12 @@ const Production: React.FC = () => {
     return job.orderDueDate < today;
   };
 
-  const toggleExpand = (id: string) => {
-    setExpandedId(expandedId === id ? null : id);
-  };
-
-  const handleEditJob = (job: ProductionJob) => {
-    navigate(`/production/${job.id}/edit`);
-  };
-
-  const handleDeleteJob = (job: ProductionJob) => {
-    if (window.confirm(`Are you sure you want to delete job "${job.jobNumber}"? This action cannot be undone.`)) {
-      console.log('Delete job:', job.id);
-      alert(`Job "${job.jobNumber}" has been deleted.`);
-    }
-  };
-
-  const handleUpdateStatus = (job: ProductionJob) => {
-    alert(`Update status for job ${job.jobNumber}`);
-  };
-
   return (
     <div className="flex flex-col h-screen">
       <Header title="Production" icon={Factory} />
 
-      <div className="flex-1 flex flex-col p-6 overflow-hidden">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 px-6 pt-6 pb-4">
           <ProductionFilters
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}
@@ -222,9 +193,11 @@ const Production: React.FC = () => {
           </Link>
         </div>
 
-        <ProductionStats stats={stats} />
+        <div className="px-6 pb-4">
+          <ProductionStats stats={stats} />
+        </div>
 
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 flex-1 flex flex-col overflow-hidden">
+        <div className="bg-white shadow-sm border-t border-gray-200 flex-1 flex flex-col overflow-hidden">
           <div className="border-b border-gray-200">
             <nav className="flex -mb-px">
               <button
@@ -301,19 +274,17 @@ const Production: React.FC = () => {
             </div>
 
             <div className="flex-1 overflow-y-auto">
-              <div className="space-y-0">
+              <div>
               {paginatedJobs.map((job) => {
-                const isExpanded = expandedId === job.id;
-
                 return (
-                  <div key={job.id} className="bg-white border-l border-r border-b border-gray-200 shadow-sm overflow-hidden hover:bg-gray-50 transition-colors">
-                    <div
-                      className="flex items-center justify-between px-4 py-2 cursor-pointer"
-                      onClick={() => toggleExpand(job.id)}
+                  <div key={job.id} className="bg-white border-b border-gray-200 hover:bg-gray-50 transition-colors">
+                    <Link
+                      to={`/production/${job.id}`}
+                      className="flex items-center px-4 py-3 block"
                     >
                       <div className="flex items-center space-x-4 flex-1">
                         <div className="w-32">
-                          <span className="text-sm font-medium text-blue-600">{job.jobNumber}</span>
+                          <span className="text-sm font-medium text-blue-600 hover:text-blue-700">{job.jobNumber}</span>
                         </div>
                         <div className="flex-1">
                           <h3 className="text-sm font-medium text-gray-900">{job.recipeName}</h3>
@@ -348,162 +319,13 @@ const Production: React.FC = () => {
                           {getStatusBadge(job.status)}
                         </div>
                       </div>
-                      <div className="w-10 flex justify-center">
-                        {isExpanded ? (
-                          <ChevronUp className="h-4 w-4 text-gray-400" />
-                        ) : (
-                          <ChevronDown className="h-4 w-4 text-gray-400" />
-                        )}
-                      </div>
-                    </div>
-
-                    {isExpanded && (
-                      <div className="px-4 py-3 border-t border-gray-200 bg-gray-50">
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                          <div>
-                            <h4 className="text-sm font-medium text-gray-900 mb-2">Job Details</h4>
-                            <dl className="space-y-1.5">
-                              <div>
-                                <dt className="text-xs text-gray-500">Job Number</dt>
-                                <dd className="text-sm text-gray-900">{job.jobNumber}</dd>
-                              </div>
-                              <div>
-                                <dt className="text-xs text-gray-500">Recipe</dt>
-                                <dd className="text-sm text-gray-900">
-                                  <Link
-                                    to={`/recipes/${job.recipeId}`}
-                                    className="text-coral-600 hover:text-coral-700 hover:underline"
-                                  >
-                                    {job.recipeName}
-                                  </Link>
-                                </dd>
-                              </div>
-                              <div>
-                                <dt className="text-xs text-gray-500">Quantity to Produce</dt>
-                                <dd className="text-sm text-gray-900">{job.quantityToProduce} {job.unit}</dd>
-                              </div>
-                              {job.customerName && (
-                                <div>
-                                  <dt className="text-xs text-gray-500">Customer</dt>
-                                  <dd className="text-sm text-gray-900">{job.customerName}</dd>
-                                </div>
-                              )}
-                            </dl>
-                          </div>
-
-                          <div>
-                            <h4 className="text-sm font-medium text-gray-900 mb-2">Progress & Timing</h4>
-                            <dl className="space-y-1.5">
-                              <div>
-                                <dt className="text-xs text-gray-500">Scheduled Date</dt>
-                                <dd className={`text-sm ${isOverdue(job) ? 'text-red-600 font-medium' : 'text-gray-900'}`}>
-                                  {formatDate(job.scheduledDate)}
-                                  {isOverdue(job) && <span className="ml-2 text-xs">(Overdue)</span>}
-                                </dd>
-                              </div>
-                              {job.orderDueDate && (
-                                <div>
-                                  <dt className="text-xs text-gray-500">Due Date</dt>
-                                  <dd className="text-sm text-gray-900">{formatDate(job.orderDueDate)}</dd>
-                                </div>
-                              )}
-                              {job.actualStartDate && (
-                                <div>
-                                  <dt className="text-xs text-gray-500">Started</dt>
-                                  <dd className="text-sm text-gray-900">{formatDate(job.actualStartDate)}</dd>
-                                </div>
-                              )}
-                              {job.actualCompletionDate && (
-                                <div>
-                                  <dt className="text-xs text-gray-500">Completed</dt>
-                                  <dd className="text-sm text-gray-900">{formatDate(job.actualCompletionDate)}</dd>
-                                </div>
-                              )}
-                            </dl>
-                          </div>
-
-                          <div>
-                            <h4 className="text-sm font-medium text-gray-900 mb-2">Assignment & Cost</h4>
-                            <dl className="space-y-1.5">
-                              <div>
-                                <dt className="text-xs text-gray-500">Assigned Staff</dt>
-                                <dd className="text-sm text-gray-900">
-                                  {job.assignedStaffName || <span className="text-gray-400">Unassigned</span>}
-                                </dd>
-                              </div>
-                              <div>
-                                <dt className="text-xs text-gray-500">Total Cost</dt>
-                                <dd className="text-sm text-gray-900">${job.totalCost.toFixed(2)}</dd>
-                              </div>
-                              <div>
-                                <dt className="text-xs text-gray-500">Priority</dt>
-                                <dd className="text-sm text-gray-900">{getPriorityBadge(job.priority)}</dd>
-                              </div>
-                              <div>
-                                <dt className="text-xs text-gray-500">Status</dt>
-                                <dd className="text-sm text-gray-900">{getStatusBadge(job.status)}</dd>
-                              </div>
-                            </dl>
-                          </div>
-                        </div>
-
-                        {job.notes && (
-                          <div className="mt-4">
-                            <h4 className="text-sm font-medium text-gray-900 mb-2">Notes</h4>
-                            <p className="text-sm text-gray-700">{job.notes}</p>
-                          </div>
-                        )}
-
-                        <div className="mt-3 flex space-x-2">
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              navigate(`/production/${job.id}`);
-                            }}
-                            className="inline-flex items-center px-3 py-1.5 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors"
-                          >
-                            <Package className="h-4 w-4 mr-1.5" />
-                            View Details
-                          </button>
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleEditJob(job);
-                            }}
-                            className="inline-flex items-center px-3 py-1.5 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors"
-                          >
-                            <Edit className="h-4 w-4 mr-1.5" />
-                            Edit
-                          </button>
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleUpdateStatus(job);
-                            }}
-                            className="inline-flex items-center px-3 py-1.5 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors"
-                          >
-                            <TrendingUp className="h-4 w-4 mr-1.5" />
-                            Update Status
-                          </button>
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleDeleteJob(job);
-                            }}
-                            className="inline-flex items-center px-3 py-1.5 border border-red-300 text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50 transition-colors"
-                          >
-                            <Trash2 className="h-4 w-4 mr-1.5" />
-                            Delete
-                          </button>
-                        </div>
-                      </div>
-                    )}
+                    </Link>
                   </div>
                 );
               })}
 
                 {filteredJobs.length === 0 && (
-                  <div className="text-center py-12 bg-white rounded-lg border border-gray-200">
+                  <div className="text-center py-12 bg-white">
                     <Package className="mx-auto h-12 w-12 text-gray-400 mb-4" />
                     <div className="text-gray-500 text-lg">No production jobs found</div>
                     <div className="text-gray-400 text-sm mt-2">
@@ -516,18 +338,16 @@ const Production: React.FC = () => {
               </div>
             </div>
 
-            <div className="sticky bottom-0 bg-white border-t border-gray-200">
-              <ProductionPagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                itemsPerPage={itemsPerPage}
-                totalItems={filteredJobs.length}
-                startIndex={startIndex}
-                endIndex={endIndex}
-                onPageChange={handlePageChange}
-                onItemsPerPageChange={handleItemsPerPageChange}
-              />
-            </div>
+            <ProductionPagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              itemsPerPage={itemsPerPage}
+              totalItems={filteredJobs.length}
+              startIndex={startIndex}
+              endIndex={endIndex}
+              onPageChange={handlePageChange}
+              onItemsPerPageChange={handleItemsPerPageChange}
+            />
           </div>
         </div>
       </div>
