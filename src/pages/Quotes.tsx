@@ -289,177 +289,151 @@ const Quotes: React.FC = () => {
         </div>
       )}
 
-      {/* Quotes Table */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-        {/* Table Header */}
-        <div className="bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
-          <div className="grid grid-cols-[40px_110px_1fr_130px_120px_140px_110px_120px_110px_160px] gap-4 px-6 py-4 items-center">
-            <div className="flex justify-center">
+      {/* Quotes Header */}
+      <div className="bg-gray-50 rounded-t-lg border border-gray-200 border-b-0">
+        <div className="flex items-center justify-between px-3 py-1.5">
+          <div className="flex items-center space-x-1 flex-1">
+            <div className="w-8 flex justify-center">
               <input
                 type="checkbox"
                 checked={selectedQuotes.length === filteredQuotes.length && filteredQuotes.length > 0}
                 onChange={toggleSelectAll}
-                className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded cursor-pointer"
+                className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
               />
             </div>
-            <div>
-              <span className="text-xs font-semibold text-gray-600 uppercase tracking-wider">Quote #</span>
+            <div className="w-20">
+              <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Quote #</span>
             </div>
-            <div>
-              <span className="text-xs font-semibold text-gray-600 uppercase tracking-wider">Customer</span>
+            <div className="w-36 text-left">
+              <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</span>
             </div>
-            <div>
-              <span className="text-xs font-semibold text-gray-600 uppercase tracking-wider">Event Type</span>
+            <div className="w-24 text-left">
+              <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Event Type</span>
             </div>
-            <div>
-              <span className="text-xs font-semibold text-gray-600 uppercase tracking-wider">Event Date</span>
+            <div className="w-24 text-left">
+              <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Event Date</span>
             </div>
-            <div>
-              <span className="text-xs font-semibold text-gray-600 uppercase tracking-wider">Fulfillment</span>
+            <div className="w-32 text-left">
+              <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Fulfillment</span>
             </div>
-            <div>
-              <span className="text-xs font-semibold text-gray-600 uppercase tracking-wider">Expiry Date</span>
+            <div className="w-24 text-left">
+              <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Expiry Date</span>
             </div>
-            <div className="text-right">
-              <span className="text-xs font-semibold text-gray-600 uppercase tracking-wider">Amount</span>
+            <div className="w-24 text-right">
+              <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</span>
             </div>
-            <div className="text-center">
-              <span className="text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</span>
-            </div>
-            <div className="text-right">
-              <span className="text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</span>
+            <div className="w-20 text-center">
+              <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Status</span>
             </div>
           </div>
+          <div className="w-36">
+            <span className="text-xs font-medium text-gray-500 uppercase tracking-wider"></span>
+          </div>
         </div>
+      </div>
 
-        {/* Table Body */}
-        <div className="divide-y divide-gray-100">
-          {currentQuotes.map((quote, index) => (
-            <div
-              key={quote.id}
-              className={`grid grid-cols-[40px_110px_1fr_130px_120px_140px_110px_120px_110px_160px] gap-4 px-6 py-4 items-center hover:bg-gray-50 transition-colors cursor-pointer ${
-                index % 2 === 0 ? 'bg-white' : 'bg-gray-50/30'
-              }`}
-              onClick={() => handleViewQuote(quote.id)}
-            >
-              <div className="flex justify-center" onClick={(e) => e.stopPropagation()}>
-                <input
-                  type="checkbox"
-                  checked={selectedQuotes.includes(quote.id)}
-                  onChange={() => toggleSelectQuote(quote.id)}
-                  className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded cursor-pointer"
-                />
-              </div>
-              <div>
-                <span className="text-sm font-semibold text-aqua-600 hover:text-aqua-700 transition-colors">
-                  {quote.id}
-                </span>
-              </div>
-              <div>
-                <span className="text-sm font-medium text-gray-900 line-clamp-1" title={quote.customer}>
-                  {quote.customer}
-                </span>
-                <span className="text-xs text-gray-500 block mt-0.5">{quote.email}</span>
-              </div>
-              <div>
-                <span className="text-sm text-gray-700">{quote.eventType}</span>
-              </div>
-              <div>
-                <span className="text-sm text-gray-700">{formatDate(quote.eventDate)}</span>
-              </div>
-              <div>
-                <div className="flex items-center space-x-1.5">
-                  {quote.fulfillmentType === 'pickup' ? (
-                    <>
-                      <div className="w-6 h-6 bg-mint-100 rounded flex items-center justify-center flex-shrink-0">
-                        <Package className="h-3.5 w-3.5 text-mint-600" />
-                      </div>
-                      <div className="flex flex-col min-w-0">
-                        <span className="text-xs font-medium text-gray-700">Pickup</span>
-                        <span className="text-xs text-gray-500">{quote.pickupTime ? formatTime(quote.pickupTime) : 'TBD'}</span>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="w-6 h-6 bg-aqua-100 rounded flex items-center justify-center flex-shrink-0">
-                        <Truck className="h-3.5 w-3.5 text-aqua-600" />
-                      </div>
-                      <div className="flex flex-col min-w-0">
-                        <span className="text-xs font-medium text-gray-700">Delivery</span>
-                        <span className="text-xs text-gray-500">{quote.deliveryTime ? formatTime(quote.deliveryTime) : 'TBD'}</span>
-                      </div>
-                    </>
-                  )}
+      {/* Quotes List */}
+      <div className="space-y-0">
+        {currentQuotes.map((quote) => (
+          <div key={quote.id} className="bg-white border-l border-r border-b border-gray-200 shadow-sm overflow-hidden hover:bg-gray-50 transition-colors">
+            <div className="flex items-center justify-between px-3 py-1.5">
+              <div className="flex items-center space-x-1 flex-1">
+                <div className="w-8 flex justify-center">
+                  <input
+                    type="checkbox"
+                    checked={selectedQuotes.includes(quote.id)}
+                    onChange={() => toggleSelectQuote(quote.id)}
+                    className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
+                  />
+                </div>
+                <div className="w-20">
+                  <span className="text-sm font-medium text-gray-700 cursor-pointer hover:text-aqua-600" onClick={() => handleViewQuote(quote.id)}>
+                    {quote.id}
+                  </span>
+                </div>
+                <div className="w-36 text-left">
+                  <span className="text-sm font-medium text-gray-700">{quote.customer}</span>
+                </div>
+                <div className="w-24 text-left">
+                  <span className="text-sm text-gray-700">{quote.eventType}</span>
+                </div>
+                <div className="w-24 text-left">
+                  <span className="text-sm text-gray-700">{formatDate(quote.eventDate)}</span>
+                </div>
+                <div className="w-32 text-left">
+                  <span className="text-sm text-gray-700">
+                    {quote.fulfillmentType === 'pickup'
+                      ? <span className="flex items-center"><Package className="h-3 w-3 mr-1" /> Pickup: {quote.pickupTime ? formatTime(quote.pickupTime) : 'TBD'}</span>
+                      : <span className="flex items-center"><Truck className="h-3 w-3 mr-1" /> Delivery: {quote.deliveryTime ? formatTime(quote.deliveryTime) : 'TBD'}</span>
+                    }
+                  </span>
+                </div>
+                <div className="w-24 text-left">
+                  <span className="text-sm text-gray-700">{formatDate(quote.expiryDate)}</span>
+                </div>
+                <div className="w-24 text-right">
+                  <span className="text-sm font-medium text-gray-900">{formatCurrency(quote.amount)}</span>
+                </div>
+                <div className="w-20 flex justify-center">
+                  <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(quote.status)}`}>
+                    {getStatusIcon(quote.status)}
+                    {quote.status.charAt(0).toUpperCase() + quote.status.slice(1)}
+                  </span>
                 </div>
               </div>
-              <div>
-                <span className="text-sm text-gray-700">{formatDate(quote.expiryDate)}</span>
-              </div>
-              <div className="text-right">
-                <span className="text-sm font-semibold text-gray-900">{formatCurrency(quote.amount)}</span>
-              </div>
-              <div className="flex justify-center">
-                <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold ${getStatusColor(quote.status)}`}>
-                  {getStatusIcon(quote.status)}
-                  {quote.status.charAt(0).toUpperCase() + quote.status.slice(1)}
-                </span>
-              </div>
-              <div className="flex justify-end items-center space-x-1" onClick={(e) => e.stopPropagation()}>
+              <div className="w-36 flex justify-end space-x-1">
                 <button
                   onClick={() => handleViewQuote(quote.id)}
-                  className="p-1.5 text-aqua-600 hover:bg-aqua-50 rounded-md transition-all"
+                  className="text-aqua-600 hover:text-aqua-900 transition-colors"
                   title="View"
                 >
                   <Eye className="h-4 w-4" />
                 </button>
                 <button
                   onClick={() => handleEditQuote(quote.id)}
-                  className="p-1.5 text-gray-600 hover:bg-gray-100 rounded-md transition-all"
+                  className="text-coral-600 hover:text-coral-900 transition-colors"
                   title="Edit"
                 >
                   <Edit className="h-4 w-4" />
                 </button>
-                <div className="w-px h-4 bg-gray-200 mx-0.5"></div>
                 <button
                   onClick={() => handleSendQuote(quote.id)}
-                  className="p-1.5 text-mint-600 hover:bg-mint-50 rounded-md transition-all"
+                  className="text-mint-600 hover:text-mint-900 transition-colors"
                   title="Send"
                 >
                   <Mail className="h-4 w-4" />
                 </button>
                 <button
                   onClick={() => handleConvertToInvoice(quote.id)}
-                  className="p-1.5 text-coral-600 hover:bg-coral-50 rounded-md transition-all"
+                  className="text-aqua-600 hover:text-aqua-900 transition-colors"
                   title="Convert to Invoice"
                 >
                   <ArrowRightCircle className="h-4 w-4" />
                 </button>
-                <div className="w-px h-4 bg-gray-200 mx-0.5"></div>
                 <button
                   onClick={() => handleDuplicateQuote(quote.id)}
-                  className="p-1.5 text-gray-500 hover:bg-gray-100 rounded-md transition-all"
+                  className="text-gray-600 hover:text-gray-900 transition-colors"
                   title="Duplicate"
                 >
                   <Copy className="h-4 w-4" />
                 </button>
                 <button
                   onClick={() => handleDeleteQuote(quote.id)}
-                  className="p-1.5 text-pink-600 hover:bg-pink-50 rounded-md transition-all"
+                  className="text-pink-600 hover:text-pink-900 transition-colors"
                   title="Delete"
                 >
                   <Trash2 className="h-4 w-4" />
                 </button>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
 
       {/* No Results */}
       {filteredQuotes.length === 0 && (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 text-center py-16">
-          <Receipt className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-          <div className="text-gray-600 text-lg font-medium">No quotes found</div>
+        <div className="text-center py-12">
+          <div className="text-gray-500 text-lg">No quotes found</div>
           <div className="text-gray-400 text-sm mt-2">
             {searchTerm || statusFilter !== 'all'
               ? 'Try adjusting your search or filter criteria'
