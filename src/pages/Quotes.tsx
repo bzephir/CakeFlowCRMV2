@@ -1,29 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import { mockSampleQuoteDetail, mockSampleQuotesDetail, mockQuotesList } from '../data/mockData';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
-import { 
-  Plus, 
-  Search, 
-  Filter, 
-  Eye, 
-  Edit, 
-  Mail,
-  Trash2,
-  Calendar,
-  Copy,
-  FileText,
-  Clock,
-  Receipt,
-  CheckCircle2, 
-  XCircle,
-  AlertCircle,
-  ArrowRightCircle,
-  Package,
-  Truck
-} from 'lucide-react';
+import { Plus, Search, Filter, Trash2, FileText, Clock, Receipt, CheckCircle2, XCircle, AlertCircle, Package, Truck, DollarSign, TrendingUp, Mail } from 'lucide-react';
 
 const Quotes: React.FC = () => {
   const navigate = useNavigate();
@@ -33,7 +14,6 @@ const Quotes: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  // Use centralized mock data
   const quotes = mockQuotesList;
 
   const getStatusColor = (status: string) => {
@@ -59,43 +39,36 @@ const Quotes: React.FC = () => {
   };
 
   const handleViewQuote = (quoteId: string) => {
-    // Navigate to quote details page
     navigate(`/quotes/${quoteId}`);
   };
 
   const handleCreateQuote = () => {
-    // Generate new quote number and navigate to create quote page
     const newQuoteNumber = generateDocumentNumber('quote');
     console.log('Creating new quote with number:', newQuoteNumber);
     navigate('/quotes/new', { state: { quoteNumber: newQuoteNumber } });
   };
 
   const handleEditQuote = (quoteId: string) => {
-    // Navigate to quote edit page
     navigate(`/quotes/${quoteId}/edit`);
   };
 
   const handleSendQuote = (quoteId: string) => {
-    // Send quote email
     alert(`Email quote ${quoteId} to customer`);
   };
 
   const handleConvertToInvoice = (quoteId: string) => {
-    // Convert quote to invoice with new invoice number
     const newInvoiceNumber = generateDocumentNumber('invoice');
     console.log('Converting quote to invoice with number:', newInvoiceNumber);
     navigate('/invoice/new', { state: { convertedFromQuote: quoteId, invoiceNumber: newInvoiceNumber } });
   };
 
   const handleDuplicateQuote = (quoteId: string) => {
-    // Duplicate quote with new quote number
     const newQuoteNumber = generateDocumentNumber('quote');
     console.log('Duplicating quote with new number:', newQuoteNumber);
     alert(`Duplicate quote ${quoteId} as ${newQuoteNumber}`);
   };
 
   const handleDeleteQuote = (quoteId: string) => {
-    // Delete quote
     alert(`Delete quote ${quoteId}`);
   };
 
@@ -128,7 +101,6 @@ const Quotes: React.FC = () => {
     }
   };
 
-  // Filter quotes based on search term and status filter
   const filteredQuotes = quotes.filter(quote => {
     const matchesSearch = quote.customer.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          quote.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -137,7 +109,49 @@ const Quotes: React.FC = () => {
     return matchesSearch && matchesStatus;
   });
 
-  // Pagination
+  const quoteStats = useMemo(() => {
+    const total = filteredQuotes.length;
+    const totalAmount = filteredQuotes.reduce((sum, quote) => sum + quote.amount, 0);
+    const draftCount = filteredQuotes.filter(q => q.status === 'draft').length;
+    const sentCount = filteredQuotes.filter(q => q.status === 'sent').length;
+    const acceptedCount = filteredQuotes.filter(q => q.status === 'accepted').length;
+    const rejectedCount = filteredQuotes.filter(q => q.status === 'rejected').length;
+    const expiredCount = filteredQuotes.filter(q => q.status === 'expired').length;
+
+    const today = new Date();
+    const sevenDaysFromNow = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+    const expiringSoonCount = filteredQuotes.filter(q => {
+      const expiryDate = new Date(q.expiryDate);
+      return expiryDate >= today && expiryDate <= sevenDaysFromNow && q.status === 'sent';
+    }).length;
+
+    const averageValue = total > 0 ? totalAmount / total : 0;
+    const acceptanceRate = sentCount + acceptedCount > 0
+      ? ((acceptedCount / (sentCount + acceptedCount + rejectedCount)) * 100).toFixed(0)
+      : 0;
+
+    return {
+      total,
+      totalAmount,
+      draftCount,
+      sentCount,
+      acceptedCount,
+      rejectedCount,
+      expiredCount,
+      expiringSoonCount,
+      averageValue,
+      acceptanceRate,
+    };
+  }, [filteredQuotes]);
+
+  const handleSummaryFilter = (status: string) => {
+    if (statusFilter === status) {
+      setStatusFilter('all');
+    } else {
+      setStatusFilter(status);
+    }
+  };
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentQuotes = filteredQuotes.slice(indexOfFirstItem, indexOfLastItem);
@@ -146,286 +160,305 @@ const Quotes: React.FC = () => {
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-      <div className="p-6">
- <Header title="Quotes" icon={Receipt} /> 
-      <div className="p-6">
-        {/* Actions Bar */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-          <div className="flex flex-col sm:flex-row gap-4 flex-1">
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-4 w-4 text-gray-400" />
-              </div>
-              <input
-                type="text"
-                placeholder="Search quotes..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="block w-full sm:w-64 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
-              />
+    <div className="p-6">
+      <Header title="Quotes" icon={Receipt} />
+
+      {/* Actions Bar */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+        <div className="flex flex-col sm:flex-row gap-4 flex-1">
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Search className="h-4 w-4 text-gray-400" />
             </div>
-            
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Filter className="h-4 w-4 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search quotes..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="block w-full sm:w-64 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+            />
+          </div>
+
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Filter className="h-4 w-4 text-gray-400" />
+            </div>
+            <select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="block w-full sm:w-48 pl-10 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+            >
+              <option value="all">All Statuses</option>
+              <option value="draft">Draft</option>
+              <option value="sent">Sent</option>
+              <option value="accepted">Accepted</option>
+              <option value="rejected">Rejected</option>
+              <option value="expired">Expired</option>
+            </select>
+          </div>
+        </div>
+
+        <button
+          onClick={handleCreateQuote}
+          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all"
+        >
+          <Plus className="h-4 w-4 mr-2" />
+          Create Quote
+        </button>
+      </div>
+
+      {/* Summary Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <div className="bg-white p-4 rounded-lg border border-gray-200">
+          <div className="flex items-center">
+            <div className="flex-shrink-0">
+              <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-coral-500 rounded-full flex items-center justify-center">
+                <DollarSign className="h-4 w-4 text-white" />
               </div>
-              <select
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
-                className="block w-full sm:w-48 pl-10 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
-              >
-                <option value="all">All Statuses</option>
-                <option value="draft">Draft</option>
-                <option value="sent">Sent</option>
-                <option value="accepted">Accepted</option>
-                <option value="rejected">Rejected</option>
-                <option value="expired">Expired</option>
-              </select>
+            </div>
+            <div className="ml-3">
+              <p className="text-sm font-medium text-gray-500">Total Value</p>
+              <p className="text-lg font-semibold text-gray-900">{formatCurrency(quoteStats.totalAmount)}</p>
             </div>
           </div>
-          
-          <button 
-            onClick={handleCreateQuote}
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all"
+        </div>
+
+        <div className="bg-white p-4 rounded-lg border border-gray-200">
+          <div className="flex items-center">
+            <div className="flex-shrink-0">
+              <div className="w-8 h-8 bg-gradient-to-r from-aqua-400 to-aqua-500 rounded-full flex items-center justify-center">
+                <Mail className="h-4 w-4 text-white" />
+              </div>
+            </div>
+            <div className="ml-3">
+              <p className="text-sm font-medium text-gray-500">Sent</p>
+              <p className="text-lg font-semibold text-gray-900">{quoteStats.sentCount}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white p-4 rounded-lg border border-gray-200">
+          <div className="flex items-center">
+            <div className="flex-shrink-0">
+              <div className="w-8 h-8 bg-gradient-to-r from-mint-400 to-mint-500 rounded-full flex items-center justify-center">
+                <CheckCircle2 className="h-4 w-4 text-white" />
+              </div>
+            </div>
+            <div className="ml-3">
+              <p className="text-sm font-medium text-gray-500">Accepted</p>
+              <p className="text-lg font-semibold text-gray-900">{quoteStats.acceptedCount}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white p-4 rounded-lg border border-gray-200">
+          <div className="flex items-center">
+            <div className="flex-shrink-0">
+              <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center">
+                <TrendingUp className="h-4 w-4 text-white" />
+              </div>
+            </div>
+            <div className="ml-3">
+              <p className="text-sm font-medium text-gray-500">Acceptance Rate</p>
+              <p className="text-lg font-semibold text-gray-900">{quoteStats.acceptanceRate}%</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bulk Actions */}
+      {selectedQuotes.length > 0 && (
+        <div className="mb-4 flex items-center gap-2">
+          <span className="text-sm text-gray-500">
+            {selectedQuotes.length} selected
+          </span>
+          <button
+            onClick={() => handleBulkAction('send')}
+            className="inline-flex items-center px-3 py-1 border border-gray-300 text-xs font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-colors"
           >
-            <Plus className="h-4 w-4 mr-2" />
-            Create Quote
+            <Mail className="h-3 w-3 mr-1" />
+            Send
+          </button>
+          <button
+            onClick={() => handleBulkAction('delete')}
+            className="inline-flex items-center px-3 py-1 border border-gray-300 text-xs font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-colors"
+          >
+            <Trash2 className="h-3 w-3 mr-1" />
+            Delete
           </button>
         </div>
+      )}
 
-        {/* Bulk Actions */}
-        {selectedQuotes.length > 0 && (
-          <div className="mb-4 flex items-center gap-2">
-            <span className="text-sm text-gray-500">
-              {selectedQuotes.length} selected
-            </span>
-            <button 
-              onClick={() => handleBulkAction('send')}
-              className="inline-flex items-center px-3 py-1 border border-gray-300 text-xs font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-colors"
-            >
-              <Mail className="h-3 w-3 mr-1" />
-              Send
-            </button>
-            <button 
-              onClick={() => handleBulkAction('delete')}
-              className="inline-flex items-center px-3 py-1 border border-gray-300 text-xs font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-colors"
-            >
-              <Trash2 className="h-3 w-3 mr-1" />
-              Delete
-            </button>
+      {/* Quotes Header */}
+      <div className="bg-gray-50 rounded-t-lg border border-gray-200 border-b-0">
+        <div className="flex items-center justify-between px-3 py-1.5">
+          <div className="flex items-center space-x-1 flex-1">
+            <div className="w-8 flex justify-center">
+              <input
+                type="checkbox"
+                checked={selectedQuotes.length === filteredQuotes.length && filteredQuotes.length > 0}
+                onChange={toggleSelectAll}
+                className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
+              />
+            </div>
+            <div className="w-28">
+              <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Quote #</span>
+            </div>
+            <div className="w-40 text-left">
+              <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</span>
+            </div>
+            <div className="w-32 text-left">
+              <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Event Type</span>
+            </div>
+            <div className="w-28 text-left">
+              <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Event Date</span>
+            </div>
+            <div className="w-32 text-left">
+              <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Fulfillment</span>
+            </div>
+            <div className="w-28 text-right">
+              <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</span>
+            </div>
+            <div className="w-24 text-center">
+              <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Status</span>
+            </div>
           </div>
-        )}
-
-        {/* Quotes Table */}
-        <div className="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-2 py-1 text-left">
-                    <div className="flex items-center">
-                      <input
-                        type="checkbox"
-                        checked={selectedQuotes.length === filteredQuotes.length && filteredQuotes.length > 0}
-                        onChange={toggleSelectAll}
-                        className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
-                      />
-                    </div>
-                  </th>
-                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
-                    Quote #
-                  </th>
-                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
-                    Customer
-                  </th>
-                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
-                    Date Issued
-                  </th>
-                   <th className="px-2 py-1 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
-                    Event Type
-                  </th>
-                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
-                    Event Date
-                  </th>
-                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
-                    Fulfillment
-                  </th>
-                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
-                    Expiry Date
-                  </th>
-                  <th className="px-2 py-1 text-right text-xs font-bold text-gray-900 uppercase tracking-wider">
-                    Amount
-                  </th>
-                  <th className="px-2 py-1 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th className="px-2 py-1 text-right text-xs font-bold text-gray-900 uppercase tracking-wider">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {currentQuotes.map((quote) => (
-                  <tr key={quote.id} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="flex items-center">
-                        <input
-                          type="checkbox"
-                          checked={selectedQuotes.includes(quote.id)}
-                          onChange={() => toggleSelectQuote(quote.id)}
-                          className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
-                        />
-                      </div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-700 cursor-pointer hover:text-coral-600" onClick={() => handleViewQuote(quote.id)}>
-                        {quote.id}
-                      </div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-700">{quote.customer}</div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-700">{formatDate(quote.issueDate)}</div>
-                    </td>
-                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-700">{quote.eventType}</div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-700">{formatDate(quote.eventDate)}</div>
-                    </td>
-                     <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-700">
-                        {quote.fulfillmentType === 'pickup' 
-                          ? <span className="flex items-center"><Package className="h-3 w-3 mr-1" /> Pickup: {quote.pickupTime ? formatTime(quote.pickupTime) : 'TBD'}</span>
-                          : <span className="flex items-center"><Truck className="h-3 w-3 mr-1" /> Delivery: {quote.deliveryTime ? formatTime(quote.deliveryTime) : 'TBD'}</span>
-                        }
-                      </div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-700">{formatDate(quote.expiryDate)}</div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap text-right">
-                      <div className="text-sm font-medium text-gray-700">{formatCurrency(quote.amount)}</div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(quote.status)}`}>
-                        {getStatusIcon(quote.status)}
-                        {quote.status.charAt(0).toUpperCase() + quote.status.slice(1)}
-                      </span>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap text-right text-sm font-medium">
-                      <div className="flex justify-end space-x-2">
-                        <button 
-                          onClick={() => handleViewQuote(quote.id)}
-                          className="text-aqua-600 hover:text-aqua-900 transition-colors"
-                          title="View"
-                        >
-                          <Eye className="h-4 w-4" />
-                        </button>
-                        <button 
-                          onClick={() => handleEditQuote(quote.id)}
-                          className="text-coral-600 hover:text-coral-900 transition-colors"
-                          title="Edit"
-                        >
-                          <Edit className="h-4 w-4" />
-                        </button>
-                        <button 
-                          onClick={() => handleSendQuote(quote.id)}
-                          className="text-mint-600 hover:text-mint-900 transition-colors"
-                          title="Send"
-                        >
-                          <Mail className="h-4 w-4" />
-                        </button>
-                        <button 
-                          onClick={() => handleConvertToInvoice(quote.id)}
-                          className="text-aqua-600 hover:text-aqua-900 transition-colors"
-                          title="Convert to Invoice"
-                        >
-                          <ArrowRightCircle className="h-4 w-4" />
-                        </button>
-                        <button 
-                          onClick={() => handleDuplicateQuote(quote.id)}
-                          className="text-gray-600 hover:text-gray-900 transition-colors"
-                          title="Duplicate"
-                        >
-                          <Copy className="h-4 w-4" />
-                        </button>
-                        <button 
-                          onClick={() => handleDeleteQuote(quote.id)}
-                          className="text-pink-600 hover:text-pink-900 transition-colors"
-                          title="Delete"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="w-12">
+            <span className="text-xs font-medium text-gray-500 uppercase tracking-wider"></span>
           </div>
         </div>
-
-        {/* No Results */}
-        {filteredQuotes.length === 0 && (
-          <div className="text-center py-12">
-            <div className="text-gray-500 text-lg">No quotes found</div>
-            <div className="text-gray-400 text-sm mt-2">
-              {searchTerm || statusFilter !== 'all' 
-                ? 'Try adjusting your search or filter criteria'
-                : 'Get started by creating your first quote'
-              }
-            </div>
-          </div>
-        )}
-
-        {/* Pagination */}
-        {filteredQuotes.length > 0 && (
-          <div className="flex items-center justify-between mt-6">
-            <div className="text-sm text-gray-500">
-              Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, filteredQuotes.length)} of {filteredQuotes.length} quotes
-            </div>
-            <div className="flex space-x-2">
-              <button
-                onClick={() => paginate(currentPage - 1)}
-                disabled={currentPage === 1}
-                className={`px-3 py-1 border rounded-md text-sm ${
-                  currentPage === 1
-                    ? 'border-gray-200 text-gray-400 cursor-not-allowed'
-                    : 'border-gray-300 text-gray-700 hover:bg-gray-50'
-                }`}
-              >
-                Previous
-              </button>
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((number) => (
-                <button
-                  key={number}
-                  onClick={() => paginate(number)}
-                  className={`px-3 py-1 border rounded-md text-sm ${
-                    currentPage === number
-                      ? 'bg-coral-100 border-coral-500 text-coral-600'
-                      : 'border-gray-300 text-gray-700 hover:bg-gray-50'
-                  }`}
-                >
-                  {number}
-                </button>
-              ))}
-              <button
-                onClick={() => paginate(currentPage + 1)}
-                disabled={currentPage === totalPages}
-                className={`px-3 py-1 border rounded-md text-sm ${
-                  currentPage === totalPages
-                    ? 'border-gray-200 text-gray-400 cursor-not-allowed'
-                    : 'border-gray-300 text-gray-700 hover:bg-gray-50'
-                }`}
-              >
-                Next
-              </button>
-            </div>
-          </div>
-        )}
       </div>
+
+      {/* Quotes List */}
+      <div className="space-y-0">
+        {currentQuotes.map((quote) => {
+          const eventDate = new Date(quote.eventDate);
+          const formattedEventDate = `${String(eventDate.getMonth() + 1).padStart(2, '0')}/${String(eventDate.getDate()).padStart(2, '0')}/${eventDate.getFullYear()}`;
+
+          return (
+            <div key={quote.id} className="bg-white border-l border-r border-b border-gray-200 shadow-sm overflow-hidden hover:bg-gray-50 transition-colors">
+              <div className="flex items-center justify-between px-3 py-1.5">
+                <div className="flex items-center space-x-1 flex-1">
+                  <div className="w-8 flex justify-center">
+                    <input
+                      type="checkbox"
+                      checked={selectedQuotes.includes(quote.id)}
+                      onChange={() => toggleSelectQuote(quote.id)}
+                      className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
+                    />
+                  </div>
+                  <div className="w-28">
+                    <a
+                      href={`#/quotes/${quote.id}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleViewQuote(quote.id);
+                      }}
+                      className="text-sm font-medium text-gray-700 hover:text-aqua-600 transition-colors"
+                    >
+                      {quote.id}
+                    </a>
+                  </div>
+                  <div className="w-40 text-left">
+                    <span className="text-sm font-medium text-gray-700">{quote.customer}</span>
+                  </div>
+                  <div className="w-32 text-left">
+                    <span className="text-sm text-gray-700">{quote.eventType}</span>
+                  </div>
+                  <div className="w-28 text-left">
+                    <span className="text-sm text-gray-700">{formattedEventDate}</span>
+                  </div>
+                  <div className="w-32 text-left">
+                    <span className="text-sm text-gray-700 flex items-center">
+                      {quote.fulfillmentType === 'pickup'
+                        ? <><Package className="h-3 w-3 mr-1" /> {quote.pickupTime ? formatTime(quote.pickupTime) : 'TBD'}</>
+                        : <><Truck className="h-3 w-3 mr-1" /> {quote.deliveryTime ? formatTime(quote.deliveryTime) : 'TBD'}</>
+                      }
+                    </span>
+                  </div>
+                  <div className="w-28 text-right">
+                    <span className="text-sm font-medium text-gray-900">{formatCurrency(quote.amount)}</span>
+                  </div>
+                  <div className="w-24 flex justify-center">
+                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(quote.status)}`}>
+                      {getStatusIcon(quote.status)}
+                      {quote.status.charAt(0).toUpperCase() + quote.status.slice(1)}
+                    </span>
+                  </div>
+                </div>
+                <div className="w-12 flex justify-end">
+                  <button
+                    onClick={() => handleDeleteQuote(quote.id)}
+                    className="text-pink-600 hover:text-pink-900 transition-colors"
+                    title="Delete"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* No Results */}
+      {filteredQuotes.length === 0 && (
+        <div className="text-center py-12">
+          <div className="text-gray-500 text-lg">No quotes found</div>
+          <div className="text-gray-400 text-sm mt-2">
+            {searchTerm || statusFilter !== 'all'
+              ? 'Try adjusting your search or filter criteria'
+              : 'Get started by creating your first quote'
+            }
+          </div>
+        </div>
+      )}
+
+      {/* Pagination */}
+      {filteredQuotes.length > 0 && (
+        <div className="flex items-center justify-between mt-6">
+          <div className="text-sm text-gray-500">
+            Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, filteredQuotes.length)} of {filteredQuotes.length} quotes
+          </div>
+          <div className="flex space-x-2">
+            <button
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+              className={`px-3 py-1 border rounded-md text-sm ${
+                currentPage === 1
+                  ? 'border-gray-200 text-gray-400 cursor-not-allowed'
+                  : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+              }`}
+            >
+              Previous
+            </button>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((number) => (
+              <button
+                key={number}
+                onClick={() => paginate(number)}
+                className={`px-3 py-1 border rounded-md text-sm ${
+                  currentPage === number
+                    ? 'bg-coral-100 border-coral-500 text-coral-600'
+                    : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+                }`}
+              >
+                {number}
+              </button>
+            ))}
+            <button
+              onClick={() => paginate(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className={`px-3 py-1 border rounded-md text-sm ${
+                currentPage === totalPages
+                  ? 'border-gray-200 text-gray-400 cursor-not-allowed'
+                  : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+              }`}
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

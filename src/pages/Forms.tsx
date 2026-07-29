@@ -1,6 +1,6 @@
 // src/pages/Forms.tsx
 import React, { useState, useMemo } from "react";
-import { FileSignature, Plus, Trash2, Copy } from "lucide-react";
+import { ClipboardList, Plus, Trash2, Copy } from "lucide-react";
 import Header from "../components/Header";
 import { formTemplatesMock, FormTemplate } from "../data/mockForms";
 import { FormCategory } from "../types/formtemplate"; 
@@ -87,7 +87,7 @@ const handleFormClick = (id: string) => {
 
   return (
     <div className="p-6">
-      <Header title="Forms" icon={FileSignature} />
+      <Header title="Forms" icon={ClipboardList} />
  {/* Sorting Controls and New Form Button */}
       <div className="flex gap-4 mb-6 items-center flex-wrap text-sm mt-6 ml-5">
         <label>

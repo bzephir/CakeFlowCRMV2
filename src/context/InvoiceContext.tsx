@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Invoice, Payment } from '../types';
-import { mockInvoices, getOverdueInvoicesCount, getPendingInvoicesCount } from '../data/invoices';
+import { mockInvoicesList, getOverdueInvoicesCount, getPendingInvoicesCount } from '../data/mockData';
 
 interface InvoiceContextType {
   invoices: Invoice[];
@@ -45,7 +45,7 @@ export const InvoiceProvider: React.FC<InvoiceProviderProps> = ({ children }) =>
   // Initialize with mock data
   useEffect(() => {
     try {
-      setInvoices(mockInvoices);
+      setInvoices(mockInvoicesList);
       setLoading(false);
     } catch (err) {
       setError('Failed to load invoices');

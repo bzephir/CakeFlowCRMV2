@@ -1,0 +1,241 @@
+import { Vendor } from '../types/ingredient';
+
+export const mockVendors: Vendor[] = [
+  {
+    id: 'vendor-001',
+    name: 'King Arthur Baking Company',
+    contactPerson: 'Sarah Thompson',
+    email: 'orders@kingarthur.com',
+    phone: '(800) 827-6836',
+    address: '135 Route 5 South',
+    city: 'Norwich',
+    state: 'VT',
+    zip: '05055',
+    paymentTerms: 'Net 30',
+    notes: 'Premium baking ingredients, excellent customer service',
+    createdAt: '2024-01-01T08:00:00Z',
+    updatedAt: '2024-01-01T08:00:00Z'
+  },
+  {
+    id: 'vendor-002',
+    name: 'Guittard Chocolate Company',
+    contactPerson: 'Michael Chen',
+    email: 'wholesale@guittard.com',
+    phone: '(650) 697-4427',
+    address: '10 Guittard Road',
+    city: 'Burlingame',
+    state: 'CA',
+    zip: '94010',
+    paymentTerms: 'Net 30',
+    notes: 'Premium chocolate products, bulk discounts available',
+    createdAt: '2024-01-01T08:00:00Z',
+    updatedAt: '2024-01-01T08:00:00Z'
+  },
+  {
+    id: 'vendor-003',
+    name: 'Restaurant Depot',
+    contactPerson: 'James Wilson',
+    email: 'info@restaurantdepot.com',
+    phone: '(718) 547-2900',
+    address: 'Multiple Locations',
+    city: 'New York',
+    state: 'NY',
+    zip: '10001',
+    paymentTerms: 'COD or Net 7',
+    notes: 'Cash and carry, membership required',
+    createdAt: '2024-01-01T08:00:00Z',
+    updatedAt: '2024-01-01T08:00:00Z'
+  },
+  {
+    id: 'vendor-004',
+    name: 'Dairy Farmers of America',
+    contactPerson: 'Emily Rodriguez',
+    email: 'orders@dfamilk.com',
+    phone: '(888) 332-6455',
+    address: '1405 N 98th St',
+    city: 'Kansas City',
+    state: 'KS',
+    zip: '66111',
+    paymentTerms: 'Net 15',
+    notes: 'Fresh dairy products, weekly deliveries',
+    createdAt: '2024-01-01T08:00:00Z',
+    updatedAt: '2024-01-01T08:00:00Z'
+  },
+  {
+    id: 'vendor-005',
+    name: 'Nielsen-Massey Vanillas',
+    contactPerson: 'David Martinez',
+    email: 'info@nielsenmassey.com',
+    phone: '(847) 578-1550',
+    address: '1550 Shields Drive',
+    city: 'Waukegan',
+    state: 'IL',
+    zip: '60085',
+    paymentTerms: 'Net 30',
+    notes: 'Premium vanilla extracts and flavorings',
+    createdAt: '2024-01-01T08:00:00Z',
+    updatedAt: '2024-01-01T08:00:00Z'
+  },
+  {
+    id: 'vendor-006',
+    name: 'Bob\'s Red Mill',
+    contactPerson: 'Lisa Anderson',
+    email: 'wholesale@bobsredmill.com',
+    phone: '(800) 349-2173',
+    address: '13521 SE Pheasant Ct',
+    city: 'Milwaukie',
+    state: 'OR',
+    zip: '97222',
+    paymentTerms: 'Net 30',
+    notes: 'Specialty flours and grains, organic options available',
+    createdAt: '2024-01-01T08:00:00Z',
+    updatedAt: '2024-01-01T08:00:00Z'
+  },
+  {
+    id: 'vendor-007',
+    name: 'Sysco Foods',
+    contactPerson: 'Robert Taylor',
+    email: 'orders@sysco.com',
+    phone: '(281) 584-1390',
+    address: '1390 Enclave Pkwy',
+    city: 'Houston',
+    state: 'TX',
+    zip: '77077',
+    paymentTerms: 'Net 21',
+    notes: 'Full-service distributor, wide product range',
+    createdAt: '2024-01-01T08:00:00Z',
+    updatedAt: '2024-01-01T08:00:00Z'
+  },
+  {
+    id: 'vendor-008',
+    name: 'Honeyville',
+    contactPerson: 'Jennifer White',
+    email: 'sales@honeyville.com',
+    phone: '(888) 810-3212',
+    address: '2975 W Directors Row',
+    city: 'Salt Lake City',
+    state: 'UT',
+    zip: '84104',
+    paymentTerms: 'Net 30',
+    notes: 'Bulk ingredients, good pricing on large orders',
+    createdAt: '2024-01-01T08:00:00Z',
+    updatedAt: '2024-01-01T08:00:00Z'
+  },
+  {
+    id: 'vendor-009',
+    name: 'Bakery Supply Co',
+    contactPerson: 'Mark Stevens',
+    email: 'sales@bakerysupply.com',
+    phone: '(555) 123-4567',
+    address: '789 Baker Street',
+    city: 'Chicago',
+    state: 'IL',
+    zip: '60601',
+    paymentTerms: 'Net 30',
+    notes: 'Cake boards, drums, and baking tools',
+    createdAt: '2024-01-01T08:00:00Z',
+    updatedAt: '2024-01-01T08:00:00Z'
+  },
+  {
+    id: 'vendor-010',
+    name: 'Packaging Plus',
+    contactPerson: 'Amanda Johnson',
+    email: 'orders@packagingplus.com',
+    phone: '(555) 234-5678',
+    address: '456 Package Lane',
+    city: 'Los Angeles',
+    state: 'CA',
+    zip: '90001',
+    paymentTerms: 'Net 30',
+    notes: 'Boxes, wrapping materials, and bags',
+    createdAt: '2024-01-01T08:00:00Z',
+    updatedAt: '2024-01-01T08:00:00Z'
+  },
+  {
+    id: 'vendor-011',
+    name: 'Party Supplies Inc',
+    contactPerson: 'Tom Harris',
+    email: 'info@partysupplies.com',
+    phone: '(555) 345-6789',
+    address: '123 Party Avenue',
+    city: 'Miami',
+    state: 'FL',
+    zip: '33101',
+    paymentTerms: 'Net 15',
+    notes: 'Candles, toppers, and party decorations',
+    createdAt: '2024-01-01T08:00:00Z',
+    updatedAt: '2024-01-01T08:00:00Z'
+  },
+  {
+    id: 'vendor-012',
+    name: 'Baking Essentials',
+    contactPerson: 'Rachel Green',
+    email: 'wholesale@bakingessentials.com',
+    phone: '(555) 456-7890',
+    address: '321 Baking Blvd',
+    city: 'Seattle',
+    state: 'WA',
+    zip: '98101',
+    paymentTerms: 'Net 30',
+    notes: 'Decorations, sprinkles, and edible embellishments',
+    createdAt: '2024-01-01T08:00:00Z',
+    updatedAt: '2024-01-01T08:00:00Z'
+  },
+  {
+    id: 'vendor-013',
+    name: 'Specialty Florals',
+    contactPerson: 'Kevin Brown',
+    email: 'orders@specialtyflorals.com',
+    phone: '(555) 567-8901',
+    address: '654 Flower Road',
+    city: 'Portland',
+    state: 'OR',
+    zip: '97201',
+    paymentTerms: 'COD',
+    notes: 'Fresh flowers and edible florals',
+    createdAt: '2024-01-01T08:00:00Z',
+    updatedAt: '2024-01-01T08:00:00Z'
+  },
+  {
+    id: 'vendor-014',
+    name: 'Wedding Decor Plus',
+    contactPerson: 'Nicole Davis',
+    email: 'sales@weddingdecor.com',
+    phone: '(555) 678-9012',
+    address: '987 Wedding Way',
+    city: 'Nashville',
+    state: 'TN',
+    zip: '37201',
+    paymentTerms: 'Net 30',
+    notes: 'Wedding-specific cake toppers and decorations',
+    createdAt: '2024-01-01T08:00:00Z',
+    updatedAt: '2024-01-01T08:00:00Z'
+  },
+  {
+    id: 'vendor-015',
+    name: 'Custom Crafts Co',
+    contactPerson: 'Brian Wilson',
+    email: 'info@customcrafts.com',
+    phone: '(555) 789-0123',
+    address: '147 Craft Circle',
+    city: 'Austin',
+    state: 'TX',
+    zip: '78701',
+    paymentTerms: 'Net 30',
+    notes: 'Custom wood and acrylic cake toppers',
+    createdAt: '2024-01-01T08:00:00Z',
+    updatedAt: '2024-01-01T08:00:00Z'
+  }
+];
+
+export function getVendorById(id: string): Vendor | undefined {
+  return mockVendors.find(vendor => vendor.id === id);
+}
+
+export function getVendorsByName(searchTerm: string): Vendor[] {
+  const term = searchTerm.toLowerCase();
+  return mockVendors.filter(vendor =>
+    vendor.name.toLowerCase().includes(term) ||
+    (vendor.contactPerson?.toLowerCase().includes(term) ?? false)
+  );
+}

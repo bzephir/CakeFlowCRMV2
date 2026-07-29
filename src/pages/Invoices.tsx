@@ -1,27 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useInvoiceContext } from '../context/InvoiceContext';
 import Header from '../components/Header';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
 import { generateDocumentNumber } from '../utils/documentNumbering';
-import { 
-  Plus, 
-  Search, 
-  Filter, 
-  Eye, 
-  Edit, 
-  Mail,
-  Download,
-  Trash2,
-  CheckCircle2, 
-  DollarSign,
-  Clock, 
-  CreditCard,
-  AlertCircle,
-  FileText,
-  Hourglass,
-  Ban, 
-} from 'lucide-react';
+import { getInvoiceStatusColor, getInvoiceStatusText } from '../data/mockData';
+import { Plus, Search, Filter, Eye, CreditCard as Edit, Mail, Download, Trash2, CheckCircle2, DollarSign, Clock, CreditCard, AlertCircle, Hourglass, Ban, TrendingUp } from 'lucide-react';
 
 const Invoices: React.FC = () => {
   const navigate = useNavigate();
@@ -32,23 +16,10 @@ const Invoices: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  // Mock invoice data with new numbering format
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'pending': return 'bg-orange-100 text-orange-800';
-      case 'deposit-paid': return 'bg-aqua-100 text-aqua-800';
-      case 'partial': return 'bg-yellow-100 text-yellow-800';
-      case 'paid': return 'bg-mint-100 text-mint-800';
-      case 'overdue': return 'bg-red-200 text-red-900';
-      case 'cancelled': return 'bg-black-100 text-black-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
-  };
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'pending': return <Hourglass className="h-4 w-4 mr-1" />;
-      case 'deposit-paid': return <CreditCard className="h-4 w-4 mr-1" />;
+      case 'deposit_paid': return <CreditCard className="h-4 w-4 mr-1" />;
       case 'partial': return <Clock className="h-4 w-4 mr-1" />;
       case 'paid': return <CheckCircle2 className="h-4 w-4 mr-1" />;
       case 'overdue': return <AlertCircle className="h-4 w-4 mr-1" />;
@@ -57,20 +28,8 @@ const Invoices: React.FC = () => {
     }
   };
 
-  const getStatusText = (status: string) => {
-    switch (status) {
-      case 'pending;': return 'Pending';
-      case 'deposit-paid': return 'Deposit Paid';
-      case 'partial;': return 'Partial';
-      case 'paid': return 'Paid';
-      case 'overdue': return 'Overdue';
-      case 'cancelled;': return 'Cancelled';
-      default: return status;
-    }
-  };
-
   const handleViewInvoice = (invoiceId: string) => {
-    navigate(`/invoice/${invoiceId}`);
+    navigate(`/invoices/${invoiceId}`);
   };
 
   const handleCreateInvoice = () => {
@@ -142,6 +101,49 @@ const Invoices: React.FC = () => {
     return matchesSearch && matchesStatus;
   });
 
+  const invoiceStats = useMemo(() => {
+    const total = filteredInvoices.length;
+    const totalInvoiced = filteredInvoices.reduce((sum, inv) => sum + inv.total, 0);
+    const totalPaid = filteredInvoices.reduce((sum, inv) => sum + inv.amountPaid, 0);
+    const totalOutstanding = filteredInvoices.reduce((sum, inv) => sum + inv.balance, 0);
+
+    const pendingCount = filteredInvoices.filter(i => i.status === 'pending').length;
+    const depositPaidCount = filteredInvoices.filter(i => i.status === 'deposit_paid').length;
+    const partialCount = filteredInvoices.filter(i => i.status === 'partial').length;
+    const paidCount = filteredInvoices.filter(i => i.status === 'paid').length;
+    const overdueCount = filteredInvoices.filter(i => i.status === 'overdue').length;
+    const cancelledCount = filteredInvoices.filter(i => i.status === 'cancelled').length;
+
+    const collectionRate = totalInvoiced > 0
+      ? ((totalPaid / totalInvoiced) * 100).toFixed(0)
+      : 0;
+
+    const averageValue = total > 0 ? totalInvoiced / total : 0;
+
+    return {
+      total,
+      totalInvoiced,
+      totalPaid,
+      totalOutstanding,
+      pendingCount,
+      depositPaidCount,
+      partialCount,
+      paidCount,
+      overdueCount,
+      cancelledCount,
+      collectionRate,
+      averageValue,
+    };
+  }, [filteredInvoices]);
+
+  const handleSummaryFilter = (status: string) => {
+    if (statusFilter === status) {
+      setStatusFilter('all');
+    } else {
+      setStatusFilter(status);
+    }
+  };
+
   // Pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -185,7 +187,7 @@ const Invoices: React.FC = () => {
               >
                 <option value="all">All Statuses</option>
                 <option value="pending">Pending</option>
-                <option value="deposit-paid">Deposit Paid</option>
+                <option value="deposit_paid">Deposit Paid</option>
                 <option value="partial">Partial</option>
                 <option value="paid">Paid</option>
                 <option value="overdue">Overdue</option>
@@ -194,13 +196,72 @@ const Invoices: React.FC = () => {
             </div>
           </div>
           
-          <button 
+          <button
             onClick={handleCreateInvoice}
             className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all"
           >
             <Plus className="h-4 w-4 mr-2" />
             Create Invoice
           </button>
+        </div>
+
+        {/* Summary Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+          <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-coral-500 rounded-full flex items-center justify-center">
+                  <DollarSign className="h-4 w-4 text-white" />
+                </div>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-500">Total Invoiced</p>
+                <p className="text-lg font-semibold text-gray-900">{formatCurrency(invoiceStats.totalInvoiced)}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-gradient-to-r from-mint-400 to-mint-500 rounded-full flex items-center justify-center">
+                  <CheckCircle2 className="h-4 w-4 text-white" />
+                </div>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-500">Paid</p>
+                <p className="text-lg font-semibold text-gray-900">{invoiceStats.paidCount}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-gradient-to-r from-pink-400 to-pink-500 rounded-full flex items-center justify-center">
+                  <AlertCircle className="h-4 w-4 text-white" />
+                </div>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-500">Overdue</p>
+                <p className="text-lg font-semibold text-gray-900">{invoiceStats.overdueCount}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-gradient-to-r from-aqua-400 to-aqua-500 rounded-full flex items-center justify-center">
+                  <TrendingUp className="h-4 w-4 text-white" />
+                </div>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-500">Outstanding</p>
+                <p className="text-lg font-semibold text-gray-900">{formatCurrency(invoiceStats.totalOutstanding)}</p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Bulk Actions */}
@@ -226,147 +287,139 @@ const Invoices: React.FC = () => {
           </div>
         )}
 
-        {/* Invoices Table */}
-        <div className="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-2 py-1 text-left">
-                    <div className="flex items-center">
-                      <input
-                        type="checkbox"
-                        checked={selectedInvoices.length === filteredInvoices.length && filteredInvoices.length > 0}
-                        onChange={toggleSelectAll}
-                        className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
-                      />
-                    </div>
-                  </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Invoice #
-                  </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Date
-                  </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Customer
-                  </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Event Type
-                  </th>
-                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Total
-                  </th>
-                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Paid
-                  </th>
-                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Balance Due
-                  </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Next Payment
-                  </th>
-                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {currentInvoices.map((invoice) => (
-                  <tr key={invoice.id} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="flex items-center">
-                        <input
-                          type="checkbox"
-                          checked={selectedInvoices.includes(invoice.id)}
-                          onChange={() => toggleSelectInvoice(invoice.id)}
-                          className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
-                        />
-                      </div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900 cursor-pointer hover:text-aqua-600" onClick={() => handleViewInvoice(invoice.id)}>
-                        {invoice.id}
-                      </div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{formatDate(invoice.issueDate)}</div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
-                        {invoice.firstName} {invoice.lastName}
-                      </div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900 capitalize">{invoice.eventType}</div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap text-right">
-                      <div className="text-sm font-medium text-gray-900">{formatCurrency(invoice.total)}</div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap text-right">
-                      <div className="text-sm font-medium text-gray-900">{formatCurrency(invoice.amountPaid)}</div>
-                    </td>
-                      <td className="px-2 py-1 whitespace-nowrap text-right">
-                        <div className="text-sm font-medium text-gray-900">{formatCurrency(invoice.balance)}</div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">
-                        {invoice.nextPaymentDueDate ? formatDate(invoice.nextPaymentDueDate) : formatDate(invoice.dueDate)}
-                      </div>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap">
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(invoice.status)}`}>
-                        {getStatusIcon(invoice.status)}
-                        {getStatusText(invoice.status)}
-                      </span>
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap text-right text-sm font-medium">
-                      <div className="flex justify-end space-x-2">
-                        <button 
-                          onClick={() => handleViewInvoice(invoice.id)}
-                          className="text-aqua-600 hover:text-aqua-900 transition-colors"
-                          title="View"
-                        >
-                          <Eye className="h-4 w-4" />
-                        </button>
-                        <button 
-                          onClick={() => handleEditInvoice(invoice.id)}
-                          className="text-coral-600 hover:text-coral-900 transition-colors"
-                          title="Edit"
-                        >
-                          <Edit className="h-4 w-4" />
-                        </button>
-                        <button 
-                          onClick={() => handleSendInvoice(invoice.id)}
-                          className="text-mint-600 hover:text-mint-900 transition-colors"
-                          title="Send"
-                        >
-                          <Mail className="h-4 w-4" />
-                        </button>
-                        <button 
-                          onClick={() => handleDownloadInvoice(invoice.id)}
-                          className="text-aqua-600 hover:text-aqua-900 transition-colors"
-                          title="Download"
-                        >
-                          <Download className="h-4 w-4" />
-                        </button>
-                        <button 
-                          onClick={() => handleDeleteInvoice(invoice.id)}
-                          className="text-pink-600 hover:text-pink-900 transition-colors"
-                          title="Delete"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        {/* Invoices Header */}
+        <div className="bg-gray-50 rounded-t-lg border border-gray-200 border-b-0">
+          <div className="flex items-center justify-between px-4 py-2">
+            <div className="flex items-center space-x-4 flex-1">
+              <div className="w-10 flex justify-center">
+                <input
+                  type="checkbox"
+                  checked={selectedInvoices.length === filteredInvoices.length && filteredInvoices.length > 0}
+                  onChange={toggleSelectAll}
+                  className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
+                />
+              </div>
+              <div className="w-28">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Invoice #</span>
+              </div>
+              <div className="w-24 text-left">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Date</span>
+              </div>
+              <div className="w-36 text-left">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</span>
+              </div>
+              <div className="w-24 text-left">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Event Type</span>
+              </div>
+              <div className="w-24 text-right">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Total</span>
+              </div>
+              <div className="w-24 text-right">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Paid</span>
+              </div>
+              <div className="w-24 text-right">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Balance Due</span>
+              </div>
+              <div className="w-28 text-left">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Next Payment</span>
+              </div>
+              <div className="w-32 text-center">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Status</span>
+              </div>
+            </div>
+            <div className="w-44">
+              <span className="text-xs font-medium text-gray-500 uppercase tracking-wider"></span>
+            </div>
           </div>
+        </div>
+
+        {/* Invoices List */}
+        <div className="space-y-0">
+          {currentInvoices.map((invoice) => (
+            <div key={invoice.id} className="bg-white border-l border-r border-b border-gray-200 shadow-sm overflow-hidden hover:bg-gray-50 transition-colors">
+              <div className="flex items-center justify-between px-4 py-2">
+                <div className="flex items-center space-x-4 flex-1">
+                  <div className="w-10 flex justify-center">
+                    <input
+                      type="checkbox"
+                      checked={selectedInvoices.includes(invoice.id)}
+                      onChange={() => toggleSelectInvoice(invoice.id)}
+                      className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
+                    />
+                  </div>
+                  <div className="w-28">
+                    <span className="text-sm font-medium text-gray-700 cursor-pointer hover:text-aqua-600" onClick={() => handleViewInvoice(invoice.id)}>
+                      {invoice.id}
+                    </span>
+                  </div>
+                  <div className="w-24 text-left">
+                    <span className="text-sm text-gray-700">{formatDate(invoice.issueDate)}</span>
+                  </div>
+                  <div className="w-36 text-left">
+                    <span className="text-sm font-medium text-gray-700">{invoice.firstName} {invoice.lastName}</span>
+                  </div>
+                  <div className="w-24 text-left">
+                    <span className="text-sm text-gray-700">{invoice.eventType}</span>
+                  </div>
+                  <div className="w-24 text-right">
+                    <span className="text-sm font-medium text-gray-900">{formatCurrency(invoice.total)}</span>
+                  </div>
+                  <div className="w-24 text-right">
+                    <span className="text-sm font-medium text-gray-900">{formatCurrency(invoice.amountPaid)}</span>
+                  </div>
+                  <div className="w-24 text-right">
+                    <span className="text-sm font-medium text-gray-900">{formatCurrency(invoice.balance)}</span>
+                  </div>
+                  <div className="w-28 text-left">
+                    <span className="text-sm text-gray-700">{formatDate(invoice.dueDate)}</span>
+                  </div>
+                  <div className="w-32 flex justify-center">
+                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${getInvoiceStatusColor(invoice.status)}`}>
+                      {getStatusIcon(invoice.status)}
+                      {getInvoiceStatusText(invoice.status)}
+                    </span>
+                  </div>
+                </div>
+                <div className="w-44 flex justify-end space-x-2">
+                  <button
+                    onClick={() => handleViewInvoice(invoice.id)}
+                    className="text-aqua-600 hover:text-aqua-900 transition-colors"
+                    title="View"
+                  >
+                    <Eye className="h-4 w-4" />
+                  </button>
+                  <button
+                    onClick={() => handleEditInvoice(invoice.id)}
+                    className="text-coral-600 hover:text-coral-900 transition-colors"
+                    title="Edit"
+                  >
+                    <Edit className="h-4 w-4" />
+                  </button>
+                  <button
+                    onClick={() => handleSendInvoice(invoice.id)}
+                    className="text-mint-600 hover:text-mint-900 transition-colors"
+                    title="Send"
+                  >
+                    <Mail className="h-4 w-4" />
+                  </button>
+                  <button
+                    onClick={() => handleDownloadInvoice(invoice.id)}
+                    className="text-aqua-600 hover:text-aqua-900 transition-colors"
+                    title="Download"
+                  >
+                    <Download className="h-4 w-4" />
+                  </button>
+                  <button
+                    onClick={() => handleDeleteInvoice(invoice.id)}
+                    className="text-pink-600 hover:text-pink-900 transition-colors"
+                    title="Delete"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
 
         {/* No Results */}

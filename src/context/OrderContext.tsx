@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Order, OrderAction } from '../types';
-import { mockOrders, getNewOrdersCount } from '../data/orders';
+import { mockOrdersList, getNewOrdersCount } from '../data/mockData';
 
 interface OrderContextType {
   orders: Order[];
@@ -43,7 +43,7 @@ export const OrderProvider: React.FC<OrderProviderProps> = ({ children }) => {
   // Initialize with mock data
   useEffect(() => {
     try {
-      setOrders(mockOrders);
+      setOrders(mockOrdersList as any);
       setLoading(false);
     } catch (err) {
       setError('Failed to load orders');

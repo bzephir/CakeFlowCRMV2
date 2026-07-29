@@ -92,8 +92,6 @@ export interface Quote {
   fulfillmentType: 'pickup' | 'delivery';
   pickupTime?: string;
   deliveryTime?: string;
-  pickupTime: string;
-  deliveryTime: string;
   eventDate: string;
   status: 'accepted' | 'sent' | 'draft' | 'rejected' | 'expired';
   total: number;
@@ -101,18 +99,62 @@ export interface Quote {
   expiryDate: string;
 }
 
+export interface InvoiceItem {
+  id: string;
+  name: string;
+  description: string;
+  quantity: number;
+  unitPrice: number;
+  total: number;
+}
+
+export interface Payment {
+  id: string;
+  date: string;
+  amount: number;
+  method: string;
+  reference?: string;
+}
+
 export interface Invoice {
   id: string;
+  invoiceNumber: string;
+  orderId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  address1?: string;
+  address2?: string;
+  city?: string;
+  state?: string;
+  zip?: string;
+  eventType: string;
+  eventName?: string;
   eventDate: string;
+  eventTime?: string;
+  guestCount?: number;
   fulfillmentType: 'pickup' | 'delivery';
   pickupTime?: string;
   deliveryTime?: string;
-  eventTime?: string;
-  status: 'paid' | 'deposit-paid' | 'pending' | 'overdue' | 'draft';
+  venue?: string;
+  items: InvoiceItem[];
+  subtotal: number;
+  taxRate: number;
+  taxAmount: number;
   total: number;
+  payments: Payment[];
+  amountPaid: number;
   balance: number;
+  nextPaymentDueDate?: string;
+  status: 'paid' | 'deposit_paid' | 'partial' | 'pending' | 'overdue' | 'draft';
   issueDate: string;
   dueDate: string;
+  notes?: string;
+  internalNotes?: string;
+  termsConditions?: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface Communication {
@@ -142,31 +184,6 @@ export interface Event {
   status: string;
 }
 
-export interface Recipe {
-  id: string;
-  name: string;
-  category: string;
-  servings: number;
-  prepTime: number;
-  difficulty: 'easy' | 'medium' | 'hard';
-  ingredients: Ingredient[];
-  instructions: string[];
-  cost: number;
-  profitMargin: number;
-  sellingPrice: number;
-}
-
-export interface Ingredient {
-  id: string;
-  name: string;
-  category: string;
-  unit: string;
-  costPerUnit: number;
-  quantity: number;
-  supplier?: string;
-  inStock: number;
-  reorderLevel: number;
-}
 
 // Comprehensive Inquiry Interface
 export interface Inquiry {
@@ -290,3 +307,38 @@ export interface InquiryForm {
   submittedAt: string;
   status: 'new' | 'contacted' | 'quoted' | 'converted' | 'declined';
 }
+
+export type MaterialCategory =
+  | 'Cake Boards'
+  | 'Cake Boxes'
+  | 'Cake Drums'
+  | 'Cupcake Containers'
+  | 'Decorations'
+  | 'Toppers'
+  | 'Wrapping Materials'
+  | 'Straws'
+  | 'Bags'
+  | 'Miscellaneous';
+
+export interface Material {
+  id: string;
+  name: string;
+  category: MaterialCategory;
+  unitQuantity: number;
+  packageCost: number;
+  costPerItem: number;
+  pricePerItem: number;
+  profitMargin: number;
+  inventoryQuantity: number;
+  totalItemsAvailable: number;
+  reorderLevel: number;
+  supplierId?: string;
+  vendorId?: string;
+  vendorName?: string;
+  canLinkToRecipe: boolean;
+  notes?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export * from './package';

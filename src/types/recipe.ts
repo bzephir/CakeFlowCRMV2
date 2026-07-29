@@ -22,20 +22,22 @@ export interface Recipe {
   
   // Packaging/Materials (optional)
   packaging?: PackagingItem[];
-  
-  // Pricing
-  sellingPrice: number;
-  
-  // Calculated fields
+
+  // Cost fields
   totalCost: number;
   costPerUnit: number;
-  marginPercentage: number;
-  profitPerUnit: number;
   
+  // Pricing fields
+  sellingPrice?: number;
+  marginPercentage?: number;
+  profitPerUnit?: number;
+  laborRate?: number;
+
   // Metadata
   createdAt: string;
   updatedAt: string;
   createdBy: string;
+  updatedBy?: string;
   lastUsed?: string;
   timesUsed: number;
 }
@@ -99,15 +101,15 @@ export interface RecipeUsage {
   }[];
 }
 
-export interface RecipeMarginReport {
+export interface RecipeCostReport {
   recipeId: string;
   name: string;
   category: string;
   totalCost: number;
-  sellingPrice: number;
-  marginPercentage: number;
-  profitPerUnit: number;
+  costPerUnit: number;
   timesUsed: number;
-  totalRevenue: number;
-  totalProfit: number;
+  yield: {
+    quantity: number;
+    unit: string;
+  };
 }

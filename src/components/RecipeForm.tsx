@@ -32,6 +32,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [descriptionWordCount, setDescriptionWordCount] = useState<number>(0);
 
   // Mock ingredients database
   const availableIngredients = [
@@ -59,6 +60,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
   useEffect(() => {
     if (recipe) {
       setFormData(recipe);
+      setDescriptionWordCount(countWords(recipe.description || ''));
     } else {
       setFormData({
         name: '',
@@ -80,6 +82,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
         marginPercentage: 0,
         profitPerUnit: 0
       });
+      setDescriptionWordCount(0);
     }
   }, [recipe]);
 
@@ -106,9 +109,18 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
     }));
   };
 
+  const countWords = (text: string): number => {
+    return text.trim().split(/\s+/).filter(word => word.length > 0).length;
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    
+
+    if (name === 'description') {
+      const wordCount = countWords(value);
+      setDescriptionWordCount(wordCount);
+    }
+
     if (name.startsWith('yield.')) {
       const yieldField = name.split('.')[1];
       setFormData(prev => ({
@@ -278,6 +290,10 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
     if (!formData.category) {
       newErrors.category = 'Category is required';
     }
+    const descWordCount = countWords(formData.description || '');
+    if (descWordCount > 15) {
+      newErrors.description = `Description must be 15 words or less (currently ${descWordCount} words)`;
+    }
     if (!formData.yield?.quantity || formData.yield.quantity < 1) {
       newErrors['yield.quantity'] = 'Yield quantity must be at least 1';
     }
@@ -438,16 +454,39 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
               <div className="md:col-span-2">
                 <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
                   Description
+                  <span className="text-xs text-gray-500 ml-2">(15 words maximum)</span>
                 </label>
                 <textarea
                   id="description"
                   name="description"
-                  rows={3}
+                  rows={2}
                   value={formData.description || ''}
                   onChange={handleInputChange}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
-                  placeholder="Describe the recipe..."
+                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                    errors.description
+                      ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
+                      : descriptionWordCount > 15
+                      ? 'border-yellow-400 focus:ring-yellow-500 focus:border-yellow-500'
+                      : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                  }`}
+                  placeholder="Brief description of the recipe (15 words max)..."
                 />
+                <div className="mt-1 flex items-center justify-between">
+                  <div>
+                    {errors.description && (
+                      <p className="text-sm text-red-600">{errors.description}</p>
+                    )}
+                  </div>
+                  <p className={`text-xs ${
+                    descriptionWordCount > 15
+                      ? 'text-red-600 font-medium'
+                      : descriptionWordCount > 12
+                      ? 'text-yellow-600'
+                      : 'text-gray-500'
+                  }`}>
+                    {descriptionWordCount}/15 words
+                  </p>
+                </div>
               </div>
             </div>
           </div>

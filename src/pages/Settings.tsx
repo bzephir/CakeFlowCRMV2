@@ -41,7 +41,8 @@ import {
   CreditCard as CardIcon,
   Receipt,
   Gift,
-  TrendingUp
+  TrendingUp,
+  ToolCase
 } from 'lucide-react';
 
 const Settings: React.FC = () => {

@@ -88,41 +88,48 @@ const Reports: React.FC = () => {
       </div>
 
       {/* Tab Navigation */}
-      <div className="border-b flex gap-6 mb-6">
-        <button
-          className={`py-2 border-b-2 ${
-            activeTab === 'salesOverview'
-              ? 'border-indigo-500 text-indigo-600 font-semibold'
-              : 'border-transparent text-gray-500'
-          }`}
-          onClick={() => setActiveTab('salesOverview')}
-        >
-          Sales Overview
-        </button>
-        <button
-          className={`py-2 border-b-2 ${
-            activeTab === 'orderSummary'
-              ? 'border-indigo-500 text-indigo-600 font-semibold'
-              : 'border-transparent text-gray-500'
-          }`}
-          onClick={() => setActiveTab('orderSummary')}
-        >
-          Order Summary
-        </button>
-        <button
-          className={`py-2 border-b-2 ${
-            activeTab === 'customerGrowth'
-              ? 'border-indigo-500 text-indigo-600 font-semibold'
-              : 'border-transparent text-gray-500'
-          }`}
-          onClick={() => setActiveTab('customerGrowth')}
-        >
-          Customer Growth
-        </button>
-      </div>
+      <div className="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden">
+        <div className="border-b border-gray-200">
+          <nav className="flex">
+            <button
+              className={`flex items-center py-3 px-4 font-medium text-sm transition-all border-b-2 ${
+                activeTab === 'salesOverview'
+                  ? 'border-coral-500 text-coral-600 bg-coral-50'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50'
+              }`}
+              onClick={() => setActiveTab('salesOverview')}
+            >
+              Sales Overview
+            </button>
+            <button
+              className={`flex items-center py-3 px-4 font-medium text-sm transition-all border-b-2 ${
+                activeTab === 'orderSummary'
+                  ? 'border-coral-500 text-coral-600 bg-coral-50'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50'
+              }`}
+              onClick={() => setActiveTab('orderSummary')}
+            >
+              Order Summary
+            </button>
+            <button
+              className={`flex items-center py-3 px-4 font-medium text-sm transition-all border-b-2 ${
+                activeTab === 'customerGrowth'
+                  ? 'border-coral-500 text-coral-600 bg-coral-50'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50'
+              }`}
+              onClick={() => setActiveTab('customerGrowth')}
+            >
+              Customer Growth
+            </button>
+          </nav>
+        </div>
 
-      {/* Tab Content */}
-      <div className="bg-white border rounded-md p-6 shadow-sm min-h-[200px]">
+        {/* Tab Content */}
+        <div className={`p-6 transition-colors min-h-[200px] ${
+          activeTab === 'salesOverview' ? 'bg-coral-50/30' :
+          activeTab === 'orderSummary' ? 'bg-coral-50/30' :
+          activeTab === 'customerGrowth' ? 'bg-coral-50/30' : ''
+        }`}>
         {isLoading ? (
           <div className="text-gray-400 text-center py-10">Loading...</div>
         ) : isError ? (
@@ -167,6 +174,7 @@ const Reports: React.FC = () => {
             )}
           </>
         )}
+        </div>
       </div>
     </div>
   );
