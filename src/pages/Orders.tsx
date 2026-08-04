@@ -4,18 +4,21 @@ import Header from '../components/Header';
 import { mockOrdersList } from '../data/mockData';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
 import { generateDocumentNumber } from '../utils/documentNumbering';
+import { isNewByOpenedAt, getNewItemRowClass } from '../utils/newItemHighlight';
+import { useOrderContext } from '../context/OrderContext';
 import { Plus, Search, Filter, Eye, CreditCard as Edit, Mail, Trash2, Download, Calendar, Copy, FileText, Clock, CheckCircle2, XCircle, AlertCircle, ArrowRightCircle, Package, Truck, DollarSign, TrendingUp, CircleDollarSign, Hourglass } from 'lucide-react';
 
 const Orders: React.FC = () => {
   const navigate = useNavigate();
+  const { markAsOpened, orders: contextOrders } = useOrderContext();
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  // Use centralized mock data
-  const orders = mockOrdersList;
+  // Use orders from context (reflects openedAt updates)
+  const orders = contextOrders.length > 0 ? contextOrders : mockOrdersList;
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -42,6 +45,7 @@ const Orders: React.FC = () => {
   };
 
   const handleViewOrder = (orderId: string) => {
+    markAsOpened(orderId);
     navigate(`/orders/${orderId}`);
   };
 
@@ -336,7 +340,7 @@ const Orders: React.FC = () => {
         {/* Orders List */}
         <div className="space-y-0">
           {currentOrders.map((order) => (
-            <div key={order.id} className="bg-white border-l border-r border-b border-gray-200 shadow-sm overflow-hidden hover:bg-gray-50 transition-colors">
+            <div key={order.id} className={`${getNewItemRowClass(isNewByOpenedAt(order.openedAt))} border-l border-r border-b border-gray-200 shadow-sm overflow-hidden transition-colors`}>
               <div className="flex items-center justify-between px-4 py-2">
                 <div className="flex items-center space-x-4 flex-1">
                   <div className="w-10 flex justify-center">

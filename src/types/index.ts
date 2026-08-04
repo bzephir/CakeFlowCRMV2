@@ -48,6 +48,7 @@ export interface Order {
   balance?: number;
   depositPaid: number;
   createdAt: string;
+  openedAt?: string | null;
 }
 
 export interface OrderItem {
@@ -213,7 +214,8 @@ export interface Inquiry {
   submittedAt: string;
   lastUpdated: string;
   assignedTo?: string;
-  
+  openedAt?: string | null;
+
   // Action history
   actions: InquiryAction[];
 }

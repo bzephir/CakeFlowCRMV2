@@ -4,43 +4,14 @@ import { useInquiryContext } from '../context/InquiryContext';
 import { useQuoteContext } from '../context/QuoteContext';
 import Header from '../components/Header';
 import { formatTime } from '../utils/formatters';
-import { 
-  ArrowLeft,
-  ArrowRight,
-  Mail,
-  Phone,
-  Calendar,
-  Clock,
-  User,
-  MessageSquare,
-  CheckCircle2,
-  XCircle,
-  FileText,
-  DollarSign,
-  Send,
-  Plus,
-  Edit,
-  Cake,
-  Building2,
-  Users,
-  MapPin,
-  Tag,
-  AlertCircle,
-  Palette,
-  Package,
-  FileCheck,
-  Utensils,
-  Truck,
-  Briefcase,
-  Eye
-} from 'lucide-react';
+import { ArrowLeft, ArrowRight, Mail, Phone, Calendar, Clock, User, MessageSquare, CheckCircle2, XCircle, FileText, DollarSign, Send, Plus, CreditCard as Edit, Cake, Building2, Users, MapPin, Tag, AlertCircle, Palette, Package, FileCheck, Utensils, Truck, Briefcase, Eye } from 'lucide-react';
 import { Inquiry, InquiryAction } from '../types';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 
 const InquiryDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { getInquiryById, updateInquiry, addAction } = useInquiryContext();
+  const { getInquiryById, updateInquiry, addAction, markAsOpened } = useInquiryContext();
   const { addQuote } = useQuoteContext();
   
   const [inquiry, setInquiry] = useState<Inquiry | undefined>(undefined);
@@ -50,11 +21,12 @@ const InquiryDetail: React.FC = () => {
 
   useEffect(() => {
     if (id) {
+      markAsOpened(id);
       const inquiryData = getInquiryById(id);
       setInquiry(inquiryData);
       setLoading(false);
     }
-  }, [id, getInquiryById]);
+  }, [id, getInquiryById, markAsOpened]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);

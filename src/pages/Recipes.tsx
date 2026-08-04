@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { mockRecipes, getRecipeCategories, calculateAverageCost } from '../data/mockRecipes';
 import type { Recipe } from '../types/recipe';
+import { isNewByDate, getNewItemRowClass } from '../utils/newItemHighlight';
 
 const Recipes: React.FC = () => {
   const navigate = useNavigate();
@@ -308,7 +309,7 @@ const Recipes: React.FC = () => {
             const isExpanded = expandedId === recipe.id;
 
             return (
-              <div key={recipe.id} className="bg-white border-l border-r border-b border-gray-200 shadow-sm overflow-hidden hover:bg-gray-50 transition-colors">
+              <div key={recipe.id} className={`${getNewItemRowClass(isNewByDate(recipe.createdAt))} border-l border-r border-b border-gray-200 shadow-sm overflow-hidden transition-colors`}>
                 <div
                   className="flex items-center justify-between px-4 py-2 cursor-pointer"
                   onClick={() => toggleExpand(recipe.id)}

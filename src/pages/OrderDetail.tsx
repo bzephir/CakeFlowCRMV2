@@ -4,50 +4,27 @@ import Header from '../components/Header';
 import { mockSampleOrder, mockSampleOrdersDetail } from '../data/mockData';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
 import { generateDocumentNumber } from '../utils/documentNumbering';
-import { 
-  ArrowLeft,
-  Edit,
-  Copy,
-  Mail,
-  Download,
-  Trash2,
-  CheckCircle2, 
-  Clock, 
-  AlertCircle,
-  FileText,
-  DollarSign,
-  Send,
-  Package,
-  Truck,
-  MapPin,
-  Users,
-  User,
-  MessageSquare,
-  Calculator,
-  Calendar,
-  Tag,
-  Utensils,
-  Briefcase,
-  FileCheck,
-  Palette,
-  Cake,
-  Building2
-} from 'lucide-react';
+import { ArrowLeft, CreditCard as Edit, Copy, Mail, Download, Trash2, CheckCircle2, Clock, AlertCircle, FileText, DollarSign, Send, Package, Truck, MapPin, Users, User, MessageSquare, Calculator, Calendar, Tag, Utensils, Briefcase, FileCheck, Palette, Cake, Building2 } from 'lucide-react';
 import {
   CelebrationInquiryDetails,
   WeddingInquiryDetails,
   CorporateInquiryDetails
 } from '../types';
+import { useOrderContext } from '../context/OrderContext';
 
 const OrderDetail: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { markAsOpened } = useOrderContext();
   const [order, setOrder] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // In a real application, you would fetch the order data from an API
     // using the 'id' from useParams. For now, we use mock data.
+    if (id) {
+      markAsOpened(id);
+    }
     const foundOrder = mockSampleOrdersDetail.find(order => order.id === id);
     if (foundOrder) {
       setOrder(foundOrder);
@@ -56,7 +33,7 @@ const OrderDetail: React.FC = () => {
       setOrder(null);
     }
     setLoading(false);
-  }, [id]);
+  }, [id, markAsOpened]);
 
   const getStatusColor = (status: string) => {
     switch (status) {

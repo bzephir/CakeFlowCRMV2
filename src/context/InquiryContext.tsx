@@ -130,11 +130,15 @@ export const InquiryProvider: React.FC<InquiryProviderProps> = ({ children }) =>
 
   const markAsOpened = (id: string) => {
     const inquiry = inquiries.find(inq => inq.id === id);
-    if (inquiry && inquiry.status === 'new') {
-      updateInquiry(id, { 
-        status: 'opened',
-        assignedTo: 'admin' // In a real app, this would be the current user
-      });
+    if (inquiry && !inquiry.openedAt) {
+      const updates: Partial<Inquiry> = {
+        openedAt: new Date().toISOString(),
+        assignedTo: 'admin'
+      };
+      if (inquiry.status === 'new') {
+        updates.status = 'opened';
+      }
+      updateInquiry(id, updates);
     }
   };
 

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useInquiryContext } from '../context/InquiryContext';
 import Header from '../components/Header';
 import { formatDate, formatTime } from '../utils/formatters';
+import { isNewByOpenedAt, getNewItemRowClass } from '../utils/newItemHighlight';
 import { 
   Plus, 
   Search, 
@@ -241,7 +242,7 @@ const Inquiries: React.FC = () => {
         {/* Inquiries List */}
         <div className="space-y-0">
           {sortedInquiries.map((inquiry) => (
-            <div key={inquiry.id} className={`bg-white border-l border-r border-b border-gray-200 shadow-sm overflow-hidden hover:bg-gray-50 transition-colors ${inquiry.status === 'new' ? 'bg-coral-50' : ''}`}>
+            <div key={inquiry.id} className={`${getNewItemRowClass(isNewByOpenedAt(inquiry.openedAt))} border-l border-r border-b border-gray-200 shadow-sm overflow-hidden transition-colors`}>
               <div className="flex items-center justify-between px-4 py-2">
                 <div className="flex items-center space-x-4 flex-1">
                   <div className="w-40">

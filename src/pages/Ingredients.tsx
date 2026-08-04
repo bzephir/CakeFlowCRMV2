@@ -8,6 +8,7 @@ import { Plus, Search, Filter, Package, DollarSign, AlertTriangle, CreditCard as
 import { mockIngredients, getIngredientCategories, getLowStockIngredients } from '../data/mockIngredients';
 import { mockVendors } from '../data/mockVendors';
 import type { MasterIngredient } from '../types/ingredient';
+import { isNewByDate, getNewItemRowClass } from '../utils/newItemHighlight';
 
 const Ingredients: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -295,7 +296,7 @@ const Ingredients: React.FC = () => {
             const recipesUsing = mockRecipesUsingIngredient(ingredient.id);
 
             return (
-              <div key={ingredient.id} className="bg-white border-l border-r border-b border-gray-200 shadow-sm overflow-hidden hover:bg-gray-50 transition-colors">
+              <div key={ingredient.id} className={`${getNewItemRowClass(isNewByDate(ingredient.createdAt))} border-l border-r border-b border-gray-200 shadow-sm overflow-hidden transition-colors`}>
                 <div
                   className="flex items-center justify-between px-4 py-2 cursor-pointer"
                   onClick={() => toggleExpand(ingredient.id)}

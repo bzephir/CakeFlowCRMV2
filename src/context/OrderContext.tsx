@@ -130,10 +130,10 @@ export const OrderProvider: React.FC<OrderProviderProps> = ({ children }) => {
 
   const markAsOpened = (id: string) => {
     const order = orders.find(o => o.id === id);
-    if (order && order.status === 'inquiry') {
-      updateOrder(id, { 
-        status: 'quoted',
-        assignedTo: 'admin' // In a real app, this would be the current user
+    if (order && !order.openedAt) {
+      updateOrder(id, {
+        openedAt: new Date().toISOString(),
+        assignedTo: 'admin'
       });
     }
   };
