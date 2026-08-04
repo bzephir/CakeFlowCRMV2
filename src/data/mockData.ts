@@ -180,6 +180,7 @@ export const mockInquiries: Inquiry[] = [
         contact: 'sarah@elegantevents.com'
       }
     },
+    openedAt: null,
     submittedAt: '2025-01-15T10:30:00Z',
     lastUpdated: '2025-01-15T10:30:00Z',
     actions: [
@@ -220,6 +221,7 @@ export const mockInquiries: Inquiry[] = [
       cakeTasting: false,
       inspirationPhotos: ['photo1.jpg', 'photo2.jpg']
     },
+    openedAt: null,
     submittedAt: '2025-01-14T15:45:00Z',
     lastUpdated: '2025-01-15T09:15:00Z',
     assignedTo: 'admin',
@@ -290,6 +292,7 @@ export const mockInquiries: Inquiry[] = [
       approvalProcess: 'Manager approval required for orders over $300',
       invoicingRequirements: 'Net 30 payment terms, PO number required'
     },
+    openedAt: '2025-01-14T10:00:00Z',
     submittedAt: '2025-01-13T11:20:00Z',
     lastUpdated: '2025-01-14T16:30:00Z',
     assignedTo: 'admin',
@@ -374,6 +377,7 @@ export const mockInquiries: Inquiry[] = [
       cakeTasting: true,
       inspirationPhotos: ['anniversary1.jpg', 'anniversary2.jpg', 'anniversary3.jpg']
     },
+    openedAt: '2025-01-11T09:30:00Z',
     submittedAt: '2025-01-10T14:20:00Z',
     lastUpdated: '2025-01-12T11:45:00Z',
     assignedTo: 'admin',
@@ -478,6 +482,7 @@ export const mockInquiries: Inquiry[] = [
         contact: 'rebecca@stoneevents.com'
       }
     },
+    openedAt: '2025-01-06T08:00:00Z',
     submittedAt: '2025-01-05T16:45:00Z',
     lastUpdated: '2025-01-09T14:20:00Z',
     assignedTo: 'admin',
@@ -640,6 +645,7 @@ export const mockOrdersList: MockOrder[] = [
     balance: 256.50,
     depositPaid: 225.00,
     createdAt: '2025-01-01',
+    openedAt: '2025-01-02T09:00:00Z',
     details: {
       weddingDate: '2025-01-15',
       venue: 'Grand Ballroom at The Plaza',
@@ -674,6 +680,7 @@ export const mockOrdersList: MockOrder[] = [
     balance: 68.40,
     depositPaid: 60.00,
     createdAt: '2025-01-05',
+    openedAt: '2025-01-06T10:00:00Z',
     details: {
       occasion: 'Birthday',
       services: ['Custom Birthday Cake', 'Cupcakes'],
@@ -704,6 +711,7 @@ export const mockOrdersList: MockOrder[] = [
     balance: 299.60,
     depositPaid: 0.00,
     createdAt: '2025-01-10',
+    openedAt: '2025-01-11T14:00:00Z',
     details: {
       companyName: 'TechCorp Solutions',
       occasion: 'Team Celebration',
@@ -730,6 +738,7 @@ export const mockOrdersList: MockOrder[] = [
     eventTime: '23:00',
     occasion: 'Anniversary',
     status: 'inquiry',
+    openedAt: null,
     items: ['Anniversary Cake'],
     subtotal: 180.00,
     tax: 12.60,
@@ -768,6 +777,7 @@ export const mockOrdersList: MockOrder[] = [
     balance: 0.00,
     depositPaid: 214.00,
     createdAt: '2024-11-28',
+    openedAt: '2024-11-29T09:00:00Z',
     details: {
       occasion: 'Baby Shower',
       services: ['Baby Shower Cake', 'Mini Cupcakes'],
@@ -798,6 +808,7 @@ export const mockOrdersList: MockOrder[] = [
     balance: 85.50,
     depositPaid: 75.00,
     createdAt: '2024-12-10',
+    openedAt: '2024-12-11T11:00:00Z',
     details: {
       occasion: 'Graduation',
       services: ['Graduation Cake', 'Cookies'],
@@ -828,6 +839,7 @@ export const mockOrdersList: MockOrder[] = [
     balance: 0.00,
     depositPaid: 101.65,
     createdAt: '2024-12-05',
+    openedAt: '2024-12-06T10:00:00Z',
     details: {
       occasion: 'Birthday',
       services: ['Custom Birthday Cake'],
@@ -857,6 +869,7 @@ export const mockOrdersList: MockOrder[] = [
     balance: 0.00,
     depositPaid: 374.50,
     createdAt: '2024-11-20',
+    openedAt: '2024-11-21T09:00:00Z',
     details: {
       companyName: 'Global Corp',
       occasion: 'Brand Launch',
@@ -890,6 +903,7 @@ export const mockOrdersList: MockOrder[] = [
     balance: 313.50,
     depositPaid: 275.00,
     createdAt: '2024-11-15',
+    openedAt: '2024-11-16T14:00:00Z',
     details: {
       weddingDate: '2025-03-10',
       venue: 'The Grand Hotel',
@@ -923,6 +937,7 @@ export const mockOrdersList: MockOrder[] = [
     balance: 187.25,
     depositPaid: 0.00,
     createdAt: '2024-11-10',
+    openedAt: '2024-11-11T10:00:00Z',
     details: {
       occasion: 'Anniversary',
       services: ['Anniversary Cake'],
@@ -952,6 +967,7 @@ export const mockOrdersList: MockOrder[] = [
     balance: 249.40,
     depositPaid: 200.00,
     createdAt: '2024-11-05',
+    openedAt: '2024-11-06T09:00:00Z',
     details: {
       occasion: 'Holiday Party',
       services: ['Holiday Themed Cupcakes', 'Christmas Cookies', 'Hot Chocolate Bar Setup'],
@@ -981,6 +997,7 @@ export const mockOrdersList: MockOrder[] = [
     balance: 152.45,
     depositPaid: 152.50,
     createdAt: '2024-11-01',
+    openedAt: '2024-11-02T08:00:00Z',
     details: {
       occasion: 'Retirement',
       services: ['Retirement Celebration Cake', 'Mini Dessert Platters'],
@@ -1010,6 +1027,7 @@ export const mockOrdersList: MockOrder[] = [
     balance: 459.50,
     depositPaid: 450.00,
     createdAt: '2024-10-20',
+    openedAt: '2024-10-21T10:00:00Z',
     details: {
       weddingDate: '2025-04-12',
       venue: 'Oceanview Resort & Spa',
@@ -1048,6 +1066,7 @@ export const mockOrdersList: MockOrder[] = [
     balance: 727.60,
     depositPaid: 0.00,
     createdAt: '2024-10-15',
+    openedAt: '2024-10-16T09:00:00Z',
     details: {
       companyName: 'Global Tech Solutions',
       occasion: 'Product Launch',
@@ -1084,6 +1103,7 @@ export const mockOrdersList: MockOrder[] = [
     balance: 211.32,
     depositPaid: 211.33,
     createdAt: '2024-10-10',
+    openedAt: '2024-10-11T11:00:00Z',
     details: {
       occasion: 'Quinceañera',
       services: ['Quinceañera Cake', 'Mini Tres Leches Cakes', 'Decorated Cookies'],
@@ -1113,6 +1133,7 @@ export const mockOrdersList: MockOrder[] = [
     balance: 131.07,
     depositPaid: 131.08,
     createdAt: '2024-10-05',
+    openedAt: '2024-10-06T10:00:00Z',
     details: {
       occasion: 'Graduation',
       services: ['Graduation Cap Cake', 'School Colors Cupcakes', 'Diploma Cookies'],
@@ -1142,6 +1163,7 @@ export const mockOrdersList: MockOrder[] = [
     balance: 0.00,
     depositPaid: 1337.50,
     createdAt: '2024-09-25',
+    openedAt: '2024-09-26T09:00:00Z',
     details: {
       weddingDate: '2025-07-19',
       venue: 'Rosewood Garden Estate',
@@ -1180,6 +1202,7 @@ export const mockOrdersList: MockOrder[] = [
     balance: 278.20,
     depositPaid: 278.20,
     createdAt: '2024-09-20',
+    openedAt: '2024-09-21T08:00:00Z',
     details: {
       companyName: 'Innovation Labs Inc',
       occasion: 'Company Anniversary',

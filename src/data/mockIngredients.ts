@@ -16,7 +16,8 @@ const createIngredient = (
   brand?: string,
   dateReceived?: string,
   lotNumber?: string,
-  expirationDate?: string
+  expirationDate?: string,
+  createdAtOverride?: string
 ): MasterIngredient => {
   const costPerUnit = calculateCostPerUnit(purchasePrice, packageSize, packageUnit, baseUnit);
   return {
@@ -39,7 +40,7 @@ const createIngredient = (
     expirationDate,
     lotNumber,
     lastPriceUpdate: '2024-01-15T10:00:00Z',
-    createdAt: '2024-01-01T08:00:00Z',
+    createdAt: createdAtOverride || '2024-01-01T08:00:00Z',
     updatedAt: '2024-01-15T10:00:00Z'
   };
 };
@@ -61,7 +62,11 @@ export const mockIngredients: MasterIngredient[] = [
     'King Arthur',
     '2024-01-10T08:00:00Z',
     'LOT-2024-001',
-    '2025-01-10T00:00:00Z'
+    '2025-01-10T00:00:00Z',
+    undefined,
+    undefined,
+    undefined,
+    '2026-08-02T09:00:00Z'
   ),
   createIngredient(
     'ing-002',
@@ -79,7 +84,11 @@ export const mockIngredients: MasterIngredient[] = [
     'King Arthur',
     '2024-01-08T10:30:00Z',
     'LOT-2024-002',
-    '2025-01-08T00:00:00Z'
+    '2025-01-08T00:00:00Z',
+    undefined,
+    undefined,
+    undefined,
+    '2026-08-03T10:00:00Z'
   ),
   createIngredient(
     'ing-003',

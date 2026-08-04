@@ -16,7 +16,7 @@ export const mockRecipes: Recipe[] = [
     costPerUnit: 0.40,
     
     
-    createdAt: '2024-01-01',
+    createdAt: '2026-08-02',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
     timesUsed: 12
@@ -36,7 +36,7 @@ export const mockRecipes: Recipe[] = [
     costPerUnit: 0.40,
     
     
-    createdAt: '2024-01-01',
+    createdAt: '2026-08-03',
     updatedAt: '2024-01-15',
     createdBy: 'admin',
     timesUsed: 18
