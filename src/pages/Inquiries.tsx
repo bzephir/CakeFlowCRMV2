@@ -242,7 +242,11 @@ const Inquiries: React.FC = () => {
         {/* Inquiries List */}
         <div className="space-y-0">
           {sortedInquiries.map((inquiry) => (
-            <div key={inquiry.id} className={`${getNewItemRowClass(isNewByOpenedAt(inquiry.openedAt))} border-l border-r border-b border-gray-200 shadow-sm overflow-hidden transition-colors`}>
+            <div
+              key={inquiry.id}
+              onClick={() => handleViewInquiry(inquiry.id)}
+              className={`${getNewItemRowClass(isNewByOpenedAt(inquiry.openedAt))} border-l border-r border-b border-gray-200 shadow-sm overflow-hidden transition-colors cursor-pointer hover:bg-coral-50`}
+            >
               <div className="flex items-center justify-between px-4 py-2">
                 <div className="flex items-center space-x-4 flex-1">
                   <div className="w-40">
@@ -290,7 +294,7 @@ const Inquiries: React.FC = () => {
                 </div>
                 <div className="w-20 flex justify-end">
                   <button
-                    onClick={() => handleViewInquiry(inquiry.id)}
+                    onClick={(e) => { e.stopPropagation(); handleViewInquiry(inquiry.id); }}
                     className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 transition-all"
                   >
                     <Eye className="h-3 w-3 mr-1" />
