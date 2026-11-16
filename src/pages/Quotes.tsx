@@ -291,8 +291,8 @@ const Quotes: React.FC = () => {
 
       {/* Quotes Header */}
       <div className="bg-gray-50 rounded-t-lg border border-gray-200 border-b-0">
-        <div className="flex items-center justify-between px-3 py-1.5">
-          <div className="flex items-center space-x-1 flex-1">
+        <div className="flex items-center justify-between px-4 py-2">
+          <div className="flex items-center space-x-4 flex-1">
             <div className="w-8 flex justify-center">
               <input
                 type="checkbox"
@@ -301,29 +301,29 @@ const Quotes: React.FC = () => {
                 className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
               />
             </div>
-            <div className="w-28">
+            <div className="w-40">
               <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Quote #</span>
             </div>
             <div className="w-40 text-left">
               <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</span>
             </div>
-            <div className="w-32 text-left">
+            <div className="w-28 text-left">
               <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Event Type</span>
             </div>
             <div className="w-28 text-left">
               <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Event Date</span>
             </div>
-            <div className="w-32 text-left">
+            <div className="w-36 text-left">
               <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Fulfillment</span>
             </div>
             <div className="w-28 text-right">
               <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</span>
             </div>
-            <div className="w-24 text-center">
+            <div className="w-28 text-center">
               <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Status</span>
             </div>
           </div>
-          <div className="w-12">
+          <div className="w-20">
             <span className="text-xs font-medium text-gray-500 uppercase tracking-wider"></span>
           </div>
         </div>
@@ -337,8 +337,8 @@ const Quotes: React.FC = () => {
 
           return (
             <div key={quote.id} className="bg-white border-l border-r border-b border-gray-200 shadow-sm overflow-hidden hover:bg-gray-50 transition-colors">
-              <div className="flex items-center justify-between px-3 py-1.5">
-                <div className="flex items-center space-x-1 flex-1">
+              <div className="flex items-center justify-between px-4 py-2">
+                <div className="flex items-center space-x-4 flex-1">
                   <div className="w-8 flex justify-center">
                     <input
                       type="checkbox"
@@ -347,7 +347,7 @@ const Quotes: React.FC = () => {
                       className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
                     />
                   </div>
-                  <div className="w-28">
+                  <div className="w-40">
                     <a
                       href={`#/quotes/${quote.id}`}
                       onClick={(e) => {
@@ -362,13 +362,13 @@ const Quotes: React.FC = () => {
                   <div className="w-40 text-left">
                     <span className="text-sm font-medium text-gray-700">{quote.customer}</span>
                   </div>
-                  <div className="w-32 text-left">
+                  <div className="w-28 text-left">
                     <span className="text-sm text-gray-700">{quote.eventType}</span>
                   </div>
                   <div className="w-28 text-left">
                     <span className="text-sm text-gray-700">{formattedEventDate}</span>
                   </div>
-                  <div className="w-32 text-left">
+                  <div className="w-36 text-left">
                     <span className="text-sm text-gray-700 flex items-center">
                       {quote.fulfillmentType === 'pickup'
                         ? <><Package className="h-3 w-3 mr-1" /> {quote.pickupTime ? formatTime(quote.pickupTime) : 'TBD'}</>
@@ -379,14 +379,14 @@ const Quotes: React.FC = () => {
                   <div className="w-28 text-right">
                     <span className="text-sm font-medium text-gray-900">{formatCurrency(quote.amount)}</span>
                   </div>
-                  <div className="w-24 flex justify-center">
+                  <div className="w-28 flex justify-center">
                     <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(quote.status)}`}>
                       {getStatusIcon(quote.status)}
                       {quote.status.charAt(0).toUpperCase() + quote.status.slice(1)}
                     </span>
                   </div>
                 </div>
-                <div className="w-12 flex justify-end">
+                <div className="w-20 flex justify-end">
                   <button
                     onClick={() => handleDeleteQuote(quote.id)}
                     className="text-pink-600 hover:text-pink-900 transition-colors"
