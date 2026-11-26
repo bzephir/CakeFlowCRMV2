@@ -25,8 +25,8 @@ import {
   Clock,
   User,
   CheckCircle2,
-  ArrowUp,
-  ArrowDown,
+  Play,
+  ChevronDown,
   Eye,
   EyeOff,
   RefreshCw,
@@ -43,6 +43,8 @@ const EmailBox: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentFolder, setCurrentFolder] = useState<EmailFolder>(EmailFolder.INBOX);
   const [expandedEmailId, setExpandedEmailId] = useState<string | null>(null);
+  const [sortBy, setSortBy] = useState<'newest' | 'oldest' | 'sender' | 'subject'>('newest');
+  const [isSortMenuOpen, setIsSortMenuOpen] = useState(false);
   const [filters, setFilters] = useState<EmailFilters>({
     folder: EmailFolder.INBOX,
     status: 'all',
@@ -237,12 +239,35 @@ const EmailBox: React.FC = () => {
     return matchesSearch && matchesFolder && matchesStatus && matchesPriority && matchesStarred && matchesUnread && matchesCustomer;
   });
 
-  // Sort emails by date (newest first)
+  // Sort emails according to the selected sort option
   const sortedEmails = [...filteredEmails].sort((a, b) => {
-    const dateA = new Date(a.sentAt || a.receivedAt || a.createdAt);
-    const dateB = new Date(b.sentAt || b.receivedAt || b.createdAt);
-    return dateB.getTime() - dateA.getTime();
+    switch (sortBy) {
+      case 'oldest': {
+        const dateA = new Date(a.sentAt || a.receivedAt || a.createdAt);
+        const dateB = new Date(b.sentAt || b.receivedAt || b.createdAt);
+        return dateA.getTime() - dateB.getTime();
+      }
+      case 'sender':
+        return (currentFolder === EmailFolder.SENT ? a.toName : a.fromName)
+          .localeCompare(currentFolder === EmailFolder.SENT ? b.toName : b.fromName);
+      case 'subject':
+        return a.subject.localeCompare(b.subject);
+      case 'newest':
+      default: {
+        const dateA = new Date(a.sentAt || a.receivedAt || a.createdAt);
+        const dateB = new Date(b.sentAt || b.receivedAt || b.createdAt);
+        return dateB.getTime() - dateA.getTime();
+      }
+    }
   });
+
+  const sortOptions = [
+    { value: 'newest' as const, label: 'Newest first' },
+    { value: 'oldest' as const, label: 'Oldest first' },
+    { value: 'sender' as const, label: currentFolder === EmailFolder.SENT ? 'Recipient name (A-Z)' : 'Sender name (A-Z)' },
+    { value: 'subject' as const, label: 'Subject (A-Z)' }
+  ];
+  const currentSortLabel = sortOptions.find(option => option.value === sortBy)?.label;
 
   const unreadCount = emails.filter(email => !email.isRead && email.folder === EmailFolder.INBOX).length;
   const starredCount = emails.filter(email => email.isStarred).length;
@@ -487,12 +512,41 @@ const EmailBox: React.FC = () => {
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-2 py-3 text-left">
-                      <input
-                        type="checkbox"
-                        checked={selectedEmails.length === filteredEmails.length && filteredEmails.length > 0}
-                        onChange={toggleSelectAll}
-                        className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
-                      />
+                      <div className="flex items-center space-x-1 relative">
+                        <input
+                          type="checkbox"
+                          checked={selectedEmails.length === filteredEmails.length && filteredEmails.length > 0}
+                          onChange={toggleSelectAll}
+                          className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
+                        />
+                        <button
+                          onClick={() => setIsSortMenuOpen(!isSortMenuOpen)}
+                          className="p-0.5 text-gray-400 hover:text-gray-700 transition-colors"
+                          title={`Sort: ${currentSortLabel}`}
+                        >
+                          <ChevronDown className="h-4 w-4" />
+                        </button>
+                        {isSortMenuOpen && (
+                          <div className="absolute left-0 top-full mt-1 w-44 bg-white border border-gray-200 rounded-md shadow-lg z-10 py-1">
+                            {sortOptions.map((option) => (
+                              <button
+                                key={option.value}
+                                onClick={() => {
+                                  setSortBy(option.value);
+                                  setIsSortMenuOpen(false);
+                                }}
+                                className={`w-full text-left px-3 py-1.5 text-sm transition-colors ${
+                                  sortBy === option.value
+                                    ? 'bg-coral-50 text-coral-900 font-medium'
+                                    : 'text-gray-700 hover:bg-gray-50'
+                                }`}
+                              >
+                                {option.label}
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
                     </th>
                   </tr>
                 </thead>
@@ -537,8 +591,8 @@ const EmailBox: React.FC = () => {
                             }
                           >
                             {email.priority === EmailPriority.HIGH || email.priority === EmailPriority.URGENT
-                              ? <ArrowUp className="h-4 w-4" />
-                              : <ArrowDown className="h-4 w-4" />}
+                              ? <Play className="h-4 w-4 fill-current" />
+                              : <Play className="h-4 w-4" />}
                           </button>
                         </td>
                         <td className="px-3 py-4 whitespace-nowrap">
