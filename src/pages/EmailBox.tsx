@@ -13,8 +13,7 @@ import {
 } from '../types/email';
 import { 
   Plus, 
-  Search, 
-  Filter, 
+  Search,
   Mail,
   Send,
   Archive,
@@ -26,7 +25,6 @@ import {
   User,
   CheckCircle2,
   ChevronDown,
-  ChevronRight,
   Eye,
   EyeOff,
   RefreshCw,
@@ -136,6 +134,12 @@ const EmailBox: React.FC = () => {
       default: return 'Low priority';
     }
   };
+
+  const PriorityMarker: React.FC<{ priority: EmailPriority; className?: string }> = ({ priority, className = 'h-4 w-5' }) => (
+    <svg viewBox="0 0 20 16" className={className} fill="currentColor" aria-hidden="true">
+      <path d="M2 0 L 18 8 L 2 16 Z" />
+    </svg>
+  );
 
   const handleCyclePriority = (id: string) => {
     setEmails(prev => prev.map(email => {
@@ -396,24 +400,19 @@ const EmailBox: React.FC = () => {
                   className="block w-full sm:w-64 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
                 />
               </div>
-              
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Filter className="h-4 w-4 text-gray-400" />
-                </div>
-                <select
+
+              <select
                   value={filters.priority}
                   onChange={(e) => setFilters(prev => ({ ...prev, priority: e.target.value }))}
-                  className="block w-full sm:w-32 pl-10 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+                  className="block w-full sm:w-40 pl-3 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
                 >
-                  <option value="all">All Priority</option>
+                  <option value="all">Priority</option>
                   {Object.values(EmailPriority).map(priority => (
                     <option key={priority} value={priority}>
                       {priority.charAt(0).toUpperCase() + priority.slice(1)}
                     </option>
                   ))}
                 </select>
-              </div>
 
             </div>
             
@@ -537,7 +536,7 @@ const EmailBox: React.FC = () => {
                                   : 'text-gray-700 hover:bg-gray-50'
                               }`}
                             >
-                              <ChevronRight className="h-3.5 w-3.5 mr-2 text-gray-300" />
+                              <PriorityMarker priority={filters.priority === 'all' ? EmailPriority.LOW : (filters.priority as EmailPriority)} className="h-3.5 w-4 mr-2 text-gray-300" />
                               All priorities
                             </button>
                             {[EmailPriority.LOW, EmailPriority.NORMAL, EmailPriority.HIGH, EmailPriority.URGENT].map((priority) => (
@@ -553,7 +552,7 @@ const EmailBox: React.FC = () => {
                                     : 'text-gray-700 hover:bg-gray-50'
                                 }`}
                               >
-                                <ChevronRight className={`h-3.5 w-3.5 mr-2 fill-current ${getPriorityMarkerClass(priority)}`} />
+                                <PriorityMarker priority={priority} className={`h-3.5 w-4 mr-2 ${getPriorityMarkerClass(priority)}`} />
                                 {getPriorityLabel(priority)}
                               </button>
                             ))}
@@ -595,7 +594,7 @@ const EmailBox: React.FC = () => {
                             className={`transition-colors hover:opacity-80 ${getPriorityMarkerClass(email.priority)}`}
                             title={`${getPriorityLabel(email.priority)} — click to change`}
                           >
-                            <ChevronRight className="h-4 w-4 fill-current" />
+                            <PriorityMarker priority={email.priority} className="h-4 w-5" />
                           </button>
                         </td>
                         <td className="px-3 py-4 whitespace-nowrap">
