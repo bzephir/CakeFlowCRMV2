@@ -20,15 +20,13 @@ import {
   Archive,
   Trash2,
   Star,
-  StarOff,
   Reply,
   Forward,
-  MoreHorizontal,
-  Paperclip,
   Clock,
   User,
-  AlertCircle,
   CheckCircle2,
+  ArrowUp,
+  ArrowDown,
   Eye,
   EyeOff,
   RefreshCw,
@@ -63,52 +61,11 @@ const EmailBox: React.FC = () => {
     { id: EmailFolder.TRASH, name: 'Trash', icon: Trash2, count: emails.filter(e => e.folder === EmailFolder.TRASH).length }
   ];
 
-  const getStatusColor = (status: EmailStatus) => {
-    switch (status) {
-      case EmailStatus.SENT: return 'bg-mint-100 text-mint-800';
-      case EmailStatus.RECEIVED: return 'bg-aqua-100 text-aqua-800';
-      case EmailStatus.DRAFT: return 'bg-gray-100 text-gray-800';
-      case EmailStatus.REPLIED: return 'bg-coral-100 text-coral-800';
-      case EmailStatus.FORWARDED: return 'bg-pink-100 text-pink-800';
-      case EmailStatus.ARCHIVED: return 'bg-purple-100 text-purple-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
-  };
-
-  const getPriorityColor = (priority: EmailPriority) => {
-    switch (priority) {
-      case EmailPriority.URGENT: return 'bg-red-100 text-red-800';
-      case EmailPriority.HIGH: return 'bg-orange-100 text-orange-800';
-      case EmailPriority.NORMAL: return 'bg-gray-100 text-gray-800';
-      case EmailPriority.LOW: return 'bg-green-100 text-green-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
-  };
-
-  const formatDateTime = (dateString: string) => {
-    const date = new Date(dateString);
-    const now = new Date();
-    const diffInHours = (now.getTime() - date.getTime()) / (1000 * 60 * 60);
-    
-    if (diffInHours < 24) {
-      return date.toLocaleTimeString('en-US', { 
-        hour: '2-digit', 
-        minute: '2-digit' 
-      });
-    } else if (diffInHours < 168) { // Less than a week
-      return date.toLocaleDateString('en-US', { 
-        weekday: 'short',
-        hour: '2-digit', 
-        minute: '2-digit' 
-      });
-    } else {
-      return date.toLocaleDateString('en-US', { 
-        month: 'short', 
-        day: 'numeric',
-        hour: '2-digit', 
-        minute: '2-digit' 
-      });
-    }
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric'
+    });
   };
 
   const handleComposeEmail = () => {
@@ -159,6 +116,14 @@ const EmailBox: React.FC = () => {
     ));
   };
 
+  const handleTogglePriority = (id: string) => {
+    setEmails(prev => prev.map(email => 
+      email.id === id
+        ? { ...email, priority: email.priority === EmailPriority.HIGH ? EmailPriority.LOW : EmailPriority.HIGH }
+        : email
+    ));
+  };
+
   const handleMarkAsRead = (id: string) => {
     setEmails(prev => prev.map(email => 
       email.id === id ? { ...email, isRead: true } : email
@@ -189,18 +154,6 @@ const EmailBox: React.FC = () => {
     const email = emails.find(e => e.id === id);
     if (email && !email.isRead) {
       handleMarkAsRead(id);
-    }
-  };
-
-  const handleNavigateToLinkedRecord = (email: Email) => {
-    if (email.customerId) {
-      navigate(`/customers/${email.customerId}`);
-    } else if (email.orderId) {
-      navigate(`/orders/${email.orderId}`);
-    } else if (email.quoteId) {
-      navigate(`/quotes/${email.quoteId}`);
-    } else if (email.invoiceId) {
-      navigate(`/invoice/${email.invoiceId}`);
     }
   };
 
@@ -541,24 +494,6 @@ const EmailBox: React.FC = () => {
                         className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
                       />
                     </th>
-                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Email
-                    </th>
-                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      {currentFolder === EmailFolder.SENT ? 'To' : 'From'}
-                    </th>
-                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Subject
-                    </th>
-                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Date
-                    </th>
-                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Status
-                    </th>
-                    <th className="px-3 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Actions
-                    </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
@@ -569,102 +504,66 @@ const EmailBox: React.FC = () => {
                         !email.isRead ? 'bg-aqua-50' : ''
                       }`} onClick={() => handleToggleExpand(email.id)}>
                         <td className="px-2 py-4" onClick={(e) => e.stopPropagation()}>
-                          <div className="flex items-center space-x-2">
-                            <input
-                              type="checkbox"
-                              checked={selectedEmails.includes(email.id)}
-                              onChange={() => toggleSelectEmail(email.id)}
-                              className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
-                            />
-                            <button
-                              onClick={() => handleToggleStar(email.id)}
-                              className="text-gray-400 hover:text-yellow-500 transition-colors"
-                            >
-                              {email.isStarred ? (
-                                <Star className="h-4 w-4 text-yellow-500 fill-current" />
-                              ) : (
-                                <StarOff className="h-4 w-4" />
-                              )}
-                            </button>
-                          </div>
+                          <input
+                            type="checkbox"
+                            checked={selectedEmails.includes(email.id)}
+                            onChange={() => toggleSelectEmail(email.id)}
+                            className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
+                          />
                         </td>
-                        <td className="px-3 py-4">
-                          <div className="flex items-center space-x-2">
-                            {!email.isRead && (
-                              <div className="w-2 h-2 bg-aqua-500 rounded-full"></div>
-                            )}
-                            {email.priority !== EmailPriority.NORMAL && (
-                              <span className={`inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ${getPriorityColor(email.priority)}`}>
-                                {email.priority === EmailPriority.URGENT && <AlertCircle className="h-3 w-3 mr-1" />}
-                                {email.priority}
-                              </span>
-                            )}
-                            {email.attachments && email.attachments.length > 0 && (
-                              <Paperclip className="h-3 w-3 text-gray-400" />
-                            )}
-                          </div>
+                        <td className="px-2 py-4" onClick={(e) => e.stopPropagation()}>
+                          <button
+                            onClick={() => handleToggleStar(email.id)}
+                            className={`transition-colors ${
+                              email.isStarred ? 'text-yellow-500' : 'text-gray-400 hover:text-yellow-500'
+                            }`}
+                            title={email.isStarred ? 'Unstar' : 'Star'}
+                          >
+                            <Star className={`h-4 w-4 ${email.isStarred ? 'fill-current' : ''}`} />
+                          </button>
                         </td>
-                        <td className="px-3 py-4">
-                          <div className="text-sm font-medium text-gray-900">
+                        <td className="px-2 py-4" onClick={(e) => e.stopPropagation()}>
+                          <button
+                            onClick={() => handleTogglePriority(email.id)}
+                            className={`transition-colors ${
+                              email.priority === EmailPriority.HIGH || email.priority === EmailPriority.URGENT
+                                ? 'text-red-500 hover:text-red-600'
+                                : 'text-gray-400 hover:text-gray-600'
+                            }`}
+                            title={
+                              email.priority === EmailPriority.HIGH || email.priority === EmailPriority.URGENT
+                                ? 'High priority — click to set low'
+                                : 'Low priority — click to set high'
+                            }
+                          >
+                            {email.priority === EmailPriority.HIGH || email.priority === EmailPriority.URGENT
+                              ? <ArrowUp className="h-4 w-4" />
+                              : <ArrowDown className="h-4 w-4" />}
+                          </button>
+                        </td>
+                        <td className="px-3 py-4 whitespace-nowrap">
+                          <span className={`text-sm text-gray-900 ${!email.isRead ? 'font-semibold' : ''}`}>
                             {currentFolder === EmailFolder.SENT ? email.toName : email.fromName}
-                          </div>
-                          <div className="text-sm text-gray-500">
-                            {currentFolder === EmailFolder.SENT ? email.toEmail : email.fromEmail}
-                          </div>
+                          </span>
                         </td>
                         <td className="px-3 py-4">
-                          <div className="text-sm text-gray-900 max-w-md truncate">
+                          <span className={`text-sm text-gray-900 ${!email.isRead ? 'font-semibold' : ''}`}>
                             {email.subject}
-                          </div>
-                          {email.customerName && (
-                            <div className="text-xs text-gray-500">
-                              Customer: {email.customerName}
-                            </div>
-                          )}
+                          </span>
                         </td>
-                        <td className="px-3 py-4">
-                          <div className="text-sm text-gray-900">
-                            {formatDateTime(email.sentAt || email.receivedAt || email.createdAt)}
-                          </div>
-                        </td>
-                        <td className="px-3 py-4">
-                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(email.status)}`}>
-                            {email.status.replace('_', ' ')}
+                        <td className="px-3 py-4 whitespace-nowrap">
+                          <span className={`text-sm ${!email.isRead ? 'font-semibold text-gray-900' : 'text-gray-500'}`}>
+                            {formatDate(email.sentAt || email.receivedAt || email.createdAt)}
                           </span>
                         </td>
                         <td className="px-3 py-4 text-right" onClick={(e) => e.stopPropagation()}>
-                          <div className="flex justify-end space-x-1">
-                            <button 
-                              onClick={() => handleReplyEmail(email)}
-                              className="p-1 text-gray-400 hover:text-aqua-600 transition-colors"
-                              title="Reply"
-                            >
-                              <Reply className="h-4 w-4" />
-                            </button>
-                            <button 
-                              onClick={() => handleToggleStar(email.id)}
-                              className="p-1 text-gray-400 hover:text-yellow-500 transition-colors"
-                              title="Star"
-                            >
-                              <Star className="h-4 w-4" />
-                            </button>
-                            <button 
-                              onClick={() => handleMoveToFolder(email.id, EmailFolder.ARCHIVED)}
-                              className="p-1 text-gray-400 hover:text-gray-600 transition-colors"
-                              title="Archive"
-                            >
-                              <Archive className="h-4 w-4" />
-                            </button>
-                            {(email.customerId || email.orderId || email.quoteId || email.invoiceId) && (
-                              <button 
-                                onClick={() => handleNavigateToLinkedRecord(email)}
-                                className="p-1 text-gray-400 hover:text-coral-600 transition-colors"
-                                title="View Linked Record"
-                              >
-                                <User className="h-4 w-4" />
-                              </button>
-                            )}
-                          </div>
+                          <button
+                            onClick={() => handleDeleteEmail(email.id)}
+                            className="p-1 text-gray-400 hover:text-red-600 transition-colors"
+                            title="Move to Trash"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </button>
                         </td>
                       </tr>
 
