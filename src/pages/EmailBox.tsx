@@ -25,8 +25,8 @@ import {
   Clock,
   User,
   CheckCircle2,
-  Play,
   ChevronDown,
+  ChevronRight,
   Eye,
   EyeOff,
   RefreshCw,
@@ -43,8 +43,7 @@ const EmailBox: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentFolder, setCurrentFolder] = useState<EmailFolder>(EmailFolder.INBOX);
   const [expandedEmailId, setExpandedEmailId] = useState<string | null>(null);
-  const [sortBy, setSortBy] = useState<'newest' | 'oldest' | 'sender' | 'subject'>('newest');
-  const [isSortMenuOpen, setIsSortMenuOpen] = useState(false);
+  const [isSelectMenuOpen, setIsSelectMenuOpen] = useState(false);
   const [filters, setFilters] = useState<EmailFilters>({
     folder: EmailFolder.INBOX,
     status: 'all',
@@ -118,12 +117,33 @@ const EmailBox: React.FC = () => {
     ));
   };
 
-  const handleTogglePriority = (id: string) => {
-    setEmails(prev => prev.map(email => 
-      email.id === id
-        ? { ...email, priority: email.priority === EmailPriority.HIGH ? EmailPriority.LOW : EmailPriority.HIGH }
-        : email
-    ));
+  const priorityCycle: EmailPriority[] = [EmailPriority.LOW, EmailPriority.NORMAL, EmailPriority.HIGH, EmailPriority.URGENT];
+
+  const getPriorityMarkerClass = (priority: EmailPriority) => {
+    switch (priority) {
+      case EmailPriority.URGENT: return 'text-red-500';
+      case EmailPriority.HIGH: return 'text-yellow-500';
+      case EmailPriority.NORMAL: return 'text-green-500';
+      default: return 'text-gray-400';
+    }
+  };
+
+  const getPriorityLabel = (priority: EmailPriority) => {
+    switch (priority) {
+      case EmailPriority.URGENT: return 'Urgent';
+      case EmailPriority.HIGH: return 'High priority';
+      case EmailPriority.NORMAL: return 'Normal priority';
+      default: return 'Low priority';
+    }
+  };
+
+  const handleCyclePriority = (id: string) => {
+    setEmails(prev => prev.map(email => {
+      if (email.id !== id) return email;
+      const currentIndex = priorityCycle.indexOf(email.priority);
+      const next = priorityCycle[(currentIndex + 1) % priorityCycle.length];
+      return { ...email, priority: next };
+    }));
   };
 
   const handleMarkAsRead = (id: string) => {
@@ -232,42 +252,17 @@ const EmailBox: React.FC = () => {
     const matchesFolder = email.folder === currentFolder;
     const matchesStatus = filters.status === 'all' || email.status === filters.status;
     const matchesPriority = filters.priority === 'all' || email.priority === filters.priority;
-    const matchesStarred = !filters.showStarredOnly || email.isStarred;
-    const matchesUnread = !filters.showUnreadOnly || !email.isRead;
     const matchesCustomer = filters.customerId === 'all' || email.customerId === filters.customerId;
 
-    return matchesSearch && matchesFolder && matchesStatus && matchesPriority && matchesStarred && matchesUnread && matchesCustomer;
+    return matchesSearch && matchesFolder && matchesStatus && matchesPriority && matchesCustomer;
   });
 
-  // Sort emails according to the selected sort option
+  // Sort emails by date (newest first)
   const sortedEmails = [...filteredEmails].sort((a, b) => {
-    switch (sortBy) {
-      case 'oldest': {
-        const dateA = new Date(a.sentAt || a.receivedAt || a.createdAt);
-        const dateB = new Date(b.sentAt || b.receivedAt || b.createdAt);
-        return dateA.getTime() - dateB.getTime();
-      }
-      case 'sender':
-        return (currentFolder === EmailFolder.SENT ? a.toName : a.fromName)
-          .localeCompare(currentFolder === EmailFolder.SENT ? b.toName : b.fromName);
-      case 'subject':
-        return a.subject.localeCompare(b.subject);
-      case 'newest':
-      default: {
-        const dateA = new Date(a.sentAt || a.receivedAt || a.createdAt);
-        const dateB = new Date(b.sentAt || b.receivedAt || b.createdAt);
-        return dateB.getTime() - dateA.getTime();
-      }
-    }
+    const dateA = new Date(a.sentAt || a.receivedAt || a.createdAt);
+    const dateB = new Date(b.sentAt || b.receivedAt || b.createdAt);
+    return dateB.getTime() - dateA.getTime();
   });
-
-  const sortOptions = [
-    { value: 'newest' as const, label: 'Newest first' },
-    { value: 'oldest' as const, label: 'Oldest first' },
-    { value: 'sender' as const, label: currentFolder === EmailFolder.SENT ? 'Recipient name (A-Z)' : 'Sender name (A-Z)' },
-    { value: 'subject' as const, label: 'Subject (A-Z)' }
-  ];
-  const currentSortLabel = sortOptions.find(option => option.value === sortBy)?.label;
 
   const unreadCount = emails.filter(email => !email.isRead && email.folder === EmailFolder.INBOX).length;
   const starredCount = emails.filter(email => email.isStarred).length;
@@ -420,27 +415,6 @@ const EmailBox: React.FC = () => {
                 </select>
               </div>
 
-              <div className="flex items-center space-x-4">
-                <label className="flex items-center">
-                  <input
-                    type="checkbox"
-                    checked={filters.showStarredOnly}
-                    onChange={(e) => setFilters(prev => ({ ...prev, showStarredOnly: e.target.checked }))}
-                    className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
-                  />
-                  <span className="ml-2 text-sm text-gray-700">Starred Only</span>
-                </label>
-                
-                <label className="flex items-center">
-                  <input
-                    type="checkbox"
-                    checked={filters.showUnreadOnly}
-                    onChange={(e) => setFilters(prev => ({ ...prev, showUnreadOnly: e.target.checked }))}
-                    className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
-                  />
-                  <span className="ml-2 text-sm text-gray-700">Unread Only</span>
-                </label>
-              </div>
             </div>
             
             <div className="flex space-x-2">
@@ -520,28 +494,67 @@ const EmailBox: React.FC = () => {
                           className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
                         />
                         <button
-                          onClick={() => setIsSortMenuOpen(!isSortMenuOpen)}
+                          onClick={() => setIsSelectMenuOpen(!isSelectMenuOpen)}
                           className="p-0.5 text-gray-400 hover:text-gray-700 transition-colors"
-                          title={`Sort: ${currentSortLabel}`}
+                          title="Selection and priority filter options"
                         >
                           <ChevronDown className="h-4 w-4" />
                         </button>
-                        {isSortMenuOpen && (
-                          <div className="absolute left-0 top-full mt-1 w-44 bg-white border border-gray-200 rounded-md shadow-lg z-10 py-1">
-                            {sortOptions.map((option) => (
+                        {isSelectMenuOpen && (
+                          <div className="absolute left-0 top-full mt-1 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 py-1">
+                            <div className="px-3 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wide">
+                              Select
+                            </div>
+                            <button
+                              onClick={() => {
+                                setSelectedEmails(filteredEmails.map(email => email.id));
+                                setIsSelectMenuOpen(false);
+                              }}
+                              className="w-full text-left px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                            >
+                              All
+                            </button>
+                            <button
+                              onClick={() => {
+                                setSelectedEmails([]);
+                                setIsSelectMenuOpen(false);
+                              }}
+                              className="w-full text-left px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                            >
+                              None
+                            </button>
+                            <div className="mt-1 px-3 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wide">
+                              Show priority
+                            </div>
+                            <button
+                              onClick={() => {
+                                setFilters(prev => ({ ...prev, priority: 'all' }));
+                                setIsSelectMenuOpen(false);
+                              }}
+                              className={`w-full text-left px-3 py-1.5 text-sm flex items-center transition-colors ${
+                                filters.priority === 'all'
+                                  ? 'bg-coral-50 text-coral-900 font-medium'
+                                  : 'text-gray-700 hover:bg-gray-50'
+                              }`}
+                            >
+                              <ChevronRight className="h-3.5 w-3.5 mr-2 text-gray-300" />
+                              All priorities
+                            </button>
+                            {[EmailPriority.LOW, EmailPriority.NORMAL, EmailPriority.HIGH, EmailPriority.URGENT].map((priority) => (
                               <button
-                                key={option.value}
+                                key={priority}
                                 onClick={() => {
-                                  setSortBy(option.value);
-                                  setIsSortMenuOpen(false);
+                                  setFilters(prev => ({ ...prev, priority }));
+                                  setIsSelectMenuOpen(false);
                                 }}
-                                className={`w-full text-left px-3 py-1.5 text-sm transition-colors ${
-                                  sortBy === option.value
+                                className={`w-full text-left px-3 py-1.5 text-sm flex items-center transition-colors ${
+                                  filters.priority === priority
                                     ? 'bg-coral-50 text-coral-900 font-medium'
                                     : 'text-gray-700 hover:bg-gray-50'
                                 }`}
                               >
-                                {option.label}
+                                <ChevronRight className={`h-3.5 w-3.5 mr-2 fill-current ${getPriorityMarkerClass(priority)}`} />
+                                {getPriorityLabel(priority)}
                               </button>
                             ))}
                           </div>
@@ -578,21 +591,11 @@ const EmailBox: React.FC = () => {
                         </td>
                         <td className="px-2 py-4" onClick={(e) => e.stopPropagation()}>
                           <button
-                            onClick={() => handleTogglePriority(email.id)}
-                            className={`transition-colors ${
-                              email.priority === EmailPriority.HIGH || email.priority === EmailPriority.URGENT
-                                ? 'text-red-500 hover:text-red-600'
-                                : 'text-gray-400 hover:text-gray-600'
-                            }`}
-                            title={
-                              email.priority === EmailPriority.HIGH || email.priority === EmailPriority.URGENT
-                                ? 'High priority — click to set low'
-                                : 'Low priority — click to set high'
-                            }
+                            onClick={() => handleCyclePriority(email.id)}
+                            className={`transition-colors hover:opacity-80 ${getPriorityMarkerClass(email.priority)}`}
+                            title={`${getPriorityLabel(email.priority)} — click to change`}
                           >
-                            {email.priority === EmailPriority.HIGH || email.priority === EmailPriority.URGENT
-                              ? <Play className="h-4 w-4 fill-current" />
-                              : <Play className="h-4 w-4" />}
+                            <ChevronRight className="h-4 w-4 fill-current" />
                           </button>
                         </td>
                         <td className="px-3 py-4 whitespace-nowrap">
