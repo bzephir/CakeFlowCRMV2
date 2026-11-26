@@ -3,7 +3,7 @@
 ## Product intent & audience
 
 - Business management application with list/table pages: Quotes, Orders, Inquiries (CRM/ERP-adjacent).
-- Includes an email/inbox page with inbox-style message list (not table-grid layout).
+- Includes an email/inbox page with inbox-style message list.
 - Audience: internal/business users managing records and communications.
 
 ## Brand personality & voice
@@ -23,20 +23,19 @@
   - Subject: subject text only (no customer name); full available width.
   - Date format: "MMM DD" (e.g., "Jan 15").
   - Unread emails rendered in bold.
-  - Priority: clickable symbol toggles High/Low (replaces badge text and Status column).
+  - Priority: clickable icon toggles High (red ArrowUp) / Low (gray ArrowDown).
   - Trash icon on far right of each row (per-row delete to Trash folder).
-  - Other actions (reply, archive, linked-record) available in expanded email view, not inline.
+  - Other actions (reply, archive) available in expanded email view, not inline.
 
 ## Decisions, constraints & rationale
 
 - Email list simplified to reduce visual clutter: removed email-address subline, customer-name subline, Status column, and column headings.
-- Rationale: inbox-style lists read better without header rows and redundant metadata; bold unread + priority symbol convey status more compactly than text badges.
-- Table-page consistency rationale unchanged: shared padding/widths reduce friction.
+- Rationale: inbox-style lists read better without header rows and redundant metadata; bold unread + priority icon convey status more compactly than text badges.
+- Table-page consistency rationale: shared padding/widths reduce friction.
 - Global `.bolt/prompt` instructions exist for beautiful production-worthy design, JSX + Tailwind, Lucide React icons only.
 
 ## Open questions & assumptions
 
 - Assuming table-page standards (Orders & Inquiries) apply to all current/future table pages.
 - Assuming priority toggle and starring persist per-session (same as current starring behavior).
-- Unknown: full page inventory; whether email Trash folder and recovery flow exist or need implementation.
-- Unknown: exact priority symbol to use (icon choice not yet finalized).
+- Unknown: full page inventory beyond Quotes, Orders, Inquiries, and Email.
