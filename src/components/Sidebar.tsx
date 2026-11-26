@@ -84,6 +84,7 @@ const Sidebar: React.FC = () => {
       children: [
         { name: 'User Management', href: '/users', icon: UserCheck },
         { name: 'Admin Settings', href: '/settings', icon: Cog },
+        { name: 'Email', href: '/email', icon: Mail },
       ]
     },
   ];
