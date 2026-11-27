@@ -356,7 +356,7 @@ const InquiryForm: React.FC = () => {
                     required
                     value={formData.occasion}
                     onChange={handleInputChange}
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                    className="block w-full pl-3 pr-9 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   >
                     <option value="">Select an occasion</option>
                     {occasions[formType].map(occasion => (
@@ -451,7 +451,7 @@ const InquiryForm: React.FC = () => {
                   name="budget"
                   value={formData.budget}
                   onChange={handleInputChange}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                  className="block w-full pl-3 pr-9 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                 >
                   <option value="">Select budget range</option>
                   {budgetRanges.map(range => (
@@ -468,7 +468,7 @@ const InquiryForm: React.FC = () => {
                   name="hearAboutUs"
                   value={formData.hearAboutUs}
                   onChange={handleInputChange}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                  className="block w-full pl-3 pr-9 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                 >
                   <option value="">Select source</option>
                   {referralSources.map(source => (

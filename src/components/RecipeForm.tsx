@@ -443,7 +443,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                   name="status"
                   value={formData.status || 'draft'}
                   onChange={handleInputChange}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                  className="block w-full pl-3 pr-9 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                 >
                   <option value="draft">Draft</option>
                   <option value="active">Active</option>
@@ -529,7 +529,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                   name="yield.unit"
                   value={formData.yield?.unit || 'servings'}
                   onChange={handleInputChange}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                  className="block w-full pl-3 pr-9 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                 >
                   {yieldUnits.map(unit => (
                     <option key={unit} value={unit}>{unit}</option>

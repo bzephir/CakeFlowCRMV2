@@ -181,7 +181,7 @@ const Packages: React.FC = () => {
             <select
               value={categoryFilter}
               onChange={e => setCategoryFilter(e.target.value as PackageCategory | 'all')}
-              className="block w-full sm:w-48 pl-3 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
+              className="block w-full sm:w-48 pl-3 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
             >
               <option value="all">All Categories</option>
               {categories.map(category => (
@@ -196,7 +196,7 @@ const Packages: React.FC = () => {
             <select
               value={statusFilter}
               onChange={e => setStatusFilter(e.target.value)}
-              className="block w-full sm:w-32 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
+              className="block w-full sm:w-32 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
             >
               <option value="all">All Status</option>
               <option value="active">Active</option>
@@ -209,7 +209,7 @@ const Packages: React.FC = () => {
             <select
               value={sortBy}
               onChange={e => setSortBy(e.target.value)}
-              className="block w-full sm:w-40 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
+              className="block w-full sm:w-40 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
             >
               <option value="name">Sort by Name</option>
               <option value="cost">Sort by Cost</option>
