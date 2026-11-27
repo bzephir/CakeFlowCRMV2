@@ -135,9 +135,9 @@ const EmailBox: React.FC = () => {
     }
   };
 
-  const PriorityMarker: React.FC<{ priority: EmailPriority; className?: string }> = ({ priority, className = 'h-4 w-5' }) => (
-    <svg viewBox="0 0 20 16" className={className} fill="currentColor" aria-hidden="true">
-      <path d="M2 0 L 18 8 L 2 16 Z" />
+  const PriorityMarker: React.FC<{ priority: EmailPriority; className?: string }> = ({ priority, className = 'h-4 w-4' }) => (
+    <svg viewBox="0 0 16 16" className={className} fill="currentColor" aria-hidden="true">
+      <path d="M2.5 1.5 C 6.5 5.8, 6.5 10.2, 2.5 14.5 L 14.5 8 Z" />
     </svg>
   );
 
@@ -402,16 +402,19 @@ const EmailBox: React.FC = () => {
               </div>
 
               <select
-                  value={filters.priority}
+                  value={filters.priority === 'all' ? 'title' : filters.priority}
                   onChange={(e) => setFilters(prev => ({ ...prev, priority: e.target.value }))}
                   className="block w-full sm:w-40 pl-3 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
                 >
-                  <option value="all">Priority</option>
-                  {Object.values(EmailPriority).map(priority => (
-                    <option key={priority} value={priority}>
-                      {priority.charAt(0).toUpperCase() + priority.slice(1)}
-                    </option>
-                  ))}
+                  <option value="title" disabled hidden>Priority</option>
+                  <option value="all">None</option>
+                  <optgroup label="Priority">
+                    {Object.values(EmailPriority).map(priority => (
+                      <option key={priority} value={priority}>
+                        {priority.charAt(0).toUpperCase() + priority.slice(1)}
+                      </option>
+                    ))}
+                  </optgroup>
                 </select>
 
             </div>
