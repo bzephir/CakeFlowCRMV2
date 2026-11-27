@@ -19,6 +19,7 @@ import {
   Archive,
   Trash2,
   Star,
+  Bookmark,
   Reply,
   Forward,
   Clock,
@@ -136,9 +137,9 @@ const EmailBox: React.FC = () => {
   };
 
   const PriorityMarker: React.FC<{ priority: EmailPriority; className?: string }> = ({ priority, className = 'h-4 w-4' }) => (
-    <svg viewBox="0 0 16 16" className={className} fill="currentColor" aria-hidden="true">
-      <path d="M2.5 1.5 C 6.5 5.8, 6.5 10.2, 2.5 14.5 L 14.5 8 Z" />
-    </svg>
+    <Bookmark className={className} aria-hidden="true"
+      fill={priority === EmailPriority.LOW ? 'none' : 'currentColor'}
+    />
   );
 
   const handleCyclePriority = (id: string) => {
