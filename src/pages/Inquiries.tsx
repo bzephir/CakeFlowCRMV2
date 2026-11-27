@@ -7,7 +7,7 @@ import {
   Plus, 
   Search, 
   Eye, 
-  Mail,
+  CakeSlice,
   Phone,
   Calendar,
   Clock,
@@ -76,7 +76,7 @@ const Inquiries: React.FC = () => {
 
   return (
      <div className="p-6">
- <Header title="Inquiries" icon={Mail} />
+ <Header title="Inquiries" icon={CakeSlice} />
       <div className="p-6">
         {/* Actions Bar */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
