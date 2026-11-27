@@ -323,7 +323,7 @@ const EventModal: React.FC<EventModalProps> = ({
               name="title"
               value={formData.title}
               onChange={handleInputChange}
-              className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+              className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                 errors.title
                   ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
                   : 'border-gray-300 focus:ring-aqua-500 focus:border-aqua-500'
@@ -353,7 +353,7 @@ const EventModal: React.FC<EventModalProps> = ({
                   name="date"
                   value={formData.date}
                   onChange={handleInputChange}
-                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                     errors.date
                       ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
                       : 'border-gray-300 focus:ring-aqua-500 focus:border-aqua-500'
@@ -389,7 +389,7 @@ const EventModal: React.FC<EventModalProps> = ({
                       name="time"
                       value={formData.time}
                       onChange={handleInputChange}
-                      className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                      className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                         errors.time
                           ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
                           : 'border-gray-300 focus:ring-aqua-500 focus:border-aqua-500'
@@ -409,7 +409,7 @@ const EventModal: React.FC<EventModalProps> = ({
                       name="endTime"
                       value={formData.endTime}
                       onChange={handleInputChange}
-                      className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                      className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                         errors.endTime
                           ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
                           : 'border-gray-300 focus:ring-aqua-500 focus:border-aqua-500'
@@ -442,10 +442,10 @@ const EventModal: React.FC<EventModalProps> = ({
                       }}
                       onFocus={() => setShowCustomerDropdown(true)}
                       placeholder="Search customers..."
-                      className={`block w-full px-3 py-2 pr-10 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                      className={`block w-full px-3 py-2 pr-10 border rounded-md shadow-sm focus:outline-none transition-colors ${
                         errors.customer
                           ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                          : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                          : 'border-gray-300 focus:border-coral-500'
                       }`}
                     />
                     <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
@@ -538,7 +538,7 @@ const EventModal: React.FC<EventModalProps> = ({
                       const selectedLoc = mockLocations.find(loc => loc.id === e.target.value);
                       if (selectedLoc) handleLocationSelect(selectedLoc);
                     }}
-                    className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                    className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                       errors.location
                         ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
                         : 'border-gray-300 focus:ring-aqua-500 focus:border-aqua-500'
@@ -567,7 +567,7 @@ const EventModal: React.FC<EventModalProps> = ({
                     name="virtualMeetingLink"
                     value={formData.virtualMeetingLink}
                     onChange={handleInputChange}
-                    className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                    className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                       errors.virtualMeetingLink
                         ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
                         : 'border-gray-300 focus:ring-aqua-500 focus:border-aqua-500'
@@ -594,7 +594,7 @@ const EventModal: React.FC<EventModalProps> = ({
               rows={3}
               value={formData.description}
               onChange={handleInputChange}
-              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-aqua-500 focus:border-aqua-500"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-aqua-500 focus:border-aqua-500"
               placeholder={formData.type === 'task' ? "Add task details..." : "Add notes or details about this event..."}
             />
           </div>

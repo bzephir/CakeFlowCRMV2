@@ -275,28 +275,28 @@ const InvoiceDetail: React.FC = () => {
         <div className="flex justify-end mb-6 print:hidden">
           <button 
             onClick={handlePrint}
-            className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 mr-3"
+            className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-offset-2 mr-3"
           >
             <Printer className="h-4 w-4 mr-2" />
             Print
           </button>
           <button 
             onClick={handleDownload}
-            className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 mr-3"
+            className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-offset-2 mr-3"
           >
             <Download className="h-4 w-4 mr-2" />
             Download PDF
           </button>
           <button 
             onClick={handleEmail}
-            className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 mr-3"
+            className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-offset-2 mr-3"
           >
             <Mail className="h-4 w-4 mr-2" />
             Email Invoice
           </button>
           <button 
             onClick={handleEdit}
-            className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 mr-3"
+            className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-offset-2 mr-3"
           >
             <Edit className="h-4 w-4 mr-2" />
             Edit
@@ -304,7 +304,7 @@ const InvoiceDetail: React.FC = () => {
           {invoice.balance > 0 && (
             <button 
               onClick={handleRecordPayment}
-              className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500"
+              className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-offset-2"
             >
               <DollarSign className="h-4 w-4 mr-2" />
               Record Payment
@@ -579,7 +579,7 @@ const InvoiceDetail: React.FC = () => {
           <div>
             <button 
               onClick={handleDelete}
-              className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-red-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+              className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-red-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-offset-2 focus:ring-red-500"
             >
               <Trash2 className="h-4 w-4 mr-2" />
               Delete Invoice
@@ -588,7 +588,7 @@ const InvoiceDetail: React.FC = () => {
           <div className="space-x-3">
             <button 
               onClick={handleDuplicate}
-              className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500"
+              className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-offset-2"
             >
               <Copy className="h-4 w-4 mr-2" />
               Duplicate
@@ -596,7 +596,7 @@ const InvoiceDetail: React.FC = () => {
             {invoice.balance > 0 && (
               <button 
                 onClick={handleRecordPayment}
-                className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500"
+                className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-offset-2"
               >
                 <DollarSign className="h-4 w-4 mr-2" />
                 Record Payment

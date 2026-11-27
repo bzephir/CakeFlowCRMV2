@@ -38,7 +38,7 @@ const InventoryPagination: React.FC<InventoryPaginationProps> = ({
               id="itemsPerPage"
               value={itemsPerPage}
               onChange={(e) => onItemsPerPageChange(Number(e.target.value))}
-              className="block w-20 px-2 py-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+              className="block w-20 px-2 py-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:border-coral-500"
             >
               <option value={5}>5</option>
               <option value={10}>10</option>

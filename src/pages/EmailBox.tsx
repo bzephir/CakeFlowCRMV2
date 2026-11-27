@@ -397,14 +397,14 @@ const EmailBox: React.FC = () => {
                   placeholder="Search emails..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="block w-full sm:w-64 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+                  className="block w-full sm:w-64 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:border-coral-500 text-sm"
                 />
               </div>
 
               <select
                   value={filters.priority === 'all' ? 'title' : filters.priority}
                   onChange={(e) => setFilters(prev => ({ ...prev, priority: e.target.value }))}
-                  className="block w-full sm:w-40 pl-3 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+                  className="block w-full sm:w-24 pl-2.5 pr-4 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
                 >
                   <option value="title" disabled hidden>Priority</option>
                   <option value="all">None</option>
@@ -493,7 +493,7 @@ const EmailBox: React.FC = () => {
                           type="checkbox"
                           checked={selectedEmails.length === filteredEmails.length && filteredEmails.length > 0}
                           onChange={toggleSelectAll}
-                          className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
+                          className="h-4 w-4 text-coral-600 border-gray-300 rounded"
                         />
                         <button
                           onClick={() => setIsSelectMenuOpen(!isSelectMenuOpen)}
@@ -577,7 +577,7 @@ const EmailBox: React.FC = () => {
                             type="checkbox"
                             checked={selectedEmails.includes(email.id)}
                             onChange={() => toggleSelectEmail(email.id)}
-                            className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
+                            className="h-4 w-4 text-coral-600 border-gray-300 rounded"
                           />
                         </td>
                         <td className="px-2 py-4" onClick={(e) => e.stopPropagation()}>

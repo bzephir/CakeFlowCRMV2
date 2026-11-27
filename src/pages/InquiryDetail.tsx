@@ -698,7 +698,7 @@ const InquiryDetail: React.FC = () => {
                       value={newNote}
                       onChange={(e) => setNewNote(e.target.value)}
                       placeholder="Enter your note here..."
-                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
                     />
                     <div className="mt-3 flex justify-end space-x-3">
                       <button

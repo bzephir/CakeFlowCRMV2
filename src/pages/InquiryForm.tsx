@@ -175,7 +175,7 @@ const InquiryForm: React.FC = () => {
                     required
                     value={formData.firstName}
                     onChange={handleInputChange}
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   />
                 </div>
                 <div>
@@ -189,7 +189,7 @@ const InquiryForm: React.FC = () => {
                     required
                     value={formData.lastName}
                     onChange={handleInputChange}
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   />
                 </div>
                 <div>
@@ -203,7 +203,7 @@ const InquiryForm: React.FC = () => {
                     required
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   />
                 </div>
                 <div>
@@ -217,7 +217,7 @@ const InquiryForm: React.FC = () => {
                     required
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   />
                 </div>
               </div>
@@ -241,7 +241,7 @@ const InquiryForm: React.FC = () => {
                     required
                     value={formData.eventDate}
                     onChange={handleInputChange}
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   />
                 </div>
                 <div>
@@ -301,7 +301,7 @@ const InquiryForm: React.FC = () => {
                       value={formData.pickupTime}
                       onChange={handleInputChange}
                       required
-                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                     />
                   </div>
                 )}
@@ -318,7 +318,7 @@ const InquiryForm: React.FC = () => {
                       value={formData.deliveryTime}
                       onChange={handleInputChange}
                       required
-                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                     />
                   </div>
                 )}
@@ -333,7 +333,7 @@ const InquiryForm: React.FC = () => {
                     name="eventTime"
                     value={formData.eventTime}
                     onChange={handleInputChange}
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   />
                   <p className="mt-1 text-xs text-gray-500">Only required if this order is for an event</p>
                 </div>
@@ -356,7 +356,7 @@ const InquiryForm: React.FC = () => {
                     required
                     value={formData.occasion}
                     onChange={handleInputChange}
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   >
                     <option value="">Select an occasion</option>
                     {occasions[formType].map(occasion => (
@@ -375,7 +375,7 @@ const InquiryForm: React.FC = () => {
                     min="1"
                     value={formData.guestCount}
                     onChange={handleInputChange}
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   />
                 </div>
               </div>
@@ -393,7 +393,7 @@ const InquiryForm: React.FC = () => {
                       type="checkbox"
                       checked={formData.services.includes(service)}
                       onChange={() => handleServiceToggle(service)}
-                      className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-coral-600 border-gray-300 rounded"
                     />
                     <span className="ml-2 text-sm text-gray-700">{service}</span>
                   </label>
@@ -419,7 +419,7 @@ const InquiryForm: React.FC = () => {
                     value={formData.theme}
                     onChange={handleInputChange}
                     placeholder="e.g., Rustic, Modern, Vintage"
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   />
                 </div>
                 <div>
@@ -433,7 +433,7 @@ const InquiryForm: React.FC = () => {
                     value={formData.colors}
                     onChange={handleInputChange}
                     placeholder="e.g., Blush Pink, Gold, Navy"
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   />
                 </div>
               </div>
@@ -451,7 +451,7 @@ const InquiryForm: React.FC = () => {
                   name="budget"
                   value={formData.budget}
                   onChange={handleInputChange}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                 >
                   <option value="">Select budget range</option>
                   {budgetRanges.map(range => (
@@ -468,7 +468,7 @@ const InquiryForm: React.FC = () => {
                   name="hearAboutUs"
                   value={formData.hearAboutUs}
                   onChange={handleInputChange}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                 >
                   <option value="">Select source</option>
                   {referralSources.map(source => (
@@ -486,7 +486,7 @@ const InquiryForm: React.FC = () => {
                   name="cakeTasting"
                   checked={formData.cakeTasting}
                   onChange={handleInputChange}
-                  className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-coral-600 border-gray-300 rounded"
                 />
                 <span className="ml-2 text-sm text-gray-700">
                   Would you like to set up a cake tasting?
@@ -529,7 +529,7 @@ const InquiryForm: React.FC = () => {
                 value={formData.additionalNotes}
                 onChange={handleInputChange}
                 placeholder="Tell us anything else you'd like us to know about your vision..."
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
               />
             </div>
 
@@ -545,7 +545,7 @@ const InquiryForm: React.FC = () => {
             <div className="pt-4">
               <button
                 type="submit"
-                className="w-full inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all"
+                className="w-full inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-offset-2 transition-all"
               >
                 Submit Inquiry
               </button>

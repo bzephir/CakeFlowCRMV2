@@ -172,7 +172,7 @@ const Invoices: React.FC = () => {
                 placeholder="Search invoices..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="block w-full sm:w-64 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+                className="block w-full sm:w-64 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:border-coral-500 text-sm"
               />
             </div>
             
@@ -183,7 +183,7 @@ const Invoices: React.FC = () => {
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="block w-full sm:w-48 pl-10 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+                className="block w-full sm:w-48 pl-10 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
               >
                 <option value="all">All Statuses</option>
                 <option value="pending">Pending</option>
@@ -198,7 +198,7 @@ const Invoices: React.FC = () => {
           
           <button
             onClick={handleCreateInvoice}
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all"
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-offset-2 transition-all"
           >
             <Plus className="h-4 w-4 mr-2" />
             Create Invoice
@@ -272,14 +272,14 @@ const Invoices: React.FC = () => {
             </span>
             <button 
               onClick={() => handleBulkAction('send')}
-              className="inline-flex items-center px-3 py-1 border border-gray-300 text-xs font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-colors"
+              className="inline-flex items-center px-3 py-1 border border-gray-300 text-xs font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-offset-2 transition-colors"
             >
               <Mail className="h-3 w-3 mr-1" />
               Send
             </button>
             <button 
               onClick={() => handleBulkAction('delete')}
-              className="inline-flex items-center px-3 py-1 border border-gray-300 text-xs font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-colors"
+              className="inline-flex items-center px-3 py-1 border border-gray-300 text-xs font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-offset-2 transition-colors"
             >
               <Trash2 className="h-3 w-3 mr-1" />
               Delete
@@ -296,7 +296,7 @@ const Invoices: React.FC = () => {
                   type="checkbox"
                   checked={selectedInvoices.length === filteredInvoices.length && filteredInvoices.length > 0}
                   onChange={toggleSelectAll}
-                  className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-coral-600 border-gray-300 rounded"
                 />
               </div>
               <div className="w-28">
@@ -344,7 +344,7 @@ const Invoices: React.FC = () => {
                       type="checkbox"
                       checked={selectedInvoices.includes(invoice.id)}
                       onChange={() => toggleSelectInvoice(invoice.id)}
-                      className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-coral-600 border-gray-300 rounded"
                     />
                   </div>
                   <div className="w-28">

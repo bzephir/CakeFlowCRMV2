@@ -55,7 +55,7 @@ const Header: React.FC<HeaderProps> = ({ title, subtitle, icon: IconComponent })
             <input
               type="text"
               placeholder="Search..."
-              className="block w-64 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+              className="block w-64 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:border-coral-500 text-sm"
             />
           </div>
           

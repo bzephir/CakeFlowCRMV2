@@ -257,10 +257,10 @@ const VenueForm: React.FC<VenueFormProps> = ({ isOpen, onClose, onSubmit, venue 
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                     errors.name
                       ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                      : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                      : 'border-gray-300 focus:border-coral-500'
                   }`}
                   placeholder="Enter venue name"
                 />
@@ -284,10 +284,10 @@ const VenueForm: React.FC<VenueFormProps> = ({ isOpen, onClose, onSubmit, venue 
                     min="1"
                     value={formData.capacity}
                     onChange={handleInputChange}
-                    className={`block w-full pl-10 pr-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                    className={`block w-full pl-10 pr-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                       errors.capacity
                         ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                        : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                        : 'border-gray-300 focus:border-coral-500'
                     }`}
                     placeholder="Maximum guests"
                   />
@@ -308,7 +308,7 @@ const VenueForm: React.FC<VenueFormProps> = ({ isOpen, onClose, onSubmit, venue 
                       name="coiRequired"
                       checked={formData.coiRequired}
                       onChange={handleInputChange}
-                      className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-coral-600 border-gray-300 rounded"
                     />
                     <span className="ml-2 text-sm text-gray-700">COI Required</span>
                   </label>
@@ -334,10 +334,10 @@ const VenueForm: React.FC<VenueFormProps> = ({ isOpen, onClose, onSubmit, venue 
                   name="address1"
                   value={formData.address1}
                   onChange={handleInputChange}
-                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                     errors.address1
                       ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                      : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                      : 'border-gray-300 focus:border-coral-500'
                   }`}
                   placeholder="Street address"
                 />
@@ -356,7 +356,7 @@ const VenueForm: React.FC<VenueFormProps> = ({ isOpen, onClose, onSubmit, venue 
                   name="address2"
                   value={formData.address2}
                   onChange={handleInputChange}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   placeholder="Suite, floor, etc. (optional)"
                 />
               </div>
@@ -372,10 +372,10 @@ const VenueForm: React.FC<VenueFormProps> = ({ isOpen, onClose, onSubmit, venue 
                     name="city"
                     value={formData.city}
                     onChange={handleInputChange}
-                    className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                    className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                       errors.city
                         ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                        : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                        : 'border-gray-300 focus:border-coral-500'
                     }`}
                     placeholder="City"
                   />
@@ -394,10 +394,10 @@ const VenueForm: React.FC<VenueFormProps> = ({ isOpen, onClose, onSubmit, venue 
                     name="state"
                     value={formData.state}
                     onChange={handleInputChange}
-                    className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                    className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                       errors.state
                         ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                        : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                        : 'border-gray-300 focus:border-coral-500'
                     }`}
                     placeholder="State"
                   />
@@ -416,10 +416,10 @@ const VenueForm: React.FC<VenueFormProps> = ({ isOpen, onClose, onSubmit, venue 
                     name="zip"
                     value={formData.zip}
                     onChange={handleInputChange}
-                    className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                    className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                       errors.zip
                         ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                        : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                        : 'border-gray-300 focus:border-coral-500'
                     }`}
                     placeholder="ZIP"
                   />
@@ -448,10 +448,10 @@ const VenueForm: React.FC<VenueFormProps> = ({ isOpen, onClose, onSubmit, venue 
                   name="contactName"
                   value={formData.contactName}
                   onChange={handleInputChange}
-                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                     errors.contactName
                       ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                      : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                      : 'border-gray-300 focus:border-coral-500'
                   }`}
                   placeholder="Contact person name"
                 />
@@ -474,10 +474,10 @@ const VenueForm: React.FC<VenueFormProps> = ({ isOpen, onClose, onSubmit, venue 
                     name="contactEmail"
                     value={formData.contactEmail}
                     onChange={handleInputChange}
-                    className={`block w-full pl-10 pr-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                    className={`block w-full pl-10 pr-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                       errors.contactEmail
                         ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                        : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                        : 'border-gray-300 focus:border-coral-500'
                     }`}
                     placeholder="contact@venue.com"
                   />
@@ -501,10 +501,10 @@ const VenueForm: React.FC<VenueFormProps> = ({ isOpen, onClose, onSubmit, venue 
                     name="contactPhone"
                     value={formData.contactPhone}
                     onChange={handleInputChange}
-                    className={`block w-full pl-10 pr-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                    className={`block w-full pl-10 pr-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                       errors.contactPhone
                         ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                        : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                        : 'border-gray-300 focus:border-coral-500'
                     }`}
                     placeholder="(555) 123-4567"
                   />
@@ -602,10 +602,10 @@ const VenueForm: React.FC<VenueFormProps> = ({ isOpen, onClose, onSubmit, venue 
                       rows={3}
                       value={formData.outsideFoodNotes}
                       onChange={handleInputChange}
-                      className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                      className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                         errors.outsideFoodNotes
                           ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                          : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                          : 'border-gray-300 focus:border-coral-500'
                       }`}
                       placeholder="Describe the specific rules and restrictions for outside catering..."
                     />
@@ -627,7 +627,7 @@ const VenueForm: React.FC<VenueFormProps> = ({ isOpen, onClose, onSubmit, venue 
                   rows={3}
                   value={formData.deliveryNotes}
                   onChange={handleInputChange}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   placeholder="Special delivery instructions, loading dock info, access requirements, etc."
                 />
               </div>
@@ -683,7 +683,7 @@ const VenueForm: React.FC<VenueFormProps> = ({ isOpen, onClose, onSubmit, venue 
                       handleCustomTagAdd();
                     }
                   }}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   placeholder="Type to search tags or add custom tag..."
                 />
                 
@@ -732,7 +732,7 @@ const VenueForm: React.FC<VenueFormProps> = ({ isOpen, onClose, onSubmit, venue 
               rows={4}
               value={formData.additionalNotes}
               onChange={handleInputChange}
-              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
               placeholder="Any additional information about the venue, special requirements, or notes for staff..."
             />
           </div>

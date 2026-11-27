@@ -193,7 +193,7 @@ const Venues: React.FC = () => {
                 placeholder="Search venues..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="block w-full sm:w-64 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+                className="block w-full sm:w-64 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:border-coral-500 text-sm"
               />
             </div>
             
@@ -204,7 +204,7 @@ const Venues: React.FC = () => {
               <select
                 value={tagFilter}
                 onChange={(e) => setTagFilter(e.target.value)}
-                className="block w-full sm:w-48 pl-10 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+                className="block w-full sm:w-48 pl-10 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
               >
                 <option value="all">All Tags</option>
                 {allTags.map(tag => (
@@ -220,7 +220,7 @@ const Venues: React.FC = () => {
               <select
                 value={coiFilter}
                 onChange={(e) => setCoiFilter(e.target.value)}
-                className="block w-full sm:w-40 pl-10 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+                className="block w-full sm:w-40 pl-10 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
               >
                 <option value="all">All COI</option>
                 <option value="required">COI Required</option>
@@ -235,7 +235,7 @@ const Venues: React.FC = () => {
               <select
                 value={capacityFilter}
                 onChange={(e) => setCapacityFilter(e.target.value)}
-                className="block w-full sm:w-36 pl-10 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+                className="block w-full sm:w-36 pl-10 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
               >
                 <option value="all">All Sizes</option>
                 <option value="small">Small (≤50)</option>
@@ -247,7 +247,7 @@ const Venues: React.FC = () => {
           
           <button 
             onClick={handleAddVenue}
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 transition-all"
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-offset-2 transition-all"
           >
             <Plus className="h-4 w-4 mr-2" />
             Add Venue

@@ -397,10 +397,10 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                   name="name"
                   value={formData.name || ''}
                   onChange={handleInputChange}
-                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                     errors.name
                       ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                      : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                      : 'border-gray-300 focus:border-coral-500'
                   }`}
                   placeholder="Enter recipe name"
                 />
@@ -418,10 +418,10 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                   name="category"
                   value={formData.category || ''}
                   onChange={handleInputChange}
-                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                     errors.category
                       ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                      : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                      : 'border-gray-300 focus:border-coral-500'
                   }`}
                 >
                   <option value="">Select category</option>
@@ -443,7 +443,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                   name="status"
                   value={formData.status || 'draft'}
                   onChange={handleInputChange}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                 >
                   <option value="draft">Draft</option>
                   <option value="active">Active</option>
@@ -462,12 +462,12 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                   rows={2}
                   value={formData.description || ''}
                   onChange={handleInputChange}
-                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                     errors.description
                       ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
                       : descriptionWordCount > 15
                       ? 'border-yellow-400 focus:ring-yellow-500 focus:border-yellow-500'
-                      : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                      : 'border-gray-300 focus:border-coral-500'
                   }`}
                   placeholder="Brief description of the recipe (15 words max)..."
                 />
@@ -509,10 +509,10 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                   min="1"
                   value={formData.yield?.quantity || 1}
                   onChange={handleInputChange}
-                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                     errors['yield.quantity']
                       ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                      : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                      : 'border-gray-300 focus:border-coral-500'
                   }`}
                 />
                 {errors['yield.quantity'] && (
@@ -529,7 +529,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                   name="yield.unit"
                   value={formData.yield?.unit || 'servings'}
                   onChange={handleInputChange}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                 >
                   {yieldUnits.map(unit => (
                     <option key={unit} value={unit}>{unit}</option>
@@ -548,7 +548,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                   min="1"
                   value={formData.preparationTime || 60}
                   onChange={handleInputChange}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                 />
               </div>
 
@@ -562,7 +562,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                   name="yield.description"
                   value={formData.yield?.description || ''}
                   onChange={handleInputChange}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   placeholder="e.g., 8-inch round cake, standard cupcakes"
                 />
               </div>
@@ -601,7 +601,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                       <select
                         value={ingredient.ingredientId}
                         onChange={(e) => updateIngredient(index, 'ingredientId', e.target.value)}
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
                       >
                         <option value="">Select ingredient</option>
                         {availableIngredients.map(ing => (
@@ -622,7 +622,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                         min="0"
                         value={ingredient.quantity}
                         onChange={(e) => updateIngredient(index, 'quantity', parseFloat(e.target.value) || 0)}
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
                       />
                     </div>
 
@@ -648,7 +648,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                         min="0"
                         value={ingredient.costPerUnit}
                         onChange={(e) => updateIngredient(index, 'costPerUnit', parseFloat(e.target.value) || 0)}
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
                       />
                     </div>
 
@@ -731,7 +731,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                         rows={2}
                         value={step.instruction}
                         onChange={(e) => updatePreparationStep(index, 'instruction', e.target.value)}
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
                         placeholder="Describe this preparation step..."
                       />
                     </div>
@@ -745,7 +745,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                         min="0"
                         value={step.duration || ''}
                         onChange={(e) => updatePreparationStep(index, 'duration', e.target.value)}
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
                       />
                     </div>
 
@@ -758,7 +758,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                           type="text"
                           value={step.temperature || ''}
                           onChange={(e) => updatePreparationStep(index, 'temperature', e.target.value)}
-                          className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+                          className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
                           placeholder="e.g., 350°F"
                         />
                       </div>
@@ -804,7 +804,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                       <select
                         value={item.itemId}
                         onChange={(e) => updatePackagingItem(index, 'itemId', e.target.value)}
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
                       >
                         <option value="">Select item</option>
                         {availablePackaging.map(pkg => (
@@ -825,7 +825,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                         min="0"
                         value={item.quantity}
                         onChange={(e) => updatePackagingItem(index, 'quantity', parseFloat(e.target.value) || 0)}
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
                       />
                     </div>
 
@@ -851,7 +851,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                         min="0"
                         value={item.costPerUnit}
                         onChange={(e) => updatePackagingItem(index, 'costPerUnit', parseFloat(e.target.value) || 0)}
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
                       />
                     </div>
 
@@ -902,10 +902,10 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                     min="0"
                     value={formData.sellingPrice || ''}
                     onChange={handleInputChange}
-                    className={`block w-full pl-7 pr-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                    className={`block w-full pl-7 pr-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                       errors.sellingPrice
                         ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                        : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                        : 'border-gray-300 focus:border-coral-500'
                     }`}
                     placeholder="0.00"
                   />

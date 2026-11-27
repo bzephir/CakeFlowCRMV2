@@ -165,10 +165,10 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ isOpen, onClose, onSubmit }
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleInputChange}
-                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                     errors.firstName
                       ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                      : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                      : 'border-gray-300 focus:border-coral-500'
                   }`}
                   placeholder="Enter first name"
                 />
@@ -186,10 +186,10 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ isOpen, onClose, onSubmit }
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleInputChange}
-                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                     errors.lastName
                       ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                      : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                      : 'border-gray-300 focus:border-coral-500'
                   }`}
                   placeholder="Enter last name"
                 />
@@ -217,10 +217,10 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ isOpen, onClose, onSubmit }
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                     errors.email
                       ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                      : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                      : 'border-gray-300 focus:border-coral-500'
                   }`}
                   placeholder="Enter email address"
                 />
@@ -238,10 +238,10 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ isOpen, onClose, onSubmit }
                   name="phone"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                     errors.phone
                       ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                      : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                      : 'border-gray-300 focus:border-coral-500'
                   }`}
                   placeholder="(555) 123-4567"
                 />
@@ -269,10 +269,10 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ isOpen, onClose, onSubmit }
                   name="address1"
                   value={formData.address1}
                   onChange={handleInputChange}
-                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                     errors.address1
                       ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                      : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                      : 'border-gray-300 focus:border-coral-500'
                   }`}
                   placeholder="Street address"
                 />
@@ -290,7 +290,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ isOpen, onClose, onSubmit }
                   name="address2"
                   value={formData.address2}
                   onChange={handleInputChange}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 transition-colors"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 transition-colors"
                   placeholder="Apartment, suite, etc. (optional)"
                 />
               </div>
@@ -305,10 +305,10 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ isOpen, onClose, onSubmit }
                     name="city"
                     value={formData.city}
                     onChange={handleInputChange}
-                    className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                    className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                       errors.city
                         ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                        : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                        : 'border-gray-300 focus:border-coral-500'
                     }`}
                     placeholder="City"
                   />
@@ -326,10 +326,10 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ isOpen, onClose, onSubmit }
                     name="state"
                     value={formData.state}
                     onChange={handleInputChange}
-                    className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                    className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                       errors.state
                         ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                        : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                        : 'border-gray-300 focus:border-coral-500'
                     }`}
                     placeholder="State"
                   />
@@ -347,10 +347,10 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ isOpen, onClose, onSubmit }
                     name="zip"
                     value={formData.zip}
                     onChange={handleInputChange}
-                    className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                    className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                       errors.zip
                         ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                        : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                        : 'border-gray-300 focus:border-coral-500'
                     }`}
                     placeholder="ZIP"
                   />

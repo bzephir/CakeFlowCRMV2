@@ -76,7 +76,7 @@ const CalendarPage: React.FC = () => {
                 placeholder="Search events..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="block w-full sm:w-64 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-aqua-500 focus:border-aqua-500 text-sm"
+                className="block w-full sm:w-64 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-aqua-500 focus:border-aqua-500 text-sm"
               />
             </div>
             
@@ -88,7 +88,7 @@ const CalendarPage: React.FC = () => {
               <select
                 value={selectedYear}
                 onChange={(e) => handleYearChange(parseInt(e.target.value))}
-                className="block w-full sm:w-32 pl-10 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-aqua-500 focus:border-aqua-500 text-sm appearance-none"
+                className="block w-full sm:w-32 pl-10 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-aqua-500 focus:border-aqua-500 text-sm appearance-none"
               >
                 {yearOptions.map(year => (
                   <option key={year} value={year}>
@@ -109,7 +109,7 @@ const CalendarPage: React.FC = () => {
               <select
                 value={filterType}
                 onChange={(e) => setFilterType(e.target.value)}
-                className="block w-full sm:w-48 pl-10 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-aqua-500 focus:border-aqua-500 text-sm"
+                className="block w-full sm:w-48 pl-10 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-aqua-500 focus:border-aqua-500 text-sm"
               >
                 <option value="all">All Events</option>
                 <option value="appointment">Appointments</option>
@@ -142,7 +142,7 @@ const CalendarPage: React.FC = () => {
             {/* Create Event Button */}
             <button 
               onClick={() => handleCreateEvent(new Date().toISOString().split('T')[0])}
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-aqua-400 to-aqua-500 hover:from-aqua-500 hover:to-aqua-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-aqua-500 transition-all"
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-aqua-400 to-aqua-500 hover:from-aqua-500 hover:to-aqua-600 focus:outline-none focus:ring-offset-2 focus:ring-aqua-500 transition-all"
             >
               <Plus className="h-4 w-4 mr-2" />
               New Event

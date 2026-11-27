@@ -307,10 +307,10 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ isOpen, onClose, onSubmit, 
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 transition-colors ${
+                      className={`w-full px-3 py-2 border rounded-md focus:outline-none transition-colors ${
                         errors.name
                           ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                          : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                          : 'border-gray-300 focus:border-coral-500'
                       }`}
                       placeholder="e.g., 6 inch Round Cake Board"
                     />
@@ -327,7 +327,7 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ isOpen, onClose, onSubmit, 
                       name="category"
                       value={formData.category}
                       onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                     >
                       {categories.map(cat => (
                         <option key={cat} value={cat}>{cat}</option>
@@ -345,10 +345,10 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ isOpen, onClose, onSubmit, 
                       min="1"
                       value={formData.unitQuantity}
                       onChange={handleInputChange}
-                      className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 transition-colors ${
+                      className={`w-full px-3 py-2 border rounded-md focus:outline-none transition-colors ${
                         errors.unitQuantity
                           ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                          : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                          : 'border-gray-300 focus:border-coral-500'
                       }`}
                       placeholder="Items per package"
                     />
@@ -381,10 +381,10 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ isOpen, onClose, onSubmit, 
                         min="0"
                         value={formData.packageCost}
                         onChange={handleInputChange}
-                        className={`w-full pl-7 pr-3 py-2 border rounded-md focus:outline-none focus:ring-1 transition-colors ${
+                        className={`w-full pl-7 pr-3 py-2 border rounded-md focus:outline-none transition-colors ${
                           errors.packageCost
                             ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                            : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                            : 'border-gray-300 focus:border-coral-500'
                         }`}
                       />
                     </div>
@@ -417,10 +417,10 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ isOpen, onClose, onSubmit, 
                         min="0"
                         value={formData.pricePerItem}
                         onChange={handleInputChange}
-                        className={`w-full pl-7 pr-3 py-2 border rounded-md focus:outline-none focus:ring-1 transition-colors ${
+                        className={`w-full pl-7 pr-3 py-2 border rounded-md focus:outline-none transition-colors ${
                           errors.pricePerItem
                             ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                            : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                            : 'border-gray-300 focus:border-coral-500'
                         }`}
                       />
                     </div>
@@ -465,10 +465,10 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ isOpen, onClose, onSubmit, 
                             type="text"
                             value={priceChangeReason}
                             onChange={(e) => setPriceChangeReason(e.target.value)}
-                            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 transition-colors ${
+                            className={`w-full px-3 py-2 border rounded-md focus:outline-none transition-colors ${
                               errors.priceChangeReason
                                 ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                                : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                                : 'border-gray-300 focus:border-coral-500'
                             }`}
                             placeholder="e.g., Supplier price increase, Adjusted for market rates"
                           />
@@ -498,10 +498,10 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ isOpen, onClose, onSubmit, 
                       min="0"
                       value={formData.inventoryQuantity}
                       onChange={handleInputChange}
-                      className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 transition-colors ${
+                      className={`w-full px-3 py-2 border rounded-md focus:outline-none transition-colors ${
                         errors.inventoryQuantity
                           ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                          : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                          : 'border-gray-300 focus:border-coral-500'
                       }`}
                     />
                     {errors.inventoryQuantity && (
@@ -520,10 +520,10 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ isOpen, onClose, onSubmit, 
                       min="0"
                       value={formData.reorderLevel}
                       onChange={handleInputChange}
-                      className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 transition-colors ${
+                      className={`w-full px-3 py-2 border rounded-md focus:outline-none transition-colors ${
                         errors.reorderLevel
                           ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                          : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                          : 'border-gray-300 focus:border-coral-500'
                       }`}
                     />
                     {errors.reorderLevel && (
@@ -557,7 +557,7 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ isOpen, onClose, onSubmit, 
                       name="vendorId"
                       value={formData.vendorId}
                       onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                     >
                       <option value="">Select Supplier</option>
                       {mockVendors.map(vendor => (
@@ -581,7 +581,7 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ isOpen, onClose, onSubmit, 
                         name="canLinkToRecipe"
                         checked={formData.canLinkToRecipe}
                         onChange={handleInputChange}
-                        className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
+                        className="h-4 w-4 text-coral-600 border-gray-300 rounded"
                       />
                       <span className="ml-2 text-sm text-gray-700">Can be linked to recipes</span>
                     </label>
@@ -596,7 +596,7 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ isOpen, onClose, onSubmit, 
                       value={formData.notes}
                       onChange={handleInputChange}
                       rows={3}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                       placeholder="Additional notes about this material..."
                     />
                   </div>

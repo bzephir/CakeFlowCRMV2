@@ -208,10 +208,10 @@ const CommunicationForm: React.FC<CommunicationFormProps> = ({ isOpen, onClose, 
                 name="title"
                 value={formData.title}
                 onChange={handleInputChange}
-                className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                   errors.title
                     ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                    : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                    : 'border-gray-300 focus:border-coral-500'
                 }`}
                 placeholder="Enter a descriptive title"
               />
@@ -230,10 +230,10 @@ const CommunicationForm: React.FC<CommunicationFormProps> = ({ isOpen, onClose, 
                 rows={4}
                 value={formData.content}
                 onChange={handleInputChange}
-                className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                   errors.content
                     ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                    : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                    : 'border-gray-300 focus:border-coral-500'
                 }`}
                 placeholder="Enter the communication content or message"
               />
@@ -255,7 +255,7 @@ const CommunicationForm: React.FC<CommunicationFormProps> = ({ isOpen, onClose, 
                 name="priority"
                 value={formData.priority}
                 onChange={handleInputChange}
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
               >
                 <option value={Priority.LOW}>Low</option>
                 <option value={Priority.NORMAL}>Normal</option>
@@ -271,7 +271,7 @@ const CommunicationForm: React.FC<CommunicationFormProps> = ({ isOpen, onClose, 
                   name="isPinned"
                   checked={formData.isPinned}
                   onChange={handleInputChange}
-                  className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-coral-600 border-gray-300 rounded"
                 />
                 <span className="ml-2 text-sm text-gray-700">Pin Message</span>
               </label>
@@ -301,7 +301,7 @@ const CommunicationForm: React.FC<CommunicationFormProps> = ({ isOpen, onClose, 
                     }}
                     onFocus={() => setShowCustomerDropdown(true)}
                     placeholder="Search customers..."
-                    className="block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                    className="block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   />
                   <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
                     <Search className="h-4 w-4 text-gray-400" />
@@ -340,7 +340,7 @@ const CommunicationForm: React.FC<CommunicationFormProps> = ({ isOpen, onClose, 
                   name="orderId"
                   value={formData.orderId}
                   onChange={handleInputChange}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                 >
                   <option value="">Select order (optional)</option>
                   {orders.map(order => (
@@ -361,7 +361,7 @@ const CommunicationForm: React.FC<CommunicationFormProps> = ({ isOpen, onClose, 
                   name="quoteId"
                   value={formData.quoteId}
                   onChange={handleInputChange}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                 >
                   <option value="">Select quote (optional)</option>
                   {quotes.map(quote => (
@@ -382,7 +382,7 @@ const CommunicationForm: React.FC<CommunicationFormProps> = ({ isOpen, onClose, 
                   name="venueId"
                   value={formData.venueId}
                   onChange={handleInputChange}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                 >
                   <option value="">Select venue (optional)</option>
                   {venues.map(venue => (
@@ -404,7 +404,7 @@ const CommunicationForm: React.FC<CommunicationFormProps> = ({ isOpen, onClose, 
                   name="followUpRequired"
                   checked={formData.followUpRequired}
                   onChange={handleInputChange}
-                  className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-coral-600 border-gray-300 rounded"
                 />
                 <span className="ml-2 text-sm text-gray-700">Follow-up Required</span>
               </label>
@@ -421,10 +421,10 @@ const CommunicationForm: React.FC<CommunicationFormProps> = ({ isOpen, onClose, 
                   name="followUpDate"
                   value={formData.followUpDate}
                   onChange={handleInputChange}
-                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                  className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                     errors.followUpDate
                       ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                      : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                      : 'border-gray-300 focus:border-coral-500'
                   }`}
                 />
                 {errors.followUpDate && (

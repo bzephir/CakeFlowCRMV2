@@ -31,7 +31,7 @@ const ProductionFilters: React.FC<ProductionFiltersProps> = ({
           placeholder={searchPlaceholder}
           value={searchTerm}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="block w-full sm:w-64 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+          className="block w-full sm:w-64 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:border-coral-500 text-sm"
         />
       </div>
 
@@ -42,7 +42,7 @@ const ProductionFilters: React.FC<ProductionFiltersProps> = ({
         <select
           value={statusFilter}
           onChange={(e) => onStatusChange(e.target.value)}
-          className="block w-full sm:w-48 pl-10 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+          className="block w-full sm:w-48 pl-10 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
         >
           <option value="all">All Statuses</option>
           <option value="queued">Queued</option>
@@ -57,7 +57,7 @@ const ProductionFilters: React.FC<ProductionFiltersProps> = ({
         <select
           value={priorityFilter}
           onChange={(e) => onPriorityChange(e.target.value)}
-          className="block w-full sm:w-40 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+          className="block w-full sm:w-40 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
         >
           <option value="all">All Priorities</option>
           <option value="high">High</option>

@@ -187,7 +187,7 @@ const EmailForm: React.FC<EmailFormProps> = ({ isOpen, onClose, onSubmit, replyT
                   name="to"
                   value={formData.to}
                   onChange={handleInputChange}
-                  className={`block w-full px-3 py-2 pr-10 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                  className={`block w-full px-3 py-2 pr-10 border rounded-md shadow-sm focus:outline-none transition-colors ${
                     errors.to
                       ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
                       : 'border-gray-300 focus:ring-aqua-500 focus:border-aqua-500'
@@ -245,7 +245,7 @@ const EmailForm: React.FC<EmailFormProps> = ({ isOpen, onClose, onSubmit, replyT
                   name="cc"
                   value={formData.cc}
                   onChange={handleInputChange}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-aqua-500 focus:border-aqua-500"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-aqua-500 focus:border-aqua-500"
                   placeholder="cc@email.com"
                 />
               </div>
@@ -260,7 +260,7 @@ const EmailForm: React.FC<EmailFormProps> = ({ isOpen, onClose, onSubmit, replyT
                   name="bcc"
                   value={formData.bcc}
                   onChange={handleInputChange}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-aqua-500 focus:border-aqua-500"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-aqua-500 focus:border-aqua-500"
                   placeholder="bcc@email.com"
                 />
               </div>
@@ -279,7 +279,7 @@ const EmailForm: React.FC<EmailFormProps> = ({ isOpen, onClose, onSubmit, replyT
                 name="subject"
                 value={formData.subject}
                 onChange={handleInputChange}
-                className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                   errors.subject
                     ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
                     : 'border-gray-300 focus:ring-aqua-500 focus:border-aqua-500'
@@ -300,7 +300,7 @@ const EmailForm: React.FC<EmailFormProps> = ({ isOpen, onClose, onSubmit, replyT
                 name="priority"
                 value={formData.priority}
                 onChange={handleInputChange}
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-aqua-500 focus:border-aqua-500"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-aqua-500 focus:border-aqua-500"
               >
                 <option value={EmailPriority.LOW}>Low</option>
                 <option value={EmailPriority.NORMAL}>Normal</option>
@@ -325,7 +325,7 @@ const EmailForm: React.FC<EmailFormProps> = ({ isOpen, onClose, onSubmit, replyT
                   handleTemplateSelect(e.target.value);
                 }
               }}
-              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-aqua-500 focus:border-aqua-500"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-aqua-500 focus:border-aqua-500"
             >
               <option value="">Select a template</option>
               {emailTemplates.map(template => (
@@ -345,7 +345,7 @@ const EmailForm: React.FC<EmailFormProps> = ({ isOpen, onClose, onSubmit, replyT
               rows={12}
               value={formData.content}
               onChange={handleInputChange}
-              className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+              className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                 errors.content
                   ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
                   : 'border-gray-300 focus:ring-aqua-500 focus:border-aqua-500'
@@ -371,7 +371,7 @@ const EmailForm: React.FC<EmailFormProps> = ({ isOpen, onClose, onSubmit, replyT
                   name="orderId"
                   value={formData.orderId}
                   onChange={handleInputChange}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-aqua-500 focus:border-aqua-500 text-sm"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-aqua-500 focus:border-aqua-500 text-sm"
                   placeholder="O-202501-0001"
                 />
               </div>
@@ -386,7 +386,7 @@ const EmailForm: React.FC<EmailFormProps> = ({ isOpen, onClose, onSubmit, replyT
                   name="quoteId"
                   value={formData.quoteId}
                   onChange={handleInputChange}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-aqua-500 focus:border-aqua-500 text-sm"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-aqua-500 focus:border-aqua-500 text-sm"
                   placeholder="Q-202501-0001"
                 />
               </div>
@@ -401,7 +401,7 @@ const EmailForm: React.FC<EmailFormProps> = ({ isOpen, onClose, onSubmit, replyT
                   name="invoiceId"
                   value={formData.invoiceId}
                   onChange={handleInputChange}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-aqua-500 focus:border-aqua-500 text-sm"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-aqua-500 focus:border-aqua-500 text-sm"
                   placeholder="I-202501-0001"
                 />
               </div>

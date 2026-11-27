@@ -311,21 +311,21 @@ const Invoice: React.FC = () => {
             <>
               <button 
                 onClick={handlePrint}
-                className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 mr-3"
+                className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-offset-2 mr-3"
               >
                 <Printer className="h-4 w-4 mr-2" />
                 Print
               </button>
               <button 
                 onClick={handleDownload}
-                className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500 mr-3"
+                className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-offset-2 mr-3"
               >
                 <Download className="h-4 w-4 mr-2" />
                 Download PDF
               </button>
               <button 
                 onClick={handleEmail}
-                className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500"
+                className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-offset-2"
               >
                 <Mail className="h-4 w-4 mr-2" />
                 Email Invoice
@@ -335,7 +335,7 @@ const Invoice: React.FC = () => {
           {isNewInvoice && (
             <button 
               onClick={handleSaveInvoice}
-              className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-500"
+              className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-offset-2"
             >
               <CheckCircle2 className="h-4 w-4 mr-2" />
               Save Invoice
@@ -366,7 +366,7 @@ const Invoice: React.FC = () => {
                       name="issueDate" 
                       value={invoice.issueDate} 
                       onChange={handleInputChange}
-                      className="border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
+                      className="border-gray-300 rounded-md shadow-sm focus:border-coral-500"
                     />
                   ) : formatDate(invoice.issueDate)}
                 </p>
@@ -377,7 +377,7 @@ const Invoice: React.FC = () => {
                       name="dueDate" 
                       value={invoice.dueDate} 
                       onChange={handleInputChange}
-                      className="border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
+                      className="border-gray-300 rounded-md shadow-sm focus:border-coral-500"
                     />
                   ) : formatDate(invoice.dueDate)}
                 </p>
@@ -400,7 +400,7 @@ const Invoice: React.FC = () => {
                       name="status"
                       value={invoice.status}
                       onChange={(e) => setInvoice({...invoice, status: e.target.value})}
-                      className="border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
+                      className="border-gray-300 rounded-md shadow-sm focus:border-coral-500"
                     >
                       <option value="draft">Draft</option>
                       <option value="pending">Pending</option>
@@ -434,7 +434,7 @@ const Invoice: React.FC = () => {
                         type="text" 
                         value={invoice.customer.name} 
                         onChange={(e) => handleInputChange(e, 'customer', 'name')}
-                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
+                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500"
                       />
                     </div>
                     <div>
@@ -443,7 +443,7 @@ const Invoice: React.FC = () => {
                         type="text" 
                         value={invoice.customer.phone} 
                         onChange={(e) => handleInputChange(e, 'customer', 'phone')}
-                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
+                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500"
                       />
                     </div>
                     <div>
@@ -452,7 +452,7 @@ const Invoice: React.FC = () => {
                         type="text" 
                         value={invoice.customer.address} 
                         onChange={(e) => handleInputChange(e, 'customer', 'address')}
-                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
+                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500"
                       />
                     </div>
                     <div className="grid grid-cols-3 gap-2">
@@ -462,7 +462,7 @@ const Invoice: React.FC = () => {
                           type="text" 
                           value={invoice.customer.city} 
                           onChange={(e) => handleInputChange(e, 'customer', 'city')}
-                          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
+                          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500"
                         />
                       </div>
                       <div>
@@ -471,7 +471,7 @@ const Invoice: React.FC = () => {
                           type="text" 
                           value={invoice.customer.state} 
                           onChange={(e) => handleInputChange(e, 'customer', 'state')}
-                          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
+                          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500"
                         />
                       </div>
                       <div>
@@ -480,7 +480,7 @@ const Invoice: React.FC = () => {
                           type="text" 
                           value={invoice.customer.zip} 
                           onChange={(e) => handleInputChange(e, 'customer', 'zip')}
-                          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
+                          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500"
                         />
                       </div>
                     </div>
@@ -504,7 +504,7 @@ const Invoice: React.FC = () => {
                         type="date" 
                         value={invoice.event.date} 
                         onChange={(e) => handleInputChange(e, 'event', 'date')}
-                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
+                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500"
                       />
                     </div>
                     
@@ -513,7 +513,7 @@ const Invoice: React.FC = () => {
                       <select
                         value={invoice.event.fulfillmentType}
                         onChange={(e) => handleInputChange(e, 'event', 'fulfillmentType')}
-                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
+                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500"
                       >
                         <option value="pickup">Pickup</option>
                         <option value="delivery">Delivery</option>
@@ -528,7 +528,7 @@ const Invoice: React.FC = () => {
                             type="time" 
                             value={invoice.event.pickupTime} 
                             onChange={(e) => handleInputChange(e, 'event', 'pickupTime')}
-                            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
+                            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500"
                           />
                         </>
                       ) : (
@@ -538,7 +538,7 @@ const Invoice: React.FC = () => {
                             type="time" 
                             value={invoice.event.deliveryTime} 
                             onChange={(e) => handleInputChange(e, 'event', 'deliveryTime')}
-                            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
+                            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500"
                           />
                         </>
                       )}
@@ -550,7 +550,7 @@ const Invoice: React.FC = () => {
                         type="time" 
                         value={invoice.event.eventTime} 
                         onChange={(e) => handleInputChange(e, 'event', 'eventTime')}
-                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
+                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500"
                       />
                     </div>
                     <div>
@@ -559,7 +559,7 @@ const Invoice: React.FC = () => {
                         type="text" 
                         value={invoice.event.venue} 
                         onChange={(e) => handleInputChange(e, 'event', 'venue')}
-                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
+                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500"
                       />
                     </div>
                     <div>
@@ -568,7 +568,7 @@ const Invoice: React.FC = () => {
                         type="number" 
                         value={invoice.event.guestCount} 
                         onChange={(e) => handleInputChange(e, 'event', 'guestCount')}
-                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
+                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500"
                       />
                     </div>
                   </div>
@@ -651,7 +651,7 @@ const Invoice: React.FC = () => {
                             type="text" 
                             value={item.description} 
                             onChange={(e) => handleInputChange(e, 'items', 'description', index)}
-                            className="block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
+                            className="block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500"
                             placeholder="Item description"
                           />
                         ) : item.description}
@@ -662,7 +662,7 @@ const Invoice: React.FC = () => {
                             type="number" 
                             value={item.quantity} 
                             onChange={(e) => handleInputChange(e, 'items', 'quantity', index)}
-                            className="block w-20 mx-auto text-center border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
+                            className="block w-20 mx-auto text-center border-gray-300 rounded-md shadow-sm focus:border-coral-500"
                             min="1"
                           />
                         ) : item.quantity}
@@ -673,7 +673,7 @@ const Invoice: React.FC = () => {
                             type="number" 
                             value={item.price} 
                             onChange={(e) => handleInputChange(e, 'items', 'price', index)}
-                            className="block w-24 ml-auto text-right border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
+                            className="block w-24 ml-auto text-right border-gray-300 rounded-md shadow-sm focus:border-coral-500"
                             min="0"
                             step="0.01"
                           />
@@ -777,7 +777,7 @@ const Invoice: React.FC = () => {
                     value={invoice.notes}
                     onChange={handleInputChange}
                     rows={4}
-                    className="block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
+                    className="block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500"
                     placeholder="Add notes about the order..."
                   />
                 ) : (
@@ -792,7 +792,7 @@ const Invoice: React.FC = () => {
                     value={invoice.terms}
                     onChange={handleInputChange}
                     rows={4}
-                    className="block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500 focus:ring focus:ring-coral-500 focus:ring-opacity-50"
+                    className="block w-full border-gray-300 rounded-md shadow-sm focus:border-coral-500"
                     placeholder="Add terms and conditions..."
                   />
                 ) : (

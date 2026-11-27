@@ -313,7 +313,7 @@ const Notifications: React.FC = () => {
                 placeholder="Search notifications..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="block w-full sm:w-64 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+                className="block w-full sm:w-64 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:border-coral-500 text-sm"
               />
             </div>
             
@@ -324,7 +324,7 @@ const Notifications: React.FC = () => {
               <select
                 value={typeFilter}
                 onChange={(e) => setTypeFilter(e.target.value)}
-                className="block w-full sm:w-48 pl-10 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500 text-sm"
+                className="block w-full sm:w-48 pl-10 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
               >
                 <option value="all">All Types</option>
                 <option value="order">Orders</option>
@@ -342,7 +342,7 @@ const Notifications: React.FC = () => {
                   type="checkbox"
                   checked={showUnreadOnly}
                   onChange={(e) => setShowUnreadOnly(e.target.checked)}
-                  className="h-4 w-4 text-coral-600 focus:ring-coral-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-coral-600 border-gray-300 rounded"
                 />
                 <span className="ml-2 text-sm text-gray-700">Unread Only</span>
               </label>

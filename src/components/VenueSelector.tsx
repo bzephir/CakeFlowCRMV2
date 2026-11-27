@@ -93,10 +93,10 @@ const VenueSelector: React.FC<VenueSelectorProps> = ({
             }}
             onFocus={() => setShowVenueDropdown(true)}
             placeholder="Search venues or add new..."
-            className={`block w-full px-3 py-2 pr-10 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+            className={`block w-full px-3 py-2 pr-10 border rounded-md shadow-sm focus:outline-none transition-colors ${
               error
                 ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                : 'border-gray-300 focus:border-coral-500'
             }`}
           />
           <div className="absolute inset-y-0 right-0 pr-3 flex items-center">

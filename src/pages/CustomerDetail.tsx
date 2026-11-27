@@ -611,7 +611,7 @@ return (
                             type="date"
                             value={editedBirthday}
                             onChange={(e) => setEditedBirthday(e.target.value)}
-                            className="mt-1 block w-full px-2 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-aqua-500 focus:border-aqua-500 text-sm"
+                            className="mt-1 block w-full px-2 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-aqua-500 focus:border-aqua-500 text-sm"
                           />
                         ) : (
                           <div className="text-sm text-gray-500">
@@ -659,7 +659,7 @@ return (
                             type="date"
                             value={editedAnniversary}
                             onChange={(e) => setEditedAnniversary(e.target.value)}
-                            className="mt-1 block w-full px-2 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-mint-500 focus:border-mint-500 text-sm"
+                            className="mt-1 block w-full px-2 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-mint-500 focus:border-mint-500 text-sm"
                           />
                         ) : (
                           <div className="text-sm text-gray-500">

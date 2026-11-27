@@ -74,7 +74,7 @@ const VendorModal: React.FC<VendorModalProps> = ({ isOpen, onClose, onSubmit }) 
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                     placeholder="e.g., King Arthur Baking Company"
                   />
                 </div>
@@ -87,7 +87,7 @@ const VendorModal: React.FC<VendorModalProps> = ({ isOpen, onClose, onSubmit }) 
                     type="text"
                     value={formData.contactPerson}
                     onChange={(e) => setFormData({ ...formData, contactPerson: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                     placeholder="Contact name"
                   />
                 </div>
@@ -100,7 +100,7 @@ const VendorModal: React.FC<VendorModalProps> = ({ isOpen, onClose, onSubmit }) 
                     type="email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                     placeholder="vendor@example.com"
                   />
                 </div>
@@ -113,7 +113,7 @@ const VendorModal: React.FC<VendorModalProps> = ({ isOpen, onClose, onSubmit }) 
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                     placeholder="(555) 123-4567"
                   />
                 </div>
@@ -126,7 +126,7 @@ const VendorModal: React.FC<VendorModalProps> = ({ isOpen, onClose, onSubmit }) 
                     type="text"
                     value={formData.paymentTerms}
                     onChange={(e) => setFormData({ ...formData, paymentTerms: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                     placeholder="e.g., Net 30"
                   />
                 </div>
@@ -139,7 +139,7 @@ const VendorModal: React.FC<VendorModalProps> = ({ isOpen, onClose, onSubmit }) 
                     type="text"
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                     placeholder="Street address"
                   />
                 </div>
@@ -152,7 +152,7 @@ const VendorModal: React.FC<VendorModalProps> = ({ isOpen, onClose, onSubmit }) 
                     type="text"
                     value={formData.city}
                     onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                   />
                 </div>
 
@@ -165,7 +165,7 @@ const VendorModal: React.FC<VendorModalProps> = ({ isOpen, onClose, onSubmit }) 
                       type="text"
                       value={formData.state}
                       onChange={(e) => setFormData({ ...formData, state: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                       maxLength={2}
                     />
                   </div>
@@ -178,7 +178,7 @@ const VendorModal: React.FC<VendorModalProps> = ({ isOpen, onClose, onSubmit }) 
                       type="text"
                       value={formData.zip}
                       onChange={(e) => setFormData({ ...formData, zip: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                     />
                   </div>
                 </div>
@@ -191,7 +191,7 @@ const VendorModal: React.FC<VendorModalProps> = ({ isOpen, onClose, onSubmit }) 
                     value={formData.notes}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                     placeholder="Additional vendor information"
                   />
                 </div>

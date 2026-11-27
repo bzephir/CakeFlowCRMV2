@@ -460,10 +460,10 @@ const CreateQuote: React.FC = () => {
                         }}
                         onFocus={() => setShowCustomerDropdown(true)}
                         placeholder="Search customers..."
-                        className={`block w-full px-3 py-2 pr-10 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                        className={`block w-full px-3 py-2 pr-10 border rounded-md shadow-sm focus:outline-none transition-colors ${
                           errors.customer
                             ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                            : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                            : 'border-gray-300 focus:border-coral-500'
                         }`}
                       />
                       <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
@@ -554,7 +554,7 @@ const CreateQuote: React.FC = () => {
                       value={formData.poNumber}
                       onChange={(e) => setFormData(prev => ({ ...prev, poNumber: e.target.value }))}
                       placeholder="Optional"
-                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                     />
                   </div>
                   
@@ -566,10 +566,10 @@ const CreateQuote: React.FC = () => {
                       type="date"
                       value={formData.quoteDate}
                       onChange={(e) => setFormData(prev => ({ ...prev, quoteDate: e.target.value }))}
-                      className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                      className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                         errors.quoteDate
                           ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                          : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                          : 'border-gray-300 focus:border-coral-500'
                       }`}
                     />
                     {errors.quoteDate && (
@@ -634,10 +634,10 @@ const CreateQuote: React.FC = () => {
                           name="pickupTime"
                           value={formData.pickupTime}
                           onChange={(e) => setFormData(prev => ({ ...prev, pickupTime: e.target.value }))}
-                          className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                          className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                             errors.pickupTime
                               ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                              : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                              : 'border-gray-300 focus:border-coral-500'
                           }`}
                         />
                         {errors.pickupTime && (
@@ -655,10 +655,10 @@ const CreateQuote: React.FC = () => {
                           name="deliveryTime"
                           value={formData.deliveryTime}
                           onChange={(e) => setFormData(prev => ({ ...prev, deliveryTime: e.target.value }))}
-                          className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                          className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                             errors.deliveryTime
                               ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                              : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                              : 'border-gray-300 focus:border-coral-500'
                           }`}
                         />
                         {errors.deliveryTime && (
@@ -676,10 +676,10 @@ const CreateQuote: React.FC = () => {
                       type="date"
                       value={formData.expirationDate}
                       onChange={(e) => setFormData(prev => ({ ...prev, expirationDate: e.target.value }))}
-                      className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-1 transition-colors ${
+                      className={`block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none transition-colors ${
                         errors.expirationDate
                           ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
-                          : 'border-gray-300 focus:ring-coral-500 focus:border-coral-500'
+                          : 'border-gray-300 focus:border-coral-500'
                       }`}
                     />
                     {errors.expirationDate && (
@@ -699,7 +699,7 @@ const CreateQuote: React.FC = () => {
                       name="eventTime"
                       value={formData.eventTime}
                       onChange={(e) => setFormData(prev => ({ ...prev, eventTime: e.target.value }))}
-                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                     />
                     <p className="mt-1 text-xs text-gray-500">Only required if this order is for an event</p>
                   </div>
@@ -751,7 +751,7 @@ const CreateQuote: React.FC = () => {
                               onChange={(e) => updateLineItem(item.id, 'name', e.target.value)}
                               onFocus={() => setShowProductDropdown(item.id)}
                               placeholder="Enter or select product"
-                              className="block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                              className="block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                             />
                             <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
                               <ChevronDown className="h-4 w-4 text-gray-400" />
@@ -785,7 +785,7 @@ const CreateQuote: React.FC = () => {
                             value={item.description}
                             onChange={(e) => updateLineItem(item.id, 'description', e.target.value)}
                             placeholder="Optional description"
-                            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                           />
                         </div>
                         
@@ -799,7 +799,7 @@ const CreateQuote: React.FC = () => {
                             step="1"
                             value={item.quantity}
                             onChange={(e) => updateLineItem(item.id, 'quantity', parseInt(e.target.value) || 1)}
-                            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                           />
                         </div>
                         
@@ -817,7 +817,7 @@ const CreateQuote: React.FC = () => {
                               step="0.01"
                               value={item.unitPrice}
                               onChange={(e) => updateLineItem(item.id, 'unitPrice', parseFloat(e.target.value) || 0)}
-                              className="block w-full pl-7 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                              className="block w-full pl-7 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                             />
                           </div>
                         </div>
@@ -865,7 +865,7 @@ const CreateQuote: React.FC = () => {
                         <select
                           value={formData.discountType}
                           onChange={(e) => setFormData(prev => ({ ...prev, discountType: e.target.value as 'percentage' | 'fixed' }))}
-                          className="block w-24 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                          className="block w-24 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                         >
                           <option value="percentage">%</option>
                           <option value="fixed">$</option>
@@ -877,7 +877,7 @@ const CreateQuote: React.FC = () => {
                           value={formData.discountValue}
                           onChange={(e) => setFormData(prev => ({ ...prev, discountValue: parseFloat(e.target.value) || 0 }))}
                           placeholder="0"
-                          className="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                          className="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                         />
                       </div>
                     </div>
@@ -892,7 +892,7 @@ const CreateQuote: React.FC = () => {
                         step="0.1"
                         value={formData.taxRate}
                         onChange={(e) => setFormData(prev => ({ ...prev, taxRate: parseFloat(e.target.value) || 0 }))}
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                       />
                     </div>
                     
@@ -910,7 +910,7 @@ const CreateQuote: React.FC = () => {
                           step="0.01"
                           value={formData.shippingFee}
                           onChange={(e) => setFormData(prev => ({ ...prev, shippingFee: parseFloat(e.target.value) || 0 }))}
-                          className="block w-full pl-7 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                          className="block w-full pl-7 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                         />
                       </div>
                     </div>
@@ -972,7 +972,7 @@ const CreateQuote: React.FC = () => {
                       value={formData.customerNotes}
                       onChange={(e) => setFormData(prev => ({ ...prev, customerNotes: e.target.value }))}
                       placeholder="Notes visible to customer..."
-                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                     />
                   </div>
                   
@@ -985,7 +985,7 @@ const CreateQuote: React.FC = () => {
                       value={formData.internalNotes}
                       onChange={(e) => setFormData(prev => ({ ...prev, internalNotes: e.target.value }))}
                       placeholder="Internal notes (not visible to customer)..."
-                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                     />
                   </div>
                   
@@ -997,7 +997,7 @@ const CreateQuote: React.FC = () => {
                       rows={4}
                       value={formData.termsConditions}
                       onChange={(e) => setFormData(prev => ({ ...prev, termsConditions: e.target.value }))}
-                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-coral-500 focus:border-coral-500"
+                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                     />
                   </div>
                 </div>
