@@ -459,7 +459,7 @@ const Tasks: React.FC = () => {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="pl-2 pr-6 py-1 text-left">
+                  <th className="px-2 py-1 text-left">
                     <div className="flex items-center">
                       <input
                         type="checkbox"
@@ -469,25 +469,25 @@ const Tasks: React.FC = () => {
                       />
                     </div>
                   </th>
-                  <th className="pl-2 pr-6 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Task
                   </th>
-                  <th className="pl-2 pr-6 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Priority
                   </th>
-                  <th className="pl-2 pr-6 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Assigned To
                   </th>
-                  <th className="pl-2 pr-6 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Due Date
                   </th>
-                  <th className="pl-2 pr-6 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Category
                   </th>
-                  <th className="pl-2 pr-6 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="pl-2 pr-6 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 py-1 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -495,7 +495,7 @@ const Tasks: React.FC = () => {
               <tbody className="bg-white divide-y divide-gray-200">
                 {currentTasks.map((task) => (
                   <tr key={task.id} className="hover:bg-gray-50 transition-colors">
-                    <td className="pl-2 pr-6 py-1 whitespace-nowrap">
+                    <td className="px-2 py-1 whitespace-nowrap">
                       <div className="flex items-center">
                         <input
                           type="checkbox"
@@ -505,7 +505,7 @@ const Tasks: React.FC = () => {
                         />
                       </div>
                     </td>
-                    <td className="pl-2 pr-6 py-1">
+                    <td className="px-2 py-1">
                       <div className="max-w-xs">
                         <div className="text-sm font-medium text-gray-900 truncate">{task.title}</div>
                         <div className="text-xs text-gray-500 truncate">{task.description}</div>
@@ -516,37 +516,37 @@ const Tasks: React.FC = () => {
                         )}
                       </div>
                     </td>
-                    <td className="pl-2 pr-6 py-1 whitespace-nowrap">
+                    <td className="px-2 py-1 whitespace-nowrap">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getPriorityColor(task.priority)}`}>
                         {getPriorityIcon(task.priority)}
                         <span className="capitalize">{task.priority}</span>
                       </span>
                     </td>
-                    <td className="pl-2 pr-6 py-1 whitespace-nowrap">
+                    <td className="px-2 py-1 whitespace-nowrap">
                       <div className="flex items-center">
                         <User className="h-4 w-4 mr-2 text-gray-400" />
                         <div className="text-sm text-gray-900">{task.assignedTo}</div>
                       </div>
                     </td>
-                    <td className="pl-2 pr-6 py-1 whitespace-nowrap">
+                    <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{formatDate(task.dueDate)}</div>
                       {task.status === 'overdue' && (
                         <div className="text-xs text-red-600 font-medium">Overdue</div>
                       )}
                     </td>
-                    <td className="pl-2 pr-6 py-1 whitespace-nowrap">
+                    <td className="px-2 py-1 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{task.category}</div>
                       {task.relatedCustomer && (
                         <div className="text-xs text-gray-500">{task.relatedCustomer}</div>
                       )}
                     </td>
-                    <td className="pl-2 pr-6 py-1 whitespace-nowrap">
+                    <td className="px-2 py-1 whitespace-nowrap">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(task.status)}`}>
                         {getStatusIcon(task.status)}
                         <span className="capitalize">{task.status.replace('-', ' ')}</span>
                       </span>
                     </td>
-                    <td className="pl-2 pr-6 py-1 whitespace-nowrap text-right text-sm font-medium">
+                    <td className="px-2 py-1 whitespace-nowrap text-right text-sm font-medium">
                       <div className="flex justify-end space-x-2">
                         <button 
                           onClick={() => handleViewTask(task.id)}

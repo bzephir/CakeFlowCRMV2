@@ -311,21 +311,21 @@ const Invoice: React.FC = () => {
             <>
               <button 
                 onClick={handlePrint}
-                className="inline-flex items-center pl-3 pr-10 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-offset-2 mr-3"
+                className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-offset-2 mr-3"
               >
                 <Printer className="h-4 w-4 mr-2" />
                 Print
               </button>
               <button 
                 onClick={handleDownload}
-                className="inline-flex items-center pl-3 pr-10 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-offset-2 mr-3"
+                className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-offset-2 mr-3"
               >
                 <Download className="h-4 w-4 mr-2" />
                 Download PDF
               </button>
               <button 
                 onClick={handleEmail}
-                className="inline-flex items-center pl-3 pr-10 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-offset-2"
+                className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-offset-2"
               >
                 <Mail className="h-4 w-4 mr-2" />
                 Email Invoice
@@ -335,7 +335,7 @@ const Invoice: React.FC = () => {
           {isNewInvoice && (
             <button 
               onClick={handleSaveInvoice}
-              className="inline-flex items-center pl-3 pr-10 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-offset-2"
+              className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gradient-to-r from-coral-400 to-pink-400 hover:from-coral-500 hover:to-pink-500 focus:outline-none focus:ring-offset-2"
             >
               <CheckCircle2 className="h-4 w-4 mr-2" />
               Save Invoice

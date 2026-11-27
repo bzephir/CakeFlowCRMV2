@@ -67,7 +67,7 @@ const MeasurementConverter: React.FC<MeasurementConverterProps> = ({ ingredients
             step="0.01"
             value={inputQuantity}
             onChange={(e) => setInputQuantity(parseFloat(e.target.value) || 0)}
-            className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
           />
         </div>
 

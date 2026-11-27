@@ -151,7 +151,7 @@ const Packages: React.FC = () => {
                   {lowMarginPackages.slice(0, 3).map(pkg => (
                     <span
                       key={pkg.id}
-                      className="text-xs bg-yellow-100 text-yellow-800 pl-2 pr-6 py-1 rounded"
+                      className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded"
                     >
                       {pkg.name} ({pkg.profitMargin?.toFixed(1)}%)
                     </span>

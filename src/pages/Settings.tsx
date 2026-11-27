@@ -99,7 +99,7 @@ const Settings: React.FC = () => {
             <input
               type="text"
               defaultValue="Sweet Delights Bakery"
-              className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
             />
           </div>
           <div>
@@ -107,7 +107,7 @@ const Settings: React.FC = () => {
             <input
               type="email"
               defaultValue="orders@sweetdelights.com"
-              className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
             />
           </div>
           <div>
@@ -115,7 +115,7 @@ const Settings: React.FC = () => {
             <input
               type="tel"
               defaultValue="(555) 987-6543"
-              className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
             />
           </div>
           <div>
@@ -123,7 +123,7 @@ const Settings: React.FC = () => {
             <input
               type="url"
               defaultValue="https://sweetdelights.com"
-              className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
             />
           </div>
         </div>
@@ -137,7 +137,7 @@ const Settings: React.FC = () => {
             <input
               type="text"
               defaultValue="123 Frosting Lane"
-              className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
             />
           </div>
           <div>
@@ -145,7 +145,7 @@ const Settings: React.FC = () => {
             <input
               type="text"
               defaultValue="Sugarville"
-              className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
             />
           </div>
           <div>
@@ -153,7 +153,7 @@ const Settings: React.FC = () => {
             <input
               type="text"
               defaultValue="CA"
-              className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
             />
           </div>
           <div>
@@ -161,7 +161,7 @@ const Settings: React.FC = () => {
             <input
               type="text"
               defaultValue="90210"
-              className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
             />
           </div>
           <div>
@@ -186,7 +186,7 @@ const Settings: React.FC = () => {
                 <span className="text-white font-semibold text-lg">SD</span>
               </div>
               <div>
-                <button className="inline-flex items-center pl-3 pr-10 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                <button className="inline-flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
                   <Upload className="h-4 w-4 mr-2" />
                   Upload New Logo
                 </button>
@@ -202,28 +202,28 @@ const Settings: React.FC = () => {
                 <label className="block text-xs text-gray-500 mb-1">Primary</label>
                 <div className="flex items-center space-x-2">
                   <input type="color" defaultValue="#ff7f7f" className="w-8 h-8 border border-gray-300 rounded" />
-                  <input type="text" defaultValue="#ff7f7f" className="flex-1 pl-2 pr-6 py-1 text-xs border border-gray-300 rounded" />
+                  <input type="text" defaultValue="#ff7f7f" className="flex-1 px-2 py-1 text-xs border border-gray-300 rounded" />
                 </div>
               </div>
               <div>
                 <label className="block text-xs text-gray-500 mb-1">Secondary</label>
                 <div className="flex items-center space-x-2">
                   <input type="color" defaultValue="#3dc2f0" className="w-8 h-8 border border-gray-300 rounded" />
-                  <input type="text" defaultValue="#3dc2f0" className="flex-1 pl-2 pr-6 py-1 text-xs border border-gray-300 rounded" />
+                  <input type="text" defaultValue="#3dc2f0" className="flex-1 px-2 py-1 text-xs border border-gray-300 rounded" />
                 </div>
               </div>
               <div>
                 <label className="block text-xs text-gray-500 mb-1">Accent</label>
                 <div className="flex items-center space-x-2">
                   <input type="color" defaultValue="#4ade80" className="w-8 h-8 border border-gray-300 rounded" />
-                  <input type="text" defaultValue="#4ade80" className="flex-1 pl-2 pr-6 py-1 text-xs border border-gray-300 rounded" />
+                  <input type="text" defaultValue="#4ade80" className="flex-1 px-2 py-1 text-xs border border-gray-300 rounded" />
                 </div>
               </div>
               <div>
                 <label className="block text-xs text-gray-500 mb-1">Text</label>
                 <div className="flex items-center space-x-2">
                   <input type="color" defaultValue="#1f2937" className="w-8 h-8 border border-gray-300 rounded" />
-                  <input type="text" defaultValue="#1f2937" className="flex-1 pl-2 pr-6 py-1 text-xs border border-gray-300 rounded" />
+                  <input type="text" defaultValue="#1f2937" className="flex-1 px-2 py-1 text-xs border border-gray-300 rounded" />
                 </div>
               </div>
             </div>
@@ -387,7 +387,7 @@ const Settings: React.FC = () => {
               type="number"
               step="0.01"
               defaultValue="7.25"
-              className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
             />
           </div>
           
@@ -435,7 +435,7 @@ const Settings: React.FC = () => {
               <input
                 type="text"
                 placeholder="pk_test_..."
-                className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
               />
             </div>
             <div>
@@ -444,7 +444,7 @@ const Settings: React.FC = () => {
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="sk_test_..."
-                  className="block w-full pl-3 pr-10 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                  className="block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                 />
                 <button
                   type="button"
@@ -462,7 +462,7 @@ const Settings: React.FC = () => {
           </div>
           
           <div className="mt-4">
-            <button className="inline-flex items-center pl-3 pr-10 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+            <button className="inline-flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
               Test Connection
             </button>
           </div>
@@ -492,7 +492,7 @@ const Settings: React.FC = () => {
               <input
                 type="text"
                 placeholder="PayPal Client ID"
-                className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
               />
             </div>
             <div>
@@ -500,7 +500,7 @@ const Settings: React.FC = () => {
               <input
                 type="password"
                 placeholder="PayPal Client Secret"
-                className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
               />
             </div>
           </div>
@@ -530,7 +530,7 @@ const Settings: React.FC = () => {
               <input
                 type="text"
                 placeholder="Square Application ID"
-                className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
               />
             </div>
             <div>
@@ -538,7 +538,7 @@ const Settings: React.FC = () => {
               <input
                 type="password"
                 placeholder="Square Access Token"
-                className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
               />
             </div>
           </div>
@@ -565,7 +565,7 @@ const Settings: React.FC = () => {
               min="0"
               max="100"
               defaultValue="50"
-              className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
             />
           </div>
           
@@ -595,7 +595,7 @@ const Settings: React.FC = () => {
               <input
                 type="text"
                 placeholder="smtp.gmail.com"
-                className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
               />
             </div>
             <div>
@@ -603,7 +603,7 @@ const Settings: React.FC = () => {
               <input
                 type="number"
                 placeholder="587"
-                className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
               />
             </div>
           </div>
@@ -614,7 +614,7 @@ const Settings: React.FC = () => {
               <input
                 type="email"
                 placeholder="your-email@gmail.com"
-                className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
               />
             </div>
             <div>
@@ -622,7 +622,7 @@ const Settings: React.FC = () => {
               <input
                 type="password"
                 placeholder="App password or SMTP password"
-                className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
               />
             </div>
           </div>
@@ -657,7 +657,7 @@ const Settings: React.FC = () => {
             <input
               type="text"
               defaultValue="Sweet Delights Bakery"
-              className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
             />
           </div>
           
@@ -666,7 +666,7 @@ const Settings: React.FC = () => {
             <input
               type="email"
               defaultValue="orders@sweetdelights.com"
-              className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
             />
           </div>
           
@@ -675,7 +675,7 @@ const Settings: React.FC = () => {
             <input
               type="email"
               defaultValue="support@sweetdelights.com"
-              className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
             />
           </div>
         </div>
@@ -692,7 +692,7 @@ const Settings: React.FC = () => {
             <input
               type="email"
               placeholder="test@example.com"
-              className="flex-1 pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+              className="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
             />
             <button className="px-4 py-2 bg-coral-600 text-white rounded-md hover:bg-coral-700 transition-colors">
               Send Test
@@ -733,7 +733,7 @@ const Settings: React.FC = () => {
                 type="text"
                 placeholder="primary"
                 defaultValue="primary"
-                className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
               />
             </div>
             <div className="flex space-x-3">
@@ -804,7 +804,7 @@ const Settings: React.FC = () => {
               <input
                 type="password"
                 placeholder="Mailchimp API Key"
-                className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
               />
             </div>
             <div>
@@ -812,7 +812,7 @@ const Settings: React.FC = () => {
               <input
                 type="text"
                 placeholder="List ID for new customers"
-                className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
               />
             </div>
             <button className="px-4 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700 transition-colors">
@@ -846,7 +846,7 @@ const Settings: React.FC = () => {
             <input
               type="text"
               placeholder="orders.sweetdelights.com"
-              className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
             />
             <p className="text-xs text-gray-500 mt-1">Enter your custom domain (e.g., orders.yourdomain.com)</p>
           </div>
@@ -1022,7 +1022,7 @@ const Settings: React.FC = () => {
             <input
               type="url"
               placeholder="https://api.example.com/data"
-              className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
             />
           </div>
           <div>
@@ -1031,7 +1031,7 @@ const Settings: React.FC = () => {
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter API token or key"
-                className="block w-full pl-3 pr-10 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                className="block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
               />
               <button
                 type="button"
@@ -1176,7 +1176,7 @@ const Settings: React.FC = () => {
             <input
               type="email"
               defaultValue="admin@sweetdelights.com"
-              className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
             />
           </div>
           
@@ -1185,7 +1185,7 @@ const Settings: React.FC = () => {
             <input
               type="text"
               defaultValue="Admin User"
-              className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
             />
           </div>
         </div>
@@ -1198,7 +1198,7 @@ const Settings: React.FC = () => {
             <label className="block text-sm font-medium text-gray-700 mb-2">Current Password</label>
             <input
               type="password"
-              className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
             />
           </div>
           
@@ -1206,7 +1206,7 @@ const Settings: React.FC = () => {
             <label className="block text-sm font-medium text-gray-700 mb-2">New Password</label>
             <input
               type="password"
-              className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
             />
           </div>
           
@@ -1214,7 +1214,7 @@ const Settings: React.FC = () => {
             <label className="block text-sm font-medium text-gray-700 mb-2">Confirm New Password</label>
             <input
               type="password"
-              className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
             />
           </div>
           
@@ -1380,7 +1380,7 @@ const Settings: React.FC = () => {
             <input
               type="email"
               defaultValue="billing@sweetdelights.com"
-              className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
             />
           </div>
           
@@ -1456,7 +1456,7 @@ const Settings: React.FC = () => {
               type="text"
               value="https://cakeflow.app/ref/sweetdelights"
               readOnly
-              className="flex-1 pl-3 pr-10 py-2 border border-gray-300 rounded-md bg-white"
+              className="flex-1 px-3 py-2 border border-gray-300 rounded-md bg-white"
             />
             <button className="px-4 py-2 bg-coral-600 text-white rounded-md hover:bg-coral-700 transition-colors">
               Copy Link
@@ -1476,7 +1476,7 @@ const Settings: React.FC = () => {
                 defaultValue="20"
                 min="0"
                 max="100"
-                className="block w-20 pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                className="block w-20 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
               />
               <span className="text-sm text-gray-500">% of first year subscription</span>
             </div>
@@ -1490,7 +1490,7 @@ const Settings: React.FC = () => {
                 type="number"
                 defaultValue="100"
                 min="0"
-                className="block w-24 pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                className="block w-24 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
               />
             </div>
           </div>
@@ -1620,7 +1620,7 @@ const Settings: React.FC = () => {
             <input
               type="time"
               defaultValue="22:00"
-              className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
             />
           </div>
           <div>
@@ -1628,7 +1628,7 @@ const Settings: React.FC = () => {
             <input
               type="time"
               defaultValue="08:00"
-              className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
             />
           </div>
         </div>

@@ -205,7 +205,7 @@ const EmailForm: React.FC<EmailFormProps> = ({ isOpen, onClose, onSubmit, replyT
               
               {showCustomerDropdown && (
                 <div className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto">
-                  <div className="pl-3 pr-10 py-2 border-b border-gray-200">
+                  <div className="px-3 py-2 border-b border-gray-200">
                     <input
                       type="text"
                       value={customerSearch}
@@ -218,7 +218,7 @@ const EmailForm: React.FC<EmailFormProps> = ({ isOpen, onClose, onSubmit, replyT
                     <div
                       key={customer.id}
                       onClick={() => handleCustomerSelect(customer)}
-                      className="cursor-pointer select-none relative py-2 pl-3 pr-10 hover:bg-gray-50"
+                      className="cursor-pointer select-none relative py-2 px-3 hover:bg-gray-50"
                     >
                       <div className="flex flex-col">
                         <span className="font-medium text-gray-900">{customer.name}</span>
@@ -245,7 +245,7 @@ const EmailForm: React.FC<EmailFormProps> = ({ isOpen, onClose, onSubmit, replyT
                   name="cc"
                   value={formData.cc}
                   onChange={handleInputChange}
-                  className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-aqua-500 focus:border-aqua-500"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-aqua-500 focus:border-aqua-500"
                   placeholder="cc@email.com"
                 />
               </div>
@@ -260,7 +260,7 @@ const EmailForm: React.FC<EmailFormProps> = ({ isOpen, onClose, onSubmit, replyT
                   name="bcc"
                   value={formData.bcc}
                   onChange={handleInputChange}
-                  className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-aqua-500 focus:border-aqua-500"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-aqua-500 focus:border-aqua-500"
                   placeholder="bcc@email.com"
                 />
               </div>
@@ -371,7 +371,7 @@ const EmailForm: React.FC<EmailFormProps> = ({ isOpen, onClose, onSubmit, replyT
                   name="orderId"
                   value={formData.orderId}
                   onChange={handleInputChange}
-                  className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-aqua-500 focus:border-aqua-500 text-sm"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-aqua-500 focus:border-aqua-500 text-sm"
                   placeholder="O-202501-0001"
                 />
               </div>
@@ -386,7 +386,7 @@ const EmailForm: React.FC<EmailFormProps> = ({ isOpen, onClose, onSubmit, replyT
                   name="quoteId"
                   value={formData.quoteId}
                   onChange={handleInputChange}
-                  className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-aqua-500 focus:border-aqua-500 text-sm"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-aqua-500 focus:border-aqua-500 text-sm"
                   placeholder="Q-202501-0001"
                 />
               </div>
@@ -401,7 +401,7 @@ const EmailForm: React.FC<EmailFormProps> = ({ isOpen, onClose, onSubmit, replyT
                   name="invoiceId"
                   value={formData.invoiceId}
                   onChange={handleInputChange}
-                  className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-aqua-500 focus:border-aqua-500 text-sm"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-aqua-500 focus:border-aqua-500 text-sm"
                   placeholder="I-202501-0001"
                 />
               </div>
@@ -420,7 +420,7 @@ const EmailForm: React.FC<EmailFormProps> = ({ isOpen, onClose, onSubmit, replyT
               </p>
               <button
                 type="button"
-                className="inline-flex items-center pl-3 pr-10 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+                className="inline-flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors"
               >
                 Choose Files
               </button>

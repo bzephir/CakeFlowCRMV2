@@ -460,7 +460,7 @@ const EventModal: React.FC<EventModalProps> = ({
                           <div
                             key={customer.id}
                             onClick={() => handleCustomerSelect(customer)}
-                            className="cursor-pointer select-none relative py-2 pl-3 pr-10 hover:bg-gray-50"
+                            className="cursor-pointer select-none relative py-2 px-3 hover:bg-gray-50"
                           >
                             <div className="flex flex-col">
                               <span className="font-medium text-gray-900">{customer.name}</span>
@@ -594,7 +594,7 @@ const EventModal: React.FC<EventModalProps> = ({
               rows={3}
               value={formData.description}
               onChange={handleInputChange}
-              className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-aqua-500 focus:border-aqua-500"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-aqua-500 focus:border-aqua-500"
               placeholder={formData.type === 'task' ? "Add task details..." : "Add notes or details about this event..."}
             />
           </div>

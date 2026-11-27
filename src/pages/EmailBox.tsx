@@ -404,7 +404,7 @@ const EmailBox: React.FC = () => {
               <select
                   value={filters.priority === 'all' ? 'title' : filters.priority}
                   onChange={(e) => setFilters(prev => ({ ...prev, priority: e.target.value }))}
-                  className="block w-full sm:w-24 pl-3 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
+                  className="block w-full sm:w-32 pl-3 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
                 >
                   <option value="title" disabled hidden>Priority</option>
                   <option value="all">None</option>
@@ -429,7 +429,7 @@ const EmailBox: React.FC = () => {
               </button>
               
               <button 
-                className="inline-flex items-center pl-3 pr-10 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+                className="inline-flex items-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 transition-colors"
               >
                 <RefreshCw className="h-4 w-4 mr-2" />
                 Refresh
@@ -707,20 +707,20 @@ const EmailBox: React.FC = () => {
                                 <div className="flex justify-end space-x-3 pt-4 border-t border-gray-200">
                                   <button
                                     onClick={() => handleReplyEmail(email)}
-                                    className="inline-flex items-center pl-3 pr-10 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-aqua-400 to-aqua-500 hover:from-aqua-500 hover:to-aqua-600 transition-all"
+                                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-aqua-400 to-aqua-500 hover:from-aqua-500 hover:to-aqua-600 transition-all"
                                   >
                                     <Reply className="h-4 w-4 mr-2" />
                                     Reply
                                   </button>
                                   <button
-                                    className="inline-flex items-center pl-3 pr-10 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+                                    className="inline-flex items-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 transition-colors"
                                   >
                                     <Forward className="h-4 w-4 mr-2" />
                                     Forward
                                   </button>
                                   <button
                                     onClick={() => handleMoveToFolder(email.id, EmailFolder.ARCHIVED)}
-                                    className="inline-flex items-center pl-3 pr-10 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+                                    className="inline-flex items-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 transition-colors"
                                   >
                                     <Archive className="h-4 w-4 mr-2" />
                                     Archive

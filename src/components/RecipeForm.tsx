@@ -548,7 +548,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                   min="1"
                   value={formData.preparationTime || 60}
                   onChange={handleInputChange}
-                  className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                 />
               </div>
 
@@ -562,7 +562,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                   name="yield.description"
                   value={formData.yield?.description || ''}
                   onChange={handleInputChange}
-                  className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   placeholder="e.g., 8-inch round cake, standard cupcakes"
                 />
               </div>
@@ -579,7 +579,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
               <button
                 type="button"
                 onClick={addIngredient}
-                className="inline-flex items-center pl-3 pr-10 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-aqua-400 to-aqua-500 hover:from-aqua-500 hover:to-aqua-600 transition-all"
+                className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-aqua-400 to-aqua-500 hover:from-aqua-500 hover:to-aqua-600 transition-all"
               >
                 <Plus className="h-4 w-4 mr-2" />
                 Add Ingredient
@@ -622,7 +622,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                         min="0"
                         value={ingredient.quantity}
                         onChange={(e) => updateIngredient(index, 'quantity', parseFloat(e.target.value) || 0)}
-                        className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
                       />
                     </div>
 
@@ -634,7 +634,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                         type="text"
                         value={ingredient.unit}
                         readOnly
-                        className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-sm"
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-sm"
                       />
                     </div>
 
@@ -648,7 +648,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                         min="0"
                         value={ingredient.costPerUnit}
                         onChange={(e) => updateIngredient(index, 'costPerUnit', parseFloat(e.target.value) || 0)}
-                        className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
                       />
                     </div>
 
@@ -657,7 +657,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                         <label className="block text-sm font-medium text-gray-700 mb-1">
                           Total Cost
                         </label>
-                        <div className="pl-3 pr-10 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm font-medium">
+                        <div className="px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm font-medium">
                           ${ingredient.totalCost.toFixed(2)}
                         </div>
                       </div>
@@ -699,7 +699,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
               <button
                 type="button"
                 onClick={addPreparationStep}
-                className="inline-flex items-center pl-3 pr-10 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-mint-400 to-mint-500 hover:from-mint-500 hover:to-mint-600 transition-all"
+                className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-mint-400 to-mint-500 hover:from-mint-500 hover:to-mint-600 transition-all"
               >
                 <Plus className="h-4 w-4 mr-2" />
                 Add Step
@@ -718,7 +718,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                       <label className="block text-sm font-medium text-gray-700 mb-1">
                         Step
                       </label>
-                      <div className="pl-3 pr-10 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm font-medium text-center">
+                      <div className="px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm font-medium text-center">
                         {step.stepNumber}
                       </div>
                     </div>
@@ -731,7 +731,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                         rows={2}
                         value={step.instruction}
                         onChange={(e) => updatePreparationStep(index, 'instruction', e.target.value)}
-                        className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
                         placeholder="Describe this preparation step..."
                       />
                     </div>
@@ -745,7 +745,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                         min="0"
                         value={step.duration || ''}
                         onChange={(e) => updatePreparationStep(index, 'duration', e.target.value)}
-                        className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
                       />
                     </div>
 
@@ -758,7 +758,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                           type="text"
                           value={step.temperature || ''}
                           onChange={(e) => updatePreparationStep(index, 'temperature', e.target.value)}
-                          className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
+                          className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
                           placeholder="e.g., 350°F"
                         />
                       </div>
@@ -786,7 +786,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
               <button
                 type="button"
                 onClick={addPackagingItem}
-                className="inline-flex items-center pl-3 pr-10 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-pink-400 to-pink-500 hover:from-pink-500 hover:to-pink-600 transition-all"
+                className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-pink-400 to-pink-500 hover:from-pink-500 hover:to-pink-600 transition-all"
               >
                 <Plus className="h-4 w-4 mr-2" />
                 Add Item
@@ -825,7 +825,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                         min="0"
                         value={item.quantity}
                         onChange={(e) => updatePackagingItem(index, 'quantity', parseFloat(e.target.value) || 0)}
-                        className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
                       />
                     </div>
 
@@ -837,7 +837,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                         type="text"
                         value={item.unit}
                         readOnly
-                        className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-sm"
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-sm"
                       />
                     </div>
 
@@ -851,7 +851,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                         min="0"
                         value={item.costPerUnit}
                         onChange={(e) => updatePackagingItem(index, 'costPerUnit', parseFloat(e.target.value) || 0)}
-                        className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
                       />
                     </div>
 
@@ -860,7 +860,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                         <label className="block text-sm font-medium text-gray-700 mb-1">
                           Total Cost
                         </label>
-                        <div className="pl-3 pr-10 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm font-medium">
+                        <div className="px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm font-medium">
                           ${item.totalCost.toFixed(2)}
                         </div>
                       </div>

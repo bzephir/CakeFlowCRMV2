@@ -301,7 +301,7 @@ const CommunicationForm: React.FC<CommunicationFormProps> = ({ isOpen, onClose, 
                     }}
                     onFocus={() => setShowCustomerDropdown(true)}
                     placeholder="Search customers..."
-                    className="block w-full pl-3 pr-10 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                    className="block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   />
                   <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
                     <Search className="h-4 w-4 text-gray-400" />
@@ -314,7 +314,7 @@ const CommunicationForm: React.FC<CommunicationFormProps> = ({ isOpen, onClose, 
                           <div
                             key={customer.id}
                             onClick={() => handleCustomerSelect(customer.id, customer.name)}
-                            className="cursor-pointer select-none relative py-2 pl-3 pr-10 hover:bg-gray-50"
+                            className="cursor-pointer select-none relative py-2 px-3 hover:bg-gray-50"
                           >
                             <div className="flex flex-col">
                               <span className="font-medium text-gray-900">{customer.name}</span>
