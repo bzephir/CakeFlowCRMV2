@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import { Plus, Search, Filter, Package as PackageIcon, DollarSign, TrendingUp, AlertTriangle, ChevronDown, ChevronUp, Eye, Copy, CreditCard as Edit, Trash2, Tag } from 'lucide-react';
+import { Plus, Search, Package as PackageIcon, DollarSign, TrendingUp, AlertTriangle, ChevronDown, ChevronUp, Eye, Copy, CreditCard as Edit, Trash2, Tag } from 'lucide-react';
 import {
   mockPackages,
   getPackageCategories,
@@ -178,9 +178,6 @@ const Packages: React.FC = () => {
           </div>
 
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Filter className="h-4 w-4 text-gray-400" />
-            </div>
             <select
               value={categoryFilter}
               onChange={e => setCategoryFilter(e.target.value as PackageCategory | 'all')}

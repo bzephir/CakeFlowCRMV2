@@ -5,7 +5,6 @@ import RecipeForm from '../components/RecipeForm';
 import {
   Plus,
   Search,
-  Filter,
   ChefHat,
   TrendingUp,
   ChevronDown,
@@ -164,9 +163,6 @@ const Recipes: React.FC = () => {
           </div>
 
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Filter className="h-4 w-4 text-gray-400" />
-            </div>
             <select
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}

@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import { mockOrdersList } from '../data/mockData';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
 import { generateDocumentNumber } from '../utils/documentNumbering';
-import { Plus, Search, Filter, Eye, CreditCard as Edit, Mail, Trash2, Download, Calendar, Copy, FileText, Clock, CheckCircle2, XCircle, AlertCircle, ArrowRightCircle, Package, Truck, DollarSign, TrendingUp, CircleDollarSign, Hourglass } from 'lucide-react';
+import { Plus, Search, Eye, CreditCard as Edit, Mail, Trash2, Download, Calendar, Copy, FileText, Clock, CheckCircle2, XCircle, AlertCircle, ArrowRightCircle, Package, Truck, DollarSign, TrendingUp, CircleDollarSign, Hourglass } from 'lucide-react';
 
 const Orders: React.FC = () => {
   const navigate = useNavigate();
@@ -177,9 +177,6 @@ const Orders: React.FC = () => {
             </div>
             
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Filter className="h-4 w-4 text-gray-400" />
-              </div>
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}

@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { getInvoiceStatusColor, getInvoiceStatusText } from '../data/mockData';
-import { Plus, Search, Filter, Eye, CreditCard as Edit, Mail, Download, Trash2, CheckCircle2, DollarSign, Clock, CreditCard, AlertCircle, Hourglass, Ban, TrendingUp } from 'lucide-react';
+import { Plus, Search, Eye, CreditCard as Edit, Mail, Download, Trash2, CheckCircle2, DollarSign, Clock, CreditCard, AlertCircle, Hourglass, Ban, TrendingUp } from 'lucide-react';
 
 const Invoices: React.FC = () => {
   const navigate = useNavigate();
@@ -177,9 +177,6 @@ const Invoices: React.FC = () => {
             </div>
             
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Filter className="h-4 w-4 text-gray-400" />
-              </div>
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}

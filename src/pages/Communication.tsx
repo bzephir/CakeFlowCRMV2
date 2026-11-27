@@ -13,7 +13,6 @@ import {
 import { 
   Plus, 
   Search, 
-  Filter, 
   MessageSquare,
   Mail,
   Phone,
@@ -328,9 +327,6 @@ const Communication: React.FC = () => {
             </div>
             
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Filter className="h-4 w-4 text-gray-400" />
-              </div>
               <select
                 value={filters.type}
                 onChange={(e) => setFilters(prev => ({ ...prev, type: e.target.value }))}

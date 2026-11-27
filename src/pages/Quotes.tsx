@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import { mockSampleQuoteDetail, mockSampleQuotesDetail, mockQuotesList } from '../data/mockData';
 import { generateDocumentNumber } from '../utils/documentNumbering';
 import { formatDate, formatTime, formatCurrency } from '../utils/formatters';
-import { Plus, Search, Filter, Trash2, FileText, Clock, Receipt, CheckCircle2, XCircle, AlertCircle, Package, Truck, DollarSign, TrendingUp, Mail } from 'lucide-react';
+import { Plus, Search, Trash2, FileText, Clock, Receipt, CheckCircle2, XCircle, AlertCircle, Package, Truck, DollarSign, TrendingUp, Mail } from 'lucide-react';
 
 const Quotes: React.FC = () => {
   const navigate = useNavigate();
@@ -180,9 +180,6 @@ const Quotes: React.FC = () => {
           </div>
 
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Filter className="h-4 w-4 text-gray-400" />
-            </div>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
