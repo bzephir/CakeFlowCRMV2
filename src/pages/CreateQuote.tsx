@@ -865,7 +865,7 @@ const CreateQuote: React.FC = () => {
                         <select
                           value={formData.discountType}
                           onChange={(e) => setFormData(prev => ({ ...prev, discountType: e.target.value as 'percentage' | 'fixed' }))}
-                          className="block w-24 pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                          className="block w-24 pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                         >
                           <option value="percentage">%</option>
                           <option value="fixed">$</option>

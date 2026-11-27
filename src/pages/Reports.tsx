@@ -46,7 +46,7 @@ const Reports: React.FC = () => {
           onChange={(e) => setEndDate(e.target.value)}
         />
         <select
-          className="border rounded pl-3 pr-10 py-2 text-sm"
+          className="border rounded pl-3 pr-8 py-2 text-sm"
           value={reportType}
           onChange={(e) => setReportType(e.target.value as any)}
         >
@@ -55,7 +55,7 @@ const Reports: React.FC = () => {
           <option value="customers">Customers</option>
         </select>
         <select
-          className="border rounded pl-3 pr-10 py-2 text-sm"
+          className="border rounded pl-3 pr-8 py-2 text-sm"
           value={productCategory ?? ''}
           onChange={(e) => setProductCategory(e.target.value === '' ? null : e.target.value)}
         >

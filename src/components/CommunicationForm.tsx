@@ -255,7 +255,7 @@ const CommunicationForm: React.FC<CommunicationFormProps> = ({ isOpen, onClose, 
                 name="priority"
                 value={formData.priority}
                 onChange={handleInputChange}
-                className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
               >
                 <option value={Priority.LOW}>Low</option>
                 <option value={Priority.NORMAL}>Normal</option>
@@ -340,7 +340,7 @@ const CommunicationForm: React.FC<CommunicationFormProps> = ({ isOpen, onClose, 
                   name="orderId"
                   value={formData.orderId}
                   onChange={handleInputChange}
-                  className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                  className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                 >
                   <option value="">Select order (optional)</option>
                   {orders.map(order => (
@@ -361,7 +361,7 @@ const CommunicationForm: React.FC<CommunicationFormProps> = ({ isOpen, onClose, 
                   name="quoteId"
                   value={formData.quoteId}
                   onChange={handleInputChange}
-                  className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                  className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                 >
                   <option value="">Select quote (optional)</option>
                   {quotes.map(quote => (
@@ -382,7 +382,7 @@ const CommunicationForm: React.FC<CommunicationFormProps> = ({ isOpen, onClose, 
                   name="venueId"
                   value={formData.venueId}
                   onChange={handleInputChange}
-                  className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                  className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                 >
                   <option value="">Select venue (optional)</option>
                   {venues.map(venue => (

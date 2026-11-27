@@ -330,7 +330,7 @@ const Communication: React.FC = () => {
               <select
                 value={filters.type}
                 onChange={(e) => setFilters(prev => ({ ...prev, type: e.target.value }))}
-                className="block w-full sm:w-48 pl-3 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
+                className="block w-full sm:w-36 pl-3 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
               >
                 <option value="all">All Types</option>
                 {Object.values(CommunicationType).map(type => (
@@ -345,7 +345,7 @@ const Communication: React.FC = () => {
               <select
                 value={filters.priority}
                 onChange={(e) => setFilters(prev => ({ ...prev, priority: e.target.value }))}
-                className="block w-full sm:w-32 pl-3 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
+                className="block w-full sm:w-32 pl-3 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
               >
                 <option value="all">All Priority</option>
                 {Object.values(Priority).map(priority => (

@@ -300,7 +300,7 @@ const EmailForm: React.FC<EmailFormProps> = ({ isOpen, onClose, onSubmit, replyT
                 name="priority"
                 value={formData.priority}
                 onChange={handleInputChange}
-                className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-aqua-500 focus:border-aqua-500"
+                className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-aqua-500 focus:border-aqua-500"
               >
                 <option value={EmailPriority.LOW}>Low</option>
                 <option value={EmailPriority.NORMAL}>Normal</option>
@@ -325,7 +325,7 @@ const EmailForm: React.FC<EmailFormProps> = ({ isOpen, onClose, onSubmit, replyT
                   handleTemplateSelect(e.target.value);
                 }
               }}
-              className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-aqua-500 focus:border-aqua-500"
+              className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-aqua-500 focus:border-aqua-500"
             >
               <option value="">Select a template</option>
               {emailTemplates.map(template => (

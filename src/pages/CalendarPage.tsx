@@ -87,7 +87,7 @@ const CalendarPage: React.FC = () => {
               <select
                 value={selectedYear}
                 onChange={(e) => handleYearChange(parseInt(e.target.value))}
-                className="block w-full sm:w-32 pl-3 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-aqua-500 focus:border-aqua-500 text-sm appearance-none"
+                className="block w-full sm:w-32 pl-3 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-aqua-500 focus:border-aqua-500 text-sm appearance-none"
               >
                 {yearOptions.map(year => (
                   <option key={year} value={year}>
@@ -105,7 +105,7 @@ const CalendarPage: React.FC = () => {
               <select
                 value={filterType}
                 onChange={(e) => setFilterType(e.target.value)}
-                className="block w-full sm:w-48 pl-3 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-aqua-500 focus:border-aqua-500 text-sm"
+                className="block w-full sm:w-36 pl-3 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:ring-aqua-500 focus:border-aqua-500 text-sm"
               >
                 <option value="all">All Events</option>
                 <option value="appointment">Appointments</option>

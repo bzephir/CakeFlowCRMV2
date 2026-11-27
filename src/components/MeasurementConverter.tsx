@@ -49,7 +49,7 @@ const MeasurementConverter: React.FC<MeasurementConverterProps> = ({ ingredients
           <select
             value={selectedIngredientId}
             onChange={(e) => setSelectedIngredientId(e.target.value)}
-            className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
+            className="w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
           >
             <option value="">Choose an ingredient...</option>
             {ingredients.map(ing => (
@@ -78,7 +78,7 @@ const MeasurementConverter: React.FC<MeasurementConverterProps> = ({ ingredients
           <select
             value={inputUnit}
             onChange={(e) => setInputUnit(e.target.value as MeasurementUnit)}
-            className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
+            className="w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
           >
             {units.map(unit => (
               <option key={unit} value={unit}>{unit}</option>

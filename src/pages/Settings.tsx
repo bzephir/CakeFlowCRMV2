@@ -166,7 +166,7 @@ const Settings: React.FC = () => {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Country</label>
-            <select className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
+            <select className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
               <option value="US">United States</option>
               <option value="CA">Canada</option>
               <option value="UK">United Kingdom</option>
@@ -289,7 +289,7 @@ const Settings: React.FC = () => {
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Default date range</label>
-            <select className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
+            <select className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
               <option value="7">Last 7 days</option>
               <option value="30" selected>Last 30 days</option>
               <option value="90">Last 90 days</option>
@@ -299,7 +299,7 @@ const Settings: React.FC = () => {
           
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Refresh interval</label>
-            <select className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
+            <select className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
               <option value="30">30 seconds</option>
               <option value="60" selected>1 minute</option>
               <option value="300">5 minutes</option>
@@ -318,7 +318,7 @@ const Settings: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Currency</label>
-            <select className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
+            <select className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
               <option value="USD" selected>USD - US Dollar ($)</option>
               <option value="CAD">CAD - Canadian Dollar (C$)</option>
               <option value="EUR">EUR - Euro (€)</option>
@@ -329,7 +329,7 @@ const Settings: React.FC = () => {
           
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Language</label>
-            <select className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
+            <select className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
               <option value="en" selected>English</option>
               <option value="es">Spanish</option>
               <option value="fr">French</option>
@@ -340,7 +340,7 @@ const Settings: React.FC = () => {
           
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Timezone</label>
-            <select className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
+            <select className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
               <option value="America/New_York">Eastern Time (ET)</option>
               <option value="America/Chicago">Central Time (CT)</option>
               <option value="America/Denver">Mountain Time (MT)</option>
@@ -351,7 +351,7 @@ const Settings: React.FC = () => {
           
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Date Format</label>
-            <select className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
+            <select className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
               <option value="MM/DD/YYYY" selected>MM/DD/YYYY (US)</option>
               <option value="DD/MM/YYYY">DD/MM/YYYY (UK)</option>
               <option value="YYYY-MM-DD">YYYY-MM-DD (ISO)</option>
@@ -361,7 +361,7 @@ const Settings: React.FC = () => {
           
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Time Format</label>
-            <select className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
+            <select className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
               <option value="12" selected>12-hour (AM/PM)</option>
               <option value="24">24-hour</option>
             </select>
@@ -369,7 +369,7 @@ const Settings: React.FC = () => {
           
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Number Format</label>
-            <select className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
+            <select className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
               <option value="1,234.56" selected>1,234.56 (US)</option>
               <option value="1.234,56">1.234,56 (European)</option>
               <option value="1 234,56">1 234,56 (French)</option>
@@ -550,7 +550,7 @@ const Settings: React.FC = () => {
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Default Payment Terms</label>
-            <select className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
+            <select className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
               <option value="net15">Net 15 days</option>
               <option value="net30" selected>Net 30 days</option>
               <option value="net60">Net 60 days</option>
@@ -629,7 +629,7 @@ const Settings: React.FC = () => {
           
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Encryption</label>
-            <select className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
+            <select className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
               <option value="tls" selected>TLS</option>
               <option value="ssl">SSL</option>
               <option value="none">None</option>
@@ -966,7 +966,7 @@ const Settings: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Source Field</label>
-                <select className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md text-sm">
+                <select className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md text-sm">
                   <option>Google Sheets - Customer Database</option>
                   <option>CRM - Contact Records</option>
                   <option>API Endpoint</option>
@@ -974,7 +974,7 @@ const Settings: React.FC = () => {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Target Field</label>
-                <select className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md text-sm">
+                <select className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md text-sm">
                   <option>Customer Name</option>
                   <option>Email Address</option>
                   <option>Phone Number</option>
@@ -995,7 +995,7 @@ const Settings: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Source Field</label>
-                <select className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md text-sm">
+                <select className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md text-sm">
                   <option>Recipe Database</option>
                   <option>Pricing Sheet</option>
                   <option>Inventory System</option>
@@ -1003,7 +1003,7 @@ const Settings: React.FC = () => {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Target Field</label>
-                <select className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md text-sm">
+                <select className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md text-sm">
                   <option>Item Description</option>
                   <option>Unit Price</option>
                   <option>Preparation Time</option>
@@ -1048,7 +1048,7 @@ const Settings: React.FC = () => {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Sync Frequency</label>
-            <select className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
+            <select className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
               <option>Real-time</option>
               <option>Every 15 minutes</option>
               <option>Hourly</option>
@@ -1144,7 +1144,7 @@ const Settings: React.FC = () => {
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Items per page</label>
-            <select className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
+            <select className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
               <option value="10">10 items</option>
               <option value="25" selected>25 items</option>
               <option value="50">50 items</option>
@@ -1154,7 +1154,7 @@ const Settings: React.FC = () => {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Auto-refresh interval</label>
-            <select className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
+            <select className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
               <option value="0">Never</option>
               <option value="30">30 seconds</option>
               <option value="60" selected>1 minute</option>
@@ -1497,7 +1497,7 @@ const Settings: React.FC = () => {
           
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Payout Method</label>
-            <select className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
+            <select className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500">
               <option>PayPal</option>
               <option>Bank Transfer</option>
               <option>Check</option>

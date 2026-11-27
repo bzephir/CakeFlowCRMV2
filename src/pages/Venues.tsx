@@ -203,7 +203,7 @@ const Venues: React.FC = () => {
               <select
                 value={tagFilter}
                 onChange={(e) => setTagFilter(e.target.value)}
-                className="block w-full sm:w-48 pl-3 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
+                className="block w-full sm:w-36 pl-3 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
               >
                 <option value="all">All Tags</option>
                 {allTags.map(tag => (
@@ -216,7 +216,7 @@ const Venues: React.FC = () => {
               <select
                 value={coiFilter}
                 onChange={(e) => setCoiFilter(e.target.value)}
-                className="block w-full sm:w-40 pl-3 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
+                className="block w-full sm:w-36 pl-3 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
               >
                 <option value="all">All COI</option>
                 <option value="required">COI Required</option>
@@ -231,7 +231,7 @@ const Venues: React.FC = () => {
               <select
                 value={capacityFilter}
                 onChange={(e) => setCapacityFilter(e.target.value)}
-                className="block w-full sm:w-36 pl-3 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
+                className="block w-full sm:w-36 pl-3 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
               >
                 <option value="all">All Sizes</option>
                 <option value="small">Small (≤50)</option>

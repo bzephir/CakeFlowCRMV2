@@ -120,7 +120,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
                   <select
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value as IngredientCategory })}
-                    className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
+                    className="w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                   >
                     {categories.map(cat => (
                       <option key={cat} value={cat}>{cat}</option>
@@ -136,7 +136,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
                     required
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value as StorageLocation })}
-                    className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
+                    className="w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                   >
                     <option value="">Select Location</option>
                     <option value="dry">Dry</option>
@@ -153,7 +153,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
                     <select
                       value={formData.supplierId}
                       onChange={(e) => setFormData({ ...formData, supplierId: e.target.value })}
-                      className="flex-1 pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
+                      className="flex-1 pl-3 pr-8 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                     >
                       <option value="">Select Supplier</option>
                       {mockVendors.map(vendor => (
@@ -189,7 +189,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
                     <select
                       value={formData.packageUnit}
                       onChange={(e) => setFormData({ ...formData, packageUnit: e.target.value as MeasurementUnit })}
-                      className="w-24 pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
+                      className="w-24 pl-3 pr-8 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                     >
                       {units.map(unit => (
                         <option key={unit} value={unit}>{unit}</option>
@@ -237,7 +237,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
                   <select
                     value={formData.baseUnit}
                     onChange={(e) => setFormData({ ...formData, baseUnit: e.target.value as MeasurementUnit })}
-                    className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
+                    className="w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                   >
                     {units.map(unit => (
                       <option key={unit} value={unit}>{unit}</option>

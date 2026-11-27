@@ -400,7 +400,7 @@ const Invoice: React.FC = () => {
                       name="status"
                       value={invoice.status}
                       onChange={(e) => setInvoice({...invoice, status: e.target.value})}
-                      className="pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:border-coral-500"
+                      className="pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:border-coral-500"
                     >
                       <option value="draft">Draft</option>
                       <option value="pending">Pending</option>
@@ -513,7 +513,7 @@ const Invoice: React.FC = () => {
                       <select
                         value={invoice.event.fulfillmentType}
                         onChange={(e) => handleInputChange(e, 'event', 'fulfillmentType')}
-                        className="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:border-coral-500"
+                        className="mt-1 block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:border-coral-500"
                       >
                         <option value="pickup">Pickup</option>
                         <option value="delivery">Delivery</option>

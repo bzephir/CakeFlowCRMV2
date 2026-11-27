@@ -443,7 +443,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                   name="status"
                   value={formData.status || 'draft'}
                   onChange={handleInputChange}
-                  className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                  className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                 >
                   <option value="draft">Draft</option>
                   <option value="active">Active</option>
@@ -529,7 +529,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                   name="yield.unit"
                   value={formData.yield?.unit || 'servings'}
                   onChange={handleInputChange}
-                  className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                  className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                 >
                   {yieldUnits.map(unit => (
                     <option key={unit} value={unit}>{unit}</option>
@@ -601,7 +601,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                       <select
                         value={ingredient.ingredientId}
                         onChange={(e) => updateIngredient(index, 'ingredientId', e.target.value)}
-                        className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
+                        className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
                       >
                         <option value="">Select ingredient</option>
                         {availableIngredients.map(ing => (
@@ -804,7 +804,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ isOpen, onClose, onSubmit, reci
                       <select
                         value={item.itemId}
                         onChange={(e) => updatePackagingItem(index, 'itemId', e.target.value)}
-                        className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
+                        className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500 text-sm"
                       >
                         <option value="">Select item</option>
                         {availablePackaging.map(pkg => (

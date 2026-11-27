@@ -174,7 +174,7 @@ const ProductionJobForm: React.FC<ProductionJobFormProps> = ({
               value={formData.recipeCategory}
               onChange={handleInputChange}
               required
-              className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-3 pr-8 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
             >
               <option value="">Select Category</option>
               <option value="cake">Cake</option>
@@ -237,7 +237,7 @@ const ProductionJobForm: React.FC<ProductionJobFormProps> = ({
               value={formData.priority}
               onChange={handleInputChange}
               required
-              className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-3 pr-8 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
             >
               <option value="low">Low</option>
               <option value="medium">Medium</option>
@@ -254,7 +254,7 @@ const ProductionJobForm: React.FC<ProductionJobFormProps> = ({
               value={formData.jobType}
               onChange={handleInputChange}
               required
-              className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-3 pr-8 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
             >
               <option value="internal">Internal (Components)</option>
               <option value="external">External (Customer Orders/Retail)</option>
@@ -507,7 +507,7 @@ const ProductionJobForm: React.FC<ProductionJobFormProps> = ({
                   <select
                     value={custom.customizationType}
                     onChange={(e) => updateCustomization(index, 'customizationType', e.target.value)}
-                    className="pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
+                    className="pl-3 pr-8 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
                   >
                     <option value="ingredient_override">Ingredient Override</option>
                     <option value="flavor_change">Flavor Change</option>

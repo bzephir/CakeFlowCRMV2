@@ -518,7 +518,7 @@ const CreateOrder: React.FC = () => {
                   <select
                     value={formData.status}
                     onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value as any }))}
-                    className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                    className="block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   >
                     <option value="inquiry">Inquiry</option>
                     <option value="quoted">Quoted</option>
