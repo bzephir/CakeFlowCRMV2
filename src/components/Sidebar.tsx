@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useInquiryContext } from '../context/InquiryContext';
 import Logo from './Logo';
-import { Home, DollarSign, FileText, Receipt, BarChart3, Factory, ChefHat, Package, ShoppingCart, Archive, Users, MessageSquare, MapPin, Ligature as FileSignature, FilePen, Settings, UserCheck, Calendar, Upload, Truck, Cog, Mail, ChevronLeft, ChevronRight, Wrench } from 'lucide-react';
+import { Home, DollarSign, FileText, Receipt, BarChart3, Factory, ChefHat, Package, ShoppingCart, Archive, Users, MessageSquare, MapPin, CakeSlice, Ligature as FileSignature, FilePen, Settings, UserCheck, Calendar, Upload, Truck, Cog, Mail, ChevronLeft, ChevronRight, Wrench } from 'lucide-react';
 
 const Sidebar: React.FC = () => {
   const location = useLocation();
@@ -36,7 +36,7 @@ const Sidebar: React.FC = () => {
     {
       name: 'Inquiries',
       href: '/inquiries',
-      icon: Mail,
+      icon: CakeSlice,
       current: location.pathname.startsWith('/inquiries'),
       badge: newInquiriesCount > 0 ? newInquiriesCount : undefined
     },
