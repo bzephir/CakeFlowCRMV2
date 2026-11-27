@@ -4,6 +4,13 @@
 @tailwind utilities;
 
 @layer base {
+  select,
+  select option,
+  select optgroup {
+    text-align: left;
+    text-align-last: left;
+  }
+
   * {
     font-family: 'Inter', system-ui, sans-serif;
   }

@@ -181,7 +181,7 @@ const Packages: React.FC = () => {
             <select
               value={categoryFilter}
               onChange={e => setCategoryFilter(e.target.value as PackageCategory | 'all')}
-              className="block w-full sm:w-48 pl-10 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
+              className="block w-full sm:w-48 pl-3 pr-8 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
             >
               <option value="all">All Categories</option>
               {categories.map(category => (
