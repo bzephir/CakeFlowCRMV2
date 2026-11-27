@@ -35,6 +35,7 @@
   - Trash icon on far right of each row (per-row delete to Trash folder).
   - Other actions (reply, archive) available in expanded email view, not inline.
   - Removed "Starred Only" / "Unread Only" checkboxes from bar above search (selection dropdown covers those).
+- Dropdowns site-wide: text explicitly left-aligned in both closed state and open menu; no leftover funnel-icon padding.
 
 ## Decisions, constraints & rationale
 
@@ -42,6 +43,7 @@
 - Priority system uses color-cycling arrow (4 states) instead of text labels/badges — conveys status compactly and visually.
 - "Starred Only" / "Unread Only" checkboxes removed because the Select dropdown section handles those filters.
 - Table-page consistency rationale: shared padding/widths reduce friction.
+- All dropdowns left-aligned (closed + open) for consistency; removed residual left padding from old funnel icons to avoid off-balance look.
 - Global `.bolt/prompt` instructions exist for beautiful production-worthy design, JSX + Tailwind, Lucide React icons only.
 
 ## Open questions & assumptions
