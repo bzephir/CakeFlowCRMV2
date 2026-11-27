@@ -385,7 +385,7 @@ const Suppliers: React.FC = () => {
                     id="itemsPerPage"
                     value={itemsPerPage}
                     onChange={(e) => handleItemsPerPageChange(Number(e.target.value))}
-                    className="block w-20 px-2 py-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:border-coral-500"
+                    className="block w-20 pl-2 pr-6 py-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:border-coral-500"
                   >
                     <option value={5}>5</option>
                     <option value={10}>10</option>

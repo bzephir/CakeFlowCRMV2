@@ -151,7 +151,7 @@ const Packages: React.FC = () => {
                   {lowMarginPackages.slice(0, 3).map(pkg => (
                     <span
                       key={pkg.id}
-                      className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded"
+                      className="text-xs bg-yellow-100 text-yellow-800 pl-2 pr-6 py-1 rounded"
                     >
                       {pkg.name} ({pkg.profitMargin?.toFixed(1)}%)
                     </span>
@@ -196,7 +196,7 @@ const Packages: React.FC = () => {
             <select
               value={statusFilter}
               onChange={e => setStatusFilter(e.target.value)}
-              className="block w-full sm:w-32 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
+              className="block w-full sm:w-32 pl-3 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
             >
               <option value="all">All Status</option>
               <option value="active">Active</option>
@@ -209,7 +209,7 @@ const Packages: React.FC = () => {
             <select
               value={sortBy}
               onChange={e => setSortBy(e.target.value)}
-              className="block w-full sm:w-40 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
+              className="block w-full sm:w-40 pl-3 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
             >
               <option value="name">Sort by Name</option>
               <option value="cost">Sort by Cost</option>
@@ -500,7 +500,7 @@ const Packages: React.FC = () => {
                   id="itemsPerPage"
                   value={itemsPerPage}
                   onChange={(e) => handleItemsPerPageChange(Number(e.target.value))}
-                  className="block w-20 px-2 py-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:border-coral-500"
+                  className="block w-20 pl-2 pr-6 py-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:border-coral-500"
                 >
                   <option value={5}>5</option>
                   <option value={10}>10</option>

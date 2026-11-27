@@ -54,7 +54,7 @@ const ProductionFilters: React.FC<ProductionFiltersProps> = ({
         <select
           value={priorityFilter}
           onChange={(e) => onPriorityChange(e.target.value)}
-          className="block w-full sm:w-40 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
+          className="block w-full sm:w-40 pl-3 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
         >
           <option value="all">All Priorities</option>
           <option value="high">High</option>

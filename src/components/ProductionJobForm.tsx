@@ -161,7 +161,7 @@ const ProductionJobForm: React.FC<ProductionJobFormProps> = ({
               value={formData.recipeName}
               onChange={handleInputChange}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
             />
           </div>
 
@@ -174,7 +174,7 @@ const ProductionJobForm: React.FC<ProductionJobFormProps> = ({
               value={formData.recipeCategory}
               onChange={handleInputChange}
               required
-              className="w-full pl-3 pr-9 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
             >
               <option value="">Select Category</option>
               <option value="cake">Cake</option>
@@ -199,7 +199,7 @@ const ProductionJobForm: React.FC<ProductionJobFormProps> = ({
                 onChange={handleInputChange}
                 min="1"
                 required
-                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
+                className="flex-1 pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
               />
               <input
                 type="text"
@@ -207,7 +207,7 @@ const ProductionJobForm: React.FC<ProductionJobFormProps> = ({
                 value={formData.unit}
                 onChange={handleInputChange}
                 placeholder="unit"
-                className="w-24 px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
+                className="w-24 pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
               />
             </div>
           </div>
@@ -223,7 +223,7 @@ const ProductionJobForm: React.FC<ProductionJobFormProps> = ({
               onChange={handleInputChange}
               step="0.1"
               min="0.1"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
             />
             <p className="text-xs text-gray-500 mt-1">Recipe multiplier (1.0 = normal, 2.0 = double)</p>
           </div>
@@ -237,7 +237,7 @@ const ProductionJobForm: React.FC<ProductionJobFormProps> = ({
               value={formData.priority}
               onChange={handleInputChange}
               required
-              className="w-full pl-3 pr-9 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
             >
               <option value="low">Low</option>
               <option value="medium">Medium</option>
@@ -254,7 +254,7 @@ const ProductionJobForm: React.FC<ProductionJobFormProps> = ({
               value={formData.jobType}
               onChange={handleInputChange}
               required
-              className="w-full pl-3 pr-9 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
             >
               <option value="internal">Internal (Components)</option>
               <option value="external">External (Customer Orders/Retail)</option>
@@ -272,7 +272,7 @@ const ProductionJobForm: React.FC<ProductionJobFormProps> = ({
               value={formData.scheduledDate}
               onChange={handleInputChange}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
             />
           </div>
 
@@ -285,7 +285,7 @@ const ProductionJobForm: React.FC<ProductionJobFormProps> = ({
               name="scheduledStartTime"
               value={formData.scheduledStartTime}
               onChange={handleInputChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
             />
           </div>
 
@@ -299,7 +299,7 @@ const ProductionJobForm: React.FC<ProductionJobFormProps> = ({
               value={formData.assignedStaffName}
               onChange={handleInputChange}
               placeholder="Staff member name"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
             />
           </div>
         </div>
@@ -333,7 +333,7 @@ const ProductionJobForm: React.FC<ProductionJobFormProps> = ({
                 name="linkedOrderNumber"
                 value={formData.linkedOrderNumber}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent bg-white"
+                className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent bg-white"
               />
             </div>
 
@@ -344,7 +344,7 @@ const ProductionJobForm: React.FC<ProductionJobFormProps> = ({
                 name="customerName"
                 value={formData.customerName}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent bg-white"
+                className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent bg-white"
               />
             </div>
 
@@ -355,7 +355,7 @@ const ProductionJobForm: React.FC<ProductionJobFormProps> = ({
                 name="orderDueDate"
                 value={formData.orderDueDate}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent bg-white"
+                className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent bg-white"
               />
             </div>
           </div>
@@ -376,7 +376,7 @@ const ProductionJobForm: React.FC<ProductionJobFormProps> = ({
               onChange={handleInputChange}
               rows={3}
               placeholder="Customer requirements, preferences, and special instructions..."
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
             />
           </div>
 
@@ -390,7 +390,7 @@ const ProductionJobForm: React.FC<ProductionJobFormProps> = ({
               onChange={handleInputChange}
               rows={3}
               placeholder="Design details, colors, decorations, themes..."
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
             />
           </div>
 
@@ -460,7 +460,7 @@ const ProductionJobForm: React.FC<ProductionJobFormProps> = ({
                 value={stage.stageName}
                 onChange={(e) => updateWorkflowStage(index, 'stageName', e.target.value)}
                 placeholder="Stage name"
-                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
+                className="flex-1 pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
               />
 
               <div className="flex items-center gap-2">
@@ -470,7 +470,7 @@ const ProductionJobForm: React.FC<ProductionJobFormProps> = ({
                   value={stage.estimatedDurationMinutes}
                   onChange={(e) => updateWorkflowStage(index, 'estimatedDurationMinutes', parseInt(e.target.value))}
                   placeholder="mins"
-                  className="w-20 px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
+                  className="w-20 pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
 
@@ -507,7 +507,7 @@ const ProductionJobForm: React.FC<ProductionJobFormProps> = ({
                   <select
                     value={custom.customizationType}
                     onChange={(e) => updateCustomization(index, 'customizationType', e.target.value)}
-                    className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
+                    className="pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
                   >
                     <option value="ingredient_override">Ingredient Override</option>
                     <option value="flavor_change">Flavor Change</option>
@@ -521,7 +521,7 @@ const ProductionJobForm: React.FC<ProductionJobFormProps> = ({
                     value={custom.fieldName}
                     onChange={(e) => updateCustomization(index, 'fieldName', e.target.value)}
                     placeholder="Field name"
-                    className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
+                    className="pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
                   />
 
                   <input
@@ -529,7 +529,7 @@ const ProductionJobForm: React.FC<ProductionJobFormProps> = ({
                     value={custom.customValue}
                     onChange={(e) => updateCustomization(index, 'customValue', e.target.value)}
                     placeholder="Custom value"
-                    className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
+                    className="pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
                   />
 
                   <button
@@ -556,7 +556,7 @@ const ProductionJobForm: React.FC<ProductionJobFormProps> = ({
           onChange={handleInputChange}
           rows={4}
           placeholder="Any additional notes or instructions..."
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
+          className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-transparent"
         />
       </div>
 

@@ -175,7 +175,7 @@ const InquiryForm: React.FC = () => {
                     required
                     value={formData.firstName}
                     onChange={handleInputChange}
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                    className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   />
                 </div>
                 <div>
@@ -189,7 +189,7 @@ const InquiryForm: React.FC = () => {
                     required
                     value={formData.lastName}
                     onChange={handleInputChange}
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                    className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   />
                 </div>
                 <div>
@@ -203,7 +203,7 @@ const InquiryForm: React.FC = () => {
                     required
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                    className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   />
                 </div>
                 <div>
@@ -217,7 +217,7 @@ const InquiryForm: React.FC = () => {
                     required
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                    className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   />
                 </div>
               </div>
@@ -241,7 +241,7 @@ const InquiryForm: React.FC = () => {
                     required
                     value={formData.eventDate}
                     onChange={handleInputChange}
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                    className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   />
                 </div>
                 <div>
@@ -301,7 +301,7 @@ const InquiryForm: React.FC = () => {
                       value={formData.pickupTime}
                       onChange={handleInputChange}
                       required
-                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                      className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                     />
                   </div>
                 )}
@@ -318,7 +318,7 @@ const InquiryForm: React.FC = () => {
                       value={formData.deliveryTime}
                       onChange={handleInputChange}
                       required
-                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                      className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                     />
                   </div>
                 )}
@@ -333,7 +333,7 @@ const InquiryForm: React.FC = () => {
                     name="eventTime"
                     value={formData.eventTime}
                     onChange={handleInputChange}
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                    className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   />
                   <p className="mt-1 text-xs text-gray-500">Only required if this order is for an event</p>
                 </div>
@@ -356,7 +356,7 @@ const InquiryForm: React.FC = () => {
                     required
                     value={formData.occasion}
                     onChange={handleInputChange}
-                    className="block w-full pl-3 pr-9 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                    className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   >
                     <option value="">Select an occasion</option>
                     {occasions[formType].map(occasion => (
@@ -375,7 +375,7 @@ const InquiryForm: React.FC = () => {
                     min="1"
                     value={formData.guestCount}
                     onChange={handleInputChange}
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                    className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   />
                 </div>
               </div>
@@ -419,7 +419,7 @@ const InquiryForm: React.FC = () => {
                     value={formData.theme}
                     onChange={handleInputChange}
                     placeholder="e.g., Rustic, Modern, Vintage"
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                    className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   />
                 </div>
                 <div>
@@ -433,7 +433,7 @@ const InquiryForm: React.FC = () => {
                     value={formData.colors}
                     onChange={handleInputChange}
                     placeholder="e.g., Blush Pink, Gold, Navy"
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                    className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   />
                 </div>
               </div>
@@ -451,7 +451,7 @@ const InquiryForm: React.FC = () => {
                   name="budget"
                   value={formData.budget}
                   onChange={handleInputChange}
-                  className="block w-full pl-3 pr-9 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                  className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                 >
                   <option value="">Select budget range</option>
                   {budgetRanges.map(range => (
@@ -468,7 +468,7 @@ const InquiryForm: React.FC = () => {
                   name="hearAboutUs"
                   value={formData.hearAboutUs}
                   onChange={handleInputChange}
-                  className="block w-full pl-3 pr-9 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                  className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                 >
                   <option value="">Select source</option>
                   {referralSources.map(source => (
@@ -529,7 +529,7 @@ const InquiryForm: React.FC = () => {
                 value={formData.additionalNotes}
                 onChange={handleInputChange}
                 placeholder="Tell us anything else you'd like us to know about your vision..."
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
               />
             </div>
 

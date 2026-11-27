@@ -327,7 +327,7 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ isOpen, onClose, onSubmit, 
                       name="category"
                       value={formData.category}
                       onChange={handleInputChange}
-                      className="w-full pl-3 pr-9 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
+                      className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                     >
                       {categories.map(cat => (
                         <option key={cat} value={cat}>{cat}</option>
@@ -397,7 +397,7 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ isOpen, onClose, onSubmit, 
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Cost Per Item (Calculated)
                     </label>
-                    <div className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-md text-sm text-gray-900">
+                    <div className="pl-3 pr-10 py-2 bg-gray-50 border border-gray-200 rounded-md text-sm text-gray-900">
                       ${costPerItem.toFixed(4)}
                     </div>
                   </div>
@@ -536,7 +536,7 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ isOpen, onClose, onSubmit, 
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Total Items Available
                     </label>
-                    <div className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-md text-sm text-gray-900">
+                    <div className="pl-3 pr-10 py-2 bg-gray-50 border border-gray-200 rounded-md text-sm text-gray-900">
                       {totalItemsAvailable} items
                     </div>
                   </div>
@@ -557,7 +557,7 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ isOpen, onClose, onSubmit, 
                       name="vendorId"
                       value={formData.vendorId}
                       onChange={handleInputChange}
-                      className="w-full pl-3 pr-9 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
+                      className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                     >
                       <option value="">Select Supplier</option>
                       {mockVendors.map(vendor => (
@@ -596,7 +596,7 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ isOpen, onClose, onSubmit, 
                       value={formData.notes}
                       onChange={handleInputChange}
                       rows={3}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
+                      className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                       placeholder="Additional notes about this material..."
                     />
                   </div>

@@ -35,18 +35,18 @@ const Reports: React.FC = () => {
       <div className="bg-white p-4 border rounded-md shadow-sm mb-8 flex flex-wrap gap-4">
         <input
           type="date"
-          className="border rounded px-3 py-2 text-sm"
+          className="border rounded pl-3 pr-10 py-2 text-sm"
           value={startDate ?? ''}
           onChange={(e) => setStartDate(e.target.value)}
         />
         <input
           type="date"
-          className="border rounded px-3 py-2 text-sm"
+          className="border rounded pl-3 pr-10 py-2 text-sm"
           value={endDate ?? ''}
           onChange={(e) => setEndDate(e.target.value)}
         />
         <select
-          className="border rounded pl-3 pr-9 py-2 text-sm"
+          className="border rounded pl-3 pr-10 py-2 text-sm"
           value={reportType}
           onChange={(e) => setReportType(e.target.value as any)}
         >
@@ -55,7 +55,7 @@ const Reports: React.FC = () => {
           <option value="customers">Customers</option>
         </select>
         <select
-          className="border rounded pl-3 pr-9 py-2 text-sm"
+          className="border rounded pl-3 pr-10 py-2 text-sm"
           value={productCategory ?? ''}
           onChange={(e) => setProductCategory(e.target.value === '' ? null : e.target.value)}
         >
@@ -161,7 +161,7 @@ const Reports: React.FC = () => {
                         <td className="px-4 py-2">{order.date}</td>
                         <td className="px-4 py-2">{order.total}</td>
                         <td className="px-4 py-2">
-                          <span className="px-2 py-1 rounded bg-gray-100 text-xs">{order.status}</span>
+                          <span className="pl-2 pr-6 py-1 rounded bg-gray-100 text-xs">{order.status}</span>
                         </td>
                       </tr>
                     ))}

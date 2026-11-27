@@ -95,7 +95,7 @@ const handleFormClick = (id: string) => {
           <select
             value={sortBy}
             onChange={e => setSortBy(e.target.value as "title" | "createdAt")}
-            className="border px-2 py-1 rounded"
+            className="border pl-2 pr-6 py-1 rounded"
           >
             <option value="createdAt">Created At</option>
             <option value="title">Title</option>
@@ -106,7 +106,7 @@ const handleFormClick = (id: string) => {
           <select
             value={sortOrder}
             onChange={e => setSortOrder(e.target.value as "asc" | "desc")}
-            className="border px-2 py-1 rounded"
+            className="border pl-2 pr-6 py-1 rounded"
           >
             <option value="asc">Ascending</option>
             <option value="desc">Descending</option>

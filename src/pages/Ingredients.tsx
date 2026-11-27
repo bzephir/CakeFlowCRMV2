@@ -167,7 +167,7 @@ const Ingredients: React.FC = () => {
               <select
                 value={stockFilter}
                 onChange={(e) => setStockFilter(e.target.value)}
-                className="block w-full sm:w-40 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
+                className="block w-full sm:w-40 pl-3 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-white focus:outline-none focus:border-coral-500 text-sm"
               >
                 <option value="all">All Stock Levels</option>
                 <option value="in-stock">In Stock</option>
@@ -521,7 +521,7 @@ const Ingredients: React.FC = () => {
                     id="itemsPerPage"
                     value={itemsPerPage}
                     onChange={(e) => handleItemsPerPageChange(Number(e.target.value))}
-                    className="block w-20 px-2 py-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:border-coral-500"
+                    className="block w-20 pl-2 pr-6 py-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:border-coral-500"
                   >
                     <option value={5}>5</option>
                     <option value={10}>10</option>

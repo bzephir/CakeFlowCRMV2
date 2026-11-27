@@ -109,7 +109,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
+                    className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                   />
                 </div>
 
@@ -120,7 +120,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
                   <select
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value as IngredientCategory })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
+                    className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                   >
                     {categories.map(cat => (
                       <option key={cat} value={cat}>{cat}</option>
@@ -136,7 +136,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
                     required
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value as StorageLocation })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
+                    className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                   >
                     <option value="">Select Location</option>
                     <option value="dry">Dry</option>
@@ -153,7 +153,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
                     <select
                       value={formData.supplierId}
                       onChange={(e) => setFormData({ ...formData, supplierId: e.target.value })}
-                      className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
+                      className="flex-1 pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                     >
                       <option value="">Select Supplier</option>
                       {mockVendors.map(vendor => (
@@ -164,7 +164,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
                       <button
                         type="button"
                         onClick={onAddVendor}
-                        className="px-3 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+                        className="pl-3 pr-10 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
                         title="Add New Supplier"
                       >
                         <Plus className="h-4 w-4 text-gray-600" />
@@ -184,12 +184,12 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
                       required
                       value={formData.packageSize}
                       onChange={(e) => setFormData({ ...formData, packageSize: parseFloat(e.target.value) })}
-                      className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
+                      className="flex-1 pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                     />
                     <select
                       value={formData.packageUnit}
                       onChange={(e) => setFormData({ ...formData, packageUnit: e.target.value as MeasurementUnit })}
-                      className="w-24 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
+                      className="w-24 pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                     >
                       {units.map(unit => (
                         <option key={unit} value={unit}>{unit}</option>
@@ -207,7 +207,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
                     value={formData.packageDescription}
                     onChange={(e) => setFormData({ ...formData, packageDescription: e.target.value })}
                     placeholder="e.g., 25 lb bag"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
+                    className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                   />
                 </div>
 
@@ -237,7 +237,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
                   <select
                     value={formData.baseUnit}
                     onChange={(e) => setFormData({ ...formData, baseUnit: e.target.value as MeasurementUnit })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
+                    className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                   >
                     {units.map(unit => (
                       <option key={unit} value={unit}>{unit}</option>
@@ -249,7 +249,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Cost Per Unit (Calculated)
                   </label>
-                  <div className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-md text-sm text-gray-900">
+                  <div className="pl-3 pr-10 py-2 bg-gray-50 border border-gray-200 rounded-md text-sm text-gray-900">
                     ${costPerUnit.toFixed(4)} per {formData.baseUnit}
                   </div>
                 </div>
@@ -263,7 +263,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
                     required
                     value={formData.quantityOnHand}
                     onChange={(e) => setFormData({ ...formData, quantityOnHand: parseFloat(e.target.value) })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
+                    className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                   />
                 </div>
 
@@ -275,7 +275,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
                     type="number"
                     value={formData.reorderLevel}
                     onChange={(e) => setFormData({ ...formData, reorderLevel: parseFloat(e.target.value) })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
+                    className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                   />
                 </div>
 
@@ -288,7 +288,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
                     value={formData.brand}
                     onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
                     placeholder="e.g., King Arthur"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
+                    className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                   />
                 </div>
 
@@ -300,7 +300,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
                     type="date"
                     value={formData.dateReceived}
                     onChange={(e) => setFormData({ ...formData, dateReceived: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
+                    className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                   />
                 </div>
 
@@ -313,7 +313,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
                     value={formData.lotNumber}
                     onChange={(e) => setFormData({ ...formData, lotNumber: e.target.value })}
                     placeholder="e.g., LOT-2024-001"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
+                    className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                   />
                 </div>
 
@@ -325,7 +325,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
                     type="date"
                     value={formData.expirationDate}
                     onChange={(e) => setFormData({ ...formData, expirationDate: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
+                    className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                   />
                 </div>
 
@@ -337,7 +337,7 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
                     value={formData.notes}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                     rows={2}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
+                    className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-coral-500"
                   />
                 </div>
               </div>

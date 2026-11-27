@@ -477,7 +477,7 @@ const CreateQuote: React.FC = () => {
                           <div
                             key={customer.id}
                             onClick={() => handleCustomerSelect(customer)}
-                            className="cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-gray-50"
+                            className="cursor-pointer select-none relative py-2 pl-3 pr-10 hover:bg-gray-50"
                           >
                             <div className="flex items-center">
                               <span className="font-medium text-gray-900">{customer.name}</span>
@@ -541,7 +541,7 @@ const CreateQuote: React.FC = () => {
                       type="text"
                       value={formData.quoteNumber}
                       readOnly
-                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600"
+                      className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600"
                     />
                   </div>
                   
@@ -554,7 +554,7 @@ const CreateQuote: React.FC = () => {
                       value={formData.poNumber}
                       onChange={(e) => setFormData(prev => ({ ...prev, poNumber: e.target.value }))}
                       placeholder="Optional"
-                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                      className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                     />
                   </div>
                   
@@ -699,7 +699,7 @@ const CreateQuote: React.FC = () => {
                       name="eventTime"
                       value={formData.eventTime}
                       onChange={(e) => setFormData(prev => ({ ...prev, eventTime: e.target.value }))}
-                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                      className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                     />
                     <p className="mt-1 text-xs text-gray-500">Only required if this order is for an event</p>
                   </div>
@@ -725,7 +725,7 @@ const CreateQuote: React.FC = () => {
                   </h3>
                   <button
                     onClick={addLineItem}
-                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-mint-400 to-mint-500 hover:from-mint-500 hover:to-mint-600 transition-all"
+                    className="inline-flex items-center pl-3 pr-10 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-mint-400 to-mint-500 hover:from-mint-500 hover:to-mint-600 transition-all"
                   >
                     <Plus className="h-4 w-4 mr-2" />
                     Add Item
@@ -751,7 +751,7 @@ const CreateQuote: React.FC = () => {
                               onChange={(e) => updateLineItem(item.id, 'name', e.target.value)}
                               onFocus={() => setShowProductDropdown(item.id)}
                               placeholder="Enter or select product"
-                              className="block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                              className="block w-full pl-3 pr-10 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                             />
                             <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
                               <ChevronDown className="h-4 w-4 text-gray-400" />
@@ -763,7 +763,7 @@ const CreateQuote: React.FC = () => {
                                   <div
                                     key={product.id}
                                     onClick={() => selectProduct(item.id, product)}
-                                    className="cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-gray-50"
+                                    className="cursor-pointer select-none relative py-2 pl-3 pr-10 hover:bg-gray-50"
                                   >
                                     <div className="flex justify-between">
                                       <span className="font-medium text-gray-900">{product.name}</span>
@@ -785,7 +785,7 @@ const CreateQuote: React.FC = () => {
                             value={item.description}
                             onChange={(e) => updateLineItem(item.id, 'description', e.target.value)}
                             placeholder="Optional description"
-                            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                            className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                           />
                         </div>
                         
@@ -799,7 +799,7 @@ const CreateQuote: React.FC = () => {
                             step="1"
                             value={item.quantity}
                             onChange={(e) => updateLineItem(item.id, 'quantity', parseInt(e.target.value) || 1)}
-                            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                            className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                           />
                         </div>
                         
@@ -827,7 +827,7 @@ const CreateQuote: React.FC = () => {
                             <label className="block text-sm font-medium text-gray-700 mb-1">
                               Total
                             </label>
-                            <div className="px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm font-medium text-right">
+                            <div className="pl-3 pr-10 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm font-medium text-right">
                               {formatCurrency(item.total)}
                             </div>
                           </div>
@@ -865,7 +865,7 @@ const CreateQuote: React.FC = () => {
                         <select
                           value={formData.discountType}
                           onChange={(e) => setFormData(prev => ({ ...prev, discountType: e.target.value as 'percentage' | 'fixed' }))}
-                          className="block w-24 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                          className="block w-24 pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                         >
                           <option value="percentage">%</option>
                           <option value="fixed">$</option>
@@ -877,7 +877,7 @@ const CreateQuote: React.FC = () => {
                           value={formData.discountValue}
                           onChange={(e) => setFormData(prev => ({ ...prev, discountValue: parseFloat(e.target.value) || 0 }))}
                           placeholder="0"
-                          className="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                          className="flex-1 pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                         />
                       </div>
                     </div>
@@ -892,7 +892,7 @@ const CreateQuote: React.FC = () => {
                         step="0.1"
                         value={formData.taxRate}
                         onChange={(e) => setFormData(prev => ({ ...prev, taxRate: parseFloat(e.target.value) || 0 }))}
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                        className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                       />
                     </div>
                     
@@ -972,7 +972,7 @@ const CreateQuote: React.FC = () => {
                       value={formData.customerNotes}
                       onChange={(e) => setFormData(prev => ({ ...prev, customerNotes: e.target.value }))}
                       placeholder="Notes visible to customer..."
-                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                      className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                     />
                   </div>
                   
@@ -985,7 +985,7 @@ const CreateQuote: React.FC = () => {
                       value={formData.internalNotes}
                       onChange={(e) => setFormData(prev => ({ ...prev, internalNotes: e.target.value }))}
                       placeholder="Internal notes (not visible to customer)..."
-                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                      className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                     />
                   </div>
                   
@@ -997,7 +997,7 @@ const CreateQuote: React.FC = () => {
                       rows={4}
                       value={formData.termsConditions}
                       onChange={(e) => setFormData(prev => ({ ...prev, termsConditions: e.target.value }))}
-                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                      className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                     />
                   </div>
                 </div>

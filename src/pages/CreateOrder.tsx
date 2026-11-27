@@ -443,7 +443,7 @@ const CreateOrder: React.FC = () => {
                         <div
                           key={customer.id}
                           onClick={() => handleCustomerSelect(customer)}
-                          className="cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-gray-50"
+                          className="cursor-pointer select-none relative py-2 pl-3 pr-10 hover:bg-gray-50"
                         >
                           <div className="flex items-center">
                             <span className="font-medium text-gray-900">{customer.name}</span>
@@ -507,7 +507,7 @@ const CreateOrder: React.FC = () => {
                     type="text"
                     value={formData.orderNumber}
                     readOnly
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600"
+                    className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600"
                   />
                 </div>
                 
@@ -518,7 +518,7 @@ const CreateOrder: React.FC = () => {
                   <select
                     value={formData.status}
                     onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value as any }))}
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                    className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   >
                     <option value="inquiry">Inquiry</option>
                     <option value="quoted">Quoted</option>
@@ -660,7 +660,7 @@ const CreateOrder: React.FC = () => {
                     name="eventTime"
                     value={formData.eventTime}
                     onChange={(e) => setFormData(prev => ({ ...prev, eventTime: e.target.value }))}
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                    className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   />
                   <p className="mt-1 text-xs text-gray-500">Only required if this order is for an event</p>
                 </div>
@@ -698,7 +698,7 @@ const CreateOrder: React.FC = () => {
                     value={formData.guestCount || ''}
                     onChange={(e) => setFormData(prev => ({ ...prev, guestCount: parseInt(e.target.value) || 0 }))}
                     placeholder="Number of guests"
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                    className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   />
                 </div>
                 
@@ -723,7 +723,7 @@ const CreateOrder: React.FC = () => {
                 </h3>
                 <button
                   onClick={addOrderItem}
-                  className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-pink-400 to-pink-500 hover:from-pink-500 hover:to-pink-600 transition-all"
+                  className="inline-flex items-center pl-3 pr-10 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-pink-400 to-pink-500 hover:from-pink-500 hover:to-pink-600 transition-all"
                 >
                   <Plus className="h-4 w-4 mr-2" />
                   Add Item
@@ -749,7 +749,7 @@ const CreateOrder: React.FC = () => {
                             onChange={(e) => updateOrderItem(item.id, 'name', e.target.value)}
                             onFocus={() => setShowProductDropdown(item.id)}
                             placeholder="Enter or select product"
-                            className="block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                            className="block w-full pl-3 pr-10 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                           />
                           <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
                             <ChevronDown className="h-4 w-4 text-gray-400" />
@@ -761,7 +761,7 @@ const CreateOrder: React.FC = () => {
                                 <div
                                   key={product.id}
                                   onClick={() => selectProduct(item.id, product)}
-                                  className="cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-gray-50"
+                                  className="cursor-pointer select-none relative py-2 pl-3 pr-10 hover:bg-gray-50"
                                 >
                                   <div className="flex justify-between">
                                     <span className="font-medium text-gray-900">{product.name}</span>
@@ -783,7 +783,7 @@ const CreateOrder: React.FC = () => {
                           value={item.description}
                           onChange={(e) => updateOrderItem(item.id, 'description', e.target.value)}
                           placeholder="Optional description"
-                          className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                          className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                         />
                       </div>
                       
@@ -797,7 +797,7 @@ const CreateOrder: React.FC = () => {
                           step="1"
                           value={item.quantity}
                           onChange={(e) => updateOrderItem(item.id, 'quantity', parseInt(e.target.value) || 1)}
-                          className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                          className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                         />
                       </div>
                       
@@ -825,7 +825,7 @@ const CreateOrder: React.FC = () => {
                           <label className="block text-sm font-medium text-gray-700 mb-1">
                             Total
                           </label>
-                          <div className="px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm font-medium text-right">
+                          <div className="pl-3 pr-10 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm font-medium text-right">
                             {formatCurrency(item.total)}
                           </div>
                         </div>
@@ -865,7 +865,7 @@ const CreateOrder: React.FC = () => {
                       step="0.1"
                       value={formData.taxRate}
                       onChange={(e) => setFormData(prev => ({ ...prev, taxRate: parseFloat(e.target.value) || 0 }))}
-                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                      className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                     />
                   </div>
                   
@@ -938,7 +938,7 @@ const CreateOrder: React.FC = () => {
                     value={formData.specialInstructions}
                     onChange={(e) => setFormData(prev => ({ ...prev, specialInstructions: e.target.value }))}
                     placeholder="Any special requirements or instructions..."
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                    className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   />
                 </div>
                 
@@ -951,7 +951,7 @@ const CreateOrder: React.FC = () => {
                     value={formData.deliveryNotes}
                     onChange={(e) => setFormData(prev => ({ ...prev, deliveryNotes: e.target.value }))}
                     placeholder="Delivery instructions, setup requirements, etc..."
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
+                    className="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-coral-500"
                   />
                 </div>
               </div>
